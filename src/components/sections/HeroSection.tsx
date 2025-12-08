@@ -28,9 +28,11 @@ const HeroSection = () => {
             >
               Équipe
             </Link>
-            <Button variant="hero-outline" size="sm">
-              Connexion
-            </Button>
+            <Link to="/connexion">
+              <Button variant="hero-outline" size="sm">
+                Connexion
+              </Button>
+            </Link>
           </nav>
 
           {/* Mobile Burger Button */}
@@ -55,7 +57,7 @@ const HeroSection = () => {
                 Équipe
               </Link>
               <Link 
-                to="#" 
+                to="/connexion" 
                 className="text-primary-foreground font-medium py-2 px-4 rounded-lg bg-primary text-center transition-colors hover:bg-primary/90"
                 onClick={() => setMenuOpen(false)}
               >
