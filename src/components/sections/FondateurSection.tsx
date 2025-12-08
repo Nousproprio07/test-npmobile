@@ -31,11 +31,15 @@ const FondateurSection = () => {
               <div className="grid grid-cols-2 gap-x-4 gap-y-6 relative">
                 {parcours.map((item, index) => (
                   <div key={index} className="relative flex flex-col items-center text-center group">
-                    {/* Horizontal line from left to right (index 0, 2, 4) */}
-                    {index % 2 === 0 && index < parcours.length - 1 && index !== 3 && (
+                    {/* Horizontal line from left to right (index 0, 2) - solid lines */}
+                    {index % 2 === 0 && index < 4 && (
                       <div className="absolute top-6 left-[calc(50%+28px)] w-[calc(100%-32px)] h-0.5 bg-border z-0" />
                     )}
-                    {/* Vertical line from right going down (index 1) - skip index 3 (Finance de marché) */}
+                    {/* Dashed line between Enseignant (index 4) and Investisseur (index 5) */}
+                    {index === 4 && (
+                      <div className="absolute top-6 left-[calc(50%+28px)] w-[calc(100%-32px)] h-0.5 border-t-2 border-dashed border-accent z-0" />
+                    )}
+                    {/* Vertical line from right going down (index 1) */}
                     {index === 1 && (
                       <div className="absolute top-[calc(24px+28px)] left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%-20px)] bg-border z-0" />
                     )}
@@ -59,9 +63,11 @@ const FondateurSection = () => {
             {/* Desktop Layout */}
             <div className="hidden md:block">
               <div className="relative">
-                {/* Connecting line - stops before last item */}
-                <div className="absolute top-7 left-[calc(8%+28px)] w-[calc(67%-28px)] h-0.5 bg-border" />
-                <div className="absolute top-7 left-[calc(75%)] w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-accent" />
+                {/* Connecting solid line - stops before Enseignant */}
+                <div className="absolute top-7 left-[calc(8%+28px)] w-[calc(50%-28px)] h-0.5 bg-border" />
+                {/* Dashed line between Enseignant and Investisseur */}
+                <div className="absolute top-7 left-[calc(75%+28px)] w-[calc(8%-28px)] h-0.5 border-t-2 border-dashed border-accent" />
+                <div className="absolute top-7 right-[8%] w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-accent" />
                 
                 <div className="grid grid-cols-6 gap-4">
                   {parcours.map((item, index) => (
