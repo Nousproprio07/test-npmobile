@@ -48,12 +48,6 @@ const FondateurSection = () => {
                     {index === 1 && (
                       <div className="absolute top-[calc(24px+28px)] left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%-20px)] bg-border z-0" />
                     )}
-                    {/* Arrow on last item */}
-                    {index === parcoursMobile.length - 1 && (
-                      <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
-                        <ArrowRight className="w-5 h-5 text-accent rotate-90" />
-                      </div>
-                    )}
                     <div className="w-12 h-12 rounded-full bg-background border-2 border-primary/20 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10 relative shadow-sm">
                       <item.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                     </div>
