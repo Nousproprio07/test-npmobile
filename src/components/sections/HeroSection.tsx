@@ -85,8 +85,7 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up-delay-3 px-4">
             <Link to="/questionnaire" className="w-full sm:w-auto">
               <Button variant="hero" size="lg" className="group w-full">
-                <span className="sm:hidden">Commencer</span>
-                <span className="hidden sm:inline">Découvrir mon accompagnement</span>
+                Découvrir mon accompagnement
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0" />
               </Button>
             </Link>

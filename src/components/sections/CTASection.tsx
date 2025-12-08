@@ -24,7 +24,7 @@ const CTASection = () => {
 
           <Link to="/questionnaire">
             <Button variant="hero" size="xl" className="group mb-4 animate-pulse-glow">
-              Commencer le questionnaire
+              Commencer
               <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
