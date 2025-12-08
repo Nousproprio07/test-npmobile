@@ -53,7 +53,7 @@ const FondateurSection = () => {
             </h3>
             <blockquote className="text-lg md:text-xl text-primary-foreground/90 leading-relaxed italic mb-4">
               "Que plus personne ne dise :<br />
-              <span className="font-bold text-accent not-italic">'Personne ne nous a jamais appris à investir.'</span>"
+              <span className="font-bold text-np-red-bright not-italic text-2xl md:text-3xl">'Personne ne nous a jamais appris à investir.'</span>"
             </blockquote>
             <p className="text-primary-foreground/70 max-w-xl mx-auto">
               Les banques prêtent à ceux qui ont du capital. Je veux aider nos clients à créer le leur. 
