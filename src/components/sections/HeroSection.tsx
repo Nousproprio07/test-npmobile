@@ -82,11 +82,11 @@ const HeroSection = () => {
             Définis ton projet d'investissement et accède à des experts qui ont vraiment investi dans l'immobilier.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up-delay-3">
-            <Link to="/questionnaire">
-              <Button variant="hero" size="lg" className="group w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up-delay-3 px-4">
+            <Link to="/questionnaire" className="w-full sm:w-auto">
+              <Button variant="hero" size="lg" className="group w-full text-sm sm:text-base">
                 Découvrir mon accompagnement
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0" />
               </Button>
             </Link>
           </div>
