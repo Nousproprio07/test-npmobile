@@ -25,6 +25,7 @@ const Resultat = () => {
   const getAccompaniment = () => {
     const objectif = answers.objectif;
     
+    // Pack Résidentiel - Résidence principale
     if (objectif === "Avoir une résidence principale") {
       return {
         type: "Résidence Essentiel",
@@ -39,7 +40,10 @@ const Resultat = () => {
         price: "297€",
         priceDetail: "Paiement unique"
       };
-    } else if (objectif === "Générer des revenus complémentaires") {
+    }
+    
+    // Pack Investir - Constitution de patrimoine ou revenus complémentaires
+    if (objectif === "Me constituer un patrimoine" || objectif === "Générer des revenus complémentaires") {
       return {
         type: "Patrimoine Actif",
         tagline: "Investis pour générer des revenus",
@@ -53,21 +57,22 @@ const Resultat = () => {
         price: "497€",
         priceDetail: "Paiement unique"
       };
-    } else {
-      return {
-        type: "Stratégie Globale",
-        tagline: "Une vision 360° de ton patrimoine",
-        description: "Un accompagnement complet pour structurer et optimiser ta stratégie patrimoniale sur le long terme.",
-        features: [
-          "Bilan patrimonial personnalisé",
-          "Stratégie multi-objectifs (patrimoine, retraite, transmission)",
-          "Coaching hebdomadaire individuel",
-          "Accès illimité à notre réseau de professionnels"
-        ],
-        price: "797€",
-        priceDetail: "Paiement unique"
-      };
     }
+    
+    // Pack Global - Retraite, transmission, ou autres
+    return {
+      type: "Stratégie Globale",
+      tagline: "Une vision 360° de ton patrimoine",
+      description: "Un accompagnement complet pour structurer et optimiser ta stratégie patrimoniale sur le long terme.",
+      features: [
+        "Bilan patrimonial personnalisé",
+        "Stratégie multi-objectifs (patrimoine, retraite, transmission)",
+        "Coaching hebdomadaire individuel",
+        "Accès illimité à notre réseau de professionnels"
+      ],
+      price: "797€",
+      priceDetail: "Paiement unique"
+    };
   };
 
   const accompaniment = getAccompaniment();
