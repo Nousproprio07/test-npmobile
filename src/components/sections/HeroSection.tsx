@@ -33,7 +33,7 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 animate-fade-up-delay-1 leading-relaxed">
-            Définis ton projet d'investissement et accède à des experts qui ont vraiment investi.
+            Définis ton projet d'investissement et accède à des experts qui ont vraiment investi dans l'immobilier.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up-delay-3">
