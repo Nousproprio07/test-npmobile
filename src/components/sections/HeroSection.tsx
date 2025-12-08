@@ -49,14 +49,18 @@ const HeroSection = () => {
             <nav className="flex flex-col gap-3">
               <Link 
                 to="/equipe" 
-                className="text-foreground font-medium py-2 px-3 rounded-lg hover:bg-secondary transition-colors"
+                className="text-primary font-medium py-2 px-4 rounded-lg bg-background border-2 border-primary text-center transition-colors hover:bg-primary/5"
                 onClick={() => setMenuOpen(false)}
               >
                 Équipe
               </Link>
-              <Button variant="default" size="sm" className="w-full">
+              <Link 
+                to="#" 
+                className="text-primary font-medium py-2 px-4 rounded-lg bg-background border-2 border-primary text-center transition-colors hover:bg-primary/5"
+                onClick={() => setMenuOpen(false)}
+              >
                 Connexion
-              </Button>
+              </Link>
             </nav>
           </div>
         )}
