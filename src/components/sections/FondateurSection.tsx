@@ -1,4 +1,4 @@
-import { Briefcase, TrendingUp, GraduationCap, Building, LineChart, BookOpen } from "lucide-react";
+import { Briefcase, TrendingUp, GraduationCap, Building, LineChart, BookOpen, Home } from "lucide-react";
 
 const parcours = [
   { icon: Building, label: "Recouvrement immobilier" },
@@ -6,6 +6,7 @@ const parcours = [
   { icon: TrendingUp, label: "Gestion de patrimoine" },
   { icon: LineChart, label: "Finance de marché" },
   { icon: GraduationCap, label: "Enseignant en école de commerce" },
+  { icon: Home, label: "Investisseur immobilier" },
 ];
 
 const FondateurSection = () => {

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Briefcase, TrendingUp, GraduationCap, Building, LineChart, Shield, Home, Users, Code, Award } from "lucide-react";
+import { ArrowLeft, Briefcase, TrendingUp, GraduationCap, Building, LineChart, Shield, Home, Users, Code, Award, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
 
@@ -26,6 +26,7 @@ const teamMembers: TeamMember[] = [
       { icon: TrendingUp, label: "Gestion de patrimoine" },
       { icon: LineChart, label: "Finance de marché" },
       { icon: GraduationCap, label: "Enseignant en école de commerce" },
+      { icon: Building2, label: "Investisseur immobilier" },
     ],
   },
   {
