@@ -146,7 +146,12 @@ const Resultat = () => {
 
             {/* Two CTAs */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button variant="cta" size="lg" className="flex-1 group">
+              <Button 
+                variant="cta" 
+                size="lg" 
+                className="flex-1 group"
+                onClick={() => navigate("/achat", { state: { accompaniment, prenom } })}
+              >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Acheter maintenant
               </Button>
