@@ -59,7 +59,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "William",
     role: "Développeur",
-    description: "Le développeur de cette plateforme, dédié à vous offrir la meilleure expérience digitale.",
+    description: "Le créateur de cette plateforme, dédié à vous offrir la meilleure expérience digitale.",
     icon: Code,
   },
 ];

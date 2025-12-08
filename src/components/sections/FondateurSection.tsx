@@ -1,4 +1,4 @@
-import { Briefcase, TrendingUp, GraduationCap, Building, LineChart, BookOpen, Home } from "lucide-react";
+import { Briefcase, TrendingUp, GraduationCap, Building, LineChart, BookOpen, Home, ArrowRight } from "lucide-react";
 
 const parcours = [
   { icon: Building, label: "Recouvrement immobilier" },
@@ -29,32 +29,44 @@ const FondateurSection = () => {
             {/* Mobile Layout */}
             <div className="md:hidden">
               <div className="grid grid-cols-2 gap-x-4 gap-y-6 relative">
-                {parcours.map((item, index) => {
-                  // Lignes horizontales : 0→1, 2→3, 4→5
-                  const showHorizontalLine = index % 2 === 0 && index < parcours.length - 1;
-                  // Lignes verticales : 1→2 (index 1) et 2→4 via 3 (index 2 seulement, pas index 3)
-                  const showVerticalLine = index === 1;
-                  
-                  return (
-                    <div key={index} className="relative flex flex-col items-center text-center group">
-                      {/* Horizontal line (left to right) */}
-                      {showHorizontalLine && (
-                        <div className="absolute top-6 left-1/2 w-[calc(100%+1rem)] h-0.5 bg-border z-0" />
-                      )}
-                      {/* Vertical line (right going down to next row) */}
-                      {showVerticalLine && (
-                        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%+1.5rem)] bg-border z-0" />
-                      )}
-                      <div className="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10 relative bg-background">
-                        <item.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+                {parcours.map((item, index) => (
+                  <div key={index} className="relative flex flex-col items-center text-center group">
+                    {/* Connecting line to next item */}
+                    {index < parcours.length - 1 && (
+                      <>
+                        {/* Horizontal line (for items on the left going right) */}
+                        {index % 2 === 0 && (
+                          <div className="absolute top-7 left-1/2 w-[calc(100%+1rem)] h-0.5 bg-border z-0" />
+                        )}
+                        {/* Vertical line (for items on the right going down) */}
+                        {index % 2 === 1 && index < parcours.length - 1 && (
+                          <div className="absolute top-7 left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%+1.5rem)] bg-border z-0" />
+                        )}
+                      </>
+                    )}
+                    {/* Arrow on last item */}
+                    {index === parcours.length - 1 && (
+                      <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
+                        <ArrowRight className="w-5 h-5 text-accent rotate-90" />
                       </div>
-                      <span className="text-xs font-medium text-foreground leading-tight px-1">
-                        {item.label}
-                      </span>
+                    )}
+                    <div className="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10 relative">
+                      <item.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                     </div>
-                  );
-                })}
+                    <span className="text-xs font-medium text-foreground leading-tight px-1">
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
               </div>
+              {/* Flow line overlay */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
+                <defs>
+                  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="hsl(var(--accent))" />
+                  </marker>
+                </defs>
+              </svg>
             </div>
 
             {/* Desktop Layout */}
@@ -62,6 +74,7 @@ const FondateurSection = () => {
               <div className="relative">
                 {/* Connecting line */}
                 <div className="absolute top-7 left-[8%] right-[8%] h-0.5 bg-border" />
+                <div className="absolute top-7 right-[8%] w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-accent" />
                 
                 <div className="grid grid-cols-6 gap-4">
                   {parcours.map((item, index) => (
