@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Calendar, Users, BookOpen, MessageSquare, Phone, ShoppingCart } from "lucide-react";
+import { ArrowRight, CheckCircle2, Calendar, Users, BookOpen, MessageSquare, Phone, ShoppingCart, ChevronDown } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const Resultat = () => {
@@ -143,6 +143,13 @@ const Resultat = () => {
             <p className="text-lg text-primary-foreground/80">
               Voici l'accompagnement qui te correspond
             </p>
+            
+            {/* Premium red arrow */}
+            <div className="mt-6 flex justify-center animate-bounce">
+              <div className="bg-red-500 rounded-full p-3 shadow-lg shadow-red-500/30">
+                <ChevronDown className="w-6 h-6 text-white" strokeWidth={3} />
+              </div>
+            </div>
           </div>
         </div>
 
