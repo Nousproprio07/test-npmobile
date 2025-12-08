@@ -107,6 +107,9 @@ const Questionnaire = () => {
   const currentQuestion = questions[currentStep];
 
   useEffect(() => {
+    // Scroll to top on mount
+    window.scrollTo(0, 0);
+    
     // Initial animation
     const timer = setTimeout(() => setIsAnimating(false), 600);
     return () => clearTimeout(timer);
