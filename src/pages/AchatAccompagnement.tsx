@@ -23,67 +23,156 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Module categories with premium naming
-const moduleCategories = [
+// Modules data for each accompaniment type
+
+const residenceEssentielModules = [
   {
     id: "preparation",
     icon: Target,
     title: "Préparation & Fondations",
-    subtitle: "Poser les bases solides",
+    subtitle: "Avant le financement",
     modules: [
-      "Définir ton projet immobilier",
-      "Évaluer ta situation financière",
-      "Comprendre le marché actuel",
-      "Les erreurs à éviter absolument",
-      "Construire ton dossier béton",
-      "Choisir le bon type de bien"
+      "Les fondamentaux de la recherche immobilière",
+      "Choisir le bon bien",
+      "Visiter un appartement / maison",
+      "Acheter dans le neuf",
+      "Faire une offre pour l'achat d'un bien",
+      "Apprendre à décrypter le marché immobilier",
+      "Introduction à la fiscalité"
     ]
   },
   {
     id: "financement",
     icon: TrendingUp,
-    title: "Maîtrise du Financement",
-    subtitle: "Optimiser ton prêt",
+    title: "Maîtrise du Financement & Concrétisation",
+    subtitle: "Obtenir et sécuriser ton prêt",
     modules: [
-      "Comprendre les offres bancaires",
-      "Négocier comme un pro",
-      "L'apport : mythes et réalités",
-      "Assurance emprunteur optimisée",
-      "Les garanties expliquées",
-      "Simuler ta capacité réelle",
-      "Préparer l'entretien bancaire"
-    ]
-  },
-  {
-    id: "acquisition",
-    icon: Award,
-    title: "Concrétisation & Acquisition",
-    subtitle: "Finaliser ton achat",
-    modules: [
-      "Analyser les annonces efficacement",
-      "Visiter comme un expert",
-      "Négocier le prix d'achat",
-      "Comprendre le compromis",
-      "Les frais de notaire décryptés",
-      "La signature authentique"
+      "Financement de mon bien immobilier",
+      "Financement : comprendre les frais",
+      "Financement en étant actif (reconversion ou arrêt d'activité)",
+      "Aide pour gérer ton compte bancaire",
+      "Comment bien préparer son rendez-vous bancaire",
+      "Être certain de comprendre la fiscalité",
+      "Préparation de la signature chez le notaire"
     ]
   },
   {
     id: "apres",
     icon: Sparkles,
     title: "Après l'Achat & Optimisation",
-    subtitle: "Maximiser ton investissement",
+    subtitle: "Gérer et valoriser ton bien",
     modules: [
-      "Gérer ton bien efficacement",
-      "Optimisation fiscale",
-      "Préparer ta prochaine opération",
-      "Construire ton patrimoine",
-      "Anticiper la revente",
-      "Transmettre intelligemment",
-      "Réseau d'experts exclusif"
+      "La TO DO list propriétaire occupant",
+      "Préconisation sur la rénovation de ma résidence principale",
+      "Maximiser la rentabilité de ma résidence principale",
+      "La revente de mon bien",
+      "La succession en immobilier",
+      "Les projets immobilier de demain"
     ]
   }
 ];
+
+// Placeholder for other accompaniment types - to be filled with real data
+const patrimoineActifModules = [
+  {
+    id: "preparation",
+    icon: Target,
+    title: "Préparation & Fondations",
+    subtitle: "Construire ta stratégie locative",
+    modules: [
+      "Les fondamentaux de l'investissement locatif",
+      "Choisir le bon bien rentable",
+      "Analyser un bien en location",
+      "Les différents types de location",
+      "Calculer la rentabilité réelle",
+      "Étudier le marché locatif",
+      "Introduction à la fiscalité locative"
+    ]
+  },
+  {
+    id: "financement",
+    icon: TrendingUp,
+    title: "Maîtrise du Financement & Concrétisation",
+    subtitle: "Financer ton investissement",
+    modules: [
+      "Financement d'un bien locatif",
+      "Optimiser son taux d'endettement",
+      "Les frais à anticiper",
+      "Monter un dossier investisseur",
+      "Négocier avec les banques",
+      "Comprendre les garanties",
+      "La signature et les étapes clés"
+    ]
+  },
+  {
+    id: "apres",
+    icon: Sparkles,
+    title: "Après l'Achat & Optimisation",
+    subtitle: "Rentabiliser et développer",
+    modules: [
+      "Trouver et sélectionner ses locataires",
+      "Gérer la location au quotidien",
+      "Optimisation fiscale avancée",
+      "Travaux et valorisation",
+      "Préparer le prochain investissement",
+      "Stratégies de sortie"
+    ]
+  }
+];
+
+const strategieGlobaleModules = [
+  {
+    id: "preparation",
+    icon: Target,
+    title: "Préparation & Fondations",
+    subtitle: "Vision patrimoniale globale",
+    modules: [
+      "Définir ta stratégie patrimoniale",
+      "Audit de ta situation financière",
+      "Les différents véhicules d'investissement",
+      "Immobilier vs autres placements",
+      "Préparer ta retraite avec l'immobilier",
+      "Transmission et succession",
+      "Fiscalité patrimoniale"
+    ]
+  },
+  {
+    id: "financement",
+    icon: TrendingUp,
+    title: "Maîtrise du Financement & Concrétisation",
+    subtitle: "Structurer ton patrimoine",
+    modules: [
+      "Les montages financiers avancés",
+      "SCI et structures juridiques",
+      "Optimiser l'effet de levier",
+      "Multi-projets et arbitrage",
+      "Négociation bancaire experte",
+      "Protection et garanties",
+      "Accompagnement notarial"
+    ]
+  },
+  {
+    id: "apres",
+    icon: Sparkles,
+    title: "Après l'Achat & Optimisation",
+    subtitle: "Pérenniser ton patrimoine",
+    modules: [
+      "Gestion multi-biens",
+      "Optimisation fiscale globale",
+      "Préparation de la retraite",
+      "Transmission aux proches",
+      "Diversification patrimoniale",
+      "Vision long terme"
+    ]
+  }
+];
+
+// Mapping by accompaniment type
+const moduleCategoriesByType: Record<string, typeof residenceEssentielModules> = {
+  "Résidence Essentiel": residenceEssentielModules,
+  "Patrimoine Actif": patrimoineActifModules,
+  "Stratégie Globale": strategieGlobaleModules
+};
 
 const faqItems = [
   {
@@ -120,6 +209,9 @@ const AchatAccompagnement = () => {
   
   const accompaniment = location.state?.accompaniment;
   const prenom = location.state?.prenom || "Ami(e)";
+  
+  // Get modules based on accompaniment type
+  const moduleCategories = moduleCategoriesByType[accompaniment?.type] || residenceEssentielModules;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -191,7 +283,7 @@ const AchatAccompagnement = () => {
               <Play className="w-5 h-5 text-accent" />
               <h2 className="font-display text-lg font-bold text-foreground">Ce qui t'attend</h2>
               <span className="ml-auto text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-                26+ modules
+                {moduleCategories.reduce((acc, cat) => acc + cat.modules.length, 0)} modules
               </span>
             </div>
 
