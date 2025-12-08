@@ -122,6 +122,8 @@ const AchatAccompagnement = () => {
   const prenom = location.state?.prenom || "Ami(e)";
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    
     if (!accompaniment) {
       navigate("/");
       return;
