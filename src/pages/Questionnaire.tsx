@@ -162,7 +162,7 @@ const Questionnaire = () => {
   };
 
   return (
-    <div className="min-h-screen bg-hero relative overflow-hidden">
+    <div className="min-h-screen h-full bg-hero relative overflow-hidden" style={{ minHeight: '100dvh' }}>
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 right-10 w-72 h-72 bg-accent rounded-full blur-3xl" />
