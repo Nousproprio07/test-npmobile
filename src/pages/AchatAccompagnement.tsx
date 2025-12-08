@@ -103,8 +103,8 @@ const faqItems = [
     answer: "Notre questionnaire a analysé ton profil. L'accompagnement recommandé est spécifiquement conçu pour ta situation actuelle et tes objectifs."
   },
   {
-    question: "Y a-t-il un remboursement possible ?",
-    answer: "Oui, tu disposes de 14 jours pour tester l'accompagnement. Si tu n'es pas satisfait, nous te remboursons intégralement, sans question."
+    question: "Comment fonctionne l'accès aux contenus ?",
+    answer: "Dès ton achat, tu accèdes immédiatement à l'ensemble des modules et replays. C'est un accès instantané et illimité à vie."
   },
   {
     question: "Recevez-vous des commissions des banques ?",
@@ -286,7 +286,7 @@ const AchatAccompagnement = () => {
                 Réserver un appel gratuit
               </Button>
               <p className="text-xs text-center text-muted-foreground">
-                💡 14 jours satisfait ou remboursé • Paiement sécurisé
+                🔒 Paiement sécurisé • Accès immédiat et illimité
               </p>
             </div>
           </div>
