@@ -31,16 +31,16 @@ const FondateurSection = () => {
               <div className="grid grid-cols-2 gap-x-4 gap-y-6 relative">
                 {parcours.map((item, index) => (
                   <div key={index} className="relative flex flex-col items-center text-center group">
-                    {/* Connecting line to next item */}
-                    {index < parcours.length - 1 && (
+                    {/* Connecting line to next item - skip line between index 4 and 5 */}
+                    {index < parcours.length - 1 && index !== 4 && (
                       <>
                         {/* Horizontal line (for items on the left going right) */}
                         {index % 2 === 0 && (
-                          <div className="absolute top-7 left-1/2 w-[calc(100%+1rem)] h-0.5 bg-border z-0" />
+                          <div className="absolute top-6 left-[calc(50%+24px)] w-[calc(100%-24px)] h-0.5 bg-border z-0" />
                         )}
                         {/* Vertical line (for items on the right going down) */}
-                        {index % 2 === 1 && index < parcours.length - 1 && (
-                          <div className="absolute top-7 left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%+1.5rem)] bg-border z-0" />
+                        {index % 2 === 1 && (
+                          <div className="absolute top-[calc(24px+12px)] left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%-12px)] bg-border z-0" />
                         )}
                       </>
                     )}
@@ -50,7 +50,7 @@ const FondateurSection = () => {
                         <ArrowRight className="w-5 h-5 text-accent rotate-90" />
                       </div>
                     )}
-                    <div className="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10 relative">
+                    <div className="w-12 h-12 rounded-full bg-background border-2 border-primary/20 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10 relative">
                       <item.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                     </div>
                     <span className="text-xs font-medium text-foreground leading-tight px-1">
@@ -72,14 +72,14 @@ const FondateurSection = () => {
             {/* Desktop Layout */}
             <div className="hidden md:block">
               <div className="relative">
-                {/* Connecting line */}
-                <div className="absolute top-7 left-[8%] right-[8%] h-0.5 bg-border" />
-                <div className="absolute top-7 right-[8%] w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-accent" />
+                {/* Connecting line - stops before last item */}
+                <div className="absolute top-7 left-[calc(8%+28px)] w-[calc(67%-28px)] h-0.5 bg-border" />
+                <div className="absolute top-7 left-[calc(75%)] w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-accent" />
                 
                 <div className="grid grid-cols-6 gap-4">
                   {parcours.map((item, index) => (
                     <div key={index} className="relative flex flex-col items-center text-center group">
-                      <div className="w-14 h-14 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10 bg-background">
+                      <div className="w-14 h-14 rounded-full bg-background border-2 border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10">
                         <item.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
                       </div>
                       <span className="text-sm font-medium text-foreground leading-tight">
