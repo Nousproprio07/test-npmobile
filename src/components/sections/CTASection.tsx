@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { ArrowRight, Clock } from "lucide-react";
 
 const CTASection = () => {
@@ -21,10 +22,12 @@ const CTASection = () => {
             Réponds à notre questionnaire interactif et découvre l'accompagnement adapté à ton projet.
           </p>
 
-          <Button variant="hero" size="xl" className="group mb-4 animate-pulse-glow">
-            Commencer le questionnaire
-            <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
-          </Button>
+          <Link to="/questionnaire">
+            <Button variant="hero" size="xl" className="group mb-4 animate-pulse-glow">
+              Commencer le questionnaire
+              <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
 
           <div className="flex items-center justify-center gap-2 text-primary-foreground/70">
             <Clock className="w-4 h-4" />
