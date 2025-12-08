@@ -103,7 +103,7 @@ const Resultat = () => {
             {/* Section Pourquoi ça te correspond */}
             <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 text-left mb-6">
               <h2 className="text-lg font-semibold text-primary-foreground mb-4 text-center">
-                Pourquoi ça te correspond ?
+                Pourquoi ? On connaît :
               </h2>
               
               <div className="space-y-4">
