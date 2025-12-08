@@ -1,10 +1,19 @@
 import { Briefcase, TrendingUp, GraduationCap, Building, LineChart, BookOpen, Home, ArrowRight } from "lucide-react";
 
-const parcours = [
+const parcoursDesktop = [
   { icon: Building, label: "Recouvrement immobilier" },
   { icon: Briefcase, label: "Conseiller bancaire" },
   { icon: TrendingUp, label: "Gestion de patrimoine" },
   { icon: LineChart, label: "Finance de marché" },
+  { icon: GraduationCap, label: "Enseignant en école de commerce" },
+  { icon: Home, label: "Investisseur immobilier" },
+];
+
+const parcoursMobile = [
+  { icon: Building, label: "Recouvrement immobilier" },
+  { icon: Briefcase, label: "Conseiller bancaire" },
+  { icon: LineChart, label: "Finance de marché" },
+  { icon: TrendingUp, label: "Gestion de patrimoine" },
   { icon: GraduationCap, label: "Enseignant en école de commerce" },
   { icon: Home, label: "Investisseur immobilier" },
 ];
@@ -29,10 +38,10 @@ const FondateurSection = () => {
             {/* Mobile Layout */}
             <div className="md:hidden">
               <div className="grid grid-cols-2 gap-x-4 gap-y-6 relative">
-                {parcours.map((item, index) => (
+                {parcoursMobile.map((item, index) => (
                   <div key={index} className="relative flex flex-col items-center text-center group">
                     {/* Horizontal line from left to right (index 0, 2, 4) */}
-                    {index % 2 === 0 && index < parcours.length - 1 && index !== 3 && (
+                    {index % 2 === 0 && index < parcoursMobile.length - 1 && index !== 3 && (
                       <div className="absolute top-6 left-[calc(50%+28px)] w-[calc(100%-32px)] h-0.5 bg-border z-0" />
                     )}
                     {/* Vertical line from right going down (index 1) - skip index 3 (Finance de marché) */}
@@ -40,7 +49,7 @@ const FondateurSection = () => {
                       <div className="absolute top-[calc(24px+28px)] left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%-20px)] bg-border z-0" />
                     )}
                     {/* Arrow on last item */}
-                    {index === parcours.length - 1 && (
+                    {index === parcoursMobile.length - 1 && (
                       <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
                         <ArrowRight className="w-5 h-5 text-accent rotate-90" />
                       </div>
@@ -64,7 +73,7 @@ const FondateurSection = () => {
                 <div className="absolute top-7 left-[calc(75%)] w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-accent" />
                 
                 <div className="grid grid-cols-6 gap-4">
-                  {parcours.map((item, index) => (
+                  {parcoursDesktop.map((item, index) => (
                     <div key={index} className="relative flex flex-col items-center text-center group">
                       <div className="w-14 h-14 rounded-full bg-background border-2 border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10">
                         <item.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
