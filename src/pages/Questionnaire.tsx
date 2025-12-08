@@ -87,13 +87,12 @@ const questions: Question[] = [
   }
 ];
 
-const encouragements = [
-  { step: 1, message: "Super, enchanté" },
-  { step: 3, message: "Je commence à comprendre ton profil..." },
-  { step: 5, message: "Tes objectifs sont clairs, c'est top !" },
-  { step: 7, message: "On avance bien, plus que quelques questions..." },
-  { step: 9, message: "Dernière ligne droite !" }
-];
+// Messages after specific questions (triggered after answering)
+const encouragementTriggers: Record<string, string> = {
+  "objectif": "Je commence à comprendre ton projet... 💡",
+  "connaissance": "On avance bien ensemble, tu es entre de bonnes mains 🤝",
+  "freins": "Merci pour ta confiance ! Voici ce qu'on peut faire pour toi ✨"
+};
 
 const Questionnaire = () => {
   const navigate = useNavigate();
@@ -113,18 +112,20 @@ const Questionnaire = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    // Check for encouragement message
-    const encouragement = encouragements.find(e => e.step === currentStep);
-    if (encouragement && currentStep > 0) {
-      setShowEncouragement(encouragement.message);
-      const timer = setTimeout(() => setShowEncouragement(null), 2500);
-      return () => clearTimeout(timer);
+  const triggerEncouragement = (questionId: string) => {
+    const message = encouragementTriggers[questionId];
+    if (message) {
+      setShowEncouragement(message);
+      setTimeout(() => setShowEncouragement(null), 2500);
     }
-  }, [currentStep]);
+  };
 
   const handleAnswer = (answer: string) => {
-    setAnswers(prev => ({ ...prev, [currentQuestion.id]: answer }));
+    const questionId = currentQuestion.id;
+    setAnswers(prev => ({ ...prev, [questionId]: answer }));
+    
+    // Trigger encouragement message if applicable
+    triggerEncouragement(questionId);
     
     if (currentStep < totalSteps - 1) {
       setIsAnimating(true);
@@ -135,7 +136,9 @@ const Questionnaire = () => {
       }, 300);
     } else {
       // Navigate to results with answers
-      navigate("/resultat", { state: { answers: { ...answers, [currentQuestion.id]: answer } } });
+      setTimeout(() => {
+        navigate("/resultat", { state: { answers: { ...answers, [questionId]: answer } } });
+      }, 2500); // Wait for last message to display
     }
   };
 
@@ -177,12 +180,22 @@ const Questionnaire = () => {
           <Progress value={progress} className="h-2 bg-primary-foreground/20" />
         </div>
 
-        {/* Encouragement message */}
+        {/* Encouragement message - Premium white card with blue text */}
         {showEncouragement && (
-          <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
-            <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-primary font-medium shadow-elegant">
-              <Sparkles className="w-5 h-5" />
-              {showEncouragement}
+          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 animate-scale-in">
+            <div className="relative px-8 py-6 rounded-2xl bg-white shadow-2xl border border-primary/10 max-w-sm mx-4">
+              {/* Decorative accent */}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
+                  <Sparkles className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              <p className="text-primary font-display text-xl font-semibold text-center pt-4 leading-relaxed">
+                {showEncouragement}
+              </p>
+              {/* Subtle decorative elements */}
+              <div className="absolute bottom-2 right-4 w-8 h-8 rounded-full bg-primary/5" />
+              <div className="absolute top-4 left-4 w-4 h-4 rounded-full bg-accent/20" />
             </div>
           </div>
         )}
