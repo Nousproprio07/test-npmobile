@@ -124,7 +124,7 @@ const Resultat = () => {
                 <div>
                   <span className="text-red-500 font-semibold text-sm uppercase tracking-wide">CE QUI TE BLOQUE AUJOURD'HUI</span>
                   <p className="text-primary-foreground">
-                    {answers.frein || "Non renseigné"}
+                    {answers.freins || "Non renseigné"}
                   </p>
                 </div>
               </div>
