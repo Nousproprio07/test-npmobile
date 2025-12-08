@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Calendar, Users, BookOpen, MessageSquare } from "lucide-react";
+import { ArrowRight, CheckCircle2, Calendar, Users, BookOpen, MessageSquare, Phone, ShoppingCart } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const Resultat = () => {
@@ -23,41 +23,49 @@ const Resultat = () => {
 
   // Determine accompaniment based on answers
   const getAccompaniment = () => {
-    const connaissance = answers.connaissance;
-    const horizon = answers.horizon;
+    const objectif = answers.objectif;
     
-    if (connaissance === "Débutant complet" || connaissance === "J'ai quelques notions") {
+    if (objectif === "Avoir une résidence principale") {
       return {
-        type: "Accompagnement Découverte",
-        description: "Un programme complet pour poser des bases solides et comprendre l'investissement immobilier de A à Z.",
+        type: "Résidence Essentiel",
+        tagline: "Ton premier chez-toi, en toute confiance",
+        description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
         features: [
-          "4 lives privés par mois pour maîtriser les fondamentaux",
-          "Accès à notre communauté d'investisseurs débutants",
-          "Guide complet : de l'idée au premier investissement",
-          "Sessions Q&A avec nos experts bancaires"
-        ]
+          "Simulation personnalisée de ta capacité d'emprunt",
+          "Accompagnement dans les démarches bancaires",
+          "Guide complet pour négocier ton premier achat",
+          "Accès aux lives privés hebdomadaires"
+        ],
+        price: "297€",
+        priceDetail: "Paiement unique"
       };
-    } else if (horizon === "Dans les 3 prochains mois" || horizon === "D'ici 6 mois") {
+    } else if (objectif === "Générer des revenus complémentaires") {
       return {
-        type: "Accompagnement Accéléré",
-        description: "Tu es prêt à passer à l'action. On t'accompagne intensivement jusqu'à ton premier investissement.",
+        type: "Patrimoine Actif",
+        tagline: "Investis pour générer des revenus",
+        description: "Construis un patrimoine qui travaille pour toi grâce à l'investissement locatif intelligent.",
         features: [
-          "Coaching personnalisé hebdomadaire",
-          "Analyse de ton dossier bancaire",
-          "Stratégie d'investissement sur-mesure",
-          "Accès prioritaire à nos experts"
-        ]
+          "Stratégie locative personnalisée",
+          "Analyse de rentabilité sur-mesure",
+          "Coaching individuel mensuel",
+          "Accès prioritaire à nos experts bancaires"
+        ],
+        price: "497€",
+        priceDetail: "Paiement unique"
       };
     } else {
       return {
-        type: "Accompagnement Premium",
-        description: "Un accompagnement complet pour structurer et optimiser ta stratégie patrimoniale.",
+        type: "Stratégie Globale",
+        tagline: "Une vision 360° de ton patrimoine",
+        description: "Un accompagnement complet pour structurer et optimiser ta stratégie patrimoniale sur le long terme.",
         features: [
-          "Lives privés illimités",
-          "Coaching individuel mensuel",
-          "Accès à notre réseau de professionnels",
-          "Suivi personnalisé de ton projet"
-        ]
+          "Bilan patrimonial personnalisé",
+          "Stratégie multi-objectifs (patrimoine, retraite, transmission)",
+          "Coaching hebdomadaire individuel",
+          "Accès illimité à notre réseau de professionnels"
+        ],
+        price: "797€",
+        priceDetail: "Paiement unique"
       };
     }
   };
@@ -105,7 +113,7 @@ const Resultat = () => {
       <div className="container py-8 md:py-12">
         <div className={`max-w-2xl mx-auto transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="bg-card rounded-2xl p-6 md:p-8 shadow-elegant border border-border">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-2">
               <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
                 <Users className="w-6 h-6 text-primary-foreground" />
               </div>
@@ -115,11 +123,13 @@ const Resultat = () => {
               </div>
             </div>
             
+            <p className="text-sm text-accent font-medium mb-4">{accompaniment.tagline}</p>
+            
             <p className="text-muted-foreground mb-6">
               {accompaniment.description}
             </p>
 
-            <div className="space-y-3 mb-8">
+            <div className="space-y-3 mb-6">
               {accompaniment.features.map((feature, index) => (
                 <div key={index} className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
@@ -128,10 +138,23 @@ const Resultat = () => {
               ))}
             </div>
 
-            <Button variant="cta" size="lg" className="w-full group">
-              Réserver mon appel découverte
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </Button>
+            {/* Price display */}
+            <div className="bg-primary/5 rounded-xl p-4 mb-6 text-center">
+              <p className="text-3xl font-display font-bold text-primary">{accompaniment.price}</p>
+              <p className="text-sm text-muted-foreground">{accompaniment.priceDetail}</p>
+            </div>
+
+            {/* Two CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button variant="cta" size="lg" className="flex-1 group">
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                Acheter maintenant
+              </Button>
+              <Button variant="outline" size="lg" className="flex-1 group border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                <Phone className="w-5 h-5 mr-2" />
+                Réserver un appel
+              </Button>
+            </div>
           </div>
 
           {/* Additional benefits */}
