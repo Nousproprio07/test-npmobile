@@ -62,7 +62,6 @@ const FondateurSection = () => {
               <div className="relative">
                 {/* Connecting line */}
                 <div className="absolute top-7 left-[8%] right-[8%] h-0.5 bg-border" />
-                <div className="absolute top-7 right-[8%] w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-accent" />
                 
                 <div className="grid grid-cols-6 gap-4">
                   {parcours.map((item, index) => (
