@@ -90,8 +90,7 @@ const questions: Question[] = [
 // Messages after specific questions (triggered after answering)
 const encouragementTriggers: Record<string, string> = {
   "objectif": "Je commence à comprendre ton projet... 💡",
-  "connaissance": "On avance bien ensemble, tu es entre de bonnes mains 🤝",
-  "credits": "Merci pour ta confiance ! Voici ce qu'on peut faire pour toi ✨"
+  "connaissance": "On avance bien ensemble, tu es entre de bonnes mains 🤝"
 };
 
 const Questionnaire = () => {
