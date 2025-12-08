@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -23,14 +23,7 @@ const HeroSection = () => {
 
         {/* Hero content */}
         <div className="max-w-2xl mx-auto text-center">
-          <div className="animate-fade-up">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 text-primary-foreground/90 text-sm font-medium mb-6 backdrop-blur-sm border border-primary-foreground/20">
-              <Clock className="w-4 h-4" />
-              Questionnaire en moins de 2 min
-            </span>
-          </div>
-
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-up-delay-1">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-up">
             Investis comme si tu avais un{" "}
             <span className="relative inline-block">
               banquier
@@ -39,8 +32,7 @@ const HeroSection = () => {
             dans ta poche.
           </h1>
 
-          <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 animate-fade-up-delay-2 leading-relaxed">
-            Un accompagnement personnalisé sans commission. 
+          <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 animate-fade-up-delay-1 leading-relaxed">
             Définis ton projet d'investissement et accède à des experts qui ont vraiment investi.
           </p>
 
