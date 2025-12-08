@@ -27,7 +27,7 @@ const questions: Question[] = [
     category: "SITUATION ACTUELLE",
     question: "Quelle est aujourd'hui ta situation professionnelle principale ?",
     type: "single",
-    options: ["Salarié(e) CDI", "Salarié(e) CDD", "Indépendant / Freelance", "Chef d'entreprise", "Fonctionnaire", "Étudiant(e)", "En recherche d'emploi", "Retraité(e)"]
+    options: ["Salarié(e) CDI ou CDD", "Indépendant / Freelance", "Étudiant(e) / Alternant(e)"]
   },
   {
     id: "revenu",
@@ -48,7 +48,7 @@ const questions: Question[] = [
     category: "OBJECTIFS",
     question: "Pourquoi veux-tu investir dans l'immobilier ?",
     type: "single",
-    options: ["Me constituer un patrimoine", "Générer des revenus complémentaires", "Préparer ma retraite", "Défiscaliser", "Créer une résidence principale", "Transmettre à mes proches"]
+    options: ["Me constituer un patrimoine", "Générer des revenus complémentaires", "Préparer ma retraite", "Avoir une résidence principale", "Transmettre à mes proches"]
   },
   {
     id: "horizon",
