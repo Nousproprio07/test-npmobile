@@ -56,7 +56,7 @@ const HeroSection = () => {
               </Link>
               <Link 
                 to="#" 
-                className="text-primary font-medium py-2 px-4 rounded-lg bg-background border-2 border-primary text-center transition-colors hover:bg-primary/5"
+                className="text-primary-foreground font-medium py-2 px-4 rounded-lg bg-primary text-center transition-colors hover:bg-primary/90"
                 onClick={() => setMenuOpen(false)}
               >
                 Connexion
