@@ -96,9 +96,49 @@ const Resultat = () => {
               Analyse terminée
             </div>
             
-            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4">
+            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
               <span className="text-accent">{prenom}</span>, on te connaît sûrement plus que ton banquier !
             </h1>
+
+            {/* Section Pourquoi ça te correspond */}
+            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 text-left mb-6">
+              <h2 className="text-lg font-semibold text-primary-foreground mb-4 text-center">
+                Pourquoi ça te correspond ?
+              </h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <span className="text-accent font-semibold text-sm uppercase tracking-wide">TON projet</span>
+                  <p className="text-primary-foreground">
+                    Je veux <span className="font-medium">{answers.objectif?.toLowerCase() || "investir"}</span>
+                  </p>
+                </div>
+                
+                <div>
+                  <span className="text-accent font-semibold text-sm uppercase tracking-wide">Ton niveau</span>
+                  <p className="text-primary-foreground">
+                    {answers.connaissance || "Non renseigné"}
+                  </p>
+                </div>
+                
+                <div>
+                  <span className="text-accent font-semibold text-sm uppercase tracking-wide">Ce qui te bloque aujourd'hui</span>
+                  <p className="text-primary-foreground">
+                    {answers.frein || "Non renseigné"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Warning for 3 months horizon */}
+              {answers.horizon === "Dans les 3 prochains mois" && (
+                <div className="mt-5 p-4 bg-accent/20 rounded-xl border border-accent/30">
+                  <p className="text-accent font-semibold text-sm mb-1">⚠️ Attention !</p>
+                  <p className="text-primary-foreground/90 text-sm">
+                    Un passage à l'action dans 3 mois est rapide ! Ne te précipite pas. Aller trop vite augmente le risque d'erreurs.
+                  </p>
+                </div>
+              )}
+            </div>
             
             <p className="text-lg text-primary-foreground/80">
               Voici l'accompagnement qui te correspond
