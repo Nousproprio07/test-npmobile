@@ -108,21 +108,21 @@ const Resultat = () => {
               
               <div className="space-y-4">
                 <div>
-                  <span className="text-accent font-semibold text-sm uppercase tracking-wide">TON projet</span>
+                  <span className="text-red-500 font-semibold text-sm uppercase tracking-wide">TON PROJET</span>
                   <p className="text-primary-foreground">
                     Je veux <span className="font-medium">{answers.objectif?.toLowerCase() || "investir"}</span>
                   </p>
                 </div>
                 
                 <div>
-                  <span className="text-accent font-semibold text-sm uppercase tracking-wide">Ton niveau</span>
+                  <span className="text-red-500 font-semibold text-sm uppercase tracking-wide">TON NIVEAU</span>
                   <p className="text-primary-foreground">
                     {answers.connaissance || "Non renseigné"}
                   </p>
                 </div>
                 
                 <div>
-                  <span className="text-accent font-semibold text-sm uppercase tracking-wide">Ce qui te bloque aujourd'hui</span>
+                  <span className="text-red-500 font-semibold text-sm uppercase tracking-wide">CE QUI TE BLOQUE AUJOURD'HUI</span>
                   <p className="text-primary-foreground">
                     {answers.frein || "Non renseigné"}
                   </p>
