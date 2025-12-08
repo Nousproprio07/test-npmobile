@@ -23,10 +23,6 @@ const HeroSection = () => {
 
         {/* Hero content */}
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-lg md:text-xl font-medium mb-6 animate-fade-up italic text-np-red-bright">
-            "Personne ne nous a jamais appris à investir."
-          </p>
-          
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-up">
             Investis comme si tu avais un{" "}
             <span className="relative inline-block">
