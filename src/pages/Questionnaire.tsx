@@ -91,7 +91,7 @@ const questions: Question[] = [
 const encouragementTriggers: Record<string, string> = {
   "objectif": "Je commence à comprendre ton projet... 💡",
   "connaissance": "On avance bien ensemble, tu es entre de bonnes mains 🤝",
-  "freins": "Merci pour ta confiance ! Voici ce qu'on peut faire pour toi ✨"
+  "credits": "Merci pour ta confiance ! Voici ce qu'on peut faire pour toi ✨"
 };
 
 const Questionnaire = () => {
