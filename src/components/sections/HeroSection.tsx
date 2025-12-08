@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 
 const HeroSection = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen bg-hero overflow-hidden">
       {/* Background pattern */}
@@ -16,10 +19,47 @@ const HeroSection = () => {
         {/* Header */}
         <header className="flex items-center justify-between mb-12 md:mb-20">
           <Logo variant="light" />
-          <Button variant="hero-outline" size="sm">
-            Connexion
-          </Button>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6">
+            <Link 
+              to="/equipe" 
+              className="text-primary-foreground/80 hover:text-primary-foreground text-sm font-medium transition-colors"
+            >
+              Équipe
+            </Link>
+            <Button variant="hero-outline" size="sm">
+              Connexion
+            </Button>
+          </nav>
+
+          {/* Mobile Burger Button */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden p-2 text-primary-foreground"
+            aria-label="Menu"
+          >
+            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </header>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden absolute top-20 left-4 right-4 bg-card rounded-xl shadow-card border border-border p-4 z-50 animate-fade-up">
+            <nav className="flex flex-col gap-3">
+              <Link 
+                to="/equipe" 
+                className="text-foreground font-medium py-2 px-3 rounded-lg hover:bg-secondary transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                Équipe
+              </Link>
+              <Button variant="default" size="sm" className="w-full">
+                Connexion
+              </Button>
+            </nav>
+          </div>
+        )}
 
         {/* Hero content */}
         <div className="max-w-2xl mx-auto text-center">
