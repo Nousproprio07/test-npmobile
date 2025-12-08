@@ -86,7 +86,7 @@ const HeroSection = () => {
             <Link to="/questionnaire" className="w-full sm:w-auto">
               <Button variant="hero" size="lg" className="group w-full">
                 Découvrir mon accompagnement
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0" />
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0 hidden sm:block" />
               </Button>
             </Link>
           </div>
