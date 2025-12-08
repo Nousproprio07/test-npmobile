@@ -180,25 +180,28 @@ const Questionnaire = () => {
           <Progress value={progress} className="h-2 bg-primary-foreground/20" />
         </div>
 
-        {/* Encouragement message - Premium white card with blue text */}
-        {showEncouragement && (
-          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 animate-scale-in">
-            <div className="relative px-8 py-6 rounded-2xl bg-white shadow-2xl border border-primary/10 max-w-sm mx-4">
-              {/* Decorative accent */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-              </div>
-              <p className="text-primary font-display text-xl font-semibold text-center pt-4 leading-relaxed">
+        {/* Notification style encouragement message - between progress and content */}
+        <div className={`mb-6 transition-all duration-500 ${showEncouragement ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none h-0 mb-0'}`}>
+          <div className="bg-white rounded-2xl shadow-lg border border-primary/10 p-4 max-w-md mx-auto flex items-center gap-4">
+            {/* App icon style */}
+            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
+              <Sparkles className="w-6 h-6 text-white" />
+            </div>
+            {/* Notification content */}
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold text-primary/60 uppercase tracking-wide mb-0.5">
+                NousProprio
+              </p>
+              <p className="text-primary font-medium text-base leading-snug">
                 {showEncouragement}
               </p>
-              {/* Subtle decorative elements */}
-              <div className="absolute bottom-2 right-4 w-8 h-8 rounded-full bg-primary/5" />
-              <div className="absolute top-4 left-4 w-4 h-4 rounded-full bg-accent/20" />
             </div>
+            {/* Time indicator */}
+            <span className="text-xs text-primary/40 flex-shrink-0">
+              maintenant
+            </span>
           </div>
-        )}
+        </div>
 
         {/* Question content */}
         <div className="flex-1 flex flex-col justify-center max-w-xl mx-auto w-full">
