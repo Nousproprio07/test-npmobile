@@ -28,7 +28,7 @@ const OffreSection = () => {
     <section className="py-16 md:py-24 bg-secondary/50">
       <div className="container">
         <div className="text-center mb-12 md:mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold mb-4">
             L'accompagnement
           </span>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
