@@ -31,18 +31,13 @@ const FondateurSection = () => {
               <div className="grid grid-cols-2 gap-x-4 gap-y-6 relative">
                 {parcours.map((item, index) => (
                   <div key={index} className="relative flex flex-col items-center text-center group">
-                    {/* Connecting line to next item - skip line between index 4 and 5 */}
-                    {index < parcours.length - 1 && index !== 4 && (
-                      <>
-                        {/* Horizontal line (for items on the left going right) */}
-                        {index % 2 === 0 && (
-                          <div className="absolute top-6 left-[calc(50%+24px)] w-[calc(100%-24px)] h-0.5 bg-border z-0" />
-                        )}
-                        {/* Vertical line (for items on the right going down) */}
-                        {index % 2 === 1 && (
-                          <div className="absolute top-[calc(24px+12px)] left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%-12px)] bg-border z-0" />
-                        )}
-                      </>
+                    {/* Horizontal line from left to right (index 0, 2, 4) */}
+                    {index % 2 === 0 && index < parcours.length - 1 && index !== 3 && (
+                      <div className="absolute top-6 left-[calc(50%+28px)] w-[calc(100%-32px)] h-0.5 bg-border z-0" />
+                    )}
+                    {/* Vertical line from right going down (index 1) - skip index 3 (Finance de marché) */}
+                    {index === 1 && (
+                      <div className="absolute top-[calc(24px+28px)] left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%-20px)] bg-border z-0" />
                     )}
                     {/* Arrow on last item */}
                     {index === parcours.length - 1 && (
@@ -50,7 +45,7 @@ const FondateurSection = () => {
                         <ArrowRight className="w-5 h-5 text-accent rotate-90" />
                       </div>
                     )}
-                    <div className="w-12 h-12 rounded-full bg-background border-2 border-primary/20 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10 relative">
+                    <div className="w-12 h-12 rounded-full bg-background border-2 border-primary/20 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:border-primary transition-all duration-300 z-10 relative shadow-sm">
                       <item.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                     </div>
                     <span className="text-xs font-medium text-foreground leading-tight px-1">
@@ -59,14 +54,6 @@ const FondateurSection = () => {
                   </div>
                 ))}
               </div>
-              {/* Flow line overlay */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
-                <defs>
-                  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill="hsl(var(--accent))" />
-                  </marker>
-                </defs>
-              </svg>
             </div>
 
             {/* Desktop Layout */}
