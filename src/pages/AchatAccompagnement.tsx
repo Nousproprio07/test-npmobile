@@ -375,6 +375,7 @@ const AchatAccompagnement = () => {
                 variant="outline" 
                 size="lg" 
                 className="w-full group border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                onClick={() => navigate("/reserver-appel", { state: { accompaniment, prenom } })}
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Réserver un appel gratuit
