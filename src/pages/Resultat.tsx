@@ -230,6 +230,13 @@ const Resultat = () => {
         </div>
       </div>
 
+      {/* Wave transition to Bloc 3 */}
+      <div className="relative -mb-1">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+          <path d="M0 120L60 110C120 100 240 80 360 75C480 70 600 80 720 85C840 90 960 90 1080 85C1200 80 1320 70 1380 65L1440 60V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="hsl(var(--primary))" />
+        </svg>
+      </div>
+
       {/* Bloc 3 — Ta route patrimoniale (LA RÉVÉLATION) */}
       <div className="bg-hero relative overflow-hidden py-12 md:py-16">
         <div className="absolute inset-0">
@@ -352,33 +359,13 @@ const Resultat = () => {
         </div>
       </div>
 
-      {/* Additional benefits */}
-      {/* Additional benefits & trust */}
-      <div className="container py-12">
-        <div className={`max-w-3xl mx-auto transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="bg-card rounded-xl p-4 border border-border text-center">
-              <Calendar className="w-8 h-8 text-accent mx-auto mb-2" />
-              <h3 className="font-semibold text-foreground text-sm">Lives privés</h3>
-              <p className="text-xs text-muted-foreground">Chaque semaine</p>
-            </div>
-            <div className="bg-card rounded-xl p-4 border border-border text-center">
-              <BookOpen className="w-8 h-8 text-accent mx-auto mb-2" />
-              <h3 className="font-semibold text-foreground text-sm">Formation</h3>
-              <p className="text-xs text-muted-foreground">Accès illimité</p>
-            </div>
-            <div className="bg-card rounded-xl p-4 border border-border text-center">
-              <MessageSquare className="w-8 h-8 text-accent mx-auto mb-2" />
-              <h3 className="font-semibold text-foreground text-sm">Support</h3>
-              <p className="text-xs text-muted-foreground">Experts disponibles</p>
-            </div>
-          </div>
 
-          <div className="text-center">
-            <p className="text-sm text-muted-foreground">
-              💡 100% indépendant • Aucune commission • Conseils authentiques
-            </p>
-          </div>
+      {/* Trust badge */}
+      <div className="container py-8">
+        <div className="text-center">
+          <p className="text-sm text-muted-foreground">
+            💡 100% indépendant • Aucune commission • Conseils authentiques
+          </p>
         </div>
       </div>
     </div>
