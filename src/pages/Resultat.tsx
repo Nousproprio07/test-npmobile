@@ -105,7 +105,7 @@ const Resultat = () => {
             </h1>
             
             <p className="text-xl text-primary-foreground/90 mb-10">
-              <span className="text-accent font-semibold">{prenom}</span>, voici la direction la plus cohérente pour toi aujourd'hui
+              <span className="text-[#99c5ff] font-bold">{prenom}</span>, voici la direction la plus cohérente pour toi aujourd'hui
             </p>
 
             {/* Bloc 1 — Ce que ta situation révèle */}
@@ -131,31 +131,31 @@ const Resultat = () => {
                   </thead>
                   <tbody className="text-primary-foreground">
                     <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-medium text-accent/90">Ta situation actuelle</td>
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ta situation actuelle</td>
                       <td className="py-4">
                         {answers.situation_actuelle || "Non renseigné"} — {getSituationReading()}
                       </td>
                     </tr>
                     <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-medium text-accent/90">Ton intention profonde</td>
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton intention profonde</td>
                       <td className="py-4">
                         {answers.benefice || "Non renseigné"}
                       </td>
                     </tr>
                     <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-medium text-accent/90">Ton rapport à l'investissement</td>
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton rapport à l'investissement</td>
                       <td className="py-4">
                         Tu ressens surtout {answers.ressenti?.toLowerCase() || "des doutes"}
                       </td>
                     </tr>
                     <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-medium text-accent/90">Ton principal blocage</td>
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton principal blocage</td>
                       <td className="py-4">
                         {answers.frein || "Non renseigné"}
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-4 pr-4 font-medium text-accent/90">Ton horizon de passage à l'action</td>
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton horizon de passage à l'action</td>
                       <td className="py-4">
                         {answers.horizon || "Non renseigné"}
                       </td>
