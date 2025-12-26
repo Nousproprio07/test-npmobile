@@ -109,6 +109,11 @@ const questions: Question[] = [
   }
 ];
 
+// Messages d'encouragement déclenchés après certaines questions
+const encouragementTriggers: Record<string, string> = {
+  "frein": "Super, on avance bien ensemble ! 🚀"
+};
+
 const Questionnaire = () => {
   const navigate = useNavigate();
   const [showIntro, setShowIntro] = useState(true);
@@ -137,6 +142,13 @@ const Questionnaire = () => {
   const handleAnswer = (answer: string) => {
     const questionId = currentQuestion.id;
     setAnswers(prev => ({ ...prev, [questionId]: answer }));
+    
+    // Trigger encouragement message if applicable
+    const encouragementMessage = encouragementTriggers[questionId];
+    if (encouragementMessage) {
+      setShowEncouragement(encouragementMessage);
+      setTimeout(() => setShowEncouragement(null), 2500);
+    }
     
     if (currentStep < totalSteps - 1) {
       setIsAnimating(true);
