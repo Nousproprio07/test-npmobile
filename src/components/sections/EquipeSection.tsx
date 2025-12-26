@@ -80,8 +80,9 @@ const EquipeSection = () => {
                 Nous t'accompagnons avec une double expertise :
               </p>
               <p className="text-xl md:text-2xl font-bold">
-                <span className="text-primary">celle du terrain</span>
+                <span className="text-[hsl(var(--np-blue))]">celle du terrain</span>
                 <span className="text-muted-foreground mx-2">et</span>
+                <span className="text-[hsl(var(--np-blue))]">celle de la banque</span>
               </p>
             </div>
 
