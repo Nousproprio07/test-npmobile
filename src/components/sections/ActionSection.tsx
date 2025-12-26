@@ -87,17 +87,17 @@ const ActionSection = () => {
                     </div>
                     
                     <div className="flex-1 md:mt-6">
-                      <h3 className="text-base md:text-2xl font-display font-bold text-white md:mb-3">
+                      <h3 className="text-lg md:text-2xl font-display font-bold text-white md:mb-3">
                         {feature.title}
                       </h3>
-                      <p className="text-xs md:text-base text-white/70 leading-relaxed hidden md:block">
+                      <p className="text-sm md:text-base text-white/70 leading-relaxed hidden md:block">
                         {feature.description}
                       </p>
                     </div>
                   </div>
                   
                   {/* Description on mobile - below title */}
-                  <p className="text-xs text-white/70 leading-relaxed mt-2 md:hidden">
+                  <p className="text-sm text-white/70 leading-relaxed mt-2 md:hidden">
                     {feature.description}
                   </p>
                   
