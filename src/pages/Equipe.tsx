@@ -31,7 +31,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Valentine",
-    role: "Compliance Officer",
+    role: "Ancienne Banquière",
     description: "Ancienne banquière, aujourd'hui spécialisée dans l'étude de la conformité bancaire.",
     icon: Shield,
     highlight: "Experte conformité",
