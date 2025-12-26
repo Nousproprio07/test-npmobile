@@ -12,8 +12,8 @@ const directions = [
   {
     icon: TrendingUp,
     title: "Patrimoine Actif",
-    tagline: "Pour celles et ceux qui veulent bâtir un patrimoine actif aligné avec leurs objectifs.",
-    description: "Courte durée, longue durée, premier investissement ou structuration de projet : votre direction dépend de votre profil, pas d'un modèle unique.",
+    tagline: "Transformer votre situation actuelle en source de revenus immobiliers.",
+    description: "Pour celles et ceux qui veulent bâtir un patrimoine actif aligné avec leurs objectifs.",
   },
 ];
 
