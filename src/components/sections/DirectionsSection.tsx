@@ -6,13 +6,13 @@ const directions = [
   {
     icon: Home,
     title: "Résidence Essentiel",
-    tagline: "Construire intelligemment votre premier projet de vie.",
+    tagline: "Construire intelligemment ton premier projet de vie.",
     description: "Pour celles et ceux qui veulent sécuriser leur avenir avant de chercher la rentabilité.",
   },
   {
     icon: TrendingUp,
     title: "Patrimoine Actif",
-    tagline: "Transformer votre situation actuelle en source de revenus immobiliers.",
+    tagline: "Pour celles et ceux qui veulent bâtir un patrimoine actif aligné avec leurs objectifs.",
     description: "Courte durée, longue durée, premier investissement ou structuration de projet : votre direction dépend de votre profil, pas d'un modèle unique.",
   },
 ];
@@ -59,11 +59,6 @@ const DirectionsSection = () => {
               <p className="text-muted-foreground leading-relaxed">
                 {direction.description}
               </p>
-
-              {/* Hover arrow */}
-              <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <ArrowRight className="w-6 h-6 text-glacier" />
-              </div>
             </div>
           ))}
         </div>
