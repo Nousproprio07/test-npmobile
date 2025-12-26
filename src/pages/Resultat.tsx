@@ -109,7 +109,7 @@ const Resultat = () => {
             </p>
 
             {/* Bloc 1 — Ce que ta situation révèle */}
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-left">
+            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-left mb-8">
               <h2 className="text-xl md:text-2xl font-display font-bold text-primary-foreground mb-4">
                 Bloc 1 — Ce que ta situation révèle
               </h2>
@@ -163,6 +163,62 @@ const Resultat = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+
+            {/* Bloc 2 — Ta direction patrimoniale */}
+            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-left">
+              <h2 className="text-xl md:text-2xl font-display font-bold text-primary-foreground mb-4">
+                Bloc 2 — Ta direction patrimoniale
+              </h2>
+              
+              <p className="text-primary-foreground/80 mb-4">
+                Aujourd'hui, ta priorité n'est pas <strong className="text-primary-foreground">
+                  {accompaniment.type === "Résidence Essentiel" ? "chercher la rentabilité" : "acheter un bien au hasard"}
+                </strong>.<br />
+                Ta priorité est de <strong className="text-primary-foreground">
+                  {accompaniment.type === "Résidence Essentiel" ? "sécuriser ton premier projet de vie" : "bâtir un patrimoine aligné avec tes objectifs"}
+                </strong>.
+              </p>
+
+              <p className="text-primary-foreground/80 mb-6">
+                D'après tes réponses, tu ne cherches pas simplement un projet immobilier.<br />
+                <strong className="text-primary-foreground">Tu cherches à :</strong>
+              </p>
+
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                  <span className="text-primary-foreground">
+                    <strong className="text-[#99c5ff]">
+                      {accompaniment.type === "Résidence Essentiel" ? "Clarifier ce que tu veux vraiment construire" : "Comprendre comment créer des revenus immobiliers"}
+                    </strong>
+                    <span className="text-primary-foreground/70 text-sm ml-2">(Niveau de clarté)</span>
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                  <span className="text-primary-foreground">
+                    <strong className="text-[#99c5ff]">
+                      {accompaniment.type === "Résidence Essentiel" ? "Structurer ton projet avant d'acheter" : "Choisir une stratégie adaptée à ton profil"}
+                    </strong>
+                    <span className="text-primary-foreground/70 text-sm ml-2">(Frein principal)</span>
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                  <span className="text-primary-foreground">
+                    <strong className="text-[#99c5ff]">
+                      {accompaniment.type === "Résidence Essentiel" ? "Faire des choix qui ont du sens pour ton avenir" : "Sécuriser tes premières décisions d'investisseur"}
+                    </strong>
+                    <span className="text-primary-foreground/70 text-sm ml-2">(Capacité + Horizon)</span>
+                  </span>
+                </li>
+              </ul>
+
+              <p className="text-primary-foreground/90 italic border-l-4 border-[#99c5ff] pl-4">
+                C'est exactement ce travail qui te permettra de passer<br />
+                de la réflexion à un projet cohérent et assumé.
+              </p>
             </div>
           </div>
         </div>
