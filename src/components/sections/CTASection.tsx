@@ -13,17 +13,17 @@ const CTASection = () => {
 
       <div className="container relative z-10">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
-            Prêt à définir<br />
-            <span className="text-accent">ton accompagnement ?</span>
+        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
+            Ta direction ne dépend pas de ta chance,<br />
+            <span className="text-accent">mais de tes décisions.</span>
           </h2>
           
           <p className="text-lg text-primary-foreground/80 mb-8">
-            Réponds à notre questionnaire interactif et découvre l'accompagnement adapté à ton projet.
+            Réponds à notre questionnaire interactif
           </p>
 
           <Link to="/questionnaire">
-            <Button variant="hero" size="xl" className="group mb-4 animate-pulse-glow">
+            <Button size="xl" className="group mb-4 bg-glacier-400 hover:bg-glacier-500 text-np-blue font-bold animate-pulse-glow">
               Commencer
               <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
             </Button>
