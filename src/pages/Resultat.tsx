@@ -164,62 +164,6 @@ const Resultat = () => {
                 </table>
               </div>
             </div>
-
-            {/* Bloc 2 — Ta direction patrimoniale */}
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-left">
-              <h2 className="text-xl md:text-2xl font-display font-bold text-primary-foreground mb-4">
-                Bloc 2 — Ta direction patrimoniale
-              </h2>
-              
-              <p className="text-primary-foreground/80 mb-4">
-                Aujourd'hui, ta priorité n'est pas <strong className="text-primary-foreground">
-                  {accompaniment.type === "Résidence Essentiel" ? "chercher la rentabilité" : "acheter un bien au hasard"}
-                </strong>.<br />
-                Ta priorité est de <strong className="text-primary-foreground">
-                  {accompaniment.type === "Résidence Essentiel" ? "sécuriser ton premier projet de vie" : "bâtir un patrimoine aligné avec tes objectifs"}
-                </strong>.
-              </p>
-
-              <p className="text-primary-foreground/80 mb-6">
-                D'après tes réponses, tu ne cherches pas simplement un projet immobilier.<br />
-                <strong className="text-primary-foreground">Tu cherches à :</strong>
-              </p>
-
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                  <span className="text-primary-foreground">
-                    <strong className="text-[#99c5ff]">
-                      {accompaniment.type === "Résidence Essentiel" ? "Clarifier ce que tu veux vraiment construire" : "Comprendre comment créer des revenus immobiliers"}
-                    </strong>
-                    <span className="text-primary-foreground/70 text-sm ml-2">(Niveau de clarté)</span>
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                  <span className="text-primary-foreground">
-                    <strong className="text-[#99c5ff]">
-                      {accompaniment.type === "Résidence Essentiel" ? "Structurer ton projet avant d'acheter" : "Choisir une stratégie adaptée à ton profil"}
-                    </strong>
-                    <span className="text-primary-foreground/70 text-sm ml-2">(Frein principal)</span>
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                  <span className="text-primary-foreground">
-                    <strong className="text-[#99c5ff]">
-                      {accompaniment.type === "Résidence Essentiel" ? "Faire des choix qui ont du sens pour ton avenir" : "Sécuriser tes premières décisions d'investisseur"}
-                    </strong>
-                    <span className="text-primary-foreground/70 text-sm ml-2">(Capacité + Horizon)</span>
-                  </span>
-                </li>
-              </ul>
-
-              <p className="text-primary-foreground/90 italic border-l-4 border-[#99c5ff] pl-4">
-                C'est exactement ce travail qui te permettra de passer<br />
-                de la réflexion à un projet cohérent et assumé.
-              </p>
-            </div>
           </div>
         </div>
 
@@ -228,6 +172,61 @@ const Resultat = () => {
           <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
             <path d="M0 120L60 110C120 100 240 80 360 75C480 70 600 80 720 85C840 90 960 90 1080 85C1200 80 1320 70 1380 65L1440 60V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="hsl(var(--background))" />
           </svg>
+        </div>
+      </div>
+
+      {/* Bloc 2 — Ta direction patrimoniale (fond blanc) */}
+      <div className="container py-8 md:py-12">
+        <div className={`max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="bg-card rounded-2xl p-6 md:p-8 shadow-elegant border border-border text-left">
+            <h2 className="text-xl md:text-2xl font-display font-bold text-foreground mb-4">
+              Bloc 2 — Ta direction patrimoniale
+            </h2>
+            
+            <p className="text-muted-foreground mb-4">
+              Ta priorité est de <strong className="text-foreground">
+                {accompaniment.type === "Résidence Essentiel" ? "sécuriser ton premier projet de vie" : "bâtir un patrimoine aligné avec tes objectifs"}
+              </strong>.
+            </p>
+
+            <p className="text-muted-foreground mb-6">
+              <strong className="text-foreground">Tu cherches à :</strong>
+            </p>
+
+            <ul className="space-y-3 mb-6">
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-foreground">
+                  <strong className="text-primary">
+                    {accompaniment.type === "Résidence Essentiel" ? "Clarifier ce que tu veux vraiment construire" : "Comprendre comment créer des revenus immobiliers"}
+                  </strong>
+                  <span className="text-muted-foreground text-sm ml-2">(Niveau de clarté)</span>
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-foreground">
+                  <strong className="text-primary">
+                    {accompaniment.type === "Résidence Essentiel" ? "Structurer ton projet avant d'acheter" : "Choisir une stratégie adaptée à ton profil"}
+                  </strong>
+                  <span className="text-muted-foreground text-sm ml-2">(Frein principal)</span>
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-foreground">
+                  <strong className="text-primary">
+                    {accompaniment.type === "Résidence Essentiel" ? "Faire des choix qui ont du sens pour ton avenir" : "Sécuriser tes premières décisions d'investisseur"}
+                  </strong>
+                  <span className="text-muted-foreground text-sm ml-2">(Capacité + Horizon)</span>
+                </span>
+              </li>
+            </ul>
+
+            <p className="text-foreground font-semibold italic border-l-4 border-primary pl-4">
+              Voici comment nous allons t'accompagner pour y arriver.
+            </p>
+          </div>
         </div>
       </div>
 
