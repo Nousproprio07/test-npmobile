@@ -55,9 +55,9 @@ const ActionSection = () => {
               <span className="text-white/90 text-sm font-medium">Passe à l'action</span>
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight">
               Une fois ta direction
-              <span className="block mt-2 bg-gradient-to-r from-glacier-200 via-white to-glacier-300 bg-clip-text text-transparent">
+              <span className="block mt-2 text-glacier-300">
                 trouvée
               </span>
             </h2>
@@ -116,10 +116,10 @@ const ActionSection = () => {
                 
                 <div className="text-center md:text-left flex-1">
                   <p className="text-lg md:text-xl text-white/60 mb-2">Notre objectif</p>
-                  <p className="text-xl md:text-2xl lg:text-3xl font-display font-bold text-white leading-relaxed">
-                    Ne pas rester avec <span className="text-glacier-200">"une direction"</span>,
+                <p className="text-xl md:text-2xl lg:text-3xl font-display font-bold text-white leading-relaxed">
+                    Ne pas rester avec <span className="text-white/80">"une direction"</span>,
                     <br className="hidden md:block" />
-                    mais un <span className="bg-gradient-to-r from-glacier-200 to-white bg-clip-text text-transparent">chemin clair</span> pour la concrétiser.
+                    mais un <span className="text-glacier-300">chemin clair</span> pour la concrétiser.
                   </p>
                 </div>
               </div>
