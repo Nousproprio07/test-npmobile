@@ -35,18 +35,17 @@ const OffreSection = () => {
       <div className="container relative z-10">
         {/* Header */}
         <div className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-glacier/20 border border-glacier/30 mb-6">
-            <Compass className="w-4 h-4 text-glacier" />
-            <span className="text-glacier text-sm font-medium">La méthode</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+            <Compass className="w-4 h-4 text-primary" />
+            <span className="text-primary text-sm font-medium">La méthode</span>
           </div>
           
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
             La boussole{" "}
-            <span className="text-primary">NousPropri</span>
-            <span className="text-accent">o</span>
+            <span className="text-primary">NousProprio</span>
           </h2>
           
-          <p className="text-lg md:text-xl text-glacier font-medium max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-primary font-medium max-w-2xl mx-auto">
             On définit ton cap avant de te parler d'investissement.
           </p>
         </div>
@@ -95,7 +94,7 @@ const OffreSection = () => {
         <div className="text-center">
           <Link to="/questionnaire">
             <Button 
-              variant="cta" 
+              variant="glacier" 
               size="xl"
               className="group"
             >
