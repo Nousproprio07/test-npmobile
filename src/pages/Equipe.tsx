@@ -168,14 +168,13 @@ const Equipe = () => {
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-display text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              Prêt à être accompagné ?
+              Ta direction ne dépend pas de ta chance,
+              <br />
+              <span className="text-accent">mais de tes décisions.</span>
             </h2>
-            <p className="text-primary-foreground/80 mb-6">
-              Découvre l'accompagnement personnalisé qui correspond à ton projet.
-            </p>
             <Link to="/questionnaire">
               <Button variant="hero" size="lg">
-                Découvrir mon accompagnement
+                Réponds à notre questionnaire interactif
               </Button>
             </Link>
           </div>
