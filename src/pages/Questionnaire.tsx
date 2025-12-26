@@ -207,17 +207,30 @@ const Questionnaire = () => {
                 Trouve ta direction immobilière
               </h1>
               
-              <p className="text-primary-foreground/90 text-lg md:text-xl mb-8 leading-relaxed">
-                En quelques questions simples, tu vas découvrir le chemin le plus cohérent pour ton projet immobilier.
-              </p>
+              <div className="text-left mb-8">
+                <p className="text-primary-foreground/90 text-lg mb-4">
+                  <strong className="text-primary-foreground">8 questions</strong> pour :
+                </p>
+                <ul className="space-y-2 text-primary-foreground/80">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#99c5ff]">•</span>
+                    Clarifier ta situation actuelle
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#99c5ff]">•</span>
+                    Identifier ce qui te bloque
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#99c5ff]">•</span>
+                    Recevoir ta feuille de route personnalisée
+                  </li>
+                </ul>
+              </div>
 
               <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-primary-foreground/20">
                 <p className="text-primary-foreground/80 text-base leading-relaxed">
                   Il n'y a pas de bonnes ou de mauvaises réponses.<br />
-                  L'important est de répondre <strong className="text-primary-foreground">instinctivement et honnêtement</strong>.
-                </p>
-                <p className="text-primary-foreground/70 text-sm mt-4">
-                  Plus tes réponses te ressemblent, plus ta feuille de route sera juste.
+                  Réponds <strong className="text-primary-foreground">instinctivement</strong>.
                 </p>
               </div>
 
