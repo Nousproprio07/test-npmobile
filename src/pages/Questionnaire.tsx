@@ -299,11 +299,10 @@ const Questionnaire = () => {
                   autoFocus
                 />
                 <Button
-                  variant="hero"
                   size="lg"
                   onClick={handleTextSubmit}
                   disabled={!textInput.trim()}
-                  className="w-full group"
+                  className="w-full group bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold disabled:opacity-50"
                 >
                   Voir ma feuille de route
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
