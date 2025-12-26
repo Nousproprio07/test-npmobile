@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const teamMembers: { role: string; icon: LucideIcon }[] = [
-  { role: "Une directrice d'agence immobilière", icon: Building2 },
+  { role: "Une directrice d'agence bancaire", icon: Building2 },
   { role: "Un ancien développeur immobilier", icon: HardHat },
   { role: "Une experte en financement bancaire", icon: Wallet },
   { role: "Une ancienne banquière", icon: Landmark },
@@ -82,7 +82,6 @@ const EquipeSection = () => {
               <p className="text-xl md:text-2xl font-bold">
                 <span className="text-primary">celle du terrain</span>
                 <span className="text-muted-foreground mx-2">et</span>
-                <span className="text-glacier">celle de la banque</span>
               </p>
             </div>
 
