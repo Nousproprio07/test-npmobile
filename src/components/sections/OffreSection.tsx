@@ -1,61 +1,111 @@
-import { Video, Brain, Building2, Users } from "lucide-react";
+import { Compass, ClipboardCheck, BarChart3, Navigation } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
-const offerings = [
+const steps = [
   {
-    icon: Video,
-    title: "Lives privés chaque semaine",
-    description: "Accède à nos sessions exclusives où on répond à tes questions en direct.",
+    icon: ClipboardCheck,
+    number: "01",
+    title: "Un questionnaire simple",
+    description: "Quelques minutes pour poser les bases de ton projet.",
   },
   {
-    icon: Brain,
-    title: "Pense comme un investisseur",
-    description: "Développe les réflexes et la mentalité qui font la différence.",
+    icon: BarChart3,
+    number: "02",
+    title: "Une analyse de ta situation réelle",
+    description: "On décortique tes finances, tes objectifs et tes contraintes.",
   },
   {
-    icon: Building2,
-    title: "Comprends la banque",
-    description: "Sache enfin comment fonctionne le crédit et utilise-le à ton avantage.",
-  },
-  {
-    icon: Users,
-    title: "Experts à tes côtés",
-    description: "Des pros de la banque et de l'immobilier qui ont eux-mêmes investi.",
+    icon: Navigation,
+    number: "03",
+    title: "Une restitution personnalisée",
+    description: "Ta direction patrimoniale claire, adaptée à toi.",
   },
 ];
 
 const OffreSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-secondary/50">
-      <div className="container">
-        <div className="text-center mb-12 md:mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold mb-4">
-            L'accompagnement
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            À quoi t'attendre<br />
-            <span className="text-primary">avec nous ?</span>
+    <section className="relative py-20 md:py-32 bg-background overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 right-0 w-96 h-96 bg-glacier/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16 md:mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-glacier/20 border border-glacier/30 mb-6">
+            <Compass className="w-4 h-4 text-glacier" />
+            <span className="text-glacier text-sm font-medium">La méthode</span>
+          </div>
+          
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            La boussole{" "}
+            <span className="text-primary">NousPropri</span>
+            <span className="text-accent">o</span>
           </h2>
+          
+          <p className="text-lg md:text-xl text-glacier font-medium max-w-2xl mx-auto">
+            On définit ton cap avant de te parler d'investissement.
+          </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto">
-          {offerings.map((item, index) => (
-            <div
-              key={index}
-              className="flex gap-4 p-5 md:p-6 rounded-xl bg-card border border-border hover:shadow-soft transition-all duration-300"
+        {/* Steps */}
+        <div className="max-w-4xl mx-auto mb-16">
+          <div className="grid gap-6 md:gap-8">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                className="group relative"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
+                {/* Connection line */}
+                {index < steps.length - 1 && (
+                  <div className="hidden md:block absolute left-[39px] top-20 w-0.5 h-8 bg-gradient-to-b from-glacier/50 to-glacier/10" />
+                )}
+                
+                <div className="flex gap-5 md:gap-8 p-6 md:p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-glacier/30 hover:bg-card/80 transition-all duration-500 group-hover:shadow-[0_8px_30px_-10px_hsl(var(--glacier)/0.3)]">
+                  {/* Number & Icon */}
+                  <div className="flex-shrink-0 relative">
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                      <step.icon className="w-7 h-7 md:w-8 md:h-8 text-primary-foreground" />
+                    </div>
+                    <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center shadow-md">
+                      {step.number}
+                    </span>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="flex-1 pt-1">
+                    <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-glacier transition-colors duration-300">
+                      {step.title}
+                    </h3>
+                    <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center">
+          <Link to="/questionnaire">
+            <Button 
+              variant="cta" 
+              size="xl"
+              className="group"
             >
-              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                <item.icon className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <h3 className="font-display text-lg font-bold text-foreground mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          ))}
+              <Compass className="w-5 h-5 mr-2 group-hover:rotate-45 transition-transform duration-300" />
+              Définir mon cap
+            </Button>
+          </Link>
+          <p className="mt-4 text-muted-foreground text-sm">
+            Gratuit • 5 minutes • Sans engagement
+          </p>
         </div>
       </div>
     </section>
