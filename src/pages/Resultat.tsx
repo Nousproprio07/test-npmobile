@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Calendar, Users, BookOpen, MessageSquare, Phone, ShoppingCart, ChevronDown } from "lucide-react";
+import { ArrowRight, CheckCircle2, Calendar, Users, BookOpen, MessageSquare, Phone, ShoppingCart, ChevronDown, Sparkles, Home, TrendingUp } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const Resultat = () => {
@@ -230,66 +230,135 @@ const Resultat = () => {
         </div>
       </div>
 
-      {/* Accompaniment card */}
-      <div className="container py-8 md:py-12">
-        <div className={`max-w-2xl mx-auto transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="bg-card rounded-2xl p-6 md:p-8 shadow-elegant border border-border">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                <Users className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <div>
-                <span className="text-xs font-semibold text-accent uppercase tracking-wide">Recommandé pour toi</span>
-                <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">{accompaniment.type}</h2>
-              </div>
+      {/* Bloc 3 — Ta route patrimoniale (LA RÉVÉLATION) */}
+      <div className="bg-hero relative overflow-hidden py-12 md:py-16">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/20 rounded-full blur-3xl" />
+          <div className="absolute top-10 right-10 w-32 h-32 bg-[#99c5ff]/30 rounded-full blur-2xl animate-pulse" />
+          <div className="absolute bottom-10 left-10 w-48 h-48 bg-accent/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
+        </div>
+        
+        <div className="container relative z-10">
+          <div className={`max-w-3xl mx-auto text-center transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            
+            {/* Sparkle icon */}
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#99c5ff]/20 mb-6 animate-scale-in">
+              <Sparkles className="w-8 h-8 text-[#99c5ff]" />
             </div>
+
+            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
+              Bloc 3 — Ta route patrimoniale
+            </h2>
             
-            <p className="text-sm text-accent font-medium mb-4">{accompaniment.tagline}</p>
-            
-            <p className="text-muted-foreground mb-6">
-              {accompaniment.description}
+            <p className="text-lg md:text-xl text-[#99c5ff] font-semibold mb-8">
+              Direction : {accompaniment.type === "Résidence Essentiel" 
+                ? "devenir propriétaire intelligemment avant de penser investissement" 
+                : "créer un revenu immobilier et ne plus dépendre uniquement de ton salaire"}
             </p>
 
-            <div className="space-y-3 mb-6">
-              {accompaniment.features.map((feature, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground">{feature}</span>
+            {/* Recommendation card - THE BIG REVEAL */}
+            <div className="bg-primary-foreground rounded-3xl p-8 md:p-10 shadow-2xl text-left relative overflow-hidden">
+              {/* Decorative gradient */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+              
+              <div className="relative z-10">
+                <span className="inline-block text-xs font-bold text-primary-foreground bg-primary px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+                  Ton accompagnement recommandé
+                </span>
+                
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-2xl bg-hero flex items-center justify-center shadow-lg">
+                    {accompaniment.type === "Résidence Essentiel" 
+                      ? <Home className="w-7 h-7 text-primary-foreground" />
+                      : <TrendingUp className="w-7 h-7 text-primary-foreground" />
+                    }
+                  </div>
+                  <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">
+                    {accompaniment.type}
+                  </h3>
                 </div>
-              ))}
-            </div>
+                
+                <p className="text-lg text-muted-foreground mb-6">
+                  {accompaniment.type === "Résidence Essentiel" 
+                    ? "Acheter ta résidence principale sans te tromper de projet."
+                    : "Construire ton premier investissement locatif rentable."}
+                </p>
 
-            {/* Price display */}
-            <div className="bg-primary/5 rounded-xl p-4 mb-6 text-center">
-              <p className="text-3xl font-display font-bold text-primary">{accompaniment.price}</p>
-              <p className="text-sm text-muted-foreground">{accompaniment.priceDetail}</p>
-            </div>
+                <h4 className="font-semibold text-foreground mb-4">Pourquoi c'est fait pour toi :</h4>
+                
+                <ul className="space-y-4 mb-8">
+                  {accompaniment.type === "Résidence Essentiel" ? (
+                    <>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground text-lg">Tu poses les fondations de ton patrimoine</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground text-lg">Tu apprends à lire un projet immobilier sans jargon</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground text-lg">Tu évites les erreurs irréversibles du premier achat</span>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground text-lg">Tu apprends à choisir entre courte et longue durée</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground text-lg">Tu structures un projet qui génère du cash-flow</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground text-lg">Tu transformes ta réflexion en stratégie concrète</span>
+                      </li>
+                    </>
+                  )}
+                </ul>
 
-            {/* Two CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button 
-                variant="cta" 
-                size="lg" 
-                className="flex-1 group"
-                onClick={() => navigate("/achat", { state: { accompaniment, prenom } })}
-              >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Acheter maintenant
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="flex-1 group border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                onClick={() => navigate("/reserver-appel", { state: { accompaniment, prenom } })}
-              >
-                <Phone className="w-5 h-5 mr-2" />
-                Réserver un appel
-              </Button>
+                {/* Price reveal */}
+                <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-6 mb-6 text-center">
+                  <p className="text-4xl md:text-5xl font-display font-bold text-primary mb-1">{accompaniment.price}</p>
+                  <p className="text-muted-foreground">{accompaniment.priceDetail}</p>
+                </div>
+
+                {/* CTAs */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button 
+                    variant="cta" 
+                    size="lg" 
+                    className="flex-1 group text-lg py-6"
+                    onClick={() => navigate("/achat", { state: { accompaniment, prenom } })}
+                  >
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    Commencer maintenant
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="flex-1 group border-primary text-primary hover:bg-primary hover:text-primary-foreground text-lg py-6"
+                    onClick={() => navigate("/reserver-appel", { state: { accompaniment, prenom } })}
+                  >
+                    <Phone className="w-5 h-5 mr-2" />
+                    Réserver un appel
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Additional benefits */}
-          <div className={`mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* Additional benefits */}
+      {/* Additional benefits & trust */}
+      <div className="container py-12">
+        <div className={`max-w-3xl mx-auto transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div className="bg-card rounded-xl p-4 border border-border text-center">
               <Calendar className="w-8 h-8 text-accent mx-auto mb-2" />
               <h3 className="font-semibold text-foreground text-sm">Lives privés</h3>
@@ -307,8 +376,7 @@ const Resultat = () => {
             </div>
           </div>
 
-          {/* Trust badge */}
-          <div className={`mt-8 text-center transition-all duration-700 delay-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="text-center">
             <p className="text-sm text-muted-foreground">
               💡 100% indépendant • Aucune commission • Conseils authentiques
             </p>
