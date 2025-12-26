@@ -31,7 +31,7 @@ const CTASection = () => {
 
           <div className="flex items-center justify-center gap-2 text-primary-foreground/70">
             <Clock className="w-4 h-4" />
-            <span className="text-sm">Moins de 2 minutes</span>
+            <span className="text-sm">en 3 minutes</span>
           </div>
         </div>
       </div>
