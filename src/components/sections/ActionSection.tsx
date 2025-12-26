@@ -69,32 +69,40 @@ const ActionSection = () => {
           </div>
 
           {/* Features Grid */}
-          <div className="grid md:grid-cols-3 gap-4 md:gap-8 mb-12 md:mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-8 mb-12 md:mb-16">
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="group relative bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl md:rounded-3xl p-5 md:p-8 hover:bg-white/15 transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
+                className="group relative bg-white/10 backdrop-blur-md border border-white/20 rounded-xl md:rounded-3xl p-4 md:p-8 hover:bg-white/15 transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Glow effect on hover */}
-                <div className={`absolute inset-0 ${feature.bgGlow} rounded-2xl md:rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
+                <div className={`absolute inset-0 ${feature.bgGlow} rounded-xl md:rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
                 
                 <div className="relative z-10">
-                  {/* Icon */}
-                  <div className={`w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                  {/* Mobile: Icon + Title inline | Desktop: Stacked */}
+                  <div className="flex items-center gap-3 md:flex-col md:items-start">
+                    <div className={`w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+                      <feature.icon className="w-5 h-5 md:w-8 md:h-8 text-white" />
+                    </div>
+                    
+                    <div className="flex-1 md:mt-6">
+                      <h3 className="text-base md:text-2xl font-display font-bold text-white md:mb-3">
+                        {feature.title}
+                      </h3>
+                      <p className="text-xs md:text-base text-white/70 leading-relaxed hidden md:block">
+                        {feature.description}
+                      </p>
+                    </div>
                   </div>
                   
-                  {/* Content */}
-                  <h3 className="text-lg md:text-2xl font-display font-bold text-white mb-2 md:mb-3">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-white/70 leading-relaxed">
+                  {/* Description on mobile - below title */}
+                  <p className="text-xs text-white/70 leading-relaxed mt-2 md:hidden">
                     {feature.description}
                   </p>
                   
-                  {/* Arrow indicator */}
-                  <div className="mt-4 md:mt-6 flex items-center gap-2 text-glacier-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {/* Arrow indicator - desktop only */}
+                  <div className="mt-4 md:mt-6 hidden md:flex items-center gap-2 text-glacier-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <span className="text-sm font-medium">Découvrir</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
