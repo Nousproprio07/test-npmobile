@@ -1,10 +1,8 @@
-import { Building2, Landmark, CreditCard, Users } from "lucide-react";
-
 const teamMembers = [
-  { icon: Building2, role: "d'une directrice d'agence immobilière" },
-  { icon: Users, role: "d'un ancien développeur immobilier" },
-  { icon: CreditCard, role: "d'une experte en financement bancaire" },
-  { icon: Landmark, role: "d'une ancienne banquière" },
+  { role: "Une directrice d'agence immobilière", color: "bg-[hsl(var(--np-blue))]" },
+  { role: "Un ancien développeur immobilier", color: "bg-[hsl(var(--np-red))]" },
+  { role: "Une experte en financement bancaire", color: "bg-[hsl(var(--glacier))]" },
+  { role: "Une ancienne banquière", color: "bg-primary" },
 ];
 
 const EquipeSection = () => {
@@ -22,51 +20,48 @@ const EquipeSection = () => {
         </div>
 
         {/* Team composition */}
-        <div className="bg-card rounded-2xl p-6 md:p-10 shadow-card mb-8 md:mb-12">
-          <p className="text-lg md:text-xl font-medium text-foreground mb-6">
-            Notre équipe est composée :
+        <div className="mb-8 md:mb-12">
+          <p className="text-lg md:text-xl font-medium text-foreground mb-8 text-center">
+            Notre équipe est composée de :
           </p>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
+                className={`${member.color} rounded-2xl p-6 text-white shadow-lg hover:scale-[1.02] transition-transform duration-300`}
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <member.icon className="w-6 h-6 text-primary" />
-                </div>
-                <p className="text-foreground font-medium">{member.role}</p>
+                <p className="text-lg md:text-xl font-semibold">{member.role}</p>
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Highlight message */}
-          <div className="border-l-4 border-primary pl-6 py-2">
-            <p className="text-lg md:text-xl font-semibold text-foreground italic">
-              Mais surtout, chacun de nous a déjà investi dans l'immobilier.
-            </p>
-          </div>
+        {/* Highlight message */}
+        <div className="bg-card rounded-2xl p-6 md:p-10 shadow-card mb-8 md:mb-12 border-l-4 border-primary">
+          <p className="text-xl md:text-2xl font-bold text-foreground italic text-center">
+            Mais surtout, chacun de nous a déjà investi dans l'immobilier.
+          </p>
         </div>
 
         {/* Double expertise */}
-        <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-6 md:p-10">
-          <p className="text-lg md:text-xl font-medium text-foreground mb-6">
+        <div className="bg-gradient-to-br from-primary/10 via-[hsl(var(--np-blue)/0.1)] to-[hsl(var(--np-red)/0.1)] rounded-2xl p-6 md:p-10">
+          <p className="text-lg md:text-xl font-medium text-foreground mb-6 text-center">
             Nous vous accompagnons avec une double expertise :
             <br />
-            <span className="text-primary font-semibold">celle du terrain</span> et{" "}
-            <span className="text-primary font-semibold">celle de la banque</span>
+            <span className="text-[hsl(var(--np-blue))] font-bold">celle du terrain</span> et{" "}
+            <span className="text-[hsl(var(--np-red))] font-bold">celle de la banque</span>
           </p>
           
-          <ul className="space-y-3">
+          <ul className="space-y-3 max-w-md mx-auto">
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-primary mt-2.5" />
+              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[hsl(var(--np-blue))] mt-2.5" />
               <span className="text-muted-foreground text-base md:text-lg">
                 pour comprendre votre projet
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-primary mt-2.5" />
+              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[hsl(var(--np-red))] mt-2.5" />
               <span className="text-muted-foreground text-base md:text-lg">
                 parler votre langage
               </span>
