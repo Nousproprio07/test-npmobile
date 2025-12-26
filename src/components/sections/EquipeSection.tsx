@@ -9,11 +9,6 @@ const teamMembers: { role: string; icon: LucideIcon }[] = [
   { role: "Une ancienne banquière", icon: Landmark },
 ];
 
-const expertises = [
-  "Comprendre ton projet",
-  "Parler ton langage",
-  "Te guider avec des conseils concrets",
-];
 
 const EquipeSection = () => {
   return (
@@ -86,18 +81,6 @@ const EquipeSection = () => {
               </p>
             </div>
 
-            {/* Expertise points */}
-            <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-6">
-              {expertises.map((expertise, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-3 px-5 py-3 rounded-xl bg-primary/5 border border-primary/10"
-                >
-                  <span className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
-                  <span className="text-foreground font-medium text-sm md:text-base">{expertise}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
