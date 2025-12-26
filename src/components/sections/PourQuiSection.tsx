@@ -1,41 +1,86 @@
-import { Compass } from "lucide-react";
+import { Compass, ArrowDown } from "lucide-react";
 
 const PourQuiSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
-      <div className="container px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          {/* Icon */}
-          <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-6 md:mb-8">
-            <Compass className="w-8 h-8 md:w-10 md:h-10 text-accent" />
+    <section className="relative py-20 md:py-32 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-64 h-64 bg-glacier/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-np-blue/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container px-4 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          {/* Badge animé */}
+          <div className="flex justify-center mb-8 animate-fade-up">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-np-blue/10 border border-np-blue/20 text-np-blue text-sm font-medium">
+              <Compass className="w-4 h-4" />
+              Le vrai problème
+            </span>
           </div>
 
-          {/* Titre principal */}
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 md:mb-8 leading-tight">
-            Pourquoi tu es bloqué ?
+          {/* Titre principal avec accent */}
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-8 md:mb-12 leading-tight animate-fade-up-delay-1">
+            Pourquoi tu es{" "}
+            <span className="relative inline-block">
+              bloqué
+              <span className="absolute -bottom-1 left-0 right-0 h-1 bg-accent/60 rounded-full" />
+            </span>
+            <span className="text-accent"> ?</span>
           </h2>
 
-          {/* Sous-titre accrocheur */}
-          <p className="text-lg sm:text-xl md:text-2xl font-medium text-foreground/90 mb-6 md:mb-8">
-            Tu as un projet.{" "}
-            <span className="text-accent">Mais pas le chemin pour y arriver.</span>
-          </p>
+          {/* Card centrale glassmorphism */}
+          <div className="relative animate-fade-up-delay-2">
+            <div className="absolute inset-0 bg-gradient-to-br from-glacier/20 to-np-blue/10 rounded-3xl blur-xl" />
+            <div className="relative bg-background/80 backdrop-blur-sm border border-border/50 rounded-3xl p-6 sm:p-8 md:p-12 shadow-card">
+              
+              {/* Phrase clé */}
+              <p className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-center text-foreground mb-8 md:mb-10 leading-relaxed">
+                Tu as un projet.{" "}
+                <span className="text-glacier-foreground bg-glacier/30 px-2 py-1 rounded-lg">
+                  Mais pas le chemin
+                </span>{" "}
+                pour y arriver.
+              </p>
 
-          {/* Texte explicatif */}
-          <div className="space-y-4 md:space-y-6 text-base sm:text-lg text-muted-foreground leading-relaxed">
-            <p>
-              Aujourd'hui, la plupart des futurs investisseurs abandonnent non pas par manque d'argent,
-              <br className="hidden sm:block" />
-              <span className="font-semibold text-foreground"> mais par manque de direction.</span>
-            </p>
-            
-            <div className="pt-2 md:pt-4">
-              <p className="text-foreground font-medium text-lg sm:text-xl">
-                NousProprio existe pour répondre à une seule question :
-              </p>
-              <p className="text-accent font-display font-bold text-xl sm:text-2xl mt-2">
-                par quoi commencer quand on débute ?
-              </p>
+              {/* Séparateur stylé */}
+              <div className="flex items-center justify-center gap-4 mb-8 md:mb-10">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+                <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+              </div>
+
+              {/* Texte explicatif */}
+              <div className="space-y-6 text-center">
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                  Aujourd'hui, la plupart des futurs investisseurs abandonnent 
+                  <br className="hidden md:block" />
+                  non pas par manque d'argent,{" "}
+                  <span className="font-semibold text-foreground">
+                    mais par manque de direction.
+                  </span>
+                </p>
+
+                {/* Bloc NousProprio */}
+                <div className="pt-4 md:pt-6">
+                  <div className="inline-flex flex-col items-center gap-3 p-4 sm:p-6 rounded-2xl bg-np-blue/5 border border-np-blue/10">
+                    <p className="text-sm sm:text-base text-muted-foreground">
+                      NousProprio existe pour répondre à une seule question :
+                    </p>
+                    <p className="font-display font-bold text-lg sm:text-xl md:text-2xl text-np-blue">
+                      Par quoi commencer quand on débute ?
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Indicateur scroll */}
+          <div className="flex justify-center mt-10 md:mt-14 animate-fade-up-delay-3">
+            <div className="flex flex-col items-center gap-2 text-muted-foreground/60">
+              <span className="text-xs uppercase tracking-widest">Découvrir</span>
+              <ArrowDown className="w-5 h-5 animate-bounce" />
             </div>
           </div>
         </div>
