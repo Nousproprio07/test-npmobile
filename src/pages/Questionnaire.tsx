@@ -122,6 +122,7 @@ const Questionnaire = () => {
   const [textInput, setTextInput] = useState("");
   const [isAnimating, setIsAnimating] = useState(true);
   const [showEncouragement, setShowEncouragement] = useState<string | null>(null);
+  const [isRevisiting, setIsRevisiting] = useState(false); // Track if user came back to this question
 
   const totalSteps = questions.length;
   const progress = ((currentStep + 1) / totalSteps) * 100;
@@ -149,36 +150,47 @@ const Questionnaire = () => {
       setShowEncouragement(encouragementMessage);
       setTimeout(() => setShowEncouragement(null), 2500);
     }
-  };
 
-  const handleNext = () => {
-    const questionId = currentQuestion.id;
-    
-    if (currentStep < totalSteps - 1) {
+    // If not revisiting, auto-advance to next question
+    if (!isRevisiting && currentStep < totalSteps - 1) {
       setIsAnimating(true);
       setTimeout(() => {
         setCurrentStep(prev => prev + 1);
         setTextInput("");
         setIsAnimating(false);
       }, 300);
-    } else {
-      // Show encouragement for last question
-      setShowEncouragement("Merci ! Ta feuille de route arrive... ✨");
+    }
+  };
+
+  const handleNext = () => {
+    if (currentStep < totalSteps - 1) {
+      setIsAnimating(true);
+      setIsRevisiting(false); // Reset revisiting state when moving forward
       setTimeout(() => {
-        navigate("/resultat", { state: { answers } });
-      }, 2000);
+        setCurrentStep(prev => prev + 1);
+        setTextInput("");
+        setIsAnimating(false);
+      }, 300);
     }
   };
 
   const handleTextSubmit = () => {
     if (textInput.trim()) {
-      handleAnswer(textInput.trim());
+      const questionId = currentQuestion.id;
+      setAnswers(prev => ({ ...prev, [questionId]: textInput.trim() }));
+      
+      // Show encouragement for last question
+      setShowEncouragement("Merci ! Ta feuille de route arrive... ✨");
+      setTimeout(() => {
+        navigate("/resultat", { state: { answers: { ...answers, [questionId]: textInput.trim() } } });
+      }, 2000);
     }
   };
 
   const handleBack = () => {
     if (currentStep > 0) {
       setIsAnimating(true);
+      setIsRevisiting(true); // Mark that user is going back
       setTimeout(() => {
         setCurrentStep(prev => prev - 1);
         // Restore the text input if going back to a text question
@@ -369,8 +381,8 @@ const Questionnaire = () => {
                   );
                 })}
 
-                {/* Bouton Suivant - seulement si une réponse est sélectionnée et pas dernière question */}
-                {answers[currentQuestion.id] && currentStep < totalSteps - 1 && (
+                {/* Bouton Suivant - seulement si on revient sur une question et qu'une réponse est sélectionnée */}
+                {isRevisiting && answers[currentQuestion.id] && currentStep < totalSteps - 1 && (
                   <Button
                     size="lg"
                     onClick={handleNext}
