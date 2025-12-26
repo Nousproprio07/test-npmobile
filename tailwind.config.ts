@@ -61,6 +61,10 @@ export default {
           red: "hsl(var(--np-red))",
           "red-bright": "hsl(var(--np-red-bright))",
         },
+        glacier: {
+          DEFAULT: "hsl(var(--glacier))",
+          foreground: "hsl(var(--glacier-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

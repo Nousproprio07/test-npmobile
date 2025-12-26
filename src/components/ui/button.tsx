@@ -18,6 +18,7 @@ const buttonVariants = cva(
         hero: "bg-accent text-accent-foreground shadow-button hover:shadow-glow hover:scale-105 active:scale-100",
         "hero-outline": "border-2 border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground backdrop-blur-sm hover:bg-primary-foreground/20 hover:border-primary-foreground/50",
         cta: "bg-accent text-accent-foreground shadow-button hover:shadow-glow hover:scale-[1.02] active:scale-100",
+        glacier: "bg-glacier text-glacier-foreground shadow-[0_4px_14px_-2px_hsl(213_100%_81%/0.5)] hover:shadow-[0_6px_20px_-2px_hsl(213_100%_81%/0.6)] hover:scale-[1.02] active:scale-100",
       },
       size: {
         default: "h-12 px-6 py-3",
