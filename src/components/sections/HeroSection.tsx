@@ -70,39 +70,40 @@ const HeroSection = () => {
         {/* Hero content */}
         <div className="max-w-2xl mx-auto text-center">
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-up">
-            Investis comme si tu avais un{" "}
+            Trouve la bonne direction pour ton projet immobilier{" "}
             <span className="relative inline-block">
-              banquier
+              en 3 minutes.
               <span className="absolute -bottom-1 left-0 right-0 h-1 bg-accent rounded-full" />
-            </span>{" "}
-            dans ta poche.
+            </span>
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 animate-fade-up-delay-1 leading-relaxed">
-            Définis ton projet d'investissement et accède à des experts qui ont vraiment investi dans l'immobilier.
+            Un diagnostic intelligent pour comprendre où tu en es et savoir quoi faire maintenant.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up-delay-3 px-4">
+          {/* 3 bénéfices clés */}
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center mb-10 animate-fade-up-delay-2">
+            <div className="flex items-center gap-2 text-primary-foreground">
+              <span className="text-glacier text-xl">✔️</span>
+              <span className="text-sm md:text-base">Comprend ta situation réelle</span>
+            </div>
+            <div className="flex items-center gap-2 text-primary-foreground">
+              <span className="text-glacier text-xl">✔️</span>
+              <span className="text-sm md:text-base">Évite les erreurs coûteuses</span>
+            </div>
+            <div className="flex items-center gap-2 text-primary-foreground">
+              <span className="text-glacier text-xl">✔️</span>
+              <span className="text-sm md:text-base">Avance avec un plan clair</span>
+            </div>
+          </div>
+
+          <div className="flex justify-center animate-fade-up-delay-3 px-4">
             <Link to="/questionnaire" className="w-full sm:w-auto">
-              <Button variant="hero" size="lg" className="group w-full">
-                Découvrir mon accompagnement
+              <Button variant="glacier" size="lg" className="group w-full">
+                Démarrer mon diagnostic
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0 hidden sm:block" />
               </Button>
             </Link>
-          </div>
-
-          {/* Trust indicator */}
-          <div className="mt-12 flex flex-col items-center gap-3 animate-fade-up-delay-3">
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-            </div>
-            <p className="text-primary-foreground/70 text-sm">
-              Conseils 100% indépendants • Zéro commission
-            </p>
           </div>
         </div>
       </div>
