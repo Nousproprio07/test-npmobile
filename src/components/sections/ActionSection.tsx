@@ -69,32 +69,32 @@ const ActionSection = () => {
           </div>
 
           {/* Features Grid */}
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-16">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-8 mb-12 md:mb-16">
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="group relative bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 hover:bg-white/15 transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
+                className="group relative bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl md:rounded-3xl p-5 md:p-8 hover:bg-white/15 transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Glow effect on hover */}
-                <div className={`absolute inset-0 ${feature.bgGlow} rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
+                <div className={`absolute inset-0 ${feature.bgGlow} rounded-2xl md:rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
                 
                 <div className="relative z-10">
                   {/* Icon */}
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="w-8 h-8 text-white" />
+                  <div className={`w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className="w-6 h-6 md:w-8 md:h-8 text-white" />
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3">
+                  <h3 className="text-lg md:text-2xl font-display font-bold text-white mb-2 md:mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-white/70 leading-relaxed">
+                  <p className="text-sm md:text-base text-white/70 leading-relaxed">
                     {feature.description}
                   </p>
                   
                   {/* Arrow indicator */}
-                  <div className="mt-6 flex items-center gap-2 text-glacier-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="mt-4 md:mt-6 flex items-center gap-2 text-glacier-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <span className="text-sm font-medium">Découvrir</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
