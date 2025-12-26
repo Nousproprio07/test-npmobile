@@ -321,9 +321,9 @@ const Resultat = () => {
                 </ul>
 
                 {/* Price reveal */}
-                <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-6 mb-6 text-center">
+                <div className="rounded-2xl p-6 mb-6 text-center">
                   <p className="text-4xl md:text-5xl font-display font-bold text-primary mb-1">{accompaniment.price}</p>
-                  <p className="text-muted-foreground">{accompaniment.priceDetail}</p>
+                  <p className="text-muted-foreground">Paiement en plusieurs fois possible</p>
                 </div>
 
                 {/* CTAs */}
@@ -333,8 +333,7 @@ const Resultat = () => {
                     className="flex-1 group text-lg py-6 bg-[#99c5ff] text-primary hover:bg-[#7ab3ff] transition-colors"
                     onClick={() => navigate("/achat", { state: { accompaniment, prenom } })}
                   >
-                    <ShoppingCart className="w-5 h-5 mr-2" />
-                    Commencer maintenant
+                    En savoir plus
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                   <Button 
