@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
-import { ArrowRight, Menu, X, Check } from "lucide-react";
+import { ArrowRight, Check, Users, LogIn } from "lucide-react";
 
 const HeroSection = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   const benefits = [
     "Comprend ta situation réelle",
     "Évite les erreurs coûteuses",
@@ -41,37 +38,24 @@ const HeroSection = () => {
             </Link>
           </nav>
 
-          {/* Mobile Burger Button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2 text-primary-foreground active:scale-95 transition-transform"
-            aria-label="Menu"
-          >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Navigation - Icons */}
+          <nav className="md:hidden flex items-center gap-3">
+            <Link 
+              to="/equipe"
+              className="p-2.5 rounded-full bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 transition-colors"
+              aria-label="Équipe"
+            >
+              <Users className="w-5 h-5" />
+            </Link>
+            <Link 
+              to="/connexion"
+              className="p-2.5 rounded-full bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 transition-colors"
+              aria-label="Connexion"
+            >
+              <LogIn className="w-5 h-5" />
+            </Link>
+          </nav>
         </header>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="md:hidden absolute top-16 left-4 right-4 bg-card rounded-xl shadow-card border border-border p-4 z-50 animate-fade-up">
-            <nav className="flex flex-col gap-3">
-              <Link 
-                to="/equipe" 
-                className="text-primary font-medium py-3 px-4 rounded-lg bg-background border-2 border-primary text-center transition-colors active:bg-primary/10"
-                onClick={() => setMenuOpen(false)}
-              >
-                Équipe
-              </Link>
-              <Link 
-                to="/connexion" 
-                className="text-primary-foreground font-medium py-3 px-4 rounded-lg bg-primary text-center transition-colors active:bg-primary/90"
-                onClick={() => setMenuOpen(false)}
-              >
-                Connexion
-              </Link>
-            </nav>
-          </div>
-        )}
 
         {/* Hero content - centered vertically */}
         <div className="flex-1 flex flex-col justify-center max-w-2xl mx-auto text-center px-2 pb-20 md:pb-24">
