@@ -119,7 +119,7 @@ const Resultat = () => {
                 <strong className="text-primary-foreground">Tu cherches une trajectoire claire.</strong>
               </p>
 
-              <h3 className="text-lg font-semibold text-accent mb-4">Ton point de départ</h3>
+              <h3 className="text-lg font-semibold text-[#99c5ff] mb-4">Ton point de départ</h3>
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
