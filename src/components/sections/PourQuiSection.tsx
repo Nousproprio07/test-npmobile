@@ -2,7 +2,7 @@ import { Compass, ArrowDown } from "lucide-react";
 
 const PourQuiSection = () => {
   return (
-    <section className="relative py-20 md:py-32 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden">
+    <section className="relative py-14 md:py-20 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-64 h-64 bg-glacier/10 rounded-full blur-3xl" />
@@ -77,7 +77,7 @@ const PourQuiSection = () => {
           </div>
 
           {/* Indicateur scroll */}
-          <div className="flex justify-center mt-10 md:mt-14 animate-fade-up-delay-3">
+          <div className="flex justify-center mt-8 md:mt-10 animate-fade-up-delay-3">
             <div className="flex flex-col items-center gap-2 text-muted-foreground/60">
               <span className="text-xs uppercase tracking-widest">Découvrir</span>
               <ArrowDown className="w-5 h-5 animate-bounce" />
