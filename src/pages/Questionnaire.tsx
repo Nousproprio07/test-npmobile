@@ -196,7 +196,7 @@ const Questionnaire = () => {
               </h1>
               
               <p className="text-primary-foreground/90 text-lg md:text-xl mb-8 leading-relaxed">
-                En quelques questions simples, tu vas découvrir la direction la plus cohérente pour ton projet immobilier.
+                En quelques questions simples, tu vas découvrir le chemin le plus cohérent pour ton projet immobilier.
               </p>
 
               <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-primary-foreground/20">
