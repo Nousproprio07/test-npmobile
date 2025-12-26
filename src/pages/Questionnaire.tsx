@@ -242,9 +242,8 @@ const Questionnaire = () => {
           </span>
         </header>
 
-        {/* Progress bar */}
         <div className="mb-8">
-          <Progress value={progress} className="h-2 bg-primary-foreground/20" />
+          <Progress value={progress} className="h-2 bg-primary-foreground/20 [&>div]:bg-[#99c5ff]" />
         </div>
 
         {/* Encouragement message */}
@@ -271,7 +270,7 @@ const Questionnaire = () => {
         <div className="flex-1 flex flex-col justify-center max-w-xl mx-auto w-full">
           <div className={`transition-all duration-300 ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
             {/* Step title */}
-            <span className="inline-block px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-semibold tracking-wide mb-4">
+            <span className="inline-block px-3 py-1 rounded-full bg-[#99c5ff]/20 text-[#99c5ff] text-xs font-semibold tracking-wide mb-4">
               {currentQuestion.stepTitle}
             </span>
 
