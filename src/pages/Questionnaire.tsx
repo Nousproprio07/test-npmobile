@@ -177,6 +177,11 @@ const Questionnaire = () => {
       setIsAnimating(true);
       setTimeout(() => {
         setCurrentStep(prev => prev - 1);
+        // Restore the text input if going back to a text question
+        const previousQuestion = questions[currentStep - 1];
+        if (previousQuestion.type === "text" && answers[previousQuestion.id]) {
+          setTextInput(answers[previousQuestion.id]);
+        }
         setIsAnimating(false);
       }, 300);
     } else {
@@ -335,19 +340,30 @@ const Questionnaire = () => {
               </div>
             ) : (
               <div className="space-y-3 mt-4">
-                {currentQuestion.options?.map((option, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleAnswer(option)}
-                    className="w-full text-left p-4 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:border-accent/50 transition-all duration-200 group"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    <span className="flex items-center justify-between">
-                      {option}
-                      <ArrowRight className="w-5 h-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                    </span>
-                  </button>
-                ))}
+                {currentQuestion.options?.map((option, index) => {
+                  const isSelected = answers[currentQuestion.id] === option;
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => handleAnswer(option)}
+                      className={`w-full text-left p-4 rounded-xl border transition-all duration-200 group ${
+                        isSelected 
+                          ? 'bg-[#99c5ff]/20 border-[#99c5ff] text-[#99c5ff]' 
+                          : 'bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:border-accent/50'
+                      }`}
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <span className="flex items-center justify-between">
+                        {option}
+                        <ArrowRight className={`w-5 h-5 transition-all ${
+                          isSelected 
+                            ? 'opacity-100 translate-x-0' 
+                            : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
+                        }`} />
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>

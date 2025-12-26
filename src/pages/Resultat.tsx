@@ -297,30 +297,30 @@ const Resultat = () => {
                   {accompaniment.type === "Résidence Essentiel" ? (
                     <>
                       <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
                         <span className="text-foreground text-lg">Tu poses les fondations de ton patrimoine</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
                         <span className="text-foreground text-lg">Tu apprends à lire un projet immobilier sans jargon</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
                         <span className="text-foreground text-lg">Tu évites les erreurs irréversibles du premier achat</span>
                       </li>
                     </>
                   ) : (
                     <>
                       <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
                         <span className="text-foreground text-lg">Tu apprends à choisir entre courte et longue durée</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
                         <span className="text-foreground text-lg">Tu structures un projet qui génère du cash-flow</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
                         <span className="text-foreground text-lg">Tu transformes ta réflexion en stratégie concrète</span>
                       </li>
                     </>
