@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Briefcase, TrendingUp, GraduationCap, Building, LineChart, Shield, Home, Users, Code, Award, Building2 } from "lucide-react";
+import { ArrowLeft, Briefcase, TrendingUp, GraduationCap, Building, LineChart, Shield, Home, Users, Award, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
 
@@ -48,6 +48,7 @@ const teamMembers: TeamMember[] = [
     role: "Directrice d'agence",
     description: "Une expertise terrain précieuse pour comprendre les réalités du marché immobilier.",
     icon: Users,
+    highlight: "5 ans d'expérience",
   },
   {
     name: "Johanna",
@@ -55,12 +56,6 @@ const teamMembers: TeamMember[] = [
     description: "10 ans d'expérience, notamment dans le 16e arrondissement de Paris.",
     icon: TrendingUp,
     highlight: "10 ans d'expérience",
-  },
-  {
-    name: "William",
-    role: "Développeur",
-    description: "Le développeur de cette plateforme, dédié à vous offrir la meilleure expérience digitale.",
-    icon: Code,
   },
 ];
 
@@ -119,11 +114,11 @@ const Equipe = () => {
                       <h3 className="font-display text-xl md:text-2xl font-bold text-foreground">
                         {member.name}
                       </h3>
-                      <p className="text-accent font-semibold text-sm md:text-base">
+                      <span className="inline-block mt-1 px-3 py-1 rounded-full bg-primary text-primary-foreground text-sm font-semibold">
                         {member.role}
-                      </p>
+                      </span>
                       {member.highlight && (
-                        <span className="inline-block mt-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">
+                        <span className="inline-block mt-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
                           {member.highlight}
                         </span>
                       )}
