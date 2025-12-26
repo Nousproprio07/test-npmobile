@@ -1,8 +1,8 @@
 const teamMembers = [
-  { role: "Une directrice d'agence immobilière", color: "bg-[hsl(var(--np-blue))]" },
-  { role: "Un ancien développeur immobilier", color: "bg-[hsl(var(--np-red))]" },
-  { role: "Une experte en financement bancaire", color: "bg-[hsl(var(--glacier))]" },
-  { role: "Une ancienne banquière", color: "bg-primary" },
+  "Une directrice d'agence immobilière",
+  "Un ancien développeur immobilier",
+  "Une experte en financement bancaire",
+  "Une ancienne banquière",
 ];
 
 const EquipeSection = () => {
@@ -29,9 +29,9 @@ const EquipeSection = () => {
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className={`${member.color} rounded-2xl p-6 text-white shadow-lg hover:scale-[1.02] transition-transform duration-300`}
+                className="bg-[hsl(var(--np-blue))] rounded-2xl p-6 text-white shadow-lg hover:scale-[1.02] transition-transform duration-300"
               >
-                <p className="text-lg md:text-xl font-semibold">{member.role}</p>
+                <p className="text-lg md:text-xl font-semibold">{member}</p>
               </div>
             ))}
           </div>
@@ -45,12 +45,12 @@ const EquipeSection = () => {
         </div>
 
         {/* Double expertise */}
-        <div className="bg-gradient-to-br from-primary/10 via-[hsl(var(--np-blue)/0.1)] to-[hsl(var(--np-red)/0.1)] rounded-2xl p-6 md:p-10">
+        <div className="bg-gradient-to-br from-[hsl(var(--np-blue)/0.1)] to-[hsl(var(--glacier)/0.1)] rounded-2xl p-6 md:p-10">
           <p className="text-lg md:text-xl font-medium text-foreground mb-6 text-center">
             Nous vous accompagnons avec une double expertise :
             <br />
             <span className="text-[hsl(var(--np-blue))] font-bold">celle du terrain</span> et{" "}
-            <span className="text-[hsl(var(--np-red))] font-bold">celle de la banque</span>
+            <span className="text-[hsl(var(--glacier))] font-bold">celle de la banque</span>
           </p>
           
           <ul className="space-y-3 max-w-md mx-auto">
@@ -61,13 +61,13 @@ const EquipeSection = () => {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[hsl(var(--np-red))] mt-2.5" />
+              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[hsl(var(--np-blue))] mt-2.5" />
               <span className="text-muted-foreground text-base md:text-lg">
                 parler votre langage
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-primary mt-2.5" />
+              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[hsl(var(--np-blue))] mt-2.5" />
               <span className="text-muted-foreground text-base md:text-lg">
                 et vous guider avec des conseils concrets
               </span>
