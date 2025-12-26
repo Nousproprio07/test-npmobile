@@ -103,7 +103,7 @@ const OffreSection = () => {
             </Button>
           </Link>
           <p className="mt-4 text-muted-foreground text-sm">
-            Gratuit • 5 minutes • Sans engagement
+            Gratuit • 3 minutes • Sans engagement
           </p>
         </div>
       </div>
