@@ -1,12 +1,12 @@
-import { Users, ArrowRight } from "lucide-react";
+import { Users, ArrowRight, Building2, HardHat, Wallet, Landmark, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-const teamMembers = [
-  "Une directrice d'agence immobilière",
-  "Un ancien développeur immobilier",
-  "Une experte en financement bancaire",
-  "Une ancienne banquière",
+const teamMembers: { role: string; icon: LucideIcon }[] = [
+  { role: "Une directrice d'agence immobilière", icon: Building2 },
+  { role: "Un ancien développeur immobilier", icon: HardHat },
+  { role: "Une experte en financement bancaire", icon: Wallet },
+  { role: "Une ancienne banquière", icon: Landmark },
 ];
 
 const expertises = [
@@ -48,17 +48,20 @@ const EquipeSection = () => {
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-8">
-              {teamMembers.map((member, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier text-primary-foreground group hover:scale-[1.02] transition-transform duration-300"
-                >
-                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                    <span className="text-lg font-bold">{index + 1}</span>
+              {teamMembers.map((member, index) => {
+                const IconComponent = member.icon;
+                return (
+                  <div
+                    key={index}
+                    className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier text-primary-foreground group hover:scale-[1.02] transition-transform duration-300"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <p className="font-medium text-base md:text-lg">{member.role}</p>
                   </div>
-                  <p className="font-medium text-base md:text-lg">{member}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Highlight message */}
