@@ -77,6 +77,15 @@ const Resultat = () => {
 
   const accompaniment = getAccompaniment();
 
+  // Helper function to get reading based on answers
+  const getSituationReading = () => {
+    const situation = answers.situation_actuelle;
+    if (situation?.includes("idée vague")) return "Tu as déjà un intérêt réel pour l'immobilier mais sans cadre précis";
+    if (situation?.includes("repéré quelques annonces")) return "Tu explores activement le marché mais manques de méthodologie";
+    if (situation?.includes("projet précis mais je suis bloqué")) return "Tu as une vision claire mais des freins t'empêchent d'avancer";
+    return "Tu démarres de zéro et cherches une direction claire";
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header section with gradient */}
@@ -90,64 +99,69 @@ const Resultat = () => {
             <Logo variant="light" />
           </header>
 
-          <div className={`max-w-2xl mx-auto text-center pb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6">
-              <CheckCircle2 className="w-4 h-4" />
-              Analyse terminée
-            </div>
-            
-            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
-              <span className="text-accent">{prenom}</span>, on te connaît sûrement plus que ton banquier !
+          <div className={`max-w-3xl mx-auto text-center pb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4">
+              Ta direction immobilière
             </h1>
+            
+            <p className="text-xl text-primary-foreground/90 mb-10">
+              <span className="text-accent font-semibold">{prenom}</span>, voici la direction la plus cohérente pour toi aujourd'hui
+            </p>
 
-            {/* Section Pourquoi ça te correspond */}
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 text-left mb-6">
-              <h2 className="text-lg font-semibold text-primary-foreground mb-4 text-center">
-                Pourquoi ? On connaît :
+            {/* Bloc 1 — Ce que ta situation révèle */}
+            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-left">
+              <h2 className="text-xl md:text-2xl font-display font-bold text-primary-foreground mb-4">
+                Bloc 1 — Ce que ta situation révèle
               </h2>
               
-              <div className="space-y-4">
-                <div>
-                  <span className="text-red-500 font-semibold text-sm uppercase tracking-wide">TON PROJET</span>
-                  <p className="text-primary-foreground">
-                    Je veux <span className="font-medium">{answers.objectif?.toLowerCase() || "investir"}</span>
-                  </p>
-                </div>
-                
-                <div>
-                  <span className="text-red-500 font-semibold text-sm uppercase tracking-wide">TON NIVEAU</span>
-                  <p className="text-primary-foreground">
-                    {answers.connaissance || "Non renseigné"}
-                  </p>
-                </div>
-                
-                <div>
-                  <span className="text-red-500 font-semibold text-sm uppercase tracking-wide">CE QUI TE BLOQUE AUJOURD'HUI</span>
-                  <p className="text-primary-foreground">
-                    {answers.freins || "Non renseigné"}
-                  </p>
-                </div>
-              </div>
+              <p className="text-primary-foreground/80 mb-6">
+                D'après tes réponses, tu n'es pas en train de "chercher un investissement".<br />
+                <strong className="text-primary-foreground">Tu cherches une trajectoire claire.</strong>
+              </p>
 
-              {/* Warning for 3 months horizon */}
-              {answers.horizon === "Dans les 3 prochains mois" && (
-                <div className="mt-5 p-4 bg-accent/20 rounded-xl border border-accent/30">
-                  <p className="text-accent font-semibold text-sm mb-1">⚠️ Attention !</p>
-                  <p className="text-primary-foreground/90 text-sm">
-                    Un passage à l'action dans 3 mois est rapide ! Ne te précipite pas. Aller trop vite augmente le risque d'erreurs.
-                  </p>
-                </div>
-              )}
-            </div>
-            
-            <p className="text-lg text-primary-foreground/80">
-              Voici l'accompagnement qui te correspond
-            </p>
-            
-            {/* Premium red arrow */}
-            <div className="mt-6 flex justify-center animate-bounce">
-              <div className="bg-red-500 rounded-full p-3 shadow-lg shadow-red-500/30">
-                <ChevronDown className="w-6 h-6 text-white" strokeWidth={3} />
+              <h3 className="text-lg font-semibold text-accent mb-4">Ton point de départ</h3>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="border-b border-primary-foreground/20">
+                      <th className="py-3 pr-4 text-primary-foreground/70 font-medium text-sm">Élément</th>
+                      <th className="py-3 text-primary-foreground/70 font-medium text-sm">Lecture NousProprio</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-primary-foreground">
+                    <tr className="border-b border-primary-foreground/10">
+                      <td className="py-4 pr-4 font-medium text-accent/90">Ta situation actuelle</td>
+                      <td className="py-4">
+                        {answers.situation_actuelle || "Non renseigné"} — {getSituationReading()}
+                      </td>
+                    </tr>
+                    <tr className="border-b border-primary-foreground/10">
+                      <td className="py-4 pr-4 font-medium text-accent/90">Ton intention profonde</td>
+                      <td className="py-4">
+                        {answers.benefice || "Non renseigné"}
+                      </td>
+                    </tr>
+                    <tr className="border-b border-primary-foreground/10">
+                      <td className="py-4 pr-4 font-medium text-accent/90">Ton rapport à l'investissement</td>
+                      <td className="py-4">
+                        Tu ressens surtout {answers.ressenti?.toLowerCase() || "des doutes"}
+                      </td>
+                    </tr>
+                    <tr className="border-b border-primary-foreground/10">
+                      <td className="py-4 pr-4 font-medium text-accent/90">Ton principal blocage</td>
+                      <td className="py-4">
+                        {answers.frein || "Non renseigné"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 pr-4 font-medium text-accent/90">Ton horizon de passage à l'action</td>
+                      <td className="py-4">
+                        {answers.horizon || "Non renseigné"}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
