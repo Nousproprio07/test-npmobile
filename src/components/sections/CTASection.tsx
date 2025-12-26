@@ -15,7 +15,7 @@ const CTASection = () => {
         <div className="max-w-2xl mx-auto text-center">
         <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
             Ta direction ne dépend pas de ta chance,<br />
-            <span className="text-accent">mais de tes décisions.</span>
+            <span className="text-[#99c5ff]">mais de tes décisions.</span>
           </h2>
           
           <p className="text-lg text-primary-foreground/80 mb-8">
