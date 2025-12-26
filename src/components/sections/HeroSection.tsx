@@ -89,12 +89,12 @@ const HeroSection = () => {
             Un diagnostic intelligent pour comprendre où tu en es et savoir quoi faire maintenant.
           </p>
 
-          {/* 3 bénéfices clés - stacked on mobile with nice cards */}
-          <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-6 justify-center mb-8 md:mb-10 animate-fade-up-delay-2 px-4 sm:px-0">
+          {/* 3 bénéfices clés - stacked layout for all screens */}
+          <div className="flex flex-col gap-2.5 justify-center mb-8 md:mb-10 animate-fade-up-delay-2 px-4 max-w-md mx-auto">
             {benefits.map((benefit, index) => (
               <div 
                 key={index}
-                className="flex items-center gap-3 text-primary-foreground bg-primary-foreground/10 backdrop-blur-sm rounded-xl px-4 py-3 sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:rounded-none"
+                className="flex items-center gap-3 text-primary-foreground bg-primary-foreground/10 backdrop-blur-sm rounded-xl px-4 py-3"
               >
                 <span className="flex-shrink-0 w-5 h-5 rounded-full bg-glacier flex items-center justify-center">
                   <Check className="w-3 h-3 text-glacier-foreground" strokeWidth={3} />
@@ -104,13 +104,13 @@ const HeroSection = () => {
             ))}
           </div>
 
-          {/* CTA Button - prominent on mobile */}
-          <div className="flex justify-center animate-fade-up-delay-3 px-4">
-            <Link to="/questionnaire" className="w-full sm:w-auto">
+          {/* CTA Button - same style for all screens */}
+          <div className="flex justify-center animate-fade-up-delay-3 px-4 max-w-md mx-auto">
+            <Link to="/questionnaire" className="w-full">
               <Button 
                 variant="glacier" 
                 size="lg" 
-                className="group w-full text-base sm:text-lg py-6 sm:py-4 rounded-2xl sm:rounded-xl"
+                className="group w-full text-base py-6 rounded-2xl"
               >
                 Démarrer mon diagnostic
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0 ml-1" />
