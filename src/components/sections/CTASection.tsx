@@ -23,7 +23,7 @@ const CTASection = () => {
           </p>
 
           <Link to="/questionnaire">
-            <Button size="xl" className="group mb-4 bg-glacier-400 hover:bg-glacier-500 text-np-blue font-bold animate-pulse-glow">
+            <Button size="xl" className="group mb-4 bg-[#99c5ff] hover:bg-[#7ab3ff] text-np-blue font-bold animate-pulse-glow">
               Commencer
               <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
             </Button>
