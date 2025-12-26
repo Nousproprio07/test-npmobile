@@ -25,7 +25,7 @@ const steps = [
 
 const OffreSection = () => {
   return (
-    <section className="relative py-20 md:py-32 bg-background overflow-hidden">
+    <section className="relative py-14 md:py-20 bg-background overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 right-0 w-96 h-96 bg-glacier/10 rounded-full blur-3xl" />
@@ -34,7 +34,7 @@ const OffreSection = () => {
 
       <div className="container relative z-10">
         {/* Header */}
-        <div className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-10 md:mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
             <Compass className="w-4 h-4 text-primary" />
             <span className="text-primary text-sm font-medium">La méthode</span>
@@ -51,8 +51,8 @@ const OffreSection = () => {
         </div>
 
         {/* Steps */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <div className="grid gap-6 md:gap-8">
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="grid gap-4 md:gap-6">
             {steps.map((step, index) => (
               <div
                 key={index}
