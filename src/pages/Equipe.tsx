@@ -170,11 +170,11 @@ const Equipe = () => {
             <h2 className="font-display text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
               Ta direction ne dépend pas de ta chance,
               <br />
-              <span className="text-accent">mais de tes décisions.</span>
+              <span className="text-glacier">mais de tes décisions.</span>
             </h2>
             <Link to="/questionnaire">
-              <Button variant="hero" size="lg">
-                Réponds à notre questionnaire interactif
+              <Button variant="glacier" size="lg">
+                Démarrer mon diagnostic
               </Button>
             </Link>
           </div>
