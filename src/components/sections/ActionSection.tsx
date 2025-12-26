@@ -18,7 +18,7 @@ const ActionSection = () => {
     },
     {
       icon: MessageCircle,
-      title: "Sessions Q&A en live",
+      title: "Sessions FAQ en live",
       description: "Chaque semaine pour débloquer tes points de friction",
       gradient: "from-glacier-500 to-glacier-300",
       bgGlow: "bg-glacier-400/20",
