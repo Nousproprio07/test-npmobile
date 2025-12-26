@@ -77,7 +77,7 @@ const EquipeSection = () => {
               <p className="text-xl md:text-2xl font-bold">
                 <span className="text-[hsl(var(--np-blue))]">celle du terrain</span>
                 <span className="text-muted-foreground mx-2">et</span>
-                <span className="text-[hsl(var(--np-blue))]">celle de la banque</span>
+                <span className="text-glacier-foreground bg-glacier/30 px-2 py-1 rounded-lg">celle de la banque</span>
               </p>
             </div>
 
