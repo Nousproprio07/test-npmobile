@@ -149,6 +149,10 @@ const Questionnaire = () => {
       setShowEncouragement(encouragementMessage);
       setTimeout(() => setShowEncouragement(null), 2500);
     }
+  };
+
+  const handleNext = () => {
+    const questionId = currentQuestion.id;
     
     if (currentStep < totalSteps - 1) {
       setIsAnimating(true);
@@ -161,7 +165,7 @@ const Questionnaire = () => {
       // Show encouragement for last question
       setShowEncouragement("Merci ! Ta feuille de route arrive... ✨");
       setTimeout(() => {
-        navigate("/resultat", { state: { answers: { ...answers, [questionId]: answer } } });
+        navigate("/resultat", { state: { answers } });
       }, 2000);
     }
   };
@@ -349,7 +353,7 @@ const Questionnaire = () => {
                       className={`w-full text-left p-4 rounded-xl border transition-all duration-200 group ${
                         isSelected 
                           ? 'bg-[#99c5ff]/20 border-[#99c5ff] text-[#99c5ff]' 
-                          : 'bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:border-accent/50'
+                          : 'bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:border-[#99c5ff]/50'
                       }`}
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
@@ -357,13 +361,25 @@ const Questionnaire = () => {
                         {option}
                         <ArrowRight className={`w-5 h-5 transition-all ${
                           isSelected 
-                            ? 'opacity-100 translate-x-0' 
+                            ? 'opacity-100 translate-x-0 text-[#99c5ff]' 
                             : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
                         }`} />
                       </span>
                     </button>
                   );
                 })}
+
+                {/* Bouton Suivant - seulement si une réponse est sélectionnée et pas dernière question */}
+                {answers[currentQuestion.id] && currentStep < totalSteps - 1 && (
+                  <Button
+                    size="lg"
+                    onClick={handleNext}
+                    className="w-full mt-4 group bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold"
+                  >
+                    Suivant
+                    <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                )}
               </div>
             )}
           </div>
