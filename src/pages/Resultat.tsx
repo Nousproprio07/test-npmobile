@@ -26,8 +26,8 @@ const Resultat = () => {
     const objectif = answers.objectif;
     const benefice = answers.benefice;
     
-    // Pack Patrimoine Actif - Investissement
-    if (objectif === "Investir pour générer des revenus") {
+    // Pack Patrimoine Actif - Investissement / Patrimoine long terme
+    if (objectif === "Investir pour générer un patrimoine et des revenus" || objectif === "Développer mon patrimoine sur le long terme") {
       return {
         type: "Patrimoine Actif",
         tagline: "Investis pour générer des revenus",
@@ -43,42 +43,8 @@ const Resultat = () => {
       };
     }
     
-    // Pack Résidence Essentiel - Résidence principale
-    if (objectif === "Acheter ma résidence principale") {
-      return {
-        type: "Résidence Essentiel",
-        tagline: "Ton premier chez-toi, en toute confiance",
-        description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
-        features: [
-          "Simulation personnalisée de ta capacité d'emprunt",
-          "Accompagnement dans les démarches bancaires",
-          "Guide complet pour négocier ton premier achat",
-          "Accès aux lives privés hebdomadaires"
-        ],
-        price: "297€",
-        priceDetail: "Paiement unique"
-      };
-    }
-    
-    // Pack "Les deux" - On regarde le bénéfice pour trancher
-    if (objectif === "Les deux : habiter et investir à terme") {
-      // Si orienté revenus → Patrimoine Actif
-      if (benefice === "Gagner un complément de revenu" || benefice === "Ne plus dépendre uniquement de mon salaire") {
-        return {
-          type: "Patrimoine Actif",
-          tagline: "Investis pour générer des revenus",
-          description: "Construis un patrimoine qui travaille pour toi grâce à l'investissement locatif intelligent.",
-          features: [
-            "Stratégie locative personnalisée",
-            "Analyse de rentabilité sur-mesure",
-            "Coaching individuel mensuel",
-            "Accès prioritaire à nos experts bancaires"
-          ],
-          price: "497€",
-          priceDetail: "Paiement unique"
-        };
-      }
-      // Sinon (sécurité) → Résidence Essentiel
+    // Pack Résidence Essentiel - Sérénité
+    if (objectif === "Avoir mon propre bien pour être serein sur l'avenir") {
       return {
         type: "Résidence Essentiel",
         tagline: "Ton premier chez-toi, en toute confiance",
