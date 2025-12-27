@@ -264,7 +264,7 @@ const AchatAccompagnement = () => {
                 <Sparkles className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <span className="text-xs font-semibold text-accent uppercase tracking-wide">Ton accompagnement</span>
+                <span className="text-xs font-semibold text-glacier uppercase tracking-wide">Ton accompagnement</span>
                 <h1 className="font-display text-lg font-bold text-foreground">{accompaniment.type}</h1>
               </div>
             </div>
@@ -280,7 +280,7 @@ const AchatAccompagnement = () => {
           {/* Modules section */}
           <div className={`mb-6 transition-all duration-500 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="flex items-center gap-2 mb-4">
-              <Play className="w-5 h-5 text-accent" />
+              <Play className="w-5 h-5 text-glacier" />
               <h2 className="font-display text-lg font-bold text-foreground">Ce qui t'attend</h2>
               <span className="ml-auto text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
                 {moduleCategories.reduce((acc, cat) => acc + cat.modules.length, 0)} modules
@@ -302,15 +302,15 @@ const AchatAccompagnement = () => {
                       onClick={() => toggleCategory(category.id)}
                       className="w-full p-4 flex items-center gap-3 text-left hover:bg-muted/30 transition-colors"
                     >
-                      <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-5 h-5 text-accent" />
+                      <div className="w-10 h-10 rounded-lg bg-glacier/10 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5 text-glacier" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-foreground text-sm">{category.title}</h3>
                         <p className="text-xs text-muted-foreground">{category.subtitle}</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-accent font-medium">{category.modules.length} modules</span>
+                        <span className="text-xs text-glacier font-medium">{category.modules.length} modules</span>
                         {isExpanded ? (
                           <ChevronUp className="w-4 h-4 text-muted-foreground" />
                         ) : (
@@ -327,7 +327,7 @@ const AchatAccompagnement = () => {
                             key={moduleIndex}
                             className="flex items-center gap-2 pl-2"
                           >
-                            <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" />
+                            <CheckCircle2 className="w-4 h-4 text-glacier flex-shrink-0" />
                             <span className="text-sm text-muted-foreground">{module}</span>
                           </div>
                         ))}
@@ -342,7 +342,7 @@ const AchatAccompagnement = () => {
           {/* FAQ section */}
           <div className={`mb-6 transition-all duration-500 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="flex items-center gap-2 mb-4">
-              <HelpCircle className="w-5 h-5 text-accent" />
+              <HelpCircle className="w-5 h-5 text-glacier" />
               <h2 className="font-display text-lg font-bold text-foreground">Questions fréquentes</h2>
             </div>
 
@@ -367,7 +367,7 @@ const AchatAccompagnement = () => {
           {/* Sticky bottom CTAs */}
           <div className={`sticky bottom-0 bg-background pt-4 pb-6 -mx-4 px-4 border-t border-border transition-all duration-500 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="flex flex-col gap-3">
-              <Button variant="cta" size="lg" className="w-full group">
+              <Button variant="glacier" size="lg" className="w-full group">
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Acheter maintenant • {accompaniment.price}
               </Button>
