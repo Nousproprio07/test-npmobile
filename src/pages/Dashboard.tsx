@@ -12,7 +12,10 @@ import {
   CheckCircle2,
   Lock,
   LogOut,
-  User
+  User,
+  Video,
+  Calendar,
+  Bell
 } from "lucide-react";
 
 // Mock data
@@ -69,8 +72,15 @@ const coursSupplementaires = [
   { id: 3, title: "Optimiser sa fiscalité", duration: "45 min", new: false },
 ];
 
+// Mock data pour la prochaine session FAQ
+const prochaineFAQ = {
+  date: "Jeudi 2 Janvier",
+  heure: "19h00",
+  lienVisio: "https://meet.google.com/abc-defg-hij"
+};
+
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState<"formation" | "bloc1" | "bloc3" | "bonus">("formation");
+  const [activeTab, setActiveTab] = useState<"formation" | "bloc1" | "bloc3" | "bonus" | "faq">("formation");
   const modules = formationModules[mockUser.formation as keyof typeof formationModules] || [];
   const currentModuleData = modules.find(m => m.current);
 
@@ -78,19 +88,30 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="bg-card border-b border-border sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="text-2xl font-display font-bold text-primary">
-            NouveauPatrimoine
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <User className="w-4 h-4" />
-              <span className="hidden sm:inline">{mockUser.firstName} {mockUser.lastName}</span>
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="text-2xl font-display font-bold text-primary">
+              NouveauPatrimoine
+            </Link>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <User className="w-4 h-4" />
+                <span className="hidden sm:inline">{mockUser.firstName} {mockUser.lastName}</span>
+              </div>
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive">
+                <LogOut className="w-4 h-4 mr-2" />
+                <span className="hidden sm:inline">Déconnexion</span>
+              </Button>
             </div>
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive">
-              <LogOut className="w-4 h-4 mr-2" />
-              <span className="hidden sm:inline">Déconnexion</span>
-            </Button>
+          </div>
+          
+          {/* Notification prochaine session */}
+          <div className="mt-3 flex items-center justify-end">
+            <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-lg px-3 py-2 text-sm">
+              <Bell className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-muted-foreground">Prochaine FAQ live :</span>
+              <span className="font-semibold text-primary">{prochaineFAQ.date} à {prochaineFAQ.heure}</span>
+            </div>
           </div>
         </div>
       </header>
@@ -133,6 +154,7 @@ const Dashboard = () => {
             { id: "bloc1", label: "Ton point de départ" },
             { id: "bloc3", label: "Bloc 3 - Outils" },
             { id: "bonus", label: "Cours Bonus" },
+            { id: "faq", label: "Session FAQ live" },
           ].map((tab) => (
             <Button
               key={tab.id}
@@ -319,6 +341,101 @@ const Dashboard = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "faq" && (
+          <div className="space-y-6">
+            <h3 className="text-xl font-display font-semibold text-foreground mb-4">
+              Sessions FAQ live
+            </h3>
+            
+            {/* Prochaine session */}
+            <Card className="border-primary bg-gradient-to-r from-primary/10 to-primary/5">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center">
+                      <Video className="w-7 h-7 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <span className="inline-block px-2 py-1 text-xs font-medium bg-green-500/20 text-green-600 rounded-full mb-2">
+                        Prochaine session
+                      </span>
+                      <h4 className="text-lg font-semibold text-foreground">FAQ live avec l'équipe</h4>
+                      <div className="flex items-center gap-4 text-muted-foreground mt-1">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {prochaineFAQ.date}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {prochaineFAQ.heure}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <Button 
+                    size="lg" 
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                    onClick={() => window.open(prochaineFAQ.lienVisio, '_blank')}
+                  >
+                    <Video className="w-5 h-5 mr-2" />
+                    Rejoindre la session
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Informations sur les sessions */}
+            <Card>
+              <CardContent className="p-6">
+                <h4 className="text-lg font-semibold text-foreground mb-4">À propos des sessions FAQ</h4>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <span>Posez toutes vos questions en direct à notre équipe d'experts</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <span>Sessions hebdomadaires réservées aux membres</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <span>Replays disponibles si vous ne pouvez pas assister en direct</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Replays */}
+            <div>
+              <h4 className="text-lg font-semibold text-foreground mb-4">Replays des sessions précédentes</h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                {[
+                  { id: 1, title: "FAQ #12 - Fiscalité et optimisation", date: "19 Dec 2024", duration: "1h 15" },
+                  { id: 2, title: "FAQ #11 - Négociation immobilière", date: "12 Dec 2024", duration: "58 min" },
+                  { id: 3, title: "FAQ #10 - Financement bancaire", date: "5 Dec 2024", duration: "1h 02" },
+                ].map((replay) => (
+                  <Card key={replay.id} className="hover:border-primary/50 transition-all cursor-pointer group">
+                    <CardContent className="p-4 flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                        <Play className="w-6 h-6 text-muted-foreground group-hover:text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-foreground group-hover:text-primary transition-colors">
+                          {replay.title}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {replay.date} • {replay.duration}
+                        </p>
+                      </div>
+                      <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         )}
