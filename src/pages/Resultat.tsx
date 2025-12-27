@@ -149,13 +149,13 @@ const Resultat = () => {
                     <tr className="border-b border-primary-foreground/10">
                       <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton rapport à l'investissement</td>
                       <td className="py-4">
-                        Tu ressens surtout {answers.ressenti?.toLowerCase() || "des doutes"}
+                        Tu ressens surtout {Array.isArray(answers.ressenti) ? answers.ressenti.map(r => r.toLowerCase()).join(", ") : (answers.ressenti?.toLowerCase() || "des doutes")}
                       </td>
                     </tr>
                     <tr className="border-b border-primary-foreground/10">
                       <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton principal blocage</td>
                       <td className="py-4">
-                        {answers.frein || "Non renseigné"}
+                        {Array.isArray(answers.frein) ? answers.frein.join(", ") : (answers.frein || "Non renseigné")}
                       </td>
                     </tr>
                     <tr>
