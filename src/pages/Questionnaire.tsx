@@ -30,21 +30,30 @@ const questions: Question[] = [
     ]
   },
   {
+    id: "objectif",
+    stepTitle: "Étape 2 – Ton objectif immobilier",
+    question: "Quel est ton objectif principal aujourd'hui ?",
+    type: "single",
+    options: [
+      "Acheter ma résidence principale",
+      "Investir pour générer des revenus",
+      "Les deux : habiter et investir à terme"
+    ]
+  },
+  {
     id: "benefice",
-    stepTitle: "Étape 2 – Ce que ce projet changerait vraiment pour toi",
+    stepTitle: "Étape 3 – Ce que ce projet changerait vraiment pour toi",
     question: "Si ce projet aboutissait, qu'est-ce que ça t'apporterait avant tout ?",
     type: "single",
     options: [
       "Me sentir plus en sécurité financièrement",
       "Gagner un complément de revenu",
-      "Ne plus dépendre uniquement de mon salaire",
-      "Comprendre comment fonctionnent les investisseurs",
-      "Me prouver que j'en suis capable"
+      "Ne plus dépendre uniquement de mon salaire"
     ]
   },
   {
     id: "ressenti",
-    stepTitle: "Étape 3 – Ton ressenti face à l'investissement",
+    stepTitle: "Étape 4 – Ton ressenti face à l'investissement",
     question: "Quand tu penses à investir, tu ressens surtout…",
     type: "single",
     options: [
@@ -56,7 +65,7 @@ const questions: Question[] = [
   },
   {
     id: "frein",
-    stepTitle: "Étape 4 – Ce qui te freine aujourd'hui",
+    stepTitle: "Étape 5 – Ce qui te freine aujourd'hui",
     question: "Qu'est-ce qui t'empêche le plus d'avancer ?",
     type: "single",
     options: [
@@ -68,7 +77,7 @@ const questions: Question[] = [
   },
   {
     id: "situation_pro",
-    stepTitle: "Étape 5 – Ta situation actuelle",
+    stepTitle: "Étape 6 – Ta situation actuelle",
     question: "Pour adapter cette direction à ta réalité quotidienne, tu es plutôt…",
     type: "single",
     options: [
@@ -79,7 +88,7 @@ const questions: Question[] = [
   },
   {
     id: "horizon",
-    stepTitle: "Étape 6 – Ton horizon de passage à l'action",
+    stepTitle: "Étape 7 – Ton horizon de passage à l'action",
     question: "Tu aimerais avancer sérieusement dans…",
     type: "single",
     options: [
@@ -90,7 +99,7 @@ const questions: Question[] = [
   },
   {
     id: "capacite",
-    stepTitle: "Étape 7 – Ta capacité aujourd'hui (sans jargon)",
+    stepTitle: "Étape 8 – Ta capacité aujourd'hui (sans jargon)",
     question: "Aujourd'hui, arrives-tu à mettre un peu d'argent de côté chaque mois ?",
     type: "single",
     options: [
@@ -101,7 +110,7 @@ const questions: Question[] = [
   },
   {
     id: "prenom",
-    stepTitle: "Étape 8 – Faisons connaissance",
+    stepTitle: "Étape 9 – Faisons connaissance",
     question: "Quel est ton prénom ?",
     description: "Chez NousProprio, on ne te parle pas comme à un numéro.\nOn préfère t'accompagner comme une vraie personne, avec ton histoire et tes objectifs.",
     type: "text",
@@ -230,7 +239,7 @@ const Questionnaire = () => {
               
               <div className="text-left mb-8">
                 <p className="text-primary-foreground/90 text-lg mb-4">
-                  <strong className="text-primary-foreground">8 questions</strong> pour :
+                  <strong className="text-primary-foreground">9 questions</strong> pour :
                 </p>
                 <ul className="space-y-2 text-primary-foreground/80">
                   <li className="flex items-start gap-2">

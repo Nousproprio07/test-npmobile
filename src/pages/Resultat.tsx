@@ -24,26 +24,10 @@ const Resultat = () => {
   // Determine accompaniment based on answers
   const getAccompaniment = () => {
     const objectif = answers.objectif;
+    const benefice = answers.benefice;
     
-    // Pack Résidentiel - Résidence principale
-    if (objectif === "Avoir une résidence principale") {
-      return {
-        type: "Résidence Essentiel",
-        tagline: "Ton premier chez-toi, en toute confiance",
-        description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
-        features: [
-          "Simulation personnalisée de ta capacité d'emprunt",
-          "Accompagnement dans les démarches bancaires",
-          "Guide complet pour négocier ton premier achat",
-          "Accès aux lives privés hebdomadaires"
-        ],
-        price: "297€",
-        priceDetail: "Paiement unique"
-      };
-    }
-    
-    // Pack Investir - Constitution de patrimoine ou revenus complémentaires
-    if (objectif === "Me constituer un patrimoine" || objectif === "Générer des revenus complémentaires") {
+    // Pack Patrimoine Actif - Investissement
+    if (objectif === "Investir pour générer des revenus") {
       return {
         type: "Patrimoine Actif",
         tagline: "Investis pour générer des revenus",
@@ -59,18 +43,69 @@ const Resultat = () => {
       };
     }
     
-    // Pack Global - Retraite, transmission, ou autres
+    // Pack Résidence Essentiel - Résidence principale
+    if (objectif === "Acheter ma résidence principale") {
+      return {
+        type: "Résidence Essentiel",
+        tagline: "Ton premier chez-toi, en toute confiance",
+        description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
+        features: [
+          "Simulation personnalisée de ta capacité d'emprunt",
+          "Accompagnement dans les démarches bancaires",
+          "Guide complet pour négocier ton premier achat",
+          "Accès aux lives privés hebdomadaires"
+        ],
+        price: "297€",
+        priceDetail: "Paiement unique"
+      };
+    }
+    
+    // Pack "Les deux" - On regarde le bénéfice pour trancher
+    if (objectif === "Les deux : habiter et investir à terme") {
+      // Si orienté revenus → Patrimoine Actif
+      if (benefice === "Gagner un complément de revenu" || benefice === "Ne plus dépendre uniquement de mon salaire") {
+        return {
+          type: "Patrimoine Actif",
+          tagline: "Investis pour générer des revenus",
+          description: "Construis un patrimoine qui travaille pour toi grâce à l'investissement locatif intelligent.",
+          features: [
+            "Stratégie locative personnalisée",
+            "Analyse de rentabilité sur-mesure",
+            "Coaching individuel mensuel",
+            "Accès prioritaire à nos experts bancaires"
+          ],
+          price: "497€",
+          priceDetail: "Paiement unique"
+        };
+      }
+      // Sinon (sécurité) → Résidence Essentiel
+      return {
+        type: "Résidence Essentiel",
+        tagline: "Ton premier chez-toi, en toute confiance",
+        description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
+        features: [
+          "Simulation personnalisée de ta capacité d'emprunt",
+          "Accompagnement dans les démarches bancaires",
+          "Guide complet pour négocier ton premier achat",
+          "Accès aux lives privés hebdomadaires"
+        ],
+        price: "297€",
+        priceDetail: "Paiement unique"
+      };
+    }
+    
+    // Fallback par défaut → Résidence Essentiel
     return {
-      type: "Stratégie Globale",
-      tagline: "Une vision 360° de ton patrimoine",
-      description: "Un accompagnement complet pour structurer et optimiser ta stratégie patrimoniale sur le long terme.",
+      type: "Résidence Essentiel",
+      tagline: "Ton premier chez-toi, en toute confiance",
+      description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
       features: [
-        "Bilan patrimonial personnalisé",
-        "Stratégie multi-objectifs (patrimoine, retraite, transmission)",
-        "Coaching hebdomadaire individuel",
-        "Accès illimité à notre réseau de professionnels"
+        "Simulation personnalisée de ta capacité d'emprunt",
+        "Accompagnement dans les démarches bancaires",
+        "Guide complet pour négocier ton premier achat",
+        "Accès aux lives privés hebdomadaires"
       ],
-      price: "797€",
+      price: "297€",
       priceDetail: "Paiement unique"
     };
   };
