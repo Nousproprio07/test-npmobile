@@ -273,7 +273,7 @@ const Questionnaire = () => {
               
               <div className="text-left mb-8">
                 <p className="text-primary-foreground/90 text-lg mb-4">
-                  <strong className="text-primary-foreground">9 questions</strong> pour :
+                  <strong className="text-primary-foreground">8 questions</strong> pour :
                 </p>
                 <ul className="space-y-2 text-primary-foreground/80">
                   <li className="flex items-start gap-2">
