@@ -46,7 +46,8 @@ const questions: Question[] = [
     id: "ressenti",
     stepTitle: "Étape 3 – Ton ressenti face à l'investissement",
     question: "Quand tu penses à investir, tu ressens surtout…",
-    type: "single",
+    type: "multi",
+    maxSelections: 2,
     options: [
       "De l'excitation",
       "De la peur de faire une erreur",
@@ -58,7 +59,8 @@ const questions: Question[] = [
     id: "frein",
     stepTitle: "Étape 4 – Ce qui te freine aujourd'hui",
     question: "Qu'est-ce qui t'empêche le plus d'avancer ?",
-    type: "single",
+    type: "multi",
+    maxSelections: 2,
     options: [
       "Je ne comprends pas les chiffres",
       "J'ai peur de la banque",
