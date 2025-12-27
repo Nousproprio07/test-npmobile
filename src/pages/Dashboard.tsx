@@ -47,11 +47,15 @@ const formationModules = {
   ]
 };
 
-const bloc1Content = [
-  { id: 1, title: "Guide du premier achat", type: "PDF", icon: FileText },
-  { id: 2, title: "Checklist visite immobilière", type: "PDF", icon: FileText },
-  { id: 3, title: "Simulateur de capacité d'emprunt", type: "Outil", icon: BookOpen },
-];
+// Mock data pour "Ton point de départ" basé sur les réponses utilisateur
+const pointDeDepartData = {
+  situation_actuelle: "J'ai repéré quelques annonces mais je ne sais pas par où commencer",
+  situationReading: "Tu explores activement le marché mais manques de méthodologie",
+  benefice: ["Développer un patrimoine sur le long terme", "Investir pour générer un patrimoine et des revenus"],
+  ressenti: ["De l'excitation", "Du doute"],
+  frein: ["Je ne sais pas par où commencer", "Je manque de temps pour m'en occuper"],
+  horizon: "Dans les 6 prochains mois"
+};
 
 const bloc3Content = [
   { id: 1, title: "Masterclass Négociation", type: "Vidéo", icon: Play },
@@ -125,8 +129,8 @@ const Dashboard = () => {
         {/* Navigation Tabs */}
         <div className="flex flex-wrap gap-2 mb-6 border-b border-border pb-4">
           {[
-            { id: "formation", label: "Ma Formation" },
-            { id: "bloc1", label: "Bloc 1 - Ressources" },
+            { id: "formation", label: "Ma feuille de route" },
+            { id: "bloc1", label: "Ton point de départ" },
             { id: "bloc3", label: "Bloc 3 - Outils" },
             { id: "bonus", label: "Cours Bonus" },
           ].map((tab) => (
@@ -145,7 +149,7 @@ const Dashboard = () => {
         {activeTab === "formation" && (
           <div className="space-y-4">
             <h3 className="text-xl font-display font-semibold text-foreground mb-4">
-              Sommaire - {mockUser.formation}
+              Ma feuille de route — {mockUser.formation}
             </h3>
             <div className="grid gap-3">
               {modules.map((module, index) => (
@@ -205,26 +209,59 @@ const Dashboard = () => {
         {activeTab === "bloc1" && (
           <div className="space-y-4">
             <h3 className="text-xl font-display font-semibold text-foreground mb-4">
-              Bloc 1 - Ressources de démarrage
+              Ton point de départ
             </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {bloc1Content.map((item) => (
-                <Card key={item.id} className="hover:border-primary/50 transition-all cursor-pointer group">
-                  <CardContent className="p-6 flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <item.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-foreground group-hover:text-primary transition-colors">
-                        {item.title}
-                      </p>
-                      <p className="text-sm text-muted-foreground">{item.type}</p>
-                    </div>
-                    <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <p className="text-muted-foreground mb-6">
+              D'après tes réponses, tu n'es pas en train de "chercher un investissement".<br />
+              <strong className="text-foreground">Tu cherches une trajectoire claire.</strong>
+            </p>
+            
+            <Card className="border-primary/20">
+              <CardContent className="p-6">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="py-3 pr-4 text-muted-foreground font-medium text-sm">Élément</th>
+                        <th className="py-3 text-muted-foreground font-medium text-sm">Lecture NousProprio</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-foreground">
+                      <tr className="border-b border-border/50">
+                        <td className="py-4 pr-4 font-bold text-primary">Ta situation actuelle</td>
+                        <td className="py-4">
+                          {pointDeDepartData.situation_actuelle} — <strong>{pointDeDepartData.situationReading}</strong>
+                        </td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-4 pr-4 font-bold text-primary">Ton intention profonde</td>
+                        <td className="py-4">
+                          {pointDeDepartData.benefice.join(", ")}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-4 pr-4 font-bold text-primary">Ton rapport à l'investissement</td>
+                        <td className="py-4">
+                          Tu ressens surtout {pointDeDepartData.ressenti.map(r => r.toLowerCase()).join(", ")}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-4 pr-4 font-bold text-primary">Ton principal blocage</td>
+                        <td className="py-4">
+                          {pointDeDepartData.frein.join(", ")}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="py-4 pr-4 font-bold text-primary">Ton horizon de passage à l'action</td>
+                        <td className="py-4">
+                          {pointDeDepartData.horizon}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
 
