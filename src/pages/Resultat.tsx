@@ -235,7 +235,6 @@ const Resultat = () => {
                   <strong className="text-primary">
                     {accompaniment.type === "Résidence Essentiel" ? "Clarifier ce que tu veux vraiment construire" : "Comprendre comment créer des revenus immobiliers"}
                   </strong>
-                  <span className="text-muted-foreground text-sm ml-2">(Niveau de clarté)</span>
                 </span>
               </li>
               <li className="flex items-start gap-3">
@@ -244,7 +243,6 @@ const Resultat = () => {
                   <strong className="text-primary">
                     {accompaniment.type === "Résidence Essentiel" ? "Structurer ton projet avant d'acheter" : "Choisir une stratégie adaptée à ton profil"}
                   </strong>
-                  <span className="text-muted-foreground text-sm ml-2">(Frein principal)</span>
                 </span>
               </li>
               <li className="flex items-start gap-3">
@@ -253,7 +251,6 @@ const Resultat = () => {
                   <strong className="text-primary">
                     {accompaniment.type === "Résidence Essentiel" ? "Faire des choix qui ont du sens pour ton avenir" : "Sécuriser tes premières décisions d'investisseur"}
                   </strong>
-                  <span className="text-muted-foreground text-sm ml-2">(Capacité + Horizon)</span>
                 </span>
               </li>
             </ul>
@@ -295,7 +292,7 @@ const Resultat = () => {
             <p className="text-lg md:text-xl text-[#99c5ff] font-semibold mb-8">
               Direction : {accompaniment.type === "Résidence Essentiel" 
                 ? "devenir propriétaire intelligemment avant de penser investissement" 
-                : "créer un revenu immobilier et ne plus dépendre uniquement de ton salaire"}
+                : "Comprendre comment créer son patrimoine et des revenus immobiliers"}
             </p>
 
             {/* Recommendation card - THE BIG REVEAL */}
