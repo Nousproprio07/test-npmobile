@@ -1,0 +1,293 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { 
+  Play, 
+  BookOpen, 
+  FileText, 
+  ChevronRight, 
+  Clock, 
+  CheckCircle2,
+  Lock,
+  LogOut,
+  User
+} from "lucide-react";
+
+// Mock data
+const mockUser = {
+  firstName: "Jean",
+  lastName: "Dupont",
+  email: "jean.dupont@email.com",
+  formation: "Patrimoine Actif", // ou "Résidence Essentiel"
+  progress: 35,
+  currentModule: 2,
+  totalModules: 8
+};
+
+const formationModules = {
+  "Patrimoine Actif": [
+    { id: 1, title: "Introduction au patrimoine actif", duration: "45 min", completed: true },
+    { id: 2, title: "Stratégies d'investissement locatif", duration: "1h 20", completed: false, current: true },
+    { id: 3, title: "Analyse de rentabilité", duration: "55 min", completed: false },
+    { id: 4, title: "Fiscalité immobilière avancée", duration: "1h 10", completed: false },
+    { id: 5, title: "Montage financier optimisé", duration: "1h 30", completed: false },
+    { id: 6, title: "Gestion locative efficace", duration: "50 min", completed: false },
+    { id: 7, title: "Développer son patrimoine", duration: "1h 15", completed: false },
+    { id: 8, title: "Cas pratiques et mise en action", duration: "2h", completed: false },
+  ],
+  "Résidence Essentiel": [
+    { id: 1, title: "Définir son projet résidentiel", duration: "40 min", completed: true },
+    { id: 2, title: "Budget et capacité d'emprunt", duration: "55 min", completed: false, current: true },
+    { id: 3, title: "Recherche et sélection de biens", duration: "1h", completed: false },
+    { id: 4, title: "Négociation et offre d'achat", duration: "45 min", completed: false },
+    { id: 5, title: "Le financement de A à Z", duration: "1h 20", completed: false },
+    { id: 6, title: "Les étapes jusqu'à la signature", duration: "1h", completed: false },
+  ]
+};
+
+const bloc1Content = [
+  { id: 1, title: "Guide du premier achat", type: "PDF", icon: FileText },
+  { id: 2, title: "Checklist visite immobilière", type: "PDF", icon: FileText },
+  { id: 3, title: "Simulateur de capacité d'emprunt", type: "Outil", icon: BookOpen },
+];
+
+const bloc3Content = [
+  { id: 1, title: "Masterclass Négociation", type: "Vidéo", icon: Play },
+  { id: 2, title: "Template offre d'achat", type: "PDF", icon: FileText },
+  { id: 3, title: "Guide fiscal complet", type: "PDF", icon: FileText },
+];
+
+const coursSupplementaires = [
+  { id: 1, title: "Investir en SCPI", duration: "30 min", new: true },
+  { id: 2, title: "Le crowdfunding immobilier", duration: "25 min", new: true },
+  { id: 3, title: "Optimiser sa fiscalité", duration: "45 min", new: false },
+];
+
+const Dashboard = () => {
+  const [activeTab, setActiveTab] = useState<"formation" | "bloc1" | "bloc3" | "bonus">("formation");
+  const modules = formationModules[mockUser.formation as keyof typeof formationModules] || [];
+  const currentModuleData = modules.find(m => m.current);
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="bg-card border-b border-border sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link to="/" className="text-2xl font-display font-bold text-primary">
+            NouveauPatrimoine
+          </Link>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <User className="w-4 h-4" />
+              <span className="hidden sm:inline">{mockUser.firstName} {mockUser.lastName}</span>
+            </div>
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive">
+              <LogOut className="w-4 h-4 mr-2" />
+              <span className="hidden sm:inline">Déconnexion</span>
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-8">
+        {/* Welcome Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2">
+            Bonjour {mockUser.firstName} 👋
+          </h1>
+          <p className="text-muted-foreground">
+            Continuez votre progression dans <span className="text-primary font-semibold">{mockUser.formation}</span>
+          </p>
+        </div>
+
+        {/* Progress Card */}
+        <Card className="mb-8 bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex-1">
+                <h2 className="text-lg font-semibold text-foreground mb-1">{mockUser.formation}</h2>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Module {mockUser.currentModule} sur {mockUser.totalModules} • {currentModuleData?.title}
+                </p>
+                <Progress value={mockUser.progress} className="h-3" />
+                <p className="text-xs text-muted-foreground mt-2">{mockUser.progress}% complété</p>
+              </div>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Play className="w-5 h-5 mr-2" />
+                Continuer
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Navigation Tabs */}
+        <div className="flex flex-wrap gap-2 mb-6 border-b border-border pb-4">
+          {[
+            { id: "formation", label: "Ma Formation" },
+            { id: "bloc1", label: "Bloc 1 - Ressources" },
+            { id: "bloc3", label: "Bloc 3 - Outils" },
+            { id: "bonus", label: "Cours Bonus" },
+          ].map((tab) => (
+            <Button
+              key={tab.id}
+              variant={activeTab === tab.id ? "default" : "outline"}
+              onClick={() => setActiveTab(tab.id as typeof activeTab)}
+              className={activeTab === tab.id ? "bg-primary text-primary-foreground" : ""}
+            >
+              {tab.label}
+            </Button>
+          ))}
+        </div>
+
+        {/* Content based on active tab */}
+        {activeTab === "formation" && (
+          <div className="space-y-4">
+            <h3 className="text-xl font-display font-semibold text-foreground mb-4">
+              Sommaire - {mockUser.formation}
+            </h3>
+            <div className="grid gap-3">
+              {modules.map((module, index) => (
+                <Card 
+                  key={module.id} 
+                  className={`transition-all ${
+                    module.current 
+                      ? "border-primary bg-primary/5" 
+                      : module.completed 
+                        ? "border-green-500/30 bg-green-500/5" 
+                        : "border-border opacity-70"
+                  }`}
+                >
+                  <CardContent className="p-4 flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                        module.completed 
+                          ? "bg-green-500 text-white" 
+                          : module.current 
+                            ? "bg-primary text-primary-foreground" 
+                            : "bg-muted text-muted-foreground"
+                      }`}>
+                        {module.completed ? (
+                          <CheckCircle2 className="w-5 h-5" />
+                        ) : module.current ? (
+                          <Play className="w-5 h-5" />
+                        ) : (
+                          <Lock className="w-4 h-4" />
+                        )}
+                      </div>
+                      <div>
+                        <p className={`font-medium ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
+                          Module {index + 1}: {module.title}
+                        </p>
+                        <p className="text-sm text-muted-foreground flex items-center gap-1">
+                          <Clock className="w-3 h-3" /> {module.duration}
+                        </p>
+                      </div>
+                    </div>
+                    {(module.completed || module.current) && (
+                      <Button 
+                        variant={module.current ? "default" : "outline"} 
+                        size="sm"
+                        className={module.current ? "bg-primary text-primary-foreground" : ""}
+                      >
+                        {module.current ? "Continuer" : "Revoir"}
+                        <ChevronRight className="w-4 h-4 ml-1" />
+                      </Button>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "bloc1" && (
+          <div className="space-y-4">
+            <h3 className="text-xl font-display font-semibold text-foreground mb-4">
+              Bloc 1 - Ressources de démarrage
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {bloc1Content.map((item) => (
+                <Card key={item.id} className="hover:border-primary/50 transition-all cursor-pointer group">
+                  <CardContent className="p-6 flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <item.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-foreground group-hover:text-primary transition-colors">
+                        {item.title}
+                      </p>
+                      <p className="text-sm text-muted-foreground">{item.type}</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "bloc3" && (
+          <div className="space-y-4">
+            <h3 className="text-xl font-display font-semibold text-foreground mb-4">
+              Bloc 3 - Outils avancés
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {bloc3Content.map((item) => (
+                <Card key={item.id} className="hover:border-primary/50 transition-all cursor-pointer group">
+                  <CardContent className="p-6 flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <item.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-foreground group-hover:text-primary transition-colors">
+                        {item.title}
+                      </p>
+                      <p className="text-sm text-muted-foreground">{item.type}</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "bonus" && (
+          <div className="space-y-4">
+            <h3 className="text-xl font-display font-semibold text-foreground mb-4">
+              Cours supplémentaires
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {coursSupplementaires.map((cours) => (
+                <Card key={cours.id} className="hover:border-primary/50 transition-all cursor-pointer group">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <Play className="w-6 h-6 text-primary" />
+                      </div>
+                      {cours.new && (
+                        <span className="px-2 py-1 text-xs font-medium bg-green-500/20 text-green-600 rounded-full">
+                          Nouveau
+                        </span>
+                      )}
+                    </div>
+                    <p className="font-medium text-foreground group-hover:text-primary transition-colors mb-1">
+                      {cours.title}
+                    </p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-1">
+                      <Clock className="w-3 h-3" /> {cours.duration}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
