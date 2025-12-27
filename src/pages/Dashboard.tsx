@@ -235,7 +235,7 @@ const Dashboard = () => {
                   <User className="w-4 h-4" />
                   <span className="hidden sm:inline">{mockUser.firstName} {mockUser.lastName}</span>
                 </div>
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-glacier-500">
                   <LogOut className="w-4 h-4 mr-2" />
                   <span className="hidden sm:inline">Déconnexion</span>
                 </Button>
@@ -375,7 +375,7 @@ const Dashboard = () => {
                 <User className="w-4 h-4" />
                 <span className="hidden sm:inline">{mockUser.firstName} {mockUser.lastName}</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive">
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-glacier-500">
                 <LogOut className="w-4 h-4 mr-2" />
                 <span className="hidden sm:inline">Déconnexion</span>
               </Button>
