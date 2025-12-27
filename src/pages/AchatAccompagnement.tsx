@@ -367,7 +367,12 @@ const AchatAccompagnement = () => {
           {/* Sticky bottom CTAs */}
           <div className={`sticky bottom-0 bg-background pt-4 pb-6 -mx-4 px-4 border-t border-border transition-all duration-500 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="flex flex-col gap-3">
-              <Button variant="glacier" size="lg" className="w-full group">
+              <Button 
+                variant="glacier" 
+                size="lg" 
+                className="w-full group"
+                onClick={() => navigate("/connexion")}
+              >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Acheter maintenant • {accompaniment.price}
               </Button>
