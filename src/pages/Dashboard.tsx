@@ -226,7 +226,7 @@ const prochaineFAQ = {
 const tabItems = [
   { id: "formation", label: "Ma feuille de route", shortLabel: "Feuille de route" },
   { id: "bloc1", label: "Ton point de départ", shortLabel: "Point de départ" },
-  { id: "bloc3", label: "Bloc 3 - Outils", shortLabel: "Outils" },
+  { id: "bloc3", label: "Outils NousProprio", shortLabel: "Outils" },
   { id: "bonus", label: "Cours Bonus", shortLabel: "Bonus" },
   { id: "faq", label: "Session FAQ live", shortLabel: "FAQ live" },
 ];
@@ -686,6 +686,7 @@ const Dashboard = () => {
         {activeTab === "bloc3" && (
           <div className="space-y-4">
             <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4">
+              Outils NousProprio
               Outils avancés
             </h3>
             <div className="grid gap-3">
