@@ -194,9 +194,10 @@ const bloc3Content = [
 ];
 
 const coursSupplementaires = [
-  { id: 1, title: "Investir en SCPI", duration: "30 min", new: true },
-  { id: 2, title: "Le crowdfunding immobilier", duration: "25 min", new: true },
-  { id: 3, title: "Optimiser sa fiscalité", duration: "45 min", new: false },
+  { id: 1, title: "Investir en SCPI", duration: "30 min", new: true, price: 47, description: "Découvre comment investir dans l'immobilier sans acheter de bien physique grâce aux SCPI." },
+  { id: 2, title: "Le crowdfunding immobilier", duration: "25 min", new: true, price: 37, description: "Comprends le fonctionnement du crowdfunding immobilier et ses opportunités de rendement." },
+  { id: 3, title: "Optimiser sa fiscalité", duration: "45 min", new: false, price: 67, description: "Les meilleures stratégies pour réduire tes impôts grâce à l'immobilier." },
+  { id: 4, title: "Investir à l'étranger", duration: "40 min", new: false, price: 57, description: "Les clés pour réussir ton premier investissement immobilier hors de France." },
 ];
 
 // Mock data pour la prochaine session FAQ
@@ -596,30 +597,50 @@ const Dashboard = () => {
         )}
 
         {activeTab === "bonus" && (
-          <div className="space-y-4">
-            <h3 className="text-xl font-display font-semibold text-foreground mb-4">
-              Cours supplémentaires
-            </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-xl font-display font-semibold text-foreground mb-2">
+                Cours bonus
+              </h3>
+              <p className="text-muted-foreground">
+                Approfondi tes connaissances avec ces formations complémentaires à la carte.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
               {coursSupplementaires.map((cours) => (
-                <Card key={cours.id} className="hover:border-primary/50 transition-all cursor-pointer group">
+                <Card key={cours.id} className="overflow-hidden hover:border-primary/50 transition-all group">
                   <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <Play className="w-6 h-6 text-primary" />
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-[#99c5ff]/20 flex items-center justify-center">
+                        <Play className="w-7 h-7 text-primary" />
                       </div>
-                      {cours.new && (
-                        <span className="px-2 py-1 text-xs font-medium bg-green-500/20 text-green-600 rounded-full">
-                          Nouveau
-                        </span>
-                      )}
+                      <div className="text-right">
+                        {cours.new && (
+                          <span className="inline-block px-2 py-1 text-xs font-medium bg-green-500/20 text-green-600 rounded-full mb-2">
+                            Nouveau
+                          </span>
+                        )}
+                        <p className="text-2xl font-bold text-primary">{cours.price}€</p>
+                      </div>
                     </div>
-                    <p className="font-medium text-foreground group-hover:text-primary transition-colors mb-1">
+                    
+                    <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                       {cours.title}
+                    </h4>
+                    
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {cours.description}
                     </p>
-                    <p className="text-sm text-muted-foreground flex items-center gap-1">
-                      <Clock className="w-3 h-3" /> {cours.duration}
-                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground flex items-center gap-1">
+                        <Clock className="w-4 h-4" /> {cours.duration}
+                      </span>
+                      <Button className="bg-primary hover:bg-[#99c5ff] text-primary-foreground">
+                        Acheter ce cours
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
