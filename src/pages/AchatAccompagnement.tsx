@@ -193,7 +193,7 @@ const faqItems = [
   },
   {
     question: "Comment fonctionne l'accès aux contenus ?",
-    answer: "Dès ton achat, tu accèdes immédiatement à l'ensemble des modules et replays. C'est un accès instantané et illimité à vie."
+    answer: "Le contenu est régulièrement mis à jour. Dès ton achat, tu accèdes immédiatement à l'ensemble des modules et replays. C'est un accès instantané et illimité à vie."
   },
   {
     question: "Recevez-vous des commissions des banques ?",
