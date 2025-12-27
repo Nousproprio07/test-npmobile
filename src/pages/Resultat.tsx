@@ -168,7 +168,7 @@ const Resultat = () => {
                     <tr className="border-b border-primary-foreground/10">
                       <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ta situation actuelle</td>
                       <td className="py-4">
-                        {answers.situation_actuelle || "Non renseigné"} — {getSituationReading()}
+                        {answers.situation_actuelle || "Non renseigné"} — <strong>{getSituationReading()}</strong>
                       </td>
                     </tr>
                     <tr className="border-b border-primary-foreground/10">
