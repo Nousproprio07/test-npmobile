@@ -35,9 +35,9 @@ const questions: Question[] = [
     question: "Quel est ton objectif principal aujourd'hui ?",
     type: "single",
     options: [
-      "Acheter ma résidence principale",
-      "Investir pour générer des revenus",
-      "Les deux : habiter et investir à terme"
+      "Investir pour générer un patrimoine et des revenus",
+      "Développer mon patrimoine sur le long terme",
+      "Avoir mon propre bien pour être serein sur l'avenir"
     ]
   },
   {
