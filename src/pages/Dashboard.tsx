@@ -225,7 +225,7 @@ const Dashboard = () => {
               <Button 
                 variant="ghost" 
                 onClick={() => setSelectedModule(null)}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-[#99c5ff] hover:bg-[#99c5ff]/10"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Retour à ma feuille de route
