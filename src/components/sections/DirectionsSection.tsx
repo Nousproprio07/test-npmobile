@@ -12,7 +12,7 @@ const directions = [
   {
     icon: TrendingUp,
     title: "Patrimoine Actif",
-    tagline: "Transformer votre situation actuelle en source de revenus immobiliers.",
+    tagline: "Construire intelligemment ton patrimoine immobilier.",
     description: "Pour celles et ceux qui veulent bâtir un patrimoine actif aligné avec leurs objectifs.",
   },
 ];
