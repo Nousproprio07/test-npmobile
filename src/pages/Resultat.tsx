@@ -21,30 +21,15 @@ const Resultat = () => {
     return () => clearTimeout(timer);
   }, [location.state, navigate]);
 
-  // Determine accompaniment based on answers
+  // Determine accompaniment based on benefice answers
   const getAccompaniment = () => {
-    const objectif = answers.objectif;
     const benefice = answers.benefice;
     
-    // Pack Patrimoine Actif - Investissement / Patrimoine long terme
-    if (objectif === "Investir pour générer un patrimoine et des revenus" || objectif === "Développer mon patrimoine sur le long terme") {
-      return {
-        type: "Patrimoine Actif",
-        tagline: "Investis pour générer des revenus",
-        description: "Construis un patrimoine qui travaille pour toi grâce à l'investissement locatif intelligent.",
-        features: [
-          "Stratégie locative personnalisée",
-          "Analyse de rentabilité sur-mesure",
-          "Coaching individuel mensuel",
-          "Accès prioritaire à nos experts bancaires"
-        ],
-        price: "497€",
-        priceDetail: "Paiement unique"
-      };
-    }
+    // benefice est maintenant un tableau de réponses
+    const beneficeArray = Array.isArray(benefice) ? benefice : [benefice];
     
-    // Pack Résidence Essentiel - Sérénité
-    if (objectif === "Avoir mon propre bien pour être serein sur l'avenir") {
+    // Pack Résidence Essentiel - Si "Me sentir enfin chez moi et en sécurité pour l'avenir" est sélectionné
+    if (beneficeArray.includes("Me sentir enfin chez moi et en sécurité pour l'avenir")) {
       return {
         type: "Résidence Essentiel",
         tagline: "Ton premier chez-toi, en toute confiance",
@@ -56,6 +41,24 @@ const Resultat = () => {
           "Accès aux lives privés hebdomadaires"
         ],
         price: "297€",
+        priceDetail: "Paiement unique"
+      };
+    }
+    
+    // Pack Patrimoine Actif - Si une des deux autres options est sélectionnée
+    if (beneficeArray.includes("Développer un patrimoine sur le long terme") || 
+        beneficeArray.includes("Investir pour générer un patrimoine et des revenus")) {
+      return {
+        type: "Patrimoine Actif",
+        tagline: "Investis pour générer des revenus",
+        description: "Construis un patrimoine qui travaille pour toi grâce à l'investissement locatif intelligent.",
+        features: [
+          "Stratégie locative personnalisée",
+          "Analyse de rentabilité sur-mesure",
+          "Coaching individuel mensuel",
+          "Accès prioritaire à nos experts bancaires"
+        ],
+        price: "497€",
         priceDetail: "Paiement unique"
       };
     }
@@ -140,7 +143,7 @@ const Resultat = () => {
                     <tr className="border-b border-primary-foreground/10">
                       <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton intention profonde</td>
                       <td className="py-4">
-                        {answers.benefice || "Non renseigné"}
+                        {Array.isArray(answers.benefice) ? answers.benefice.join(", ") : (answers.benefice || "Non renseigné")}
                       </td>
                     </tr>
                     <tr className="border-b border-primary-foreground/10">

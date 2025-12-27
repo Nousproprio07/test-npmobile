@@ -3,17 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
 import Logo from "@/components/Logo";
 
 interface Question {
   id: string;
   stepTitle: string;
   question: string;
-  type: "text" | "single";
+  type: "text" | "single" | "multi";
   options?: string[];
   placeholder?: string;
   description?: string;
+  maxSelections?: number;
 }
 
 const questions: Question[] = [
@@ -30,30 +31,20 @@ const questions: Question[] = [
     ]
   },
   {
-    id: "objectif",
-    stepTitle: "Étape 2 – Ton objectif immobilier",
-    question: "Quel est ton objectif principal aujourd'hui ?",
-    type: "single",
-    options: [
-      "Investir pour générer un patrimoine et des revenus",
-      "Développer mon patrimoine sur le long terme",
-      "Avoir mon propre bien pour être serein sur l'avenir"
-    ]
-  },
-  {
     id: "benefice",
-    stepTitle: "Étape 3 – Ce que ce projet changerait vraiment pour toi",
+    stepTitle: "Étape 2 – Ce que ce projet changerait vraiment pour toi",
     question: "Si ce projet aboutissait, qu'est-ce que ça t'apporterait avant tout ?",
-    type: "single",
+    type: "multi",
+    maxSelections: 2,
     options: [
-      "Me sentir plus en sécurité financièrement",
-      "Gagner un complément de revenu",
-      "Ne plus dépendre uniquement de mon salaire"
+      "Me sentir enfin chez moi et en sécurité pour l'avenir",
+      "Développer un patrimoine sur le long terme",
+      "Investir pour générer un patrimoine et des revenus"
     ]
   },
   {
     id: "ressenti",
-    stepTitle: "Étape 4 – Ton ressenti face à l'investissement",
+    stepTitle: "Étape 3 – Ton ressenti face à l'investissement",
     question: "Quand tu penses à investir, tu ressens surtout…",
     type: "single",
     options: [
@@ -65,7 +56,7 @@ const questions: Question[] = [
   },
   {
     id: "frein",
-    stepTitle: "Étape 5 – Ce qui te freine aujourd'hui",
+    stepTitle: "Étape 4 – Ce qui te freine aujourd'hui",
     question: "Qu'est-ce qui t'empêche le plus d'avancer ?",
     type: "single",
     options: [
@@ -77,7 +68,7 @@ const questions: Question[] = [
   },
   {
     id: "situation_pro",
-    stepTitle: "Étape 6 – Ta situation actuelle",
+    stepTitle: "Étape 5 – Ta situation actuelle",
     question: "Pour adapter cette direction à ta réalité quotidienne, tu es plutôt…",
     type: "single",
     options: [
@@ -88,7 +79,7 @@ const questions: Question[] = [
   },
   {
     id: "horizon",
-    stepTitle: "Étape 7 – Ton horizon de passage à l'action",
+    stepTitle: "Étape 6 – Ton horizon de passage à l'action",
     question: "Tu aimerais avancer sérieusement dans…",
     type: "single",
     options: [
@@ -99,7 +90,7 @@ const questions: Question[] = [
   },
   {
     id: "capacite",
-    stepTitle: "Étape 8 – Ta capacité aujourd'hui (sans jargon)",
+    stepTitle: "Étape 7 – Ta capacité aujourd'hui (sans jargon)",
     question: "Aujourd'hui, arrives-tu à mettre un peu d'argent de côté chaque mois ?",
     type: "single",
     options: [
@@ -110,7 +101,7 @@ const questions: Question[] = [
   },
   {
     id: "prenom",
-    stepTitle: "Étape 9 – Faisons connaissance",
+    stepTitle: "Étape 8 – Faisons connaissance",
     question: "Quel est ton prénom ?",
     description: "Chez NousProprio, on ne te parle pas comme à un numéro.\nOn préfère t'accompagner comme une vraie personne, avec ton histoire et tes objectifs.",
     type: "text",
@@ -127,7 +118,7 @@ const Questionnaire = () => {
   const navigate = useNavigate();
   const [showIntro, setShowIntro] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [textInput, setTextInput] = useState("");
   const [isAnimating, setIsAnimating] = useState(true);
   const [showEncouragement, setShowEncouragement] = useState<string | null>(null);
@@ -151,6 +142,29 @@ const Questionnaire = () => {
 
   const handleAnswer = (answer: string) => {
     const questionId = currentQuestion.id;
+    
+    // Gestion des réponses multiples
+    if (currentQuestion.type === "multi") {
+      const currentAnswers = (answers[questionId] as string[]) || [];
+      const maxSelections = currentQuestion.maxSelections || 2;
+      
+      let newAnswers: string[];
+      if (currentAnswers.includes(answer)) {
+        // Désélectionner si déjà sélectionné
+        newAnswers = currentAnswers.filter(a => a !== answer);
+      } else if (currentAnswers.length < maxSelections) {
+        // Ajouter si pas encore au max
+        newAnswers = [...currentAnswers, answer];
+      } else {
+        // Remplacer le premier sélectionné si on a atteint le max
+        newAnswers = [...currentAnswers.slice(1), answer];
+      }
+      
+      setAnswers(prev => ({ ...prev, [questionId]: newAnswers }));
+      return; // Pas d'auto-avance pour les questions multi
+    }
+    
+    // Réponse unique
     setAnswers(prev => ({ ...prev, [questionId]: answer }));
     
     // Trigger encouragement message if applicable
@@ -163,6 +177,21 @@ const Questionnaire = () => {
     // If not revisiting, auto-advance to next question
     if (!isRevisiting && currentStep < totalSteps - 1) {
       setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentStep(prev => prev + 1);
+        setTextInput("");
+        setIsAnimating(false);
+      }, 300);
+    }
+  };
+  
+  const handleMultiNext = () => {
+    const questionId = currentQuestion.id;
+    const currentAnswers = (answers[questionId] as string[]) || [];
+    
+    if (currentAnswers.length > 0 && currentStep < totalSteps - 1) {
+      setIsAnimating(true);
+      setIsRevisiting(false);
       setTimeout(() => {
         setCurrentStep(prev => prev + 1);
         setTextInput("");
@@ -204,8 +233,11 @@ const Questionnaire = () => {
         setCurrentStep(prev => prev - 1);
         // Restore the text input if going back to a text question
         const previousQuestion = questions[currentStep - 1];
-        if (previousQuestion.type === "text" && answers[previousQuestion.id]) {
-          setTextInput(answers[previousQuestion.id]);
+        if (previousQuestion.type === "text") {
+          const prevAnswer = answers[previousQuestion.id];
+          if (typeof prevAnswer === "string") {
+            setTextInput(prevAnswer);
+          }
         }
         setIsAnimating(false);
       }, 300);
@@ -362,6 +394,49 @@ const Questionnaire = () => {
                   Voir ma feuille de route
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </Button>
+              </div>
+            ) : currentQuestion.type === "multi" ? (
+              <div className="space-y-3 mt-4">
+                <p className="text-primary-foreground/70 text-sm mb-2">
+                  Tu peux sélectionner jusqu'à {currentQuestion.maxSelections} réponses
+                </p>
+                {currentQuestion.options?.map((option, index) => {
+                  const selectedAnswers = (answers[currentQuestion.id] as string[]) || [];
+                  const isSelected = selectedAnswers.includes(option);
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => handleAnswer(option)}
+                      className={`w-full text-left p-4 rounded-xl border transition-all duration-200 group ${
+                        isSelected 
+                          ? 'bg-[#99c5ff]/20 border-[#99c5ff] text-[#99c5ff]' 
+                          : 'bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:border-[#99c5ff]/50'
+                      }`}
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <span className="flex items-center justify-between">
+                        {option}
+                        <CheckCircle2 className={`w-5 h-5 transition-all ${
+                          isSelected 
+                            ? 'opacity-100 text-[#99c5ff]' 
+                            : 'opacity-0'
+                        }`} />
+                      </span>
+                    </button>
+                  );
+                })}
+
+                {/* Bouton Suivant pour les questions multi */}
+                {((answers[currentQuestion.id] as string[])?.length > 0) && currentStep < totalSteps - 1 && (
+                  <Button
+                    size="lg"
+                    onClick={handleMultiNext}
+                    className="w-full mt-4 group bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold"
+                  >
+                    Suivant
+                    <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                )}
               </div>
             ) : (
               <div className="space-y-3 mt-4">
