@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Calendar, Users, BookOpen, MessageSquare, Phone, ShoppingCart, ChevronDown, Sparkles, Home, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle2, Calendar, Users, BookOpen, MessageSquare, Phone, ShoppingCart, ChevronDown, Sparkles, Home, TrendingUp, AlertTriangle } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const Resultat = () => {
@@ -223,6 +223,16 @@ const Resultat = () => {
                 </span>
               </li>
             </ul>
+
+            {/* Warning pour les personnes qui veulent aller trop vite */}
+            {answers.horizon === "Moins de 3 mois" && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <p className="text-amber-800 text-sm leading-relaxed">
+                  <strong className="text-amber-900">Prends le temps qu'il faut.</strong> Un projet immobilier solide se construit avec méthode, pas dans l'urgence. Mieux vaut un bon projet dans 6 mois qu'une erreur dans 3. On est là pour t'accompagner à ton rythme.
+                </p>
+              </div>
+            )}
 
             <p className="text-foreground font-semibold italic border-l-4 border-primary pl-4">
               Voici comment nous allons t'accompagner pour y arriver.
