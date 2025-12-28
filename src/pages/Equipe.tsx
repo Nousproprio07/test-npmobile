@@ -41,7 +41,7 @@ const teamMembers: TeamMember[] = [
     role: "C.Gestion de Patrimoine",
     description: "Ancien développeur immobilier pendant 6 ans, aujourd'hui conseiller en gestion de patrimoine.",
     icon: Home,
-    highlight: "6 ans en développement immobilier",
+    highlight: "6 ans d'expérience",
   },
   {
     name: "Sarah",
