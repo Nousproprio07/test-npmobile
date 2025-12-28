@@ -107,8 +107,8 @@ const Equipe = () => {
                 <div className="p-6 md:p-8">
                   {/* Member Header */}
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center shrink-0">
-                      <member.icon className="w-7 h-7 md:w-8 md:h-8 text-primary" />
+                    <div className="w-20 h-28 md:w-24 md:h-32 rounded-xl bg-primary/10 border-2 border-primary/20 flex items-center justify-center shrink-0 overflow-hidden">
+                      <member.icon className="w-8 h-8 md:w-10 md:h-10 text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-display text-xl md:text-2xl font-bold text-foreground">
