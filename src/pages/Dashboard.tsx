@@ -583,67 +583,210 @@ const Dashboard = () => {
 
         {/* Content based on active tab */}
         {activeTab === "formation" && (
-          <div className="space-y-3">
-            <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4">
+          <div className="space-y-6">
+            <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground">
               Ma feuille de route
             </h3>
-            <div className="space-y-3">
-              {modules.map((module, index) => (
-                <Card 
-                  key={module.id} 
-                  className={`transition-all ${
-                    module.current 
-                      ? "border-primary bg-primary/5" 
-                      : module.completed 
-                        ? "border-green-500/30 bg-green-500/5" 
-                        : "border-border opacity-70"
-                  }`}
-                >
-                  <CardContent className="p-3 sm:p-4">
-                    <div className="flex items-start gap-3">
-                      {/* Status icon */}
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        module.completed 
-                          ? "bg-green-500 text-white" 
-                          : module.current 
-                            ? "bg-primary text-primary-foreground" 
-                            : "bg-muted text-muted-foreground"
-                      }`}>
-                        {module.completed ? (
-                          <CheckCircle2 className="w-5 h-5" />
-                        ) : module.current ? (
-                          <Play className="w-5 h-5" />
-                        ) : (
-                          <Lock className="w-4 h-4" />
-                        )}
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
-                          <span className="text-muted-foreground">M{index + 1}.</span> {module.title}
-                        </p>
-                        <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
-                          <Clock className="w-3 h-3" /> {module.duration}
-                        </p>
-                      </div>
-                      
-                      {/* Action button */}
-                      {(module.completed || module.current) && (
-                        <Button 
-                          variant={module.current ? "default" : "ghost"} 
-                          size="sm"
-                          className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
-                          onClick={() => setSelectedModule(module)}
-                        >
-                          <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
-                          <ChevronRight className="w-4 h-4" />
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            
+            {/* Les 3 blocs principaux */}
+            <div className="space-y-6">
+              {/* Bloc 1: Préparation & Fondations */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
+                    1
+                  </div>
+                  <div>
+                    <h4 className="font-display font-semibold text-foreground">Préparation & Fondations</h4>
+                    <p className="text-xs text-muted-foreground">Avant le financement</p>
+                  </div>
+                </div>
+                <div className="ml-4 border-l-2 border-primary/20 pl-6 space-y-3">
+                  {modules.slice(0, 3).map((module, index) => (
+                    <Card 
+                      key={module.id} 
+                      className={`transition-all ${
+                        module.current 
+                          ? "border-primary bg-primary/5" 
+                          : module.completed 
+                            ? "border-green-500/30 bg-green-500/5" 
+                            : "border-border opacity-70"
+                      }`}
+                    >
+                      <CardContent className="p-3 sm:p-4">
+                        <div className="flex items-start gap-3">
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                            module.completed 
+                              ? "bg-green-500 text-white" 
+                              : module.current 
+                                ? "bg-primary text-primary-foreground" 
+                                : "bg-muted text-muted-foreground"
+                          }`}>
+                            {module.completed ? (
+                              <CheckCircle2 className="w-5 h-5" />
+                            ) : module.current ? (
+                              <Play className="w-5 h-5" />
+                            ) : (
+                              <Lock className="w-4 h-4" />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
+                              {module.title}
+                            </p>
+                            <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                              <Clock className="w-3 h-3" /> {module.duration}
+                            </p>
+                          </div>
+                          {(module.completed || module.current) && (
+                            <Button 
+                              variant={module.current ? "default" : "ghost"} 
+                              size="sm"
+                              className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
+                              onClick={() => setSelectedModule(module)}
+                            >
+                              <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
+                              <ChevronRight className="w-4 h-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bloc 2: Maîtrise du Financement & Concrétisation */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
+                    2
+                  </div>
+                  <div>
+                    <h4 className="font-display font-semibold text-foreground">Maîtrise du Financement & Concrétisation</h4>
+                    <p className="text-xs text-muted-foreground">Obtenir et sécuriser ton prêt</p>
+                  </div>
+                </div>
+                <div className="ml-4 border-l-2 border-primary/20 pl-6 space-y-3">
+                  {modules.slice(3, 5).map((module, index) => (
+                    <Card 
+                      key={module.id} 
+                      className={`transition-all ${
+                        module.current 
+                          ? "border-primary bg-primary/5" 
+                          : module.completed 
+                            ? "border-green-500/30 bg-green-500/5" 
+                            : "border-border opacity-70"
+                      }`}
+                    >
+                      <CardContent className="p-3 sm:p-4">
+                        <div className="flex items-start gap-3">
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                            module.completed 
+                              ? "bg-green-500 text-white" 
+                              : module.current 
+                                ? "bg-primary text-primary-foreground" 
+                                : "bg-muted text-muted-foreground"
+                          }`}>
+                            {module.completed ? (
+                              <CheckCircle2 className="w-5 h-5" />
+                            ) : module.current ? (
+                              <Play className="w-5 h-5" />
+                            ) : (
+                              <Lock className="w-4 h-4" />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
+                              {module.title}
+                            </p>
+                            <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                              <Clock className="w-3 h-3" /> {module.duration}
+                            </p>
+                          </div>
+                          {(module.completed || module.current) && (
+                            <Button 
+                              variant={module.current ? "default" : "ghost"} 
+                              size="sm"
+                              className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
+                              onClick={() => setSelectedModule(module)}
+                            >
+                              <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
+                              <ChevronRight className="w-4 h-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bloc 3: Après l'Achat & Optimisation */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
+                    3
+                  </div>
+                  <div>
+                    <h4 className="font-display font-semibold text-foreground">Après l'Achat & Optimisation</h4>
+                    <p className="text-xs text-muted-foreground">Gérer et valoriser ton bien</p>
+                  </div>
+                </div>
+                <div className="ml-4 border-l-2 border-primary/20 pl-6 space-y-3">
+                  {modules.slice(5).map((module, index) => (
+                    <Card 
+                      key={module.id} 
+                      className={`transition-all ${
+                        module.current 
+                          ? "border-primary bg-primary/5" 
+                          : module.completed 
+                            ? "border-green-500/30 bg-green-500/5" 
+                            : "border-border opacity-70"
+                      }`}
+                    >
+                      <CardContent className="p-3 sm:p-4">
+                        <div className="flex items-start gap-3">
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                            module.completed 
+                              ? "bg-green-500 text-white" 
+                              : module.current 
+                                ? "bg-primary text-primary-foreground" 
+                                : "bg-muted text-muted-foreground"
+                          }`}>
+                            {module.completed ? (
+                              <CheckCircle2 className="w-5 h-5" />
+                            ) : module.current ? (
+                              <Play className="w-5 h-5" />
+                            ) : (
+                              <Lock className="w-4 h-4" />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
+                              {module.title}
+                            </p>
+                            <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                              <Clock className="w-3 h-3" /> {module.duration}
+                            </p>
+                          </div>
+                          {(module.completed || module.current) && (
+                            <Button 
+                              variant={module.current ? "default" : "ghost"} 
+                              size="sm"
+                              className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
+                              onClick={() => setSelectedModule(module)}
+                            >
+                              <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
+                              <ChevronRight className="w-4 h-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         )}
