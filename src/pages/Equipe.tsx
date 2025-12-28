@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Briefcase, TrendingUp, GraduationCap, Building, LineChart, Shield, Home, Users, Award, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -60,6 +61,10 @@ const teamMembers: TeamMember[] = [
 ];
 
 const Equipe = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <main className="min-h-screen bg-background">
       {/* Header */}
