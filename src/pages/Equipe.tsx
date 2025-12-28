@@ -114,14 +114,16 @@ const Equipe = () => {
                       <h3 className="font-display text-xl md:text-2xl font-bold text-foreground">
                         {member.name}
                       </h3>
-                      <span className="inline-block mt-1 px-3 py-1 rounded-full bg-primary text-primary-foreground text-sm font-semibold">
-                        {member.role}
-                      </span>
-                      {member.highlight && (
-                        <span className="inline-block mt-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
-                          {member.highlight}
+                      <div className="flex flex-col items-start gap-1 mt-1">
+                        <span className="inline-block px-3 py-1 rounded-full bg-primary text-primary-foreground text-sm font-semibold">
+                          {member.role}
                         </span>
-                      )}
+                        {member.highlight && (
+                          <span className="inline-block px-3 py-1 rounded-full bg-glacier text-glacier-foreground text-xs font-medium">
+                            {member.highlight}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
 
