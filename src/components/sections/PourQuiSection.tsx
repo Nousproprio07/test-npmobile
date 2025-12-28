@@ -52,10 +52,8 @@ const PourQuiSection = () => {
 
               {/* Texte explicatif */}
               <div className="space-y-6 text-center">
-                <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                  Aujourd'hui, la plupart des futurs investisseurs abandonnent 
-                  <br className="hidden md:block" />
-                  non pas par manque d'argent,{" "}
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                  Aujourd'hui, la plupart des futurs investisseurs abandonnent non pas par manque d'argent,{" "}
                   <span className="font-semibold text-foreground">
                     mais par manque de direction.
                   </span>
