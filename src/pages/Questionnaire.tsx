@@ -34,8 +34,8 @@ const questions: Question[] = [
     id: "benefice",
     stepTitle: "Étape 2 – Ce que ce projet changerait vraiment pour toi",
     question: "Si ce projet aboutissait, qu'est-ce que ça t'apporterait avant tout ?",
-    type: "multi",
-    maxSelections: 2,
+    description: "Tu peux sélectionner une seule réponse",
+    type: "single",
     options: [
       "Me sentir enfin chez moi et en sécurité pour l'avenir",
       "Développer un patrimoine sur le long terme",
