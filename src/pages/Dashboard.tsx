@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Textarea } from "@/components/ui/textarea";
 import { 
   Play, 
   BookOpen, 
@@ -20,8 +21,11 @@ import {
   List,
   Menu,
   X,
-  ChevronDown
+  ChevronDown,
+  MessageCircle,
+  Send
 } from "lucide-react";
+import { toast } from "sonner";
 import {
   Sheet,
   SheetContent,
@@ -237,8 +241,39 @@ const Dashboard = () => {
   const [selectedModule, setSelectedModule] = useState<ModuleType | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
+  const [faqQuestion, setFaqQuestion] = useState("");
+  const [isSubmittingQuestion, setIsSubmittingQuestion] = useState(false);
   const modules = formationModules[mockUser.formation] || [];
   const currentModuleData = modules.find(m => m.current);
+
+  // Soumettre une question pour la FAQ
+  const handleSubmitQuestion = async () => {
+    if (!faqQuestion.trim()) {
+      toast.error("Veuillez écrire votre question");
+      return;
+    }
+
+    setIsSubmittingQuestion(true);
+    
+    // Simulation d'envoi (à connecter à un backend plus tard)
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Stocker la question dans localStorage pour la démo
+    const existingQuestions = JSON.parse(localStorage.getItem('faqQuestions') || '[]');
+    const newQuestion = {
+      id: Date.now().toString(),
+      clientName: `${mockUser.firstName} ${mockUser.lastName}`,
+      clientEmail: mockUser.email,
+      question: faqQuestion,
+      submittedAt: new Date().toISOString(),
+      status: 'pending'
+    };
+    localStorage.setItem('faqQuestions', JSON.stringify([...existingQuestions, newQuestion]));
+    
+    toast.success("Votre question a été envoyée ! Elle sera traitée lors de la prochaine session FAQ.");
+    setFaqQuestion("");
+    setIsSubmittingQuestion(false);
+  };
 
   const handleLogout = () => {
     navigate("/connexion");
@@ -908,6 +943,42 @@ const Dashboard = () => {
             <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4">
               Sessions FAQ live
             </h3>
+
+            {/* Formulaire de question - EN PREMIER */}
+            <Card className="border-primary/50 bg-gradient-to-r from-primary/5 to-transparent">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <MessageCircle className="w-5 h-5 text-primary" />
+                  <h4 className="font-semibold text-foreground">Poser une question</h4>
+                </div>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Ta question sera transmise à notre équipe et traitée lors de la prochaine session FAQ live.
+                </p>
+                <Textarea
+                  placeholder="Écris ta question ici... (ex: Comment négocier le prix d'un bien immobilier ?)"
+                  value={faqQuestion}
+                  onChange={(e) => setFaqQuestion(e.target.value)}
+                  className="min-h-[100px] mb-3 resize-none"
+                />
+                <Button 
+                  onClick={handleSubmitQuestion}
+                  disabled={isSubmittingQuestion || !faqQuestion.trim()}
+                  className="w-full gap-2"
+                >
+                  {isSubmittingQuestion ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                      Envoi en cours...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      Envoyer ma question
+                    </>
+                  )}
+                </Button>
+              </CardContent>
+            </Card>
             
             {/* Prochaine session - Card compacte */}
             <Card className="border-primary bg-gradient-to-r from-primary/10 to-primary/5">

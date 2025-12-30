@@ -29,7 +29,9 @@ import {
   Clock,
   Search,
   Mail,
-  Send
+  Send,
+  MessageCircle,
+  Check
 } from "lucide-react";
 import {
   Accordion,
@@ -262,7 +264,7 @@ const AdminDashboard = () => {
   });
 
   // État pour la section clients
-  const [adminView, setAdminView] = useState<'formations' | 'clients'>('formations');
+  const [adminView, setAdminView] = useState<'formations' | 'clients' | 'questions'>('formations');
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [clientFilter, setClientFilter] = useState<'all' | 'residence-essentiel' | 'patrimoine-actif'>('all');
   const [searchQuery, setSearchQuery] = useState("");
@@ -275,6 +277,40 @@ const AdminDashboard = () => {
     message: ""
   });
   const [isSendingEmail, setIsSendingEmail] = useState(false);
+
+  // État pour les questions FAQ
+  const [faqQuestions, setFaqQuestions] = useState<Array<{
+    id: string;
+    clientName: string;
+    clientEmail: string;
+    question: string;
+    submittedAt: string;
+    status: 'pending' | 'answered';
+  }>>([]);
+
+  // Charger les questions depuis localStorage
+  const loadFaqQuestions = () => {
+    const questions = JSON.parse(localStorage.getItem('faqQuestions') || '[]');
+    setFaqQuestions(questions);
+  };
+
+  // Marquer une question comme répondue
+  const markQuestionAsAnswered = (questionId: string) => {
+    const updatedQuestions = faqQuestions.map(q => 
+      q.id === questionId ? { ...q, status: 'answered' as const } : q
+    );
+    setFaqQuestions(updatedQuestions);
+    localStorage.setItem('faqQuestions', JSON.stringify(updatedQuestions));
+    toast.success("Question marquée comme répondue");
+  };
+
+  // Supprimer une question
+  const deleteQuestion = (questionId: string) => {
+    const updatedQuestions = faqQuestions.filter(q => q.id !== questionId);
+    setFaqQuestions(updatedQuestions);
+    localStorage.setItem('faqQuestions', JSON.stringify(updatedQuestions));
+    toast.success("Question supprimée");
+  };
 
   // Ajouter une formation
   const handleAddFormation = () => {
@@ -679,7 +715,7 @@ const AdminDashboard = () => {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              {/* Toggle entre Directions et Clients */}
+              {/* Toggle entre Directions, Clients et Questions */}
               <div className="flex bg-muted rounded-lg p-1">
                 <Button
                   variant={adminView === 'formations' ? 'default' : 'ghost'}
@@ -691,7 +727,7 @@ const AdminDashboard = () => {
                   className="gap-2"
                 >
                   <GraduationCap className="w-4 h-4" />
-                  Production
+                  <span className="hidden sm:inline">Production</span>
                 </Button>
                 <Button
                   variant={adminView === 'clients' ? 'default' : 'ghost'}
@@ -703,7 +739,26 @@ const AdminDashboard = () => {
                   className="gap-2"
                 >
                   <Users className="w-4 h-4" />
-                  Clients
+                  <span className="hidden sm:inline">Clients</span>
+                </Button>
+                <Button
+                  variant={adminView === 'questions' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => {
+                    setAdminView('questions');
+                    setSelectedFormation(null);
+                    setSelectedClient(null);
+                    loadFaqQuestions();
+                  }}
+                  className="gap-2 relative"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="hidden sm:inline">Questions FAQ</span>
+                  {faqQuestions.filter(q => q.status === 'pending').length > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                      {faqQuestions.filter(q => q.status === 'pending').length}
+                    </span>
+                  )}
                 </Button>
               </div>
               <Link to="/" className="text-lg font-display font-bold text-primary">
@@ -855,6 +910,141 @@ const AdminDashboard = () => {
                 </Card>
               </div>
             )}
+          </div>
+        )}
+
+        {/* VUE QUESTIONS FAQ */}
+        {adminView === 'questions' && (
+          <div className="space-y-6">
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Total questions</p>
+                      <p className="text-3xl font-bold text-foreground">{faqQuestions.length}</p>
+                    </div>
+                    <MessageCircle className="w-10 h-10 text-muted-foreground/30" />
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border-orange-500/30 bg-orange-500/5">
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">En attente</p>
+                      <p className="text-3xl font-bold text-orange-500">
+                        {faqQuestions.filter(q => q.status === 'pending').length}
+                      </p>
+                    </div>
+                    <Clock className="w-10 h-10 text-orange-500/30" />
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border-green-500/30 bg-green-500/5">
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Répondues</p>
+                      <p className="text-3xl font-bold text-green-500">
+                        {faqQuestions.filter(q => q.status === 'answered').length}
+                      </p>
+                    </div>
+                    <CheckCircle2 className="w-10 h-10 text-green-500/30" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Liste des questions */}
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5 text-primary" />
+                  Questions des clients pour la FAQ
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {faqQuestions.length === 0 ? (
+                  <div className="text-center py-12 text-muted-foreground">
+                    <MessageCircle className="w-12 h-12 mx-auto mb-3 opacity-20" />
+                    <p className="text-sm">Aucune question pour le moment</p>
+                    <p className="text-xs mt-1">Les questions posées par les clients apparaîtront ici</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {faqQuestions
+                      .sort((a, b) => {
+                        // En attente en premier, puis par date
+                        if (a.status === 'pending' && b.status !== 'pending') return -1;
+                        if (a.status !== 'pending' && b.status === 'pending') return 1;
+                        return new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime();
+                      })
+                      .map((question) => (
+                        <div
+                          key={question.id}
+                          className={`p-4 rounded-lg border transition-all ${
+                            question.status === 'pending' 
+                              ? 'border-orange-500/30 bg-orange-500/5' 
+                              : 'border-border bg-muted/30'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                                  question.status === 'pending'
+                                    ? 'bg-orange-500/20 text-orange-600'
+                                    : 'bg-green-500/20 text-green-600'
+                                }`}>
+                                  {question.status === 'pending' ? 'En attente' : 'Répondue'}
+                                </span>
+                                <span className="text-xs text-muted-foreground">
+                                  {new Date(question.submittedAt).toLocaleDateString('fr-FR', {
+                                    day: 'numeric',
+                                    month: 'short',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                  })}
+                                </span>
+                              </div>
+                              <p className="text-foreground font-medium mb-2">{question.question}</p>
+                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <User className="w-4 h-4" />
+                                <span>{question.clientName}</span>
+                                <span className="text-muted-foreground/50">•</span>
+                                <span>{question.clientEmail}</span>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                              {question.status === 'pending' && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => markQuestionAsAnswered(question.id)}
+                                  className="gap-1 text-green-600 border-green-500/30 hover:bg-green-500/10"
+                                >
+                                  <Check className="w-4 h-4" />
+                                  Répondue
+                                </Button>
+                              )}
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => deleteQuestion(question.id)}
+                                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         )}
 
