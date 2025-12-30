@@ -691,7 +691,7 @@ const AdminDashboard = () => {
                   className="gap-2"
                 >
                   <GraduationCap className="w-4 h-4" />
-                  Formations
+                  Production
                 </Button>
                 <Button
                   variant={adminView === 'clients' ? 'default' : 'ghost'}
