@@ -26,7 +26,10 @@ import {
   ArrowUpRight,
   CheckCircle2,
   Circle,
-  Clock
+  Clock,
+  Search,
+  Mail,
+  Send
 } from "lucide-react";
 import {
   Accordion,
@@ -262,6 +265,16 @@ const AdminDashboard = () => {
   const [adminView, setAdminView] = useState<'formations' | 'clients'>('formations');
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [clientFilter, setClientFilter] = useState<'all' | 'residence-essentiel' | 'patrimoine-actif'>('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  // État pour l'envoi d'emails
+  const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
+  const [emailRecipient, setEmailRecipient] = useState<Client | null>(null);
+  const [emailForm, setEmailForm] = useState({
+    subject: "",
+    message: ""
+  });
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
 
   // Ajouter une formation
   const handleAddFormation = () => {
@@ -449,10 +462,13 @@ const AdminDashboard = () => {
     </div>
   );
 
-  // Filtrer les clients
+  // Filtrer les clients par catégorie et recherche
   const filteredClients = mockClients.filter(client => {
-    if (clientFilter === 'all') return true;
-    return client.accompagnement === clientFilter;
+    const matchesFilter = clientFilter === 'all' || client.accompagnement === clientFilter;
+    const matchesSearch = searchQuery === "" || 
+      `${client.firstName} ${client.lastName}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      client.email.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesFilter && matchesSearch;
   });
 
   const residenceEssentielClients = mockClients.filter(c => c.accompagnement === 'residence-essentiel');
@@ -463,6 +479,32 @@ const AdminDashboard = () => {
     const totalCompleted = client.progress.reduce((acc, p) => acc + p.videosCompleted, 0);
     const totalVideos = client.progress.reduce((acc, p) => acc + p.totalVideos, 0);
     return totalVideos > 0 ? Math.round((totalCompleted / totalVideos) * 100) : 0;
+  };
+
+  // Ouvrir le dialog d'envoi d'email
+  const openEmailDialog = (client: Client) => {
+    setEmailRecipient(client);
+    setEmailForm({ subject: "", message: "" });
+    setIsEmailDialogOpen(true);
+  };
+
+  // Envoyer un email (mockup)
+  const handleSendEmail = async () => {
+    if (!emailRecipient || !emailForm.subject.trim() || !emailForm.message.trim()) {
+      toast.error("Veuillez remplir tous les champs");
+      return;
+    }
+
+    setIsSendingEmail(true);
+    
+    // Simulation d'envoi d'email (mockup)
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    toast.success(`Email envoyé à ${emailRecipient.firstName} ${emailRecipient.lastName}`);
+    setIsEmailDialogOpen(false);
+    setEmailRecipient(null);
+    setEmailForm({ subject: "", message: "" });
+    setIsSendingEmail(false);
   };
 
   // Composant pour afficher la fiche client détaillée
@@ -499,6 +541,16 @@ const AdminDashboard = () => {
               <div className="text-3xl font-bold text-primary">{client.amountSpent}€</div>
               <p className="text-sm text-muted-foreground">dépensés sur le site</p>
             </div>
+          </div>
+          {/* Bouton envoyer un email */}
+          <div className="mt-4 pt-4 border-t border-border">
+            <Button 
+              onClick={() => openEmailDialog(client)}
+              className="gap-2"
+            >
+              <Mail className="w-4 h-4" />
+              Envoyer un email
+            </Button>
           </div>
         </CardHeader>
       </Card>
@@ -729,17 +781,28 @@ const AdminDashboard = () => {
                 {/* Liste des clients */}
                 <Card>
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-lg flex items-center gap-2">
-                      <Users className="w-5 h-5 text-primary" />
-                      {clientFilter === 'all' 
-                        ? 'Tous les clients' 
-                        : clientFilter === 'residence-essentiel' 
-                          ? 'Clients Résidence Essentiel' 
-                          : 'Clients Patrimoine Actif'}
-                      <span className="text-sm font-normal text-muted-foreground">
-                        ({filteredClients.length})
-                      </span>
-                    </CardTitle>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Users className="w-5 h-5 text-primary" />
+                        {clientFilter === 'all' 
+                          ? 'Tous les clients' 
+                          : clientFilter === 'residence-essentiel' 
+                            ? 'Clients Résidence Essentiel' 
+                            : 'Clients Patrimoine Actif'}
+                        <span className="text-sm font-normal text-muted-foreground">
+                          ({filteredClients.length})
+                        </span>
+                      </CardTitle>
+                      <div className="relative w-full sm:w-64">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Rechercher un client..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="pl-9"
+                        />
+                      </div>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
@@ -1105,6 +1168,112 @@ const AdminDashboard = () => {
             <Button onClick={handleSaveVideo}>
               <Save className="w-4 h-4 mr-2" />
               {editingVideo?.video ? 'Modifier' : 'Ajouter'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog pour envoyer un email */}
+      <Dialog open={isEmailDialogOpen} onOpenChange={setIsEmailDialogOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Mail className="w-5 h-5 text-primary" />
+              Envoyer un email
+            </DialogTitle>
+          </DialogHeader>
+          {emailRecipient && (
+            <div className="space-y-4 py-4">
+              {/* Destinataire */}
+              <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <User className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-medium text-foreground">
+                    {emailRecipient.firstName} {emailRecipient.lastName}
+                  </p>
+                  <p className="text-sm text-muted-foreground">{emailRecipient.email}</p>
+                </div>
+              </div>
+
+              {/* Objet */}
+              <div className="space-y-2">
+                <Label htmlFor="email-subject">Objet *</Label>
+                <Input
+                  id="email-subject"
+                  placeholder="Ex: Suivi de votre accompagnement"
+                  value={emailForm.subject}
+                  onChange={(e) => setEmailForm({ ...emailForm, subject: e.target.value })}
+                />
+              </div>
+
+              {/* Message */}
+              <div className="space-y-2">
+                <Label htmlFor="email-message">Message *</Label>
+                <Textarea
+                  id="email-message"
+                  placeholder="Écrivez votre message ici..."
+                  value={emailForm.message}
+                  onChange={(e) => setEmailForm({ ...emailForm, message: e.target.value })}
+                  rows={6}
+                />
+              </div>
+
+              {/* Templates rapides */}
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Messages rapides</Label>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setEmailForm({
+                      subject: "Suivi de votre accompagnement NousProprio",
+                      message: `Bonjour ${emailRecipient.firstName},\n\nJ'espère que votre accompagnement se passe bien. Je voulais prendre de vos nouvelles et voir si vous aviez des questions.\n\nN'hésitez pas à me contacter si vous avez besoin d'aide.\n\nÀ bientôt,\nL'équipe NousProprio`
+                    })}
+                  >
+                    Suivi général
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setEmailForm({
+                      subject: "Avez-vous besoin d'aide ?",
+                      message: `Bonjour ${emailRecipient.firstName},\n\nJ'ai remarqué que vous n'avez pas progressé récemment dans votre formation. Y a-t-il quelque chose qui vous bloque ?\n\nJe suis disponible pour un appel si vous le souhaitez.\n\nÀ bientôt,\nL'équipe NousProprio`
+                    })}
+                  >
+                    Relance
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setEmailForm({
+                      subject: "Félicitations pour votre progression !",
+                      message: `Bonjour ${emailRecipient.firstName},\n\nJe tenais à vous féliciter pour votre progression dans l'accompagnement ! Vous êtes sur la bonne voie.\n\nContinuez comme ça !\n\nÀ bientôt,\nL'équipe NousProprio`
+                    })}
+                  >
+                    Félicitations
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline" disabled={isSendingEmail}>Annuler</Button>
+            </DialogClose>
+            <Button onClick={handleSendEmail} disabled={isSendingEmail}>
+              {isSendingEmail ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  Envoi en cours...
+                </>
+              ) : (
+                <>
+                  <Send className="w-4 h-4 mr-2" />
+                  Envoyer
+                </>
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>
