@@ -287,6 +287,7 @@ const AdminDashboard = () => {
     submittedAt: string;
     status: 'pending' | 'answered';
   }>>([]);
+  const [questionTab, setQuestionTab] = useState<'pending' | 'answered'>('pending');
 
   // Charger les questions depuis localStorage
   const loadFaqQuestions = () => {
@@ -310,6 +311,14 @@ const AdminDashboard = () => {
     setFaqQuestions(updatedQuestions);
     localStorage.setItem('faqQuestions', JSON.stringify(updatedQuestions));
     toast.success("Question supprimée");
+  };
+
+  // Supprimer toutes les questions répondues
+  const clearAnsweredQuestions = () => {
+    const updatedQuestions = faqQuestions.filter(q => q.status !== 'answered');
+    setFaqQuestions(updatedQuestions);
+    localStorage.setItem('faqQuestions', JSON.stringify(updatedQuestions));
+    toast.success("Questions répondues supprimées");
   };
 
   // Ajouter une formation
@@ -960,27 +969,71 @@ const AdminDashboard = () => {
             {/* Liste des questions */}
             <Card>
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5 text-primary" />
-                  Questions des clients pour la FAQ
-                </CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <MessageCircle className="w-5 h-5 text-primary" />
+                    Questions des clients pour la FAQ
+                  </CardTitle>
+                  {questionTab === 'answered' && faqQuestions.filter(q => q.status === 'answered').length > 0 && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={clearAnsweredQuestions}
+                      className="text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/30"
+                    >
+                      <Trash2 className="w-4 h-4 mr-1" />
+                      Vider les répondues
+                    </Button>
+                  )}
+                </div>
+                {/* Onglets En attente / Répondues */}
+                <div className="flex gap-2 mt-4">
+                  <Button
+                    size="sm"
+                    variant={questionTab === 'pending' ? 'default' : 'outline'}
+                    onClick={() => setQuestionTab('pending')}
+                    className="gap-2"
+                  >
+                    <Clock className="w-4 h-4" />
+                    En attente
+                    <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs bg-background/20">
+                      {faqQuestions.filter(q => q.status === 'pending').length}
+                    </span>
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={questionTab === 'answered' ? 'default' : 'outline'}
+                    onClick={() => setQuestionTab('answered')}
+                    className="gap-2"
+                  >
+                    <CheckCircle2 className="w-4 h-4" />
+                    Répondues
+                    <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs bg-background/20">
+                      {faqQuestions.filter(q => q.status === 'answered').length}
+                    </span>
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent>
-                {faqQuestions.length === 0 ? (
+                {faqQuestions.filter(q => q.status === questionTab).length === 0 ? (
                   <div className="text-center py-12 text-muted-foreground">
                     <MessageCircle className="w-12 h-12 mx-auto mb-3 opacity-20" />
-                    <p className="text-sm">Aucune question pour le moment</p>
-                    <p className="text-xs mt-1">Les questions posées par les clients apparaîtront ici</p>
+                    <p className="text-sm">
+                      {questionTab === 'pending' 
+                        ? 'Aucune question en attente' 
+                        : 'Aucune question répondue'}
+                    </p>
+                    <p className="text-xs mt-1">
+                      {questionTab === 'pending'
+                        ? 'Les nouvelles questions apparaîtront ici'
+                        : 'Les questions marquées comme répondues apparaîtront ici'}
+                    </p>
                   </div>
                 ) : (
                   <div className="space-y-3">
                     {faqQuestions
-                      .sort((a, b) => {
-                        // En attente en premier, puis par date
-                        if (a.status === 'pending' && b.status !== 'pending') return -1;
-                        if (a.status !== 'pending' && b.status === 'pending') return 1;
-                        return new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime();
-                      })
+                      .filter(q => q.status === questionTab)
+                      .sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime())
                       .map((question) => (
                         <div
                           key={question.id}
@@ -993,13 +1046,6 @@ const AdminDashboard = () => {
                           <div className="flex items-start justify-between gap-4">
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-2">
-                                <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                                  question.status === 'pending'
-                                    ? 'bg-orange-500/20 text-orange-600'
-                                    : 'bg-green-500/20 text-green-600'
-                                }`}>
-                                  {question.status === 'pending' ? 'En attente' : 'Répondue'}
-                                </span>
                                 <span className="text-xs text-muted-foreground">
                                   {new Date(question.submittedAt).toLocaleDateString('fr-FR', {
                                     day: 'numeric',
