@@ -17,7 +17,16 @@ import {
   GraduationCap,
   PlayCircle,
   Wrench,
-  ArrowLeft
+  ArrowLeft,
+  Users,
+  User,
+  Euro,
+  Eye,
+  ChevronRight,
+  ArrowUpRight,
+  CheckCircle2,
+  Circle,
+  Clock
 } from "lucide-react";
 import {
   Accordion,
@@ -36,6 +45,8 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Types
 interface VideoLesson {
@@ -60,6 +71,144 @@ interface Formation {
   bonus: VideoLesson[];
   replays: VideoLesson[];
 }
+
+// Types pour les clients
+interface ClientProgress {
+  moduleId: string;
+  moduleName: string;
+  completed: boolean;
+  videosCompleted: number;
+  totalVideos: number;
+}
+
+interface ClientStartingPoint {
+  situation: string;
+  intention: string;
+  sentiment: string;
+  blocage: string;
+  delai: string;
+}
+
+interface Client {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  amountSpent: number;
+  accompagnement: 'residence-essentiel' | 'patrimoine-actif';
+  startingPoint: ClientStartingPoint;
+  progress: ClientProgress[];
+  joinedAt: string;
+}
+
+// Données mockup des clients
+const mockClients: Client[] = [
+  {
+    id: "1",
+    firstName: "Marie",
+    lastName: "Dupont",
+    email: "marie.dupont@email.com",
+    amountSpent: 497,
+    accompagnement: "residence-essentiel",
+    startingPoint: {
+      situation: "Locataire depuis 5 ans",
+      intention: "Acheter ma résidence principale",
+      sentiment: "Motivée mais perdue",
+      blocage: "Pas assez d'apport",
+      delai: "6-12 mois"
+    },
+    progress: [
+      { moduleId: "preparation", moduleName: "Préparation & Fondations", completed: true, videosCompleted: 4, totalVideos: 4 },
+      { moduleId: "financement", moduleName: "Maîtrise du Financement", completed: false, videosCompleted: 2, totalVideos: 5 },
+      { moduleId: "apres-achat", moduleName: "Après l'Achat", completed: false, videosCompleted: 0, totalVideos: 3 }
+    ],
+    joinedAt: "2024-01-15"
+  },
+  {
+    id: "2",
+    firstName: "Thomas",
+    lastName: "Martin",
+    email: "thomas.martin@email.com",
+    amountSpent: 497,
+    accompagnement: "residence-essentiel",
+    startingPoint: {
+      situation: "Propriétaire voulant revendre",
+      intention: "Acheter plus grand",
+      sentiment: "Confiant",
+      blocage: "Timing de la revente",
+      delai: "3-6 mois"
+    },
+    progress: [
+      { moduleId: "preparation", moduleName: "Préparation & Fondations", completed: true, videosCompleted: 4, totalVideos: 4 },
+      { moduleId: "financement", moduleName: "Maîtrise du Financement", completed: true, videosCompleted: 5, totalVideos: 5 },
+      { moduleId: "apres-achat", moduleName: "Après l'Achat", completed: false, videosCompleted: 1, totalVideos: 3 }
+    ],
+    joinedAt: "2024-02-20"
+  },
+  {
+    id: "3",
+    firstName: "Sophie",
+    lastName: "Bernard",
+    email: "sophie.bernard@email.com",
+    amountSpent: 997,
+    accompagnement: "patrimoine-actif",
+    startingPoint: {
+      situation: "Déjà propriétaire de ma RP",
+      intention: "Investir dans du locatif",
+      sentiment: "Prête à passer à l'action",
+      blocage: "Choix de la stratégie",
+      delai: "Moins de 3 mois"
+    },
+    progress: [
+      { moduleId: "preparation", moduleName: "Préparation & Fondations", completed: true, videosCompleted: 6, totalVideos: 6 },
+      { moduleId: "financement", moduleName: "Maîtrise du Financement", completed: true, videosCompleted: 7, totalVideos: 7 },
+      { moduleId: "apres-achat", moduleName: "Après l'Achat & Optimisation", completed: false, videosCompleted: 3, totalVideos: 5 }
+    ],
+    joinedAt: "2024-03-05"
+  },
+  {
+    id: "4",
+    firstName: "Pierre",
+    lastName: "Lefebvre",
+    email: "pierre.lefebvre@email.com",
+    amountSpent: 997,
+    accompagnement: "patrimoine-actif",
+    startingPoint: {
+      situation: "Multi-propriétaire",
+      intention: "Développer mon patrimoine",
+      sentiment: "Expert qui veut optimiser",
+      blocage: "Fiscalité complexe",
+      delai: "6-12 mois"
+    },
+    progress: [
+      { moduleId: "preparation", moduleName: "Préparation & Fondations", completed: true, videosCompleted: 6, totalVideos: 6 },
+      { moduleId: "financement", moduleName: "Maîtrise du Financement", completed: false, videosCompleted: 4, totalVideos: 7 },
+      { moduleId: "apres-achat", moduleName: "Après l'Achat & Optimisation", completed: false, videosCompleted: 0, totalVideos: 5 }
+    ],
+    joinedAt: "2024-01-28"
+  },
+  {
+    id: "5",
+    firstName: "Julie",
+    lastName: "Moreau",
+    email: "julie.moreau@email.com",
+    amountSpent: 997,
+    accompagnement: "patrimoine-actif",
+    startingPoint: {
+      situation: "Primo-investisseur",
+      intention: "Premier investissement locatif",
+      sentiment: "Déterminée",
+      blocage: "Peur de me tromper",
+      delai: "3-6 mois"
+    },
+    progress: [
+      { moduleId: "preparation", moduleName: "Préparation & Fondations", completed: false, videosCompleted: 3, totalVideos: 6 },
+      { moduleId: "financement", moduleName: "Maîtrise du Financement", completed: false, videosCompleted: 0, totalVideos: 7 },
+      { moduleId: "apres-achat", moduleName: "Après l'Achat & Optimisation", completed: false, videosCompleted: 0, totalVideos: 5 }
+    ],
+    joinedAt: "2024-03-18"
+  }
+];
 
 // Modules prédéfinis
 const defaultModules: Omit<Module, 'videos'>[] = [
@@ -108,6 +257,11 @@ const AdminDashboard = () => {
     description: "",
     tool: ""
   });
+
+  // État pour la section clients
+  const [adminView, setAdminView] = useState<'formations' | 'clients'>('formations');
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+  const [clientFilter, setClientFilter] = useState<'all' | 'residence-essentiel' | 'patrimoine-actif'>('all');
 
   // Ajouter une formation
   const handleAddFormation = () => {
@@ -295,6 +449,164 @@ const AdminDashboard = () => {
     </div>
   );
 
+  // Filtrer les clients
+  const filteredClients = mockClients.filter(client => {
+    if (clientFilter === 'all') return true;
+    return client.accompagnement === clientFilter;
+  });
+
+  const residenceEssentielClients = mockClients.filter(c => c.accompagnement === 'residence-essentiel');
+  const patrimoineActifClients = mockClients.filter(c => c.accompagnement === 'patrimoine-actif');
+
+  // Calculer la progression globale d'un client
+  const getClientOverallProgress = (client: Client) => {
+    const totalCompleted = client.progress.reduce((acc, p) => acc + p.videosCompleted, 0);
+    const totalVideos = client.progress.reduce((acc, p) => acc + p.totalVideos, 0);
+    return totalVideos > 0 ? Math.round((totalCompleted / totalVideos) * 100) : 0;
+  };
+
+  // Composant pour afficher la fiche client détaillée
+  const ClientDetailView = ({ client }: { client: Client }) => (
+    <div className="space-y-6">
+      {/* En-tête client */}
+      <Card>
+        <CardHeader className="pb-4">
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                <User className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-display font-bold text-foreground">
+                  {client.firstName} {client.lastName}
+                </h2>
+                <p className="text-muted-foreground">{client.email}</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    client.accompagnement === 'patrimoine-actif' 
+                      ? 'bg-primary/10 text-primary' 
+                      : 'bg-secondary text-secondary-foreground'
+                  }`}>
+                    {client.accompagnement === 'patrimoine-actif' ? 'Patrimoine Actif' : 'Résidence Essentiel'}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    Client depuis le {new Date(client.joinedAt).toLocaleDateString('fr-FR')}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-3xl font-bold text-primary">{client.amountSpent}€</div>
+              <p className="text-sm text-muted-foreground">dépensés sur le site</p>
+            </div>
+          </div>
+        </CardHeader>
+      </Card>
+
+      {/* Point de départ */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg flex items-center gap-2">
+            <ArrowUpRight className="w-5 h-5 text-primary" />
+            Point de départ
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="p-4 bg-muted/30 rounded-lg">
+              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Situation</p>
+              <p className="font-medium text-foreground">{client.startingPoint.situation}</p>
+            </div>
+            <div className="p-4 bg-muted/30 rounded-lg">
+              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Intention</p>
+              <p className="font-medium text-foreground">{client.startingPoint.intention}</p>
+            </div>
+            <div className="p-4 bg-muted/30 rounded-lg">
+              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Sentiment</p>
+              <p className="font-medium text-foreground">{client.startingPoint.sentiment}</p>
+            </div>
+            <div className="p-4 bg-muted/30 rounded-lg">
+              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Blocage principal</p>
+              <p className="font-medium text-foreground">{client.startingPoint.blocage}</p>
+            </div>
+            <div className="p-4 bg-muted/30 rounded-lg">
+              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Délai souhaité</p>
+              <p className="font-medium text-foreground">{client.startingPoint.delai}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Progression */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <GraduationCap className="w-5 h-5 text-primary" />
+              Progression de l'accompagnement
+            </CardTitle>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-bold text-primary">{getClientOverallProgress(client)}%</span>
+              <span className="text-sm text-muted-foreground">complété</span>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-6">
+            <Progress value={getClientOverallProgress(client)} className="h-3" />
+          </div>
+          <div className="space-y-4">
+            {client.progress.map((module) => (
+              <div key={module.moduleId} className="flex items-center gap-4 p-4 bg-muted/30 rounded-lg">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  module.completed ? 'bg-green-500/10' : 'bg-primary/10'
+                }`}>
+                  {module.completed ? (
+                    <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  ) : module.videosCompleted > 0 ? (
+                    <Clock className="w-5 h-5 text-primary" />
+                  ) : (
+                    <Circle className="w-5 h-5 text-muted-foreground" />
+                  )}
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-medium text-foreground">{module.moduleName}</h4>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Progress 
+                      value={(module.videosCompleted / module.totalVideos) * 100} 
+                      className="h-2 flex-1 max-w-[200px]" 
+                    />
+                    <span className="text-sm text-muted-foreground">
+                      {module.videosCompleted}/{module.totalVideos} vidéos
+                    </span>
+                  </div>
+                </div>
+                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  module.completed 
+                    ? 'bg-green-500/10 text-green-600' 
+                    : module.videosCompleted > 0 
+                      ? 'bg-primary/10 text-primary' 
+                      : 'bg-muted text-muted-foreground'
+                }`}>
+                  {module.completed ? 'Terminé' : module.videosCompleted > 0 ? 'En cours' : 'Non commencé'}
+                </span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Button 
+        variant="outline" 
+        onClick={() => setSelectedClient(null)}
+        className="w-full"
+      >
+        <ArrowLeft className="w-4 h-4 mr-2" />
+        Retour à la liste des clients
+      </Button>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -309,17 +621,182 @@ const AdminDashboard = () => {
               </Link>
               <div>
                 <h1 className="text-xl font-display font-bold text-foreground">Admin Dashboard</h1>
-                <p className="text-sm text-muted-foreground">Gérer les formations</p>
+                <p className="text-sm text-muted-foreground">
+                  {adminView === 'formations' ? 'Gérer les formations' : 'Base de données clients'}
+                </p>
               </div>
             </div>
-            <Link to="/" className="text-lg font-display font-bold text-primary">
-              NousProprio
-            </Link>
+            <div className="flex items-center gap-4">
+              {/* Toggle entre Formations et Clients */}
+              <div className="flex bg-muted rounded-lg p-1">
+                <Button
+                  variant={adminView === 'formations' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => {
+                    setAdminView('formations');
+                    setSelectedClient(null);
+                  }}
+                  className="gap-2"
+                >
+                  <GraduationCap className="w-4 h-4" />
+                  Formations
+                </Button>
+                <Button
+                  variant={adminView === 'clients' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => {
+                    setAdminView('clients');
+                    setSelectedFormation(null);
+                  }}
+                  className="gap-2"
+                >
+                  <Users className="w-4 h-4" />
+                  Clients
+                </Button>
+              </div>
+              <Link to="/" className="text-lg font-display font-bold text-primary">
+                NousProprio
+              </Link>
+            </div>
           </div>
         </div>
       </header>
 
       <div className="max-w-7xl mx-auto p-4 md:p-6">
+        {/* VUE CLIENTS */}
+        {adminView === 'clients' && (
+          <div>
+            {selectedClient ? (
+              <ClientDetailView client={selectedClient} />
+            ) : (
+              <div className="space-y-6">
+                {/* Stats cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card 
+                    className={`cursor-pointer transition-all ${clientFilter === 'all' ? 'ring-2 ring-primary' : 'hover:border-primary/50'}`}
+                    onClick={() => setClientFilter('all')}
+                  >
+                    <CardContent className="pt-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-muted-foreground">Tous les clients</p>
+                          <p className="text-3xl font-bold text-foreground">{mockClients.length}</p>
+                        </div>
+                        <Users className="w-10 h-10 text-muted-foreground/30" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card 
+                    className={`cursor-pointer transition-all ${clientFilter === 'residence-essentiel' ? 'ring-2 ring-primary' : 'hover:border-primary/50'}`}
+                    onClick={() => setClientFilter('residence-essentiel')}
+                  >
+                    <CardContent className="pt-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-muted-foreground">Résidence Essentiel</p>
+                          <p className="text-3xl font-bold text-foreground">{residenceEssentielClients.length}</p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {residenceEssentielClients.reduce((acc, c) => acc + c.amountSpent, 0)}€ total
+                          </p>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
+                          <User className="w-5 h-5 text-secondary-foreground" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card 
+                    className={`cursor-pointer transition-all ${clientFilter === 'patrimoine-actif' ? 'ring-2 ring-primary' : 'hover:border-primary/50'}`}
+                    onClick={() => setClientFilter('patrimoine-actif')}
+                  >
+                    <CardContent className="pt-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-muted-foreground">Patrimoine Actif</p>
+                          <p className="text-3xl font-bold text-foreground">{patrimoineActifClients.length}</p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {patrimoineActifClients.reduce((acc, c) => acc + c.amountSpent, 0)}€ total
+                          </p>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                          <User className="w-5 h-5 text-primary" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Liste des clients */}
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg flex items-center gap-2">
+                      <Users className="w-5 h-5 text-primary" />
+                      {clientFilter === 'all' 
+                        ? 'Tous les clients' 
+                        : clientFilter === 'residence-essentiel' 
+                          ? 'Clients Résidence Essentiel' 
+                          : 'Clients Patrimoine Actif'}
+                      <span className="text-sm font-normal text-muted-foreground">
+                        ({filteredClients.length})
+                      </span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      {filteredClients.map((client) => (
+                        <div
+                          key={client.id}
+                          className="flex items-center gap-4 p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-muted/30 cursor-pointer transition-all group"
+                          onClick={() => setSelectedClient(client)}
+                        >
+                          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <User className="w-6 h-6 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-foreground">
+                              {client.firstName} {client.lastName}
+                            </h4>
+                            <p className="text-sm text-muted-foreground truncate">{client.email}</p>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                            <div className="flex items-center gap-1 text-lg font-bold text-primary">
+                              <Euro className="w-4 h-4" />
+                              {client.amountSpent}
+                            </div>
+                            <span className={`text-xs px-2 py-0.5 rounded-full ${
+                              client.accompagnement === 'patrimoine-actif' 
+                                ? 'bg-primary/10 text-primary' 
+                                : 'bg-secondary text-secondary-foreground'
+                            }`}>
+                              {client.accompagnement === 'patrimoine-actif' ? 'Patrimoine' : 'Résidence'}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            <div className="text-right">
+                              <span className="text-sm font-medium">{getClientOverallProgress(client)}%</span>
+                              <Progress value={getClientOverallProgress(client)} className="h-2 w-20" />
+                            </div>
+                            <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                          </div>
+                        </div>
+                      ))}
+
+                      {filteredClients.length === 0 && (
+                        <div className="text-center py-12 text-muted-foreground">
+                          <Users className="w-12 h-12 mx-auto mb-3 opacity-20" />
+                          <p className="text-sm">Aucun client dans cette catégorie</p>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* VUE FORMATIONS */}
+        {adminView === 'formations' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Sidebar - Liste des formations */}
           <div className="lg:col-span-4 xl:col-span-3">
@@ -571,6 +1048,7 @@ const AdminDashboard = () => {
             )}
           </div>
         </div>
+        )}
       </div>
 
       {/* Dialog pour ajouter/modifier une vidéo */}
