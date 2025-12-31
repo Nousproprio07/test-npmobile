@@ -16,6 +16,7 @@ import {
   BookOpen,
   GraduationCap,
   PlayCircle,
+  Play,
   Wrench,
   ArrowLeft,
   Users,
@@ -1423,7 +1424,15 @@ const AdminDashboard = () => {
                                 </a>
                               </div>
                             </div>
-                            <div className="flex items-center gap-2 flex-shrink-0">
+                            <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
+                              <Button
+                                size="sm"
+                                className="gap-1 bg-red-600 hover:bg-red-700"
+                                onClick={() => window.open(live.meetLink, '_blank')}
+                              >
+                                <Play className="w-4 h-4" />
+                                Démarrer le live
+                              </Button>
                               {live.notificationSent ? (
                                 <span className="flex items-center gap-1 text-xs text-emerald-500 bg-emerald-500/10 px-3 py-1.5 rounded-full">
                                   <Check className="w-3 h-3" />
