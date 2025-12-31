@@ -28,9 +28,9 @@ import { useNavigate } from "react-router-dom";
 
 // Mock data pour le membre de l'équipe connecté
 const teamMember = {
-  id: "1",
-  firstName: "Sophie",
-  lastName: "Martin",
+  id: "2",
+  firstName: "Johanna",
+  lastName: "Durand",
   role: "Coach immobilier"
 };
 
