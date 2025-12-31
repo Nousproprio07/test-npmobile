@@ -73,6 +73,10 @@ interface Module {
 interface Formation {
   id: string;
   title: string;
+  displayTitle: string;
+  type: 'direction' | 'cours';
+  price: string;
+  isPublished: boolean;
   modules: Module[];
   bonus: VideoLesson[];
   replays: VideoLesson[];
@@ -260,7 +264,11 @@ const defaultModules: Omit<Module, 'videos'>[] = [
 const initialFormations: Formation[] = [
   {
     id: "1",
-    title: "Patrimoine Actif",
+    title: "Patrimoine Actif /direction",
+    displayTitle: "Patrimoine Actif",
+    type: 'direction',
+    price: "",
+    isPublished: false,
     modules: defaultModules.map(m => ({ ...m, videos: [] })),
     bonus: [],
     replays: []
@@ -466,16 +474,50 @@ const AdminDashboard = () => {
     toast.success("Questions répondues supprimées");
   };
 
+  // Détecter le type à partir du titre
+  const detectFormationType = (title: string): { displayTitle: string; type: 'direction' | 'cours' } => {
+    const lowerTitle = title.toLowerCase();
+    if (lowerTitle.includes('/direction')) {
+      return {
+        displayTitle: title.replace(/\/direction/gi, '').trim(),
+        type: 'direction'
+      };
+    } else if (lowerTitle.includes('/cours')) {
+      return {
+        displayTitle: title.replace(/\/cours/gi, '').trim(),
+        type: 'cours'
+      };
+    }
+    return { displayTitle: title, type: 'cours' };
+  };
+
+  // Message basé sur le type détecté
+  const getTypeMessage = (title: string): string | null => {
+    const lowerTitle = title.toLowerCase();
+    if (lowerTitle.includes('/direction')) {
+      return "C'est une direction";
+    } else if (lowerTitle.includes('/cours')) {
+      return "C'est un cours";
+    }
+    return null;
+  };
+
   // Ajouter une formation
   const handleAddFormation = () => {
     if (!newFormationTitle.trim()) {
       toast.error("Veuillez entrer un titre pour la direction / cours");
       return;
     }
+
+    const { displayTitle, type } = detectFormationType(newFormationTitle);
     
     const newFormation: Formation = {
       id: Date.now().toString(),
       title: newFormationTitle,
+      displayTitle,
+      type,
+      price: "",
+      isPublished: false,
       modules: defaultModules.map(m => ({ ...m, videos: [] })),
       bonus: [],
       replays: []
@@ -484,7 +526,37 @@ const AdminDashboard = () => {
     setFormations([...formations, newFormation]);
     setNewFormationTitle("");
     setIsAddingFormation(false);
-    toast.success("Direction / Cours créé avec succès");
+    toast.success(`${type === 'direction' ? 'Direction' : 'Cours'} créé avec succès`);
+  };
+
+  // Mettre à jour le prix d'une formation
+  const handleUpdatePrice = (formationId: string, price: string) => {
+    setFormations(formations.map(f => 
+      f.id === formationId ? { ...f, price } : f
+    ));
+  };
+
+  // Publier une formation
+  const handlePublishFormation = (formationId: string) => {
+    const formation = formations.find(f => f.id === formationId);
+    if (!formation) return;
+
+    if (!formation.price) {
+      toast.error("Veuillez renseigner le prix avant de publier");
+      return;
+    }
+
+    setFormations(formations.map(f => 
+      f.id === formationId ? { ...f, isPublished: true } : f
+    ));
+    
+    // Sauvegarder dans localStorage
+    const updatedFormations = formations.map(f => 
+      f.id === formationId ? { ...f, isPublished: true } : f
+    );
+    localStorage.setItem('admin_formations', JSON.stringify(updatedFormations));
+    
+    toast.success(`${formation.type === 'direction' ? 'Direction' : 'Cours'} publié avec succès !`);
   };
 
   // Supprimer une formation
@@ -1510,11 +1582,20 @@ const AdminDashboard = () => {
                 {isAddingFormation && (
                   <div className="p-3 border border-primary/20 rounded-lg bg-primary/5 space-y-2">
                     <Input
-                      placeholder="Titre de la direction / cours"
+                      placeholder="Titre /direction ou /cours"
                       value={newFormationTitle}
                       onChange={(e) => setNewFormationTitle(e.target.value)}
                       className="h-9"
                     />
+                    {getTypeMessage(newFormationTitle) && (
+                      <div className={`text-sm px-3 py-2 rounded-md ${
+                        newFormationTitle.toLowerCase().includes('/direction') 
+                          ? 'bg-blue-500/10 text-blue-600 border border-blue-500/20' 
+                          : 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                      }`}>
+                        ✓ {getTypeMessage(newFormationTitle)}
+                      </div>
+                    )}
                     <div className="flex gap-2">
                       <Button size="sm" onClick={handleAddFormation} className="flex-1">
                         <Save className="w-4 h-4 mr-1" />
@@ -1547,7 +1628,19 @@ const AdminDashboard = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <BookOpen className="w-4 h-4 text-primary" />
-                        <span className="font-medium text-sm">{formation.title}</span>
+                        <span className="font-medium text-sm">{formation.displayTitle}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${
+                          formation.type === 'direction' 
+                            ? 'bg-blue-500/10 text-blue-600' 
+                            : 'bg-emerald-500/10 text-emerald-600'
+                        }`}>
+                          {formation.type === 'direction' ? 'Direction' : 'Cours'}
+                        </span>
+                        {formation.isPublished && (
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-600">
+                            Publié
+                          </span>
+                        )}
                       </div>
                       <Button
                         variant="ghost"
@@ -1565,6 +1658,7 @@ const AdminDashboard = () => {
                       <span>{formation.modules.reduce((acc, m) => acc + m.videos.length, 0)} vidéos</span>
                       <span>{formation.bonus.length} bonus</span>
                       <span>{formation.replays.length} replays</span>
+                      {formation.price && <span className="text-primary font-medium">{formation.price}€</span>}
                     </div>
                   </div>
                 ))}
@@ -1584,11 +1678,72 @@ const AdminDashboard = () => {
           <div className="lg:col-span-8 xl:col-span-9">
             {selectedFormation ? (
               <div className="space-y-4">
-                {/* Titre de la direction / cours */}
+                {/* Titre et infos de la direction / cours */}
                 <Card>
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-xl">{selectedFormation.title}</CardTitle>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <CardTitle className="text-xl">{selectedFormation.displayTitle}</CardTitle>
+                          <span className={`text-xs px-2 py-1 rounded-full ${
+                            selectedFormation.type === 'direction' 
+                              ? 'bg-blue-500/10 text-blue-600' 
+                              : 'bg-emerald-500/10 text-emerald-600'
+                          }`}>
+                            {selectedFormation.type === 'direction' ? 'Direction' : 'Cours'}
+                          </span>
+                          {selectedFormation.isPublished && (
+                            <span className="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-600">
+                              ✓ Publié
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          {selectedFormation.type === 'direction' 
+                            ? "C'est une direction" 
+                            : "C'est un cours"}
+                        </p>
+                      </div>
+                      {!selectedFormation.isPublished && (
+                        <Button 
+                          onClick={() => handlePublishFormation(selectedFormation.id)}
+                          className="gap-2"
+                        >
+                          <CheckCircle2 className="w-4 h-4" />
+                          Publier
+                        </Button>
+                      )}
+                    </div>
                   </CardHeader>
+                </Card>
+
+                {/* Prix */}
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg flex items-center gap-2">
+                      <Euro className="w-5 h-5 text-primary" />
+                      Prix de la {selectedFormation.type === 'direction' ? 'direction' : 'cours'}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1 max-w-xs">
+                        <Input
+                          type="number"
+                          placeholder="Prix en euros"
+                          value={selectedFormation.price}
+                          onChange={(e) => handleUpdatePrice(selectedFormation.id, e.target.value)}
+                          className="text-lg"
+                        />
+                      </div>
+                      <span className="text-2xl font-bold text-muted-foreground">€</span>
+                      {selectedFormation.price && (
+                        <span className="text-sm text-green-600 bg-green-500/10 px-3 py-1.5 rounded-full">
+                          Prix défini
+                        </span>
+                      )}
+                    </div>
+                  </CardContent>
                 </Card>
 
                 {/* Modules */}
