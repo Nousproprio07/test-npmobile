@@ -271,7 +271,7 @@ const Resultat = () => {
             <p className="text-lg md:text-xl text-[#99c5ff] font-semibold mb-8">
               Direction : {accompaniment.type === "Résidence Essentiel" 
                 ? "devenir propriétaire intelligemment avant de penser investissement" 
-                : "Comprendre comment créer son patrimoine et des revenus immobiliers"}
+                : "Comprendre comment créer son patrimoine et ses revenus immobiliers"}
             </p>
 
             {/* Recommendation card - THE BIG REVEAL */}
