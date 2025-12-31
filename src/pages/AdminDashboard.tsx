@@ -287,7 +287,8 @@ const AdminDashboard = () => {
       clientEmail: 'marie.dupont@email.com',
       question: 'Comment négocier au mieux le prix d\'un bien immobilier dans un marché tendu ?',
       submittedAt: new Date().toISOString(),
-      status: 'pending' as const
+      status: 'pending' as const,
+      response: '' as string
     },
     {
       id: 'example-2',
@@ -295,7 +296,8 @@ const AdminDashboard = () => {
       clientEmail: 'thomas.martin@email.com',
       question: 'Quelle est la différence entre un prêt à taux fixe et un prêt à taux variable ?',
       submittedAt: new Date(Date.now() - 86400000).toISOString(),
-      status: 'pending' as const
+      status: 'pending' as const,
+      response: '' as string
     }
   ];
 
@@ -306,8 +308,11 @@ const AdminDashboard = () => {
     question: string;
     submittedAt: string;
     status: 'pending' | 'answered';
+    response?: string;
+    respondedAt?: string;
   }>>([]);
   const [questionTab, setQuestionTab] = useState<'pending' | 'answered'>('pending');
+  const [responseText, setResponseText] = useState<{[key: string]: string}>({});
 
   // Charger les questions depuis localStorage
   const loadFaqQuestions = () => {
@@ -321,14 +326,41 @@ const AdminDashboard = () => {
     }
   };
 
-  // Marquer une question comme répondue
+  // Marquer une question comme répondue avec la réponse
   const markQuestionAsAnswered = (questionId: string) => {
+    const response = responseText[questionId] || '';
+    if (!response.trim()) {
+      toast.error("Veuillez écrire une réponse avant de valider");
+      return;
+    }
+    
     const updatedQuestions = faqQuestions.map(q => 
-      q.id === questionId ? { ...q, status: 'answered' as const } : q
+      q.id === questionId ? { 
+        ...q, 
+        status: 'answered' as const, 
+        response: response.trim(),
+        respondedAt: new Date().toISOString()
+      } : q
     );
     setFaqQuestions(updatedQuestions);
     localStorage.setItem('faqQuestions', JSON.stringify(updatedQuestions));
-    toast.success("Question marquée comme répondue");
+    
+    // Sauvegarder aussi dans l'historique client (qui persiste même après suppression admin)
+    const clientHistoryKey = `clientFaqHistory`;
+    const clientHistory = JSON.parse(localStorage.getItem(clientHistoryKey) || '[]');
+    const answeredQuestion = updatedQuestions.find(q => q.id === questionId);
+    if (answeredQuestion) {
+      const existingIndex = clientHistory.findIndex((h: any) => h.id === questionId);
+      if (existingIndex >= 0) {
+        clientHistory[existingIndex] = answeredQuestion;
+      } else {
+        clientHistory.push(answeredQuestion);
+      }
+      localStorage.setItem(clientHistoryKey, JSON.stringify(clientHistory));
+    }
+    
+    setResponseText(prev => ({ ...prev, [questionId]: '' }));
+    toast.success("Réponse envoyée au client");
   };
 
   // Supprimer une question
@@ -1088,19 +1120,45 @@ const AdminDashboard = () => {
                                 <span className="text-muted-foreground/50">•</span>
                                 <span>{question.clientEmail}</span>
                               </div>
-                            </div>
-                            <div className="flex items-center gap-2 flex-shrink-0">
+                              
+                              {/* Zone de réponse pour les questions en attente */}
                               {question.status === 'pending' && (
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() => markQuestionAsAnswered(question.id)}
-                                  className="gap-1 text-green-600 border-green-500/30 hover:bg-green-500/10"
-                                >
-                                  <Check className="w-4 h-4" />
-                                  Répondue
-                                </Button>
+                                <div className="mt-4 space-y-2">
+                                  <Textarea
+                                    placeholder="Écrivez votre réponse ici..."
+                                    value={responseText[question.id] || ''}
+                                    onChange={(e) => setResponseText(prev => ({ ...prev, [question.id]: e.target.value }))}
+                                    className="min-h-[80px] resize-none"
+                                  />
+                                  <Button
+                                    size="sm"
+                                    onClick={() => markQuestionAsAnswered(question.id)}
+                                    disabled={!responseText[question.id]?.trim()}
+                                    className="gap-1"
+                                  >
+                                    <Send className="w-4 h-4" />
+                                    Envoyer la réponse
+                                  </Button>
+                                </div>
                               )}
+                              
+                              {/* Afficher la réponse pour les questions répondues */}
+                              {question.status === 'answered' && question.response && (
+                                <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                                  <div className="flex items-center gap-2 text-xs text-primary mb-2">
+                                    <CheckCircle2 className="w-4 h-4" />
+                                    <span>Répondu le {question.respondedAt && new Date(question.respondedAt).toLocaleDateString('fr-FR', {
+                                      day: 'numeric',
+                                      month: 'short',
+                                      hour: '2-digit',
+                                      minute: '2-digit'
+                                    })}</span>
+                                  </div>
+                                  <p className="text-sm text-foreground">{question.response}</p>
+                                </div>
+                              )}
+                            </div>
+                            <div className="flex items-start gap-2 flex-shrink-0">
                               <Button
                                 size="sm"
                                 variant="ghost"

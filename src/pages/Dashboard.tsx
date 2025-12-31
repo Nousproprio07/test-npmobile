@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -220,13 +220,6 @@ const coursSupplementaires = [
   { id: 4, title: "Investir à l'étranger", duration: "40 min", new: false, price: 57, description: "Les clés pour réussir ton premier investissement immobilier hors de France." },
 ];
 
-// Mock data pour la prochaine session FAQ
-const prochaineFAQ = {
-  date: "Jeudi 2 Janvier",
-  heure: "19h00",
-  lienVisio: "https://meet.google.com/abc-defg-hij"
-};
-
 const tabItems = [
   { id: "formation", label: "Ma feuille de route", shortLabel: "Feuille de route" },
   { id: "bloc1", label: "Ton point de départ", shortLabel: "Point de départ" },
@@ -234,6 +227,208 @@ const tabItems = [
   { id: "bonus", label: "Cours Bonus", shortLabel: "Bonus" },
   { id: "faq", label: "Session FAQ live", shortLabel: "FAQ live" },
 ];
+
+// Mock data pour la prochaine session FAQ
+const prochaineFAQData = {
+  date: "Jeudi 2 Janvier",
+  heure: "19h00",
+  lienVisio: "https://meet.google.com/abc-defg-hij"
+};
+
+// Composant FAQ Tab
+const FaqTab = ({ 
+  faqQuestion, 
+  setFaqQuestion, 
+  isSubmittingQuestion, 
+  handleSubmitQuestion, 
+  myQuestions,
+  loadMyQuestions
+}: {
+  faqQuestion: string;
+  setFaqQuestion: (val: string) => void;
+  isSubmittingQuestion: boolean;
+  handleSubmitQuestion: () => void;
+  myQuestions: Array<{
+    id: string;
+    question: string;
+    submittedAt: string;
+    status: 'pending' | 'answered';
+    response?: string;
+    respondedAt?: string;
+  }>;
+  loadMyQuestions: () => void;
+}) => {
+  useEffect(() => {
+    loadMyQuestions();
+  }, []);
+
+  return (
+    <div className="space-y-4">
+      <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4">
+        Sessions FAQ live
+      </h3>
+
+      {/* Formulaire de question */}
+      <Card className="border-primary/50 bg-gradient-to-r from-primary/5 to-transparent">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <MessageCircle className="w-5 h-5 text-primary" />
+            <h4 className="font-semibold text-foreground">Poser une question</h4>
+          </div>
+          <p className="text-sm text-muted-foreground mb-3">
+            Ta question sera transmise à notre équipe et traitée lors de la prochaine session FAQ live.
+          </p>
+          <Textarea
+            placeholder="Écris ta question ici... (ex: Comment négocier le prix d'un bien immobilier ?)"
+            value={faqQuestion}
+            onChange={(e) => setFaqQuestion(e.target.value)}
+            className="min-h-[100px] mb-3 resize-none"
+          />
+          <Button 
+            onClick={handleSubmitQuestion}
+            disabled={isSubmittingQuestion || !faqQuestion.trim()}
+            className="w-full gap-2"
+          >
+            {isSubmittingQuestion ? (
+              <>
+                <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                Envoi en cours...
+              </>
+            ) : (
+              <>
+                <Send className="w-4 h-4" />
+                Envoyer ma question
+              </>
+            )}
+          </Button>
+        </CardContent>
+      </Card>
+      
+      {/* Prochaine session */}
+      <Card className="border-primary bg-gradient-to-r from-primary/10 to-primary/5">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
+              <Video className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <span className="inline-block px-2 py-0.5 text-xs font-medium bg-green-500/20 text-green-600 rounded-full mb-1">
+                Prochaine session
+              </span>
+              <h4 className="text-base font-semibold text-foreground">FAQ live</h4>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+            <span className="flex items-center gap-1">
+              <Calendar className="w-4 h-4" />
+              {prochaineFAQData.date}
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              {prochaineFAQData.heure}
+            </span>
+          </div>
+          
+          <Button 
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+            onClick={() => window.open(prochaineFAQData.lienVisio, '_blank')}
+          >
+            <Video className="w-4 h-4 mr-2" />
+            Rejoindre la session
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Info sessions */}
+      <Card>
+        <CardContent className="p-4">
+          <h4 className="font-semibold text-foreground mb-3">À propos des sessions</h4>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+              <span>Questions en direct avec nos experts</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+              <span>Sessions hebdomadaires réservées aux membres</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+              <span>Replays disponibles</span>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      {/* Mes questions et réponses */}
+      {myQuestions.length > 0 && (
+        <div>
+          <h4 className="text-base font-semibold text-foreground mb-3">Mes questions</h4>
+          <div className="space-y-3">
+            {myQuestions.map((q) => (
+              <Card key={q.id} className={`overflow-hidden ${q.status === 'answered' ? 'border-green-500/30' : 'border-orange-500/30'}`}>
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-2 mb-2">
+                    <span className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full ${
+                      q.status === 'answered' 
+                        ? 'bg-green-500/20 text-green-600' 
+                        : 'bg-orange-500/20 text-orange-600'
+                    }`}>
+                      {q.status === 'answered' ? 'Répondue' : 'En attente'}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(q.submittedAt).toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'short'
+                      })}
+                    </span>
+                  </div>
+                  <p className="text-foreground font-medium mb-2">{q.question}</p>
+                  
+                  {q.status === 'answered' && q.response && (
+                    <div className="mt-3 p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                      <div className="flex items-center gap-2 text-xs text-primary mb-2">
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>Réponse de l'équipe NousProprio</span>
+                      </div>
+                      <p className="text-sm text-foreground">{q.response}</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Replays */}
+      <div>
+        <h4 className="text-base font-semibold text-foreground mb-3">Replays</h4>
+        <div className="space-y-2">
+          {[
+            { id: 1, title: "FAQ #12 - Fiscalité", date: "19 Dec", duration: "1h 15" },
+            { id: 2, title: "FAQ #11 - Négociation", date: "12 Dec", duration: "58 min" },
+            { id: 3, title: "FAQ #10 - Financement", date: "5 Dec", duration: "1h 02" },
+          ].map((replay) => (
+            <Card key={replay.id} className="hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98]">
+              <CardContent className="p-3 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                  <Play className="w-5 h-5 text-muted-foreground" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-sm text-foreground truncate">{replay.title}</p>
+                  <p className="text-xs text-muted-foreground">{replay.date} • {replay.duration}</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -243,8 +438,36 @@ const Dashboard = () => {
   const [showChapters, setShowChapters] = useState(false);
   const [faqQuestion, setFaqQuestion] = useState("");
   const [isSubmittingQuestion, setIsSubmittingQuestion] = useState(false);
+  const [myQuestions, setMyQuestions] = useState<Array<{
+    id: string;
+    question: string;
+    submittedAt: string;
+    status: 'pending' | 'answered';
+    response?: string;
+    respondedAt?: string;
+  }>>([]);
   const modules = formationModules[mockUser.formation] || [];
   const currentModuleData = modules.find(m => m.current);
+
+  // Charger les questions du client
+  const loadMyQuestions = () => {
+    // Récupérer depuis l'historique client persistant ET les questions en cours
+    const clientHistory = JSON.parse(localStorage.getItem('clientFaqHistory') || '[]');
+    const allQuestions = JSON.parse(localStorage.getItem('faqQuestions') || '[]');
+    
+    // Filtrer les questions de cet utilisateur
+    const userQuestions = allQuestions.filter((q: any) => q.clientEmail === mockUser.email);
+    
+    // Fusionner les deux sources (l'historique a priorité car contient les réponses)
+    const merged = [...clientHistory];
+    userQuestions.forEach((q: any) => {
+      if (!merged.find((m: any) => m.id === q.id)) {
+        merged.push(q);
+      }
+    });
+    
+    setMyQuestions(merged.sort((a: any, b: any) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()));
+  };
 
   // Soumettre une question pour la FAQ
   const handleSubmitQuestion = async () => {
@@ -273,6 +496,7 @@ const Dashboard = () => {
     toast.success("Votre question a été envoyée ! Elle sera traitée lors de la prochaine session FAQ.");
     setFaqQuestion("");
     setIsSubmittingQuestion(false);
+    loadMyQuestions(); // Recharger la liste
   };
 
   const handleLogout = () => {
@@ -530,7 +754,7 @@ const Dashboard = () => {
             <div className="flex items-center gap-2 text-xs sm:text-sm">
               <Bell className="w-4 h-4 text-primary flex-shrink-0 animate-pulse" />
               <span className="text-muted-foreground">Prochaine FAQ :</span>
-              <span className="font-semibold text-primary truncate">{prochaineFAQ.date} • {prochaineFAQ.heure}</span>
+              <span className="font-semibold text-primary truncate">{prochaineFAQData.date} • {prochaineFAQData.heure}</span>
             </div>
           </div>
         </div>
@@ -939,129 +1163,14 @@ const Dashboard = () => {
         )}
 
         {activeTab === "faq" && (
-          <div className="space-y-4">
-            <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4">
-              Sessions FAQ live
-            </h3>
-
-            {/* Formulaire de question - EN PREMIER */}
-            <Card className="border-primary/50 bg-gradient-to-r from-primary/5 to-transparent">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <MessageCircle className="w-5 h-5 text-primary" />
-                  <h4 className="font-semibold text-foreground">Poser une question</h4>
-                </div>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Ta question sera transmise à notre équipe et traitée lors de la prochaine session FAQ live.
-                </p>
-                <Textarea
-                  placeholder="Écris ta question ici... (ex: Comment négocier le prix d'un bien immobilier ?)"
-                  value={faqQuestion}
-                  onChange={(e) => setFaqQuestion(e.target.value)}
-                  className="min-h-[100px] mb-3 resize-none"
-                />
-                <Button 
-                  onClick={handleSubmitQuestion}
-                  disabled={isSubmittingQuestion || !faqQuestion.trim()}
-                  className="w-full gap-2"
-                >
-                  {isSubmittingQuestion ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                      Envoi en cours...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4" />
-                      Envoyer ma question
-                    </>
-                  )}
-                </Button>
-              </CardContent>
-            </Card>
-            
-            {/* Prochaine session - Card compacte */}
-            <Card className="border-primary bg-gradient-to-r from-primary/10 to-primary/5">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-                    <Video className="w-6 h-6 text-primary-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <span className="inline-block px-2 py-0.5 text-xs font-medium bg-green-500/20 text-green-600 rounded-full mb-1">
-                      Prochaine session
-                    </span>
-                    <h4 className="text-base font-semibold text-foreground">FAQ live</h4>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {prochaineFAQ.date}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {prochaineFAQ.heure}
-                  </span>
-                </div>
-                
-                <Button 
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-                  onClick={() => window.open(prochaineFAQ.lienVisio, '_blank')}
-                >
-                  <Video className="w-4 h-4 mr-2" />
-                  Rejoindre la session
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Info sessions */}
-            <Card>
-              <CardContent className="p-4">
-                <h4 className="font-semibold text-foreground mb-3">À propos des sessions</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span>Questions en direct avec nos experts</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span>Sessions hebdomadaires réservées aux membres</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span>Replays disponibles</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Replays */}
-            <div>
-              <h4 className="text-base font-semibold text-foreground mb-3">Replays</h4>
-              <div className="space-y-2">
-                {[
-                  { id: 1, title: "FAQ #12 - Fiscalité", date: "19 Dec", duration: "1h 15" },
-                  { id: 2, title: "FAQ #11 - Négociation", date: "12 Dec", duration: "58 min" },
-                  { id: 3, title: "FAQ #10 - Financement", date: "5 Dec", duration: "1h 02" },
-                ].map((replay) => (
-                  <Card key={replay.id} className="hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98]">
-                    <CardContent className="p-3 flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
-                        <Play className="w-5 h-5 text-muted-foreground" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm text-foreground truncate">{replay.title}</p>
-                        <p className="text-xs text-muted-foreground">{replay.date} • {replay.duration}</p>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
+          <FaqTab 
+            faqQuestion={faqQuestion}
+            setFaqQuestion={setFaqQuestion}
+            isSubmittingQuestion={isSubmittingQuestion}
+            handleSubmitQuestion={handleSubmitQuestion}
+            myQuestions={myQuestions}
+            loadMyQuestions={loadMyQuestions}
+          />
         )}
       </div>
     </div>
