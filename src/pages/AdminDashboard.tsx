@@ -279,6 +279,26 @@ const AdminDashboard = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
 
   // État pour les questions FAQ
+  // Questions exemple par défaut
+  const defaultExampleQuestions = [
+    {
+      id: 'example-1',
+      clientName: 'Marie Dupont',
+      clientEmail: 'marie.dupont@email.com',
+      question: 'Comment négocier au mieux le prix d\'un bien immobilier dans un marché tendu ?',
+      submittedAt: new Date().toISOString(),
+      status: 'pending' as const
+    },
+    {
+      id: 'example-2',
+      clientName: 'Thomas Martin',
+      clientEmail: 'thomas.martin@email.com',
+      question: 'Quelle est la différence entre un prêt à taux fixe et un prêt à taux variable ?',
+      submittedAt: new Date(Date.now() - 86400000).toISOString(),
+      status: 'pending' as const
+    }
+  ];
+
   const [faqQuestions, setFaqQuestions] = useState<Array<{
     id: string;
     clientName: string;
@@ -291,8 +311,14 @@ const AdminDashboard = () => {
 
   // Charger les questions depuis localStorage
   const loadFaqQuestions = () => {
-    const questions = JSON.parse(localStorage.getItem('faqQuestions') || '[]');
-    setFaqQuestions(questions);
+    const storedQuestions = localStorage.getItem('faqQuestions');
+    if (storedQuestions) {
+      setFaqQuestions(JSON.parse(storedQuestions));
+    } else {
+      // Si aucune question stockée, charger les exemples
+      setFaqQuestions(defaultExampleQuestions);
+      localStorage.setItem('faqQuestions', JSON.stringify(defaultExampleQuestions));
+    }
   };
 
   // Marquer une question comme répondue
