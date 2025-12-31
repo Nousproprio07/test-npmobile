@@ -565,6 +565,7 @@ const AdminDashboard = () => {
       };
       
       setFormations([...formations, newFormation]);
+      setSelectedFormation(newFormation); // Sélectionner automatiquement
       setNewFormationTitle("");
       setIsAddingFormation(false);
       toast.success("Direction créée avec succès");
@@ -606,6 +607,7 @@ const AdminDashboard = () => {
     };
     
     setFormations([...formations, newFormation]);
+    setSelectedFormation(newFormation); // Sélectionner automatiquement
     setNewCourseForm({ title: "", relevance: "", purpose: "", directions: [], vimeoUrl: "" });
     setNewFormationTitle("");
     setIsAddingFormation(false);
