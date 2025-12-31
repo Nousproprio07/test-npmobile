@@ -32,7 +32,9 @@ import {
   Mail,
   Send,
   MessageCircle,
-  Check
+  Check,
+  Paperclip,
+  FileText
 } from "lucide-react";
 import {
   Accordion,
@@ -61,6 +63,8 @@ interface VideoLesson {
   vimeoUrl: string;
   description: string;
   tool?: string;
+  attachmentUrl?: string;
+  attachmentName?: string;
 }
 
 interface Module {
@@ -290,7 +294,9 @@ const AdminDashboard = () => {
     title: "",
     vimeoUrl: "",
     description: "",
-    tool: ""
+    tool: "",
+    attachmentUrl: "",
+    attachmentName: ""
   });
 
   // État pour la section clients
@@ -634,7 +640,7 @@ const AdminDashboard = () => {
     }));
 
     setEditingVideo(null);
-    setVideoForm({ title: "", vimeoUrl: "", description: "", tool: "" });
+    setVideoForm({ title: "", vimeoUrl: "", description: "", tool: "", attachmentUrl: "", attachmentName: "" });
     toast.success(editingVideo.video ? "Vidéo modifiée" : "Vidéo ajoutée");
   };
 
@@ -678,8 +684,10 @@ const AdminDashboard = () => {
       title: video.title,
       vimeoUrl: video.vimeoUrl,
       description: video.description,
-      tool: video.tool || ""
-    } : { title: "", vimeoUrl: "", description: "", tool: "" });
+      tool: video.tool || "",
+      attachmentUrl: video.attachmentUrl || "",
+      attachmentName: video.attachmentName || ""
+    } : { title: "", vimeoUrl: "", description: "", tool: "", attachmentUrl: "", attachmentName: "" });
   };
 
   // Composant pour afficher une vidéo
@@ -700,6 +708,12 @@ const AdminDashboard = () => {
           <div className="flex items-center gap-1 mt-1 text-xs text-primary">
             <Wrench className="w-3 h-3" />
             {video.tool}
+          </div>
+        )}
+        {video.attachmentName && (
+          <div className="flex items-center gap-1 mt-1 text-xs text-emerald-600">
+            <Paperclip className="w-3 h-3" />
+            {video.attachmentName}
           </div>
         )}
       </div>
@@ -1940,6 +1954,37 @@ const AdminDashboard = () => {
                 value={videoForm.tool}
                 onChange={(e) => setVideoForm({ ...videoForm, tool: e.target.value })}
               />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="video-attachment">Pièce jointe associée à l'outil (optionnel)</Label>
+              <div className="space-y-2">
+                <Input
+                  id="video-attachment-name"
+                  placeholder="Nom de la pièce jointe (Ex: Guide PDF)"
+                  value={videoForm.attachmentName}
+                  onChange={(e) => setVideoForm({ ...videoForm, attachmentName: e.target.value })}
+                />
+                <Input
+                  id="video-attachment-url"
+                  placeholder="Lien vers la pièce jointe (URL)"
+                  value={videoForm.attachmentUrl}
+                  onChange={(e) => setVideoForm({ ...videoForm, attachmentUrl: e.target.value })}
+                />
+                {videoForm.attachmentName && videoForm.attachmentUrl && (
+                  <div className="flex items-center gap-2 p-2 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-sm text-emerald-600">
+                    <Paperclip className="w-4 h-4" />
+                    <span>{videoForm.attachmentName}</span>
+                    <a 
+                      href={videoForm.attachmentUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="ml-auto text-xs underline hover:no-underline"
+                    >
+                      Voir
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <DialogFooter>
