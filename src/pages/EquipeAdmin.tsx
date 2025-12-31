@@ -20,9 +20,27 @@ import {
   Clock,
   CheckCircle,
   AlertCircle,
-  ArrowLeft
+  ArrowLeft,
+  Calendar,
+  Bell
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
+// Mock data pour le membre de l'équipe connecté
+const teamMember = {
+  id: "1",
+  firstName: "Sophie",
+  lastName: "Martin",
+  role: "Coach immobilier"
+};
+
+// Prochain live
+const prochainLive = {
+  title: "FAQ Live - Questions clients",
+  date: "Jeudi 2 Janvier",
+  heure: "19h00",
+  lienVisio: "https://meet.google.com/abc-defg-hij"
+};
 
 interface CourseProposal {
   id: string;
@@ -137,7 +155,7 @@ const EquipeAdmin = () => {
       ...newCourse,
       status: "pending",
       createdAt: new Date().toISOString(),
-      createdBy: "Membre équipe"
+      createdBy: teamMember.firstName
     };
 
     setCourseProposals(prev => [...prev, proposal]);
@@ -155,7 +173,7 @@ const EquipeAdmin = () => {
 
     const updatedQuestions = faqQuestions.map(q => 
       q.id === questionId 
-        ? { ...q, status: "answered" as const, response, respondedBy: "Équipe" }
+        ? { ...q, status: "answered" as const, response, respondedBy: teamMember.firstName }
         : q
     );
 
@@ -192,18 +210,55 @@ const EquipeAdmin = () => {
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div>
-              <h1 className="text-xl font-bold text-foreground">Espace Équipe</h1>
-              <p className="text-sm text-muted-foreground">Gestion des cours et accompagnements</p>
+              <h1 className="text-xl font-bold text-foreground flex items-center gap-2">
+                Bonjour, {teamMember.firstName} <span className="text-2xl">👋</span>
+              </h1>
+              <p className="text-sm text-muted-foreground">{teamMember.role}</p>
             </div>
           </div>
           <Badge variant="secondary" className="bg-primary/10 text-primary">
             <Users className="w-3 h-3 mr-1" />
-            Membre Équipe
+            Équipe
           </Badge>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-6 space-y-6">
+        {/* Notification prochain live */}
+        <Card className="border-primary bg-gradient-to-r from-primary/10 to-primary/5">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
+                <Video className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <Bell className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-medium text-primary">Prochain live</span>
+                </div>
+                <h4 className="text-base font-semibold text-foreground">{prochainLive.title}</h4>
+                <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-3 h-3" />
+                    {prochainLive.date}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {prochainLive.heure}
+                  </span>
+                </div>
+              </div>
+              <Button 
+                size="sm"
+                onClick={() => window.open(prochainLive.lienVisio, '_blank')}
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Rejoindre
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         <Tabs defaultValue="cours" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
             <TabsTrigger value="cours" className="gap-2">
