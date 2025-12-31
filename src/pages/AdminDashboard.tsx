@@ -553,9 +553,15 @@ const AdminDashboard = () => {
 
   // Mettre à jour le prix d'une formation
   const handleUpdatePrice = (formationId: string, price: string) => {
-    setFormations(formations.map(f => 
+    const updatedFormations = formations.map(f => 
       f.id === formationId ? { ...f, price } : f
-    ));
+    );
+    setFormations(updatedFormations);
+    
+    // Mettre à jour aussi selectedFormation si c'est la même
+    if (selectedFormation?.id === formationId) {
+      setSelectedFormation({ ...selectedFormation, price });
+    }
   };
 
   // Publier une formation
