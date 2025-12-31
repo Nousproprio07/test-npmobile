@@ -34,7 +34,8 @@ import {
   MessageCircle,
   Check,
   Paperclip,
-  FileText
+  FileText,
+  AlertTriangle
 } from "lucide-react";
 import {
   Accordion,
@@ -366,6 +367,19 @@ const AdminDashboard = () => {
   });
   const [isAddingLive, setIsAddingLive] = useState(false);
 
+  // État pour la suppression sécurisée de formation
+  const [deleteFormationDialog, setDeleteFormationDialog] = useState<{
+    isOpen: boolean;
+    formation: Formation | null;
+    confirmationStep: 'name' | 'confirm';
+    typedName: string;
+  }>({
+    isOpen: false,
+    formation: null,
+    confirmationStep: 'name',
+    typedName: ""
+  });
+
   // Sauvegarder les lives dans localStorage
   const saveLiveSessions = (sessions: LiveSession[]) => {
     setLiveSessions(sessions);
@@ -567,13 +581,55 @@ const AdminDashboard = () => {
     toast.success(`${formation.type === 'direction' ? 'Direction' : 'Cours'} publié avec succès !`);
   };
 
-  // Supprimer une formation
-  const handleDeleteFormation = (formationId: string) => {
+  // Ouvrir le dialogue de suppression sécurisée
+  const openDeleteFormationDialog = (formation: Formation) => {
+    setDeleteFormationDialog({
+      isOpen: true,
+      formation,
+      confirmationStep: 'name',
+      typedName: ""
+    });
+  };
+
+  // Vérifier le nom tapé et passer à l'étape de confirmation
+  const handleCheckNameAndConfirm = () => {
+    if (!deleteFormationDialog.formation) return;
+    
+    if (deleteFormationDialog.typedName.trim().toLowerCase() === deleteFormationDialog.formation.displayTitle.trim().toLowerCase()) {
+      setDeleteFormationDialog(prev => ({ ...prev, confirmationStep: 'confirm' }));
+    } else {
+      toast.error("Le nom ne correspond pas. Veuillez entrer le nom exact de la formation.");
+    }
+  };
+
+  // Supprimer une formation après confirmation
+  const handleDeleteFormation = () => {
+    if (!deleteFormationDialog.formation) return;
+    
+    const formationId = deleteFormationDialog.formation.id;
     setFormations(formations.filter(f => f.id !== formationId));
     if (selectedFormation?.id === formationId) {
       setSelectedFormation(null);
     }
-    toast.success("Direction / Cours supprimé");
+    
+    setDeleteFormationDialog({
+      isOpen: false,
+      formation: null,
+      confirmationStep: 'name',
+      typedName: ""
+    });
+    
+    toast.success("Direction / Cours supprimé définitivement");
+  };
+
+  // Fermer le dialogue de suppression
+  const closeDeleteFormationDialog = () => {
+    setDeleteFormationDialog({
+      isOpen: false,
+      formation: null,
+      confirmationStep: 'name',
+      typedName: ""
+    });
   };
 
   // Ajouter/Modifier une vidéo
@@ -1677,7 +1733,7 @@ const AdminDashboard = () => {
                         className="h-7 w-7 text-destructive hover:text-destructive opacity-0 group-hover:opacity-100"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDeleteFormation(formation.id);
+                          openDeleteFormationDialog(formation);
                         }}
                       >
                         <Trash2 className="w-4 h-4" />
@@ -2241,6 +2297,84 @@ const AdminDashboard = () => {
               )}
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog de suppression sécurisée */}
+      <Dialog 
+        open={deleteFormationDialog.isOpen} 
+        onOpenChange={(open) => !open && closeDeleteFormationDialog()}
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-destructive">
+              <AlertTriangle className="w-5 h-5" />
+              Supprimer {deleteFormationDialog.formation?.type === 'direction' ? 'la direction' : 'le cours'}
+            </DialogTitle>
+          </DialogHeader>
+          
+          {deleteFormationDialog.confirmationStep === 'name' ? (
+            <div className="space-y-4">
+              <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+                <p className="text-sm text-foreground">
+                  Vous êtes sur le point de supprimer <strong>"{deleteFormationDialog.formation?.displayTitle}"</strong>.
+                </p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Pour confirmer, veuillez entrer le nom complet de la formation :
+                </p>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="confirm-name">Nom de la formation</Label>
+                <Input
+                  id="confirm-name"
+                  placeholder={deleteFormationDialog.formation?.displayTitle}
+                  value={deleteFormationDialog.typedName}
+                  onChange={(e) => setDeleteFormationDialog(prev => ({ ...prev, typedName: e.target.value }))}
+                  className="border-destructive/30 focus:border-destructive"
+                />
+              </div>
+
+              <DialogFooter className="gap-2">
+                <Button variant="outline" onClick={closeDeleteFormationDialog}>
+                  Annuler
+                </Button>
+                <Button 
+                  variant="destructive" 
+                  onClick={handleCheckNameAndConfirm}
+                  disabled={!deleteFormationDialog.typedName.trim()}
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Supprimer
+                </Button>
+              </DialogFooter>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-center">
+                <AlertTriangle className="w-12 h-12 text-destructive mx-auto mb-3" />
+                <p className="text-lg font-semibold text-foreground">
+                  Êtes-vous sûr ?
+                </p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Cette action est irréversible. La formation <strong>"{deleteFormationDialog.formation?.displayTitle}"</strong> et tout son contenu seront définitivement supprimés.
+                </p>
+              </div>
+
+              <DialogFooter className="gap-2">
+                <Button variant="outline" onClick={closeDeleteFormationDialog}>
+                  Non, annuler
+                </Button>
+                <Button 
+                  variant="destructive" 
+                  onClick={handleDeleteFormation}
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Oui, supprimer définitivement
+                </Button>
+              </DialogFooter>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>
