@@ -324,7 +324,7 @@ const AdminDashboard = () => {
   // Ajouter une formation
   const handleAddFormation = () => {
     if (!newFormationTitle.trim()) {
-      toast.error("Veuillez entrer un titre pour la direction");
+      toast.error("Veuillez entrer un titre pour la direction / cours");
       return;
     }
     
@@ -339,7 +339,7 @@ const AdminDashboard = () => {
     setFormations([...formations, newFormation]);
     setNewFormationTitle("");
     setIsAddingFormation(false);
-    toast.success("Direction créée avec succès");
+    toast.success("Direction / Cours créé avec succès");
   };
 
   // Supprimer une formation
@@ -348,7 +348,7 @@ const AdminDashboard = () => {
     if (selectedFormation?.id === formationId) {
       setSelectedFormation(null);
     }
-    toast.success("Direction supprimée");
+    toast.success("Direction / Cours supprimé");
   };
 
   // Ajouter/Modifier une vidéo
@@ -719,12 +719,12 @@ const AdminDashboard = () => {
               <div>
                 <h1 className="text-xl font-display font-bold text-foreground">Admin Dashboard</h1>
                 <p className="text-sm text-muted-foreground">
-                  {adminView === 'formations' ? 'Gérer les directions' : 'Base de données clients'}
+                  {adminView === 'formations' ? 'Gérer les directions / cours' : 'Base de données clients'}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              {/* Toggle entre Directions, Clients et Questions */}
+              {/* Toggle entre Directions / Cours, Clients et Questions */}
               <div className="flex bg-muted rounded-lg p-1">
                 <Button
                   variant={adminView === 'formations' ? 'default' : 'ghost'}
@@ -1094,17 +1094,17 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        {/* VUE DIRECTIONS */}
+        {/* VUE DIRECTIONS / COURS */}
         {adminView === 'formations' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Sidebar - Liste des directions */}
+          {/* Sidebar - Liste des directions / cours */}
           <div className="lg:col-span-4 xl:col-span-3">
             <Card>
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg flex items-center gap-2">
                     <GraduationCap className="w-5 h-5 text-primary" />
-                    Directions
+                    Directions / Cours
                   </CardTitle>
                   <Button
                     size="sm"
@@ -1120,7 +1120,7 @@ const AdminDashboard = () => {
                 {isAddingFormation && (
                   <div className="p-3 border border-primary/20 rounded-lg bg-primary/5 space-y-2">
                     <Input
-                      placeholder="Titre de la direction"
+                      placeholder="Titre de la direction / cours"
                       value={newFormationTitle}
                       onChange={(e) => setNewFormationTitle(e.target.value)}
                       className="h-9"
@@ -1182,7 +1182,7 @@ const AdminDashboard = () => {
                 {formations.length === 0 && !isAddingFormation && (
                   <div className="text-center py-8 text-muted-foreground">
                     <GraduationCap className="w-12 h-12 mx-auto mb-3 opacity-20" />
-                    <p className="text-sm">Aucune direction</p>
+                    <p className="text-sm">Aucune direction / cours</p>
                     <p className="text-xs mt-1">Cliquez sur "Ajouter" pour créer</p>
                   </div>
                 )}
@@ -1190,11 +1190,11 @@ const AdminDashboard = () => {
             </Card>
           </div>
 
-          {/* Contenu principal - Détails de la direction */}
+          {/* Contenu principal - Détails de la direction / cours */}
           <div className="lg:col-span-8 xl:col-span-9">
             {selectedFormation ? (
               <div className="space-y-4">
-                {/* Titre de la direction */}
+                {/* Titre de la direction / cours */}
                 <Card>
                   <CardHeader className="pb-3">
                     <CardTitle className="text-xl">{selectedFormation.title}</CardTitle>
@@ -1206,7 +1206,7 @@ const AdminDashboard = () => {
                   <CardHeader className="pb-3">
                     <CardTitle className="text-lg flex items-center gap-2">
                       <Video className="w-5 h-5 text-primary" />
-                      Modules de la direction
+                      Modules de la direction / cours
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -1340,8 +1340,8 @@ const AdminDashboard = () => {
               <Card className="h-full min-h-[400px] flex items-center justify-center">
                 <div className="text-center text-muted-foreground">
                   <BookOpen className="w-16 h-16 mx-auto mb-4 opacity-20" />
-                  <h3 className="text-lg font-medium mb-1">Sélectionnez une direction</h3>
-                  <p className="text-sm">Choisissez une direction dans la liste pour la modifier</p>
+                  <h3 className="text-lg font-medium mb-1">Sélectionnez une direction / cours</h3>
+                  <p className="text-sm">Choisissez une direction / cours dans la liste pour le modifier</p>
                 </div>
               </Card>
             )}
