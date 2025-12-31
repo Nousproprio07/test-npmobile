@@ -422,13 +422,13 @@ const AdminDashboard = () => {
   // Charger les questions FAQ au montage
   useEffect(() => {
     const loadQuestions = () => {
-      const storedQuestions = localStorage.getItem('faqQuestions');
+      const storedQuestions = localStorage.getItem('faq_questions');
       if (storedQuestions) {
         setFaqQuestions(JSON.parse(storedQuestions));
       } else {
         // Si aucune question stockée, charger les exemples
         setFaqQuestions(defaultExampleQuestions);
-        localStorage.setItem('faqQuestions', JSON.stringify(defaultExampleQuestions));
+        localStorage.setItem('faq_questions', JSON.stringify(defaultExampleQuestions));
       }
     };
     loadQuestions();
@@ -543,13 +543,13 @@ const AdminDashboard = () => {
   };
   // Charger les questions depuis localStorage
   const loadFaqQuestions = () => {
-    const storedQuestions = localStorage.getItem('faqQuestions');
+    const storedQuestions = localStorage.getItem('faq_questions');
     if (storedQuestions) {
       setFaqQuestions(JSON.parse(storedQuestions));
     } else {
       // Si aucune question stockée, charger les exemples
       setFaqQuestions(defaultExampleQuestions);
-      localStorage.setItem('faqQuestions', JSON.stringify(defaultExampleQuestions));
+      localStorage.setItem('faq_questions', JSON.stringify(defaultExampleQuestions));
     }
   };
 
@@ -570,7 +570,7 @@ const AdminDashboard = () => {
       } : q
     );
     setFaqQuestions(updatedQuestions);
-    localStorage.setItem('faqQuestions', JSON.stringify(updatedQuestions));
+    localStorage.setItem('faq_questions', JSON.stringify(updatedQuestions));
     
     // Sauvegarder aussi dans l'historique client (qui persiste même après suppression admin)
     const clientHistoryKey = `clientFaqHistory`;
@@ -594,7 +594,7 @@ const AdminDashboard = () => {
   const deleteQuestion = (questionId: string) => {
     const updatedQuestions = faqQuestions.filter(q => q.id !== questionId);
     setFaqQuestions(updatedQuestions);
-    localStorage.setItem('faqQuestions', JSON.stringify(updatedQuestions));
+    localStorage.setItem('faq_questions', JSON.stringify(updatedQuestions));
     toast.success("Question supprimée");
   };
 
@@ -602,7 +602,7 @@ const AdminDashboard = () => {
   const clearAnsweredQuestions = () => {
     const updatedQuestions = faqQuestions.filter(q => q.status !== 'answered');
     setFaqQuestions(updatedQuestions);
-    localStorage.setItem('faqQuestions', JSON.stringify(updatedQuestions));
+    localStorage.setItem('faq_questions', JSON.stringify(updatedQuestions));
     toast.success("Questions répondues supprimées");
   };
 
