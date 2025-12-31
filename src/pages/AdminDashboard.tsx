@@ -86,6 +86,11 @@ interface Formation {
   modules: Module[];
   bonus: VideoLesson[];
   replays: VideoLesson[];
+  // Champs pour les cours
+  relevance?: string;
+  purpose?: string;
+  directions?: string[];
+  vimeoUrl?: string;
 }
 
 // Types pour les lives
@@ -286,6 +291,13 @@ const AdminDashboard = () => {
   const [selectedFormation, setSelectedFormation] = useState<Formation | null>(null);
   const [isAddingFormation, setIsAddingFormation] = useState(false);
   const [newFormationTitle, setNewFormationTitle] = useState("");
+  const [newCourseForm, setNewCourseForm] = useState({
+    title: "",
+    relevance: "",
+    purpose: "",
+    directions: [] as string[],
+    vimeoUrl: ""
+  });
   const [editingVideo, setEditingVideo] = useState<{
     formationId: string;
     moduleId?: string;
@@ -524,31 +536,115 @@ const AdminDashboard = () => {
     return null;
   };
 
-  // Ajouter une formation
+  // Gérer le changement de direction pour le formulaire de cours
+  const handleCourseDirectionChange = (direction: string, checked: boolean) => {
+    setNewCourseForm(prev => ({
+      ...prev,
+      directions: checked 
+        ? [...prev.directions, direction]
+        : prev.directions.filter(d => d !== direction)
+    }));
+  };
+
+  // Ajouter une formation (direction ou cours)
   const handleAddFormation = () => {
-    if (!newFormationTitle.trim()) {
-      toast.error("Veuillez entrer un titre pour la direction / cours");
+    // Pour les directions (ancien système avec /direction)
+    if (newFormationTitle.toLowerCase().includes('/direction')) {
+      const { displayTitle, type } = detectFormationType(newFormationTitle);
+      
+      const newFormation: Formation = {
+        id: Date.now().toString(),
+        title: newFormationTitle,
+        displayTitle,
+        type,
+        price: "",
+        isPublished: false,
+        modules: defaultModules.map(m => ({ ...m, videos: [] })),
+        bonus: [],
+        replays: []
+      };
+      
+      setFormations([...formations, newFormation]);
+      setNewFormationTitle("");
+      setIsAddingFormation(false);
+      toast.success("Direction créée avec succès");
       return;
     }
 
-    const { displayTitle, type } = detectFormationType(newFormationTitle);
+    // Pour les cours (nouveau système avec formulaire complet)
+    if (!newCourseForm.title.trim()) {
+      toast.error("Veuillez entrer un titre pour le cours");
+      return;
+    }
+    if (!newCourseForm.relevance.trim()) {
+      toast.error("Veuillez expliquer pourquoi ce cours est pertinent");
+      return;
+    }
+    if (!newCourseForm.purpose.trim()) {
+      toast.error("Veuillez indiquer le but du cours");
+      return;
+    }
+    if (newCourseForm.directions.length === 0) {
+      toast.error("Veuillez sélectionner au moins une direction");
+      return;
+    }
     
     const newFormation: Formation = {
       id: Date.now().toString(),
-      title: newFormationTitle,
-      displayTitle,
-      type,
+      title: newCourseForm.title,
+      displayTitle: newCourseForm.title,
+      type: 'cours',
       price: "",
       isPublished: false,
-      modules: defaultModules.map(m => ({ ...m, videos: [] })),
+      modules: [],
       bonus: [],
-      replays: []
+      replays: [],
+      relevance: newCourseForm.relevance,
+      purpose: newCourseForm.purpose,
+      directions: newCourseForm.directions,
+      vimeoUrl: newCourseForm.vimeoUrl
     };
     
     setFormations([...formations, newFormation]);
+    setNewCourseForm({ title: "", relevance: "", purpose: "", directions: [], vimeoUrl: "" });
     setNewFormationTitle("");
     setIsAddingFormation(false);
-    toast.success(`${type === 'direction' ? 'Direction' : 'Cours'} créé avec succès`);
+    toast.success("Cours créé avec succès");
+  };
+
+  // Valider et publier un cours directement
+  const handleValidateCourse = () => {
+    if (!newCourseForm.title.trim() || !newCourseForm.relevance.trim() || 
+        !newCourseForm.purpose.trim() || newCourseForm.directions.length === 0 ||
+        !newCourseForm.vimeoUrl.trim()) {
+      toast.error("Veuillez remplir tous les champs y compris le lien Vimeo pour valider");
+      return;
+    }
+    
+    const newFormation: Formation = {
+      id: Date.now().toString(),
+      title: newCourseForm.title,
+      displayTitle: newCourseForm.title,
+      type: 'cours',
+      price: "0",
+      isPublished: true,
+      modules: [],
+      bonus: [],
+      replays: [],
+      relevance: newCourseForm.relevance,
+      purpose: newCourseForm.purpose,
+      directions: newCourseForm.directions,
+      vimeoUrl: newCourseForm.vimeoUrl
+    };
+    
+    const updatedFormations = [...formations, newFormation];
+    setFormations(updatedFormations);
+    localStorage.setItem('admin_formations', JSON.stringify(updatedFormations));
+    
+    setNewCourseForm({ title: "", relevance: "", purpose: "", directions: [], vimeoUrl: "" });
+    setNewFormationTitle("");
+    setIsAddingFormation(false);
+    toast.success("Cours validé et publié !");
   };
 
   // Mettre à jour le prix d'une formation
@@ -1703,38 +1799,183 @@ const AdminDashboard = () => {
               </CardHeader>
               <CardContent className="space-y-2">
                 {isAddingFormation && (
-                  <div className="p-3 border border-primary/20 rounded-lg bg-primary/5 space-y-2">
-                    <Input
-                      placeholder="Titre /direction ou /cours"
-                      value={newFormationTitle}
-                      onChange={(e) => setNewFormationTitle(e.target.value)}
-                      className="h-9"
-                    />
-                    {getTypeMessage(newFormationTitle) && (
-                      <div className={`text-sm px-3 py-2 rounded-md ${
-                        newFormationTitle.toLowerCase().includes('/direction') 
-                          ? 'bg-blue-500/10 text-blue-600 border border-blue-500/20' 
-                          : 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
-                      }`}>
-                        ✓ {getTypeMessage(newFormationTitle)}
+                  <div className="p-4 border border-primary/20 rounded-lg bg-primary/5 space-y-4">
+                    {/* Choix du type */}
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium">Type</Label>
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          variant={newFormationTitle.includes('/direction') ? 'default' : 'outline'}
+                          onClick={() => setNewFormationTitle('/direction')}
+                          className="flex-1"
+                        >
+                          Direction
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={!newFormationTitle.includes('/direction') ? 'default' : 'outline'}
+                          onClick={() => setNewFormationTitle('')}
+                          className="flex-1"
+                        >
+                          Cours
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Formulaire Direction */}
+                    {newFormationTitle.includes('/direction') && (
+                      <div className="space-y-3">
+                        <div className="space-y-2">
+                          <Label className="text-sm">Nom de la direction *</Label>
+                          <Input
+                            placeholder="Ex: Patrimoine Premium"
+                            value={newFormationTitle.replace('/direction', '').trim()}
+                            onChange={(e) => setNewFormationTitle(e.target.value + ' /direction')}
+                            className="h-9"
+                          />
+                        </div>
+                        <div className="bg-blue-500/10 text-blue-600 border border-blue-500/20 text-sm px-3 py-2 rounded-md">
+                          ✓ C'est une direction
+                        </div>
+                        <div className="flex gap-2">
+                          <Button size="sm" onClick={handleAddFormation} className="flex-1">
+                            <Save className="w-4 h-4 mr-1" />
+                            Créer la direction
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => {
+                              setIsAddingFormation(false);
+                              setNewFormationTitle("");
+                            }}
+                          >
+                            <X className="w-4 h-4" />
+                          </Button>
+                        </div>
                       </div>
                     )}
-                    <div className="flex gap-2">
-                      <Button size="sm" onClick={handleAddFormation} className="flex-1">
-                        <Save className="w-4 h-4 mr-1" />
-                        Créer
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => {
-                          setIsAddingFormation(false);
-                          setNewFormationTitle("");
-                        }}
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
+
+                    {/* Formulaire Cours (style EquipeAdmin) */}
+                    {!newFormationTitle.includes('/direction') && (
+                      <div className="space-y-4">
+                        <div className="space-y-2">
+                          <Label className="text-sm">Titre du cours *</Label>
+                          <Input
+                            placeholder="Ex: Optimisation fiscale avancée"
+                            value={newCourseForm.title}
+                            onChange={(e) => setNewCourseForm(prev => ({ ...prev, title: e.target.value }))}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label className="text-sm">Pourquoi ce cours est pertinent ? *</Label>
+                          <Textarea
+                            placeholder="Expliquez en quoi ce cours apportera de la valeur aux participants..."
+                            rows={2}
+                            value={newCourseForm.relevance}
+                            onChange={(e) => setNewCourseForm(prev => ({ ...prev, relevance: e.target.value }))}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label className="text-sm">Pour quelles directions ? *</Label>
+                          <div className="space-y-2">
+                            <div className="flex items-center space-x-2">
+                              <input
+                                type="checkbox"
+                                id="admin-patrimoine-actif"
+                                checked={newCourseForm.directions.includes("Patrimoine Actif")}
+                                onChange={(e) => handleCourseDirectionChange("Patrimoine Actif", e.target.checked)}
+                                className="h-4 w-4 rounded border-input"
+                              />
+                              <label htmlFor="admin-patrimoine-actif" className="text-sm cursor-pointer">
+                                Patrimoine Actif
+                              </label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <input
+                                type="checkbox"
+                                id="admin-residence-essentiel"
+                                checked={newCourseForm.directions.includes("Résidence Essentiel")}
+                                onChange={(e) => handleCourseDirectionChange("Résidence Essentiel", e.target.checked)}
+                                className="h-4 w-4 rounded border-input"
+                              />
+                              <label htmlFor="admin-residence-essentiel" className="text-sm cursor-pointer">
+                                Résidence Essentiel
+                              </label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <input
+                                type="checkbox"
+                                id="admin-les-deux"
+                                checked={newCourseForm.directions.includes("Patrimoine Actif") && newCourseForm.directions.includes("Résidence Essentiel")}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setNewCourseForm(prev => ({ ...prev, directions: ["Patrimoine Actif", "Résidence Essentiel"] }));
+                                  } else {
+                                    setNewCourseForm(prev => ({ ...prev, directions: [] }));
+                                  }
+                                }}
+                                className="h-4 w-4 rounded border-input"
+                              />
+                              <label htmlFor="admin-les-deux" className="text-sm cursor-pointer">
+                                Les deux directions
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label className="text-sm">Dans quel but ? *</Label>
+                          <Textarea
+                            placeholder="Décrivez l'objectif et les résultats attendus..."
+                            rows={2}
+                            value={newCourseForm.purpose}
+                            onChange={(e) => setNewCourseForm(prev => ({ ...prev, purpose: e.target.value }))}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label className="text-sm flex items-center gap-2">
+                            <Video className="w-4 h-4 text-primary" />
+                            Lien Vimeo
+                          </Label>
+                          <Input
+                            placeholder="https://vimeo.com/..."
+                            value={newCourseForm.vimeoUrl}
+                            onChange={(e) => setNewCourseForm(prev => ({ ...prev, vimeoUrl: e.target.value }))}
+                          />
+                        </div>
+
+                        <div className="bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-sm px-3 py-2 rounded-md">
+                          ✓ C'est un cours
+                        </div>
+
+                        <div className="flex gap-2">
+                          <Button size="sm" onClick={handleAddFormation} className="flex-1" variant="outline">
+                            <Save className="w-4 h-4 mr-1" />
+                            Créer
+                          </Button>
+                          <Button size="sm" onClick={handleValidateCourse} className="flex-1 bg-emerald-600 hover:bg-emerald-700">
+                            <CheckCircle2 className="w-4 h-4 mr-1" />
+                            Valider
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => {
+                              setIsAddingFormation(false);
+                              setNewFormationTitle("");
+                              setNewCourseForm({ title: "", relevance: "", purpose: "", directions: [], vimeoUrl: "" });
+                            }}
+                          >
+                            <X className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
                 
@@ -1777,10 +2018,37 @@ const AdminDashboard = () => {
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
+                    {/* Afficher les directions pour les cours */}
+                    {formation.type === 'cours' && formation.directions && formation.directions.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {formation.directions.map((dir, i) => (
+                          <span 
+                            key={i} 
+                            className={`text-xs px-2 py-0.5 rounded-full ${
+                              dir === 'Patrimoine Actif' 
+                                ? 'bg-purple-500/10 text-purple-600 border border-purple-500/20' 
+                                : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                            }`}
+                          >
+                            {dir}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
-                      <span>{formation.modules.reduce((acc, m) => acc + m.videos.length, 0)} vidéos</span>
-                      <span>{formation.bonus.length} bonus</span>
-                      <span>{formation.replays.length} replays</span>
+                      {formation.type === 'direction' ? (
+                        <>
+                          <span>{formation.modules.reduce((acc, m) => acc + m.videos.length, 0)} vidéos</span>
+                          <span>{formation.bonus.length} bonus</span>
+                          <span>{formation.replays.length} replays</span>
+                        </>
+                      ) : formation.vimeoUrl ? (
+                        <span className="flex items-center gap-1 text-primary">
+                          <Video className="w-3 h-3" /> Vidéo liée
+                        </span>
+                      ) : (
+                        <span className="text-amber-500">Sans vidéo</span>
+                      )}
                       {formation.price && <span className="text-primary font-medium">{formation.price}€</span>}
                     </div>
                   </div>
@@ -1821,11 +2089,22 @@ const AdminDashboard = () => {
                             </span>
                           )}
                         </div>
-                        <p className="text-sm text-muted-foreground">
-                          {selectedFormation.type === 'direction' 
-                            ? "C'est une direction" 
-                            : "C'est un cours"}
-                        </p>
+                        {selectedFormation.type === 'cours' && selectedFormation.directions && (
+                          <div className="flex flex-wrap gap-2 mt-1">
+                            {selectedFormation.directions.map((dir, i) => (
+                              <span 
+                                key={i} 
+                                className={`text-xs px-2 py-0.5 rounded-full ${
+                                  dir === 'Patrimoine Actif' 
+                                    ? 'bg-purple-500/10 text-purple-600 border border-purple-500/20' 
+                                    : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                                }`}
+                              >
+                                {dir}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
                       <div className="flex items-center gap-2">
                         {!selectedFormation.isPublished && (
@@ -1849,6 +2128,55 @@ const AdminDashboard = () => {
                     </div>
                   </CardHeader>
                 </Card>
+
+                {/* Détails du cours (uniquement pour les cours) */}
+                {selectedFormation.type === 'cours' && (
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <BookOpen className="w-5 h-5 text-primary" />
+                        Détails du cours
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {selectedFormation.relevance && (
+                        <div>
+                          <Label className="text-sm text-muted-foreground">Pourquoi ce cours est pertinent ?</Label>
+                          <p className="mt-1 text-foreground">{selectedFormation.relevance}</p>
+                        </div>
+                      )}
+                      {selectedFormation.purpose && (
+                        <div>
+                          <Label className="text-sm text-muted-foreground">Dans quel but ?</Label>
+                          <p className="mt-1 text-foreground">{selectedFormation.purpose}</p>
+                        </div>
+                      )}
+                      {selectedFormation.vimeoUrl && (
+                        <div>
+                          <Label className="text-sm text-muted-foreground flex items-center gap-2">
+                            <Video className="w-4 h-4" />
+                            Lien Vimeo
+                          </Label>
+                          <a 
+                            href={selectedFormation.vimeoUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="mt-1 text-primary hover:underline flex items-center gap-1"
+                          >
+                            {selectedFormation.vimeoUrl}
+                            <ChevronRight className="w-4 h-4" />
+                          </a>
+                        </div>
+                      )}
+                      {!selectedFormation.vimeoUrl && (
+                        <div className="flex items-center gap-2 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+                          <AlertTriangle className="w-5 h-5 text-amber-500" />
+                          <span className="text-sm text-amber-600">Aucun lien Vimeo n'a été renseigné pour ce cours.</span>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                )}
 
                 {/* Prix */}
                 <Card>
