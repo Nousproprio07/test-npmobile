@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -391,6 +391,86 @@ const AdminDashboard = () => {
     confirmationStep: 'name',
     typedName: ""
   });
+
+  // État pour les propositions de cours de l'équipe
+  interface TeamCourseProposal {
+    id: string;
+    title: string;
+    relevance: string;
+    directions: string[];
+    purpose: string;
+    status: "pending" | "approved" | "rejected";
+    createdAt: string;
+    createdBy: string;
+  }
+  const [teamProposals, setTeamProposals] = useState<TeamCourseProposal[]>([]);
+
+  // Charger les propositions de l'équipe
+  useEffect(() => {
+    const loadTeamProposals = () => {
+      const savedProposals = localStorage.getItem("equipe_course_proposals");
+      if (savedProposals) {
+        setTeamProposals(JSON.parse(savedProposals));
+      }
+    };
+    loadTeamProposals();
+    // Rafraîchir toutes les 5 secondes pour voir les nouvelles propositions
+    const interval = setInterval(loadTeamProposals, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Approuver une proposition
+  const handleApproveProposal = (proposal: TeamCourseProposal) => {
+    // Créer le cours à partir de la proposition
+    const newFormation: Formation = {
+      id: Date.now().toString(),
+      title: proposal.title,
+      displayTitle: proposal.title,
+      type: 'cours',
+      price: "",
+      isPublished: false,
+      modules: [],
+      bonus: [],
+      replays: [],
+      relevance: proposal.relevance,
+      purpose: proposal.purpose,
+      directions: proposal.directions,
+      vimeoUrl: ""
+    };
+    
+    setFormations(prev => [...prev, newFormation]);
+    setSelectedFormation(newFormation);
+    
+    // Mettre à jour le statut de la proposition
+    const updatedProposals = teamProposals.map(p => 
+      p.id === proposal.id ? { ...p, status: 'approved' as const } : p
+    );
+    setTeamProposals(updatedProposals);
+    localStorage.setItem("equipe_course_proposals", JSON.stringify(updatedProposals));
+    
+    toast.success(`Proposition "${proposal.title}" approuvée et ajoutée aux cours`);
+  };
+
+  // Rejeter une proposition
+  const handleRejectProposal = (proposalId: string) => {
+    const updatedProposals = teamProposals.map(p => 
+      p.id === proposalId ? { ...p, status: 'rejected' as const } : p
+    );
+    setTeamProposals(updatedProposals);
+    localStorage.setItem("equipe_course_proposals", JSON.stringify(updatedProposals));
+    toast.success("Proposition refusée");
+  };
+
+  // Supprimer une proposition
+  const handleDeleteProposal = (proposalId: string) => {
+    const updatedProposals = teamProposals.filter(p => p.id !== proposalId);
+    setTeamProposals(updatedProposals);
+    localStorage.setItem("equipe_course_proposals", JSON.stringify(updatedProposals));
+    toast.success("Proposition supprimée");
+  };
+
+  const pendingProposals = teamProposals.filter(p => p.status === 'pending');
+  const processedProposals = teamProposals.filter(p => p.status !== 'pending');
 
   // Sauvegarder les lives dans localStorage
   const saveLiveSessions = (sessions: LiveSession[]) => {
@@ -2062,6 +2142,127 @@ const AdminDashboard = () => {
                     <p className="text-sm">Aucune direction / cours</p>
                     <p className="text-xs mt-1">Cliquez sur "Ajouter" pour créer</p>
                   </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Section Validation de proposition de cours */}
+            <Card className="mt-4">
+              <CardHeader className="pb-3">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-amber-500" />
+                    Propositions équipe
+                    {pendingProposals.length > 0 && (
+                      <span className="ml-2 px-2 py-0.5 text-xs bg-amber-500/20 text-amber-600 rounded-full">
+                        {pendingProposals.length} en attente
+                      </span>
+                    )}
+                  </CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {teamProposals.length === 0 ? (
+                  <div className="text-center py-6 text-muted-foreground">
+                    <FileText className="w-10 h-10 mx-auto mb-2 opacity-20" />
+                    <p className="text-sm">Aucune proposition de cours</p>
+                    <p className="text-xs mt-1">L'équipe n'a pas encore soumis de cours</p>
+                  </div>
+                ) : (
+                  <>
+                    {/* Propositions en attente */}
+                    {pendingProposals.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium text-amber-600 uppercase tracking-wide">En attente de validation</p>
+                        {pendingProposals.map((proposal) => (
+                          <div 
+                            key={proposal.id} 
+                            className="p-3 border border-amber-500/30 bg-amber-500/5 rounded-lg space-y-2"
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-medium text-sm text-foreground">{proposal.title}</h4>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                  Par {proposal.createdBy} • {new Date(proposal.createdAt).toLocaleDateString('fr-FR')}
+                                </p>
+                              </div>
+                              <div className="flex gap-1 flex-shrink-0">
+                                <Button
+                                  size="sm"
+                                  className="h-7 text-xs gap-1 bg-emerald-600 hover:bg-emerald-700"
+                                  onClick={() => handleApproveProposal(proposal)}
+                                >
+                                  <Check className="w-3 h-3" />
+                                  Valider
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="h-7 text-xs gap-1 text-destructive border-destructive/30 hover:bg-destructive/10"
+                                  onClick={() => handleRejectProposal(proposal.id)}
+                                >
+                                  <X className="w-3 h-3" />
+                                </Button>
+                              </div>
+                            </div>
+                            <div className="flex flex-wrap gap-1">
+                              {proposal.directions.map((dir, i) => (
+                                <span 
+                                  key={i}
+                                  className={`text-xs px-2 py-0.5 rounded-full ${
+                                    dir === 'Patrimoine Actif' 
+                                      ? 'bg-purple-500/10 text-purple-600' 
+                                      : 'bg-amber-500/10 text-amber-600'
+                                  }`}
+                                >
+                                  {dir}
+                                </span>
+                              ))}
+                            </div>
+                            <div className="text-xs text-muted-foreground space-y-1">
+                              <p><span className="font-medium">Pertinence:</span> {proposal.relevance}</p>
+                              <p><span className="font-medium">But:</span> {proposal.purpose}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Propositions traitées */}
+                    {processedProposals.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Historique</p>
+                        {processedProposals.slice(0, 3).map((proposal) => (
+                          <div 
+                            key={proposal.id} 
+                            className="p-2 border border-border rounded-lg flex items-center justify-between gap-2"
+                          >
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-medium text-foreground truncate">{proposal.title}</p>
+                              <p className="text-xs text-muted-foreground">Par {proposal.createdBy}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                                proposal.status === 'approved' 
+                                  ? 'bg-emerald-500/10 text-emerald-600' 
+                                  : 'bg-red-500/10 text-red-600'
+                              }`}>
+                                {proposal.status === 'approved' ? 'Approuvé' : 'Refusé'}
+                              </span>
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                className="h-6 w-6 text-muted-foreground hover:text-destructive"
+                                onClick={() => handleDeleteProposal(proposal.id)}
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
                 )}
               </CardContent>
             </Card>
