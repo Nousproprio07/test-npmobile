@@ -564,24 +564,56 @@ const AdminDashboard = () => {
     }
   };
 
+  // Vérifier si une formation est complète (tous les champs remplis)
+  const isFormationComplete = (formation: Formation): { complete: boolean; missing: string[] } => {
+    const missing: string[] = [];
+    
+    // Vérifier le prix
+    if (!formation.price || formation.price.trim() === "") {
+      missing.push("Prix");
+    }
+    
+    // Vérifier que chaque module a au moins une vidéo
+    formation.modules.forEach(module => {
+      if (module.videos.length === 0) {
+        missing.push(`Module "${module.title}" (aucune vidéo)`);
+      }
+    });
+    
+    return { complete: missing.length === 0, missing };
+  };
+
   // Publier une formation
   const handlePublishFormation = (formationId: string) => {
     const formation = formations.find(f => f.id === formationId);
     if (!formation) return;
 
-    if (!formation.price) {
-      toast.error("Veuillez renseigner le prix avant de publier");
+    const { complete, missing } = isFormationComplete(formation);
+    
+    if (!complete) {
+      toast.error(
+        <div>
+          <p className="font-semibold mb-1">Impossible de publier</p>
+          <p className="text-sm">Champs manquants :</p>
+          <ul className="text-sm list-disc pl-4 mt-1">
+            {missing.map((item, i) => <li key={i}>{item}</li>)}
+          </ul>
+        </div>
+      );
       return;
     }
 
-    setFormations(formations.map(f => 
-      f.id === formationId ? { ...f, isPublished: true } : f
-    ));
-    
-    // Sauvegarder dans localStorage
     const updatedFormations = formations.map(f => 
       f.id === formationId ? { ...f, isPublished: true } : f
     );
+    setFormations(updatedFormations);
+    
+    // Mettre à jour selectedFormation aussi
+    if (selectedFormation?.id === formationId) {
+      setSelectedFormation({ ...selectedFormation, isPublished: true });
+    }
+    
+    // Sauvegarder dans localStorage
     localStorage.setItem('admin_formations', JSON.stringify(updatedFormations));
     
     toast.success(`${formation.type === 'direction' ? 'Direction' : 'Cours'} publié avec succès !`);
@@ -1795,15 +1827,25 @@ const AdminDashboard = () => {
                             : "C'est un cours"}
                         </p>
                       </div>
-                      {!selectedFormation.isPublished && (
+                      <div className="flex items-center gap-2">
+                        {!selectedFormation.isPublished && (
+                          <Button 
+                            onClick={() => handlePublishFormation(selectedFormation.id)}
+                            className="gap-2"
+                          >
+                            <CheckCircle2 className="w-4 h-4" />
+                            Publier
+                          </Button>
+                        )}
                         <Button 
-                          onClick={() => handlePublishFormation(selectedFormation.id)}
-                          className="gap-2"
+                          variant="outline"
+                          className="gap-2 text-destructive border-destructive/30 hover:bg-destructive/10 hover:text-destructive"
+                          onClick={() => openDeleteFormationDialog(selectedFormation)}
                         >
-                          <CheckCircle2 className="w-4 h-4" />
-                          Publier
+                          <Trash2 className="w-4 h-4" />
+                          Supprimer
                         </Button>
-                      )}
+                      </div>
                     </div>
                   </CardHeader>
                 </Card>
