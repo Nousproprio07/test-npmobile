@@ -63,8 +63,9 @@ interface VideoLesson {
   vimeoUrl: string;
   description: string;
   tool?: string;
-  attachmentUrl?: string;
+  toolUrl?: string;
   attachmentName?: string;
+  attachmentUrl?: string;
 }
 
 interface Module {
@@ -295,8 +296,9 @@ const AdminDashboard = () => {
     vimeoUrl: "",
     description: "",
     tool: "",
-    attachmentUrl: "",
-    attachmentName: ""
+    toolUrl: "",
+    attachmentName: "",
+    attachmentUrl: ""
   });
 
   // État pour la section clients
@@ -640,7 +642,7 @@ const AdminDashboard = () => {
     }));
 
     setEditingVideo(null);
-    setVideoForm({ title: "", vimeoUrl: "", description: "", tool: "", attachmentUrl: "", attachmentName: "" });
+    setVideoForm({ title: "", vimeoUrl: "", description: "", tool: "", toolUrl: "", attachmentName: "", attachmentUrl: "" });
     toast.success(editingVideo.video ? "Vidéo modifiée" : "Vidéo ajoutée");
   };
 
@@ -685,9 +687,10 @@ const AdminDashboard = () => {
       vimeoUrl: video.vimeoUrl,
       description: video.description,
       tool: video.tool || "",
-      attachmentUrl: video.attachmentUrl || "",
-      attachmentName: video.attachmentName || ""
-    } : { title: "", vimeoUrl: "", description: "", tool: "", attachmentUrl: "", attachmentName: "" });
+      toolUrl: video.toolUrl || "",
+      attachmentName: video.attachmentName || "",
+      attachmentUrl: video.attachmentUrl || ""
+    } : { title: "", vimeoUrl: "", description: "", tool: "", toolUrl: "", attachmentName: "", attachmentUrl: "" });
   };
 
   // Composant pour afficher une vidéo
@@ -707,13 +710,25 @@ const AdminDashboard = () => {
         {video.tool && (
           <div className="flex items-center gap-1 mt-1 text-xs text-primary">
             <Wrench className="w-3 h-3" />
-            {video.tool}
+            {video.toolUrl ? (
+              <a href={video.toolUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                {video.tool}
+              </a>
+            ) : (
+              video.tool
+            )}
           </div>
         )}
         {video.attachmentName && (
           <div className="flex items-center gap-1 mt-1 text-xs text-emerald-600">
             <Paperclip className="w-3 h-3" />
-            {video.attachmentName}
+            {video.attachmentUrl ? (
+              <a href={video.attachmentUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                {video.attachmentName}
+              </a>
+            ) : (
+              video.attachmentName
+            )}
           </div>
         )}
       </div>
@@ -1917,7 +1932,7 @@ const AdminDashboard = () => {
               {editingVideo?.video ? 'Modifier la vidéo' : 'Ajouter une vidéo'}
             </DialogTitle>
           </DialogHeader>
-          <div className="space-y-4 py-4">
+          <div className="space-y-4 py-4 max-h-[70vh] overflow-y-auto">
             <div className="space-y-2">
               <Label htmlFor="video-title">Titre de la vidéo *</Label>
               <Input
@@ -1931,10 +1946,43 @@ const AdminDashboard = () => {
               <Label htmlFor="video-url">Lien Vimeo *</Label>
               <Input
                 id="video-url"
-                placeholder="https://vimeo.com/..."
+                placeholder="https://vimeo.com/123456789"
                 value={videoForm.vimeoUrl}
                 onChange={(e) => setVideoForm({ ...videoForm, vimeoUrl: e.target.value })}
               />
+              {/* Prévisualisation vidéo Vimeo */}
+              {videoForm.vimeoUrl && (() => {
+                const vimeoMatch = videoForm.vimeoUrl.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+                const vimeoId = vimeoMatch ? vimeoMatch[1] : null;
+                if (vimeoId) {
+                  return (
+                    <div className="mt-2 rounded-lg overflow-hidden border border-border bg-black">
+                      <div className="aspect-video">
+                        <iframe
+                          src={`https://player.vimeo.com/video/${vimeoId}`}
+                          className="w-full h-full"
+                          frameBorder="0"
+                          allow="autoplay; fullscreen; picture-in-picture"
+                          allowFullScreen
+                          title="Prévisualisation vidéo"
+                        />
+                      </div>
+                      <div className="p-2 bg-emerald-500/10 border-t border-emerald-500/20 flex items-center gap-2 text-emerald-600 text-sm">
+                        <CheckCircle2 className="w-4 h-4" />
+                        Vidéo détectée et fonctionnelle
+                      </div>
+                    </div>
+                  );
+                } else if (videoForm.vimeoUrl.length > 10) {
+                  return (
+                    <div className="mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-600 text-sm flex items-center gap-2">
+                      <X className="w-4 h-4" />
+                      Format de lien Vimeo non reconnu. Utilisez le format: https://vimeo.com/123456789
+                    </div>
+                  );
+                }
+                return null;
+              })()}
             </div>
             <div className="space-y-2">
               <Label htmlFor="video-description">Description</Label>
@@ -1946,45 +1994,136 @@ const AdminDashboard = () => {
                 rows={3}
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="video-tool">Outil associé (optionnel)</Label>
-              <Input
-                id="video-tool"
-                placeholder="Ex: Simulateur de prêt"
-                value={videoForm.tool}
-                onChange={(e) => setVideoForm({ ...videoForm, tool: e.target.value })}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="video-attachment">Pièce jointe associée à l'outil (optionnel)</Label>
-              <div className="space-y-2">
-                <Input
-                  id="video-attachment-name"
-                  placeholder="Nom de la pièce jointe (Ex: Guide PDF)"
-                  value={videoForm.attachmentName}
-                  onChange={(e) => setVideoForm({ ...videoForm, attachmentName: e.target.value })}
-                />
-                <Input
-                  id="video-attachment-url"
-                  placeholder="Lien vers la pièce jointe (URL)"
-                  value={videoForm.attachmentUrl}
-                  onChange={(e) => setVideoForm({ ...videoForm, attachmentUrl: e.target.value })}
-                />
-                {videoForm.attachmentName && videoForm.attachmentUrl && (
-                  <div className="flex items-center gap-2 p-2 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-sm text-emerald-600">
-                    <Paperclip className="w-4 h-4" />
-                    <span>{videoForm.attachmentName}</span>
-                    <a 
-                      href={videoForm.attachmentUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="ml-auto text-xs underline hover:no-underline"
-                    >
-                      Voir
-                    </a>
-                  </div>
-                )}
+            
+            {/* Section Outil associé */}
+            <div className="space-y-3 p-4 border border-border rounded-lg bg-muted/20">
+              <div className="flex items-center justify-between">
+                <Label className="text-base font-medium flex items-center gap-2">
+                  <Wrench className="w-4 h-4 text-primary" />
+                  Outil associé (optionnel)
+                </Label>
               </div>
+              
+              <div className="space-y-3">
+                <div className="space-y-2">
+                  <Label htmlFor="video-tool" className="text-sm text-muted-foreground">Nom de l'outil</Label>
+                  <Input
+                    id="video-tool"
+                    placeholder="Ex: Simulateur de prêt"
+                    value={videoForm.tool}
+                    onChange={(e) => setVideoForm({ ...videoForm, tool: e.target.value })}
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="video-tool-link" className="text-sm text-muted-foreground">Lien vers l'outil (optionnel)</Label>
+                  <Input
+                    id="video-tool-link"
+                    placeholder="https://exemple.com/outil"
+                    value={videoForm.toolUrl}
+                    onChange={(e) => setVideoForm({ ...videoForm, toolUrl: e.target.value })}
+                  />
+                </div>
+              </div>
+              
+              {/* Aperçu de l'outil si rempli */}
+              {videoForm.tool && (
+                <div className="flex items-center gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Wrench className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-sm text-foreground">{videoForm.tool}</p>
+                    {videoForm.toolUrl && (
+                      <a 
+                        href={videoForm.toolUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-xs text-primary hover:underline truncate block max-w-[250px]"
+                      >
+                        {videoForm.toolUrl}
+                      </a>
+                    )}
+                  </div>
+                  {videoForm.toolUrl && (
+                    <a 
+                      href={videoForm.toolUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs px-3 py-1.5 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+                    >
+                      Ouvrir
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+            
+            {/* Section Pièce jointe */}
+            <div className="space-y-3 p-4 border border-border rounded-lg bg-muted/20">
+              <div className="flex items-center justify-between">
+                <Label className="text-base font-medium flex items-center gap-2">
+                  <Paperclip className="w-4 h-4 text-emerald-600" />
+                  Pièce jointe (optionnel)
+                </Label>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="space-y-2">
+                  <Label htmlFor="video-attachment-name" className="text-sm text-muted-foreground">Nom du fichier</Label>
+                  <Input
+                    id="video-attachment-name"
+                    placeholder="Ex: Guide PDF, Checklist..."
+                    value={videoForm.attachmentName}
+                    onChange={(e) => setVideoForm({ ...videoForm, attachmentName: e.target.value })}
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="video-attachment-url-input" className="text-sm text-muted-foreground">Lien vers le fichier</Label>
+                  <Input
+                    id="video-attachment-url-input"
+                    placeholder="https://drive.google.com/... ou autre lien"
+                    value={videoForm.attachmentUrl}
+                    onChange={(e) => setVideoForm({ ...videoForm, attachmentUrl: e.target.value })}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    💡 Hébergez votre fichier sur Google Drive, Dropbox ou autre et collez le lien de partage
+                  </p>
+                </div>
+              </div>
+              
+              {/* Aperçu de la pièce jointe si remplie */}
+              {videoForm.attachmentName && (
+                <div className="flex items-center gap-3 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-sm text-foreground">{videoForm.attachmentName}</p>
+                    {videoForm.attachmentUrl && (
+                      <a 
+                        href={videoForm.attachmentUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-xs text-emerald-600 hover:underline truncate block max-w-[250px]"
+                      >
+                        {videoForm.attachmentUrl}
+                      </a>
+                    )}
+                  </div>
+                  {videoForm.attachmentUrl && (
+                    <a 
+                      href={videoForm.attachmentUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs px-3 py-1.5 bg-emerald-600 text-white rounded-md hover:bg-emerald-700"
+                    >
+                      Ouvrir
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
           <DialogFooter>
