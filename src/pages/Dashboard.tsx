@@ -451,22 +451,22 @@ const Dashboard = () => {
 
   // Charger les questions du client
   const loadMyQuestions = () => {
-    // Récupérer depuis l'historique client persistant ET les questions en cours
-    const clientHistory = JSON.parse(localStorage.getItem('clientFaqHistory') || '[]');
-    const allQuestions = JSON.parse(localStorage.getItem('faqQuestions') || '[]');
+    // Récupérer depuis faq_questions (partagé avec équipe/admin)
+    const allQuestions = JSON.parse(localStorage.getItem('faq_questions') || '[]');
     
     // Filtrer les questions de cet utilisateur
-    const userQuestions = allQuestions.filter((q: any) => q.clientEmail === mockUser.email);
+    const userQuestions = allQuestions
+      .filter((q: any) => q.email === mockUser.email)
+      .map((q: any) => ({
+        id: q.id,
+        question: q.question,
+        submittedAt: q.date,
+        status: q.status,
+        response: q.response,
+        respondedAt: q.respondedAt
+      }));
     
-    // Fusionner les deux sources (l'historique a priorité car contient les réponses)
-    const merged = [...clientHistory];
-    userQuestions.forEach((q: any) => {
-      if (!merged.find((m: any) => m.id === q.id)) {
-        merged.push(q);
-      }
-    });
-    
-    setMyQuestions(merged.sort((a: any, b: any) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()));
+    setMyQuestions(userQuestions.sort((a: any, b: any) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()));
   };
 
   // Soumettre une question pour la FAQ
@@ -482,16 +482,27 @@ const Dashboard = () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Stocker la question dans localStorage pour la démo
-    const existingQuestions = JSON.parse(localStorage.getItem('faqQuestions') || '[]');
+    // On utilise "faq_questions" pour que ce soit visible dans l'espace équipe et admin
+    const existingQuestions = JSON.parse(localStorage.getItem('faq_questions') || '[]');
     const newQuestion = {
       id: Date.now().toString(),
       clientName: `${mockUser.firstName} ${mockUser.lastName}`,
-      clientEmail: mockUser.email,
+      email: mockUser.email,
       question: faqQuestion,
-      submittedAt: new Date().toISOString(),
+      date: new Date().toISOString(),
       status: 'pending'
     };
-    localStorage.setItem('faqQuestions', JSON.stringify([...existingQuestions, newQuestion]));
+    localStorage.setItem('faq_questions', JSON.stringify([...existingQuestions, newQuestion]));
+    
+    // Aussi sauvegarder dans l'historique client pour persistance
+    const clientHistory = JSON.parse(localStorage.getItem('clientFaqHistory') || '[]');
+    clientHistory.push({
+      id: newQuestion.id,
+      question: faqQuestion,
+      submittedAt: newQuestion.date,
+      status: 'pending'
+    });
+    localStorage.setItem('clientFaqHistory', JSON.stringify(clientHistory));
     
     toast.success("Votre question a été envoyée ! Elle sera traitée lors de la prochaine session FAQ.");
     setFaqQuestion("");
