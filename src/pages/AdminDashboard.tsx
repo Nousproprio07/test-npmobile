@@ -77,6 +77,27 @@ interface Formation {
   replays: VideoLesson[];
 }
 
+// Types pour les lives
+interface LiveSession {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  animator: string;
+  meetLink: string;
+  createdAt: string;
+  notificationSent: boolean;
+}
+
+// Liste des animateurs
+const animators = [
+  { id: "alex", name: "Alex" },
+  { id: "johanna", name: "Johanna" },
+  { id: "arold", name: "Arold" },
+  { id: "sarah", name: "Sarah" },
+  { id: "valentine", name: "Valentine" }
+];
+
 // Types pour les clients
 interface ClientProgress {
   moduleId: string;
@@ -264,7 +285,7 @@ const AdminDashboard = () => {
   });
 
   // État pour la section clients
-  const [adminView, setAdminView] = useState<'formations' | 'clients' | 'questions'>('formations');
+  const [adminView, setAdminView] = useState<'formations' | 'clients' | 'questions' | 'lives'>('formations');
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [clientFilter, setClientFilter] = useState<'all' | 'residence-essentiel' | 'patrimoine-actif'>('all');
   const [searchQuery, setSearchQuery] = useState("");
@@ -314,6 +335,71 @@ const AdminDashboard = () => {
   const [questionTab, setQuestionTab] = useState<'pending' | 'answered'>('pending');
   const [responseText, setResponseText] = useState<{[key: string]: string}>({});
 
+  // État pour les lives
+  const [liveSessions, setLiveSessions] = useState<LiveSession[]>(() => {
+    const stored = localStorage.getItem('admin_live_sessions');
+    return stored ? JSON.parse(stored) : [];
+  });
+  const [newLive, setNewLive] = useState({
+    title: "",
+    date: "",
+    time: "",
+    animator: "",
+    meetLink: ""
+  });
+  const [isAddingLive, setIsAddingLive] = useState(false);
+
+  // Sauvegarder les lives dans localStorage
+  const saveLiveSessions = (sessions: LiveSession[]) => {
+    setLiveSessions(sessions);
+    localStorage.setItem('admin_live_sessions', JSON.stringify(sessions));
+  };
+
+  // Ajouter un live
+  const handleAddLive = () => {
+    if (!newLive.title || !newLive.date || !newLive.time || !newLive.animator || !newLive.meetLink) {
+      toast.error("Veuillez remplir tous les champs");
+      return;
+    }
+
+    const live: LiveSession = {
+      id: Date.now().toString(),
+      ...newLive,
+      createdAt: new Date().toISOString(),
+      notificationSent: false
+    };
+
+    const updatedSessions = [...liveSessions, live];
+    saveLiveSessions(updatedSessions);
+    
+    setNewLive({ title: "", date: "", time: "", animator: "", meetLink: "" });
+    setIsAddingLive(false);
+    toast.success("Live ajouté avec succès");
+  };
+
+  // Envoyer notification aux clients (mockup - nécessite Cloud pour l'email réel)
+  const sendLiveNotification = async (liveId: string) => {
+    const live = liveSessions.find(l => l.id === liveId);
+    if (!live) return;
+
+    // Simulation d'envoi (à connecter à Lovable Cloud pour l'envoi réel)
+    toast.info("Envoi des notifications en cours...");
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    const updatedSessions = liveSessions.map(l => 
+      l.id === liveId ? { ...l, notificationSent: true } : l
+    );
+    saveLiveSessions(updatedSessions);
+    
+    toast.success(`Notification envoyée à ${mockClients.length} clients !`);
+  };
+
+  // Supprimer un live
+  const deleteLive = (liveId: string) => {
+    const updatedSessions = liveSessions.filter(l => l.id !== liveId);
+    saveLiveSessions(updatedSessions);
+    toast.success("Live supprimé");
+  };
   // Charger les questions depuis localStorage
   const loadFaqQuestions = () => {
     const storedQuestions = localStorage.getItem('faqQuestions');
@@ -777,13 +863,15 @@ const AdminDashboard = () => {
               <div>
                 <h1 className="text-xl font-display font-bold text-foreground">Admin Dashboard</h1>
                 <p className="text-sm text-muted-foreground">
-                  {adminView === 'formations' ? 'Gérer les directions / cours' : 'Base de données clients'}
+                  {adminView === 'formations' ? 'Gérer les directions / cours' : 
+                   adminView === 'lives' ? 'Gérer les lives' :
+                   adminView === 'questions' ? 'Questions FAQ' : 'Base de données clients'}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              {/* Toggle entre Directions / Cours, Clients et Questions */}
-              <div className="flex bg-muted rounded-lg p-1">
+              {/* Toggle entre Directions / Cours, Clients, Questions et Lives */}
+              <div className="flex bg-muted rounded-lg p-1 flex-wrap">
                 <Button
                   variant={adminView === 'formations' ? 'default' : 'ghost'}
                   size="sm"
@@ -820,12 +908,25 @@ const AdminDashboard = () => {
                   className="gap-2 relative"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span className="hidden sm:inline">Questions FAQ</span>
+                  <span className="hidden sm:inline">Questions</span>
                   {faqQuestions.filter(q => q.status === 'pending').length > 0 && (
                     <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                       {faqQuestions.filter(q => q.status === 'pending').length}
                     </span>
                   )}
+                </Button>
+                <Button
+                  variant={adminView === 'lives' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => {
+                    setAdminView('lives');
+                    setSelectedFormation(null);
+                    setSelectedClient(null);
+                  }}
+                  className="gap-2"
+                >
+                  <Video className="w-4 h-4" />
+                  <span className="hidden sm:inline">Lives</span>
                 </Button>
               </div>
               <Link to="/" className="text-lg font-display font-bold text-primary">
@@ -1173,6 +1274,202 @@ const AdminDashboard = () => {
                       ))}
                   </div>
                 )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* VUE LIVES */}
+        {adminView === 'lives' && (
+          <div className="space-y-6">
+            {/* Header avec bouton ajouter */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-display font-bold text-foreground">Gestion des Lives</h2>
+                <p className="text-muted-foreground">Planifiez vos sessions FAQ et notifiez les clients</p>
+              </div>
+              <Button onClick={() => setIsAddingLive(true)} className="gap-2">
+                <Plus className="w-4 h-4" />
+                Nouveau Live
+              </Button>
+            </div>
+
+            {/* Formulaire d'ajout de live */}
+            {isAddingLive && (
+              <Card className="border-primary/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Video className="w-5 h-5 text-primary" />
+                    Programmer un nouveau live
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="live-title">Nom du live *</Label>
+                      <Input
+                        id="live-title"
+                        placeholder="Ex: FAQ : Questions investissement"
+                        value={newLive.title}
+                        onChange={(e) => setNewLive(prev => ({ ...prev, title: e.target.value }))}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="live-animator">Animateur *</Label>
+                      <select
+                        id="live-animator"
+                        value={newLive.animator}
+                        onChange={(e) => setNewLive(prev => ({ ...prev, animator: e.target.value }))}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      >
+                        <option value="">Sélectionner un animateur</option>
+                        {animators.map(animator => (
+                          <option key={animator.id} value={animator.name}>{animator.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="live-date">Date *</Label>
+                      <Input
+                        id="live-date"
+                        type="date"
+                        value={newLive.date}
+                        onChange={(e) => setNewLive(prev => ({ ...prev, date: e.target.value }))}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="live-time">Heure *</Label>
+                      <Input
+                        id="live-time"
+                        type="time"
+                        value={newLive.time}
+                        onChange={(e) => setNewLive(prev => ({ ...prev, time: e.target.value }))}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="live-link">Lien Google Meet *</Label>
+                    <Input
+                      id="live-link"
+                      placeholder="https://meet.google.com/xxx-xxxx-xxx"
+                      value={newLive.meetLink}
+                      onChange={(e) => setNewLive(prev => ({ ...prev, meetLink: e.target.value }))}
+                    />
+                  </div>
+                  <div className="flex gap-2 justify-end">
+                    <Button variant="outline" onClick={() => {
+                      setIsAddingLive(false);
+                      setNewLive({ title: "", date: "", time: "", animator: "", meetLink: "" });
+                    }}>
+                      Annuler
+                    </Button>
+                    <Button onClick={handleAddLive}>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Ajouter le live
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Liste des lives */}
+            <div className="grid gap-4">
+              {liveSessions.length === 0 ? (
+                <Card>
+                  <CardContent className="py-12 text-center text-muted-foreground">
+                    <Video className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                    <p>Aucun live programmé</p>
+                    <p className="text-sm mt-1">Cliquez sur "Nouveau Live" pour en créer un</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                liveSessions
+                  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                  .map(live => {
+                    const liveDate = new Date(live.date);
+                    const formattedDate = liveDate.toLocaleDateString('fr-FR', {
+                      weekday: 'long',
+                      day: 'numeric',
+                      month: 'long'
+                    });
+
+                    return (
+                      <Card key={live.id} className="overflow-hidden">
+                        <CardContent className="p-0">
+                          <div className="flex items-center gap-4 p-4">
+                            <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                              <Video className="w-7 h-7 text-primary" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-semibold text-foreground text-lg">{live.title}</h3>
+                              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground mt-1">
+                                <span className="flex items-center gap-1">
+                                  <Clock className="w-4 h-4" />
+                                  {formattedDate} • {live.time}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <User className="w-4 h-4" />
+                                  Animé par {live.animator}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2 mt-2">
+                                <a 
+                                  href={live.meetLink} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="text-xs text-primary hover:underline truncate max-w-[300px]"
+                                >
+                                  {live.meetLink}
+                                </a>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                              {live.notificationSent ? (
+                                <span className="flex items-center gap-1 text-xs text-emerald-500 bg-emerald-500/10 px-3 py-1.5 rounded-full">
+                                  <Check className="w-3 h-3" />
+                                  Notifié
+                                </span>
+                              ) : (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => sendLiveNotification(live.id)}
+                                  className="gap-1"
+                                >
+                                  <Mail className="w-4 h-4" />
+                                  Notifier les clients
+                                </Button>
+                              )}
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                onClick={() => deleteLive(live.id)}
+                                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })
+              )}
+            </div>
+
+            {/* Info Cloud */}
+            <Card className="border-amber-500/30 bg-amber-500/5">
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <Mail className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-foreground">Envoi d'emails aux clients</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Pour activer l'envoi réel d'emails de notification aux clients, connectez Lovable Cloud. 
+                      Actuellement, les notifications sont simulées.
+                    </p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
