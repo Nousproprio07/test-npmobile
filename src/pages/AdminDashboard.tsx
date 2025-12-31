@@ -419,6 +419,24 @@ const AdminDashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Charger les questions FAQ au montage
+  useEffect(() => {
+    const loadQuestions = () => {
+      const storedQuestions = localStorage.getItem('faqQuestions');
+      if (storedQuestions) {
+        setFaqQuestions(JSON.parse(storedQuestions));
+      } else {
+        // Si aucune question stockée, charger les exemples
+        setFaqQuestions(defaultExampleQuestions);
+        localStorage.setItem('faqQuestions', JSON.stringify(defaultExampleQuestions));
+      }
+    };
+    loadQuestions();
+    // Rafraîchir toutes les 5 secondes pour voir les nouvelles questions
+    const interval = setInterval(loadQuestions, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Approuver une proposition
   const handleApproveProposal = (proposal: TeamCourseProposal) => {
     // Créer le cours à partir de la proposition
