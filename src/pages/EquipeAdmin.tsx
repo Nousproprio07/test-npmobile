@@ -34,14 +34,6 @@ const teamMember = {
   role: "Coach immobilier"
 };
 
-// Prochain live
-const prochainLive = {
-  title: "FAQ Live - Questions clients",
-  date: "Jeudi 2 Janvier",
-  heure: "19h00",
-  lienVisio: "https://meet.google.com/abc-defg-hij"
-};
-
 interface CourseProposal {
   id: string;
   title: string;
@@ -64,6 +56,18 @@ interface FaqQuestion {
   respondedBy?: string;
 }
 
+// Interface pour les lives de l'admin
+interface AdminLiveSession {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  animator: string;
+  meetLink: string;
+  createdAt: string;
+  notificationSent: boolean;
+}
+
 interface LiveSession {
   id: string;
   title: string;
@@ -72,6 +76,7 @@ interface LiveSession {
   status: "upcoming" | "live" | "ended";
   isHost: boolean;
   link?: string;
+  animator?: string;
 }
 
 const EquipeAdmin = () => {
@@ -92,26 +97,8 @@ const EquipeAdmin = () => {
   const [responseText, setResponseText] = useState<{ [key: string]: string }>({});
 
   // Lives state
-  const [liveSessions, setLiveSessions] = useState<LiveSession[]>([
-    {
-      id: "1",
-      title: "Live Q&A - Stratégies d'investissement",
-      date: "2025-01-05",
-      time: "14:00",
-      status: "upcoming",
-      isHost: true,
-      link: "https://meet.example.com/live-1"
-    },
-    {
-      id: "2",
-      title: "Masterclass Patrimoine Actif",
-      date: "2025-01-03",
-      time: "18:00",
-      status: "upcoming",
-      isHost: false,
-      link: "https://meet.example.com/live-2"
-    }
-  ]);
+  const [liveSessions, setLiveSessions] = useState<LiveSession[]>([]);
+  const [hasNewHostLive, setHasNewHostLive] = useState(false);
 
   // Load data from localStorage
   useEffect(() => {
@@ -124,7 +111,60 @@ const EquipeAdmin = () => {
     if (savedQuestions) {
       setFaqQuestions(JSON.parse(savedQuestions));
     }
+
+    // Charger les lives depuis l'admin
+    loadLivesFromAdmin();
   }, []);
+
+  // Charger et transformer les lives de l'admin
+  const loadLivesFromAdmin = () => {
+    const adminLives = localStorage.getItem('admin_live_sessions');
+    if (adminLives) {
+      const parsedLives: AdminLiveSession[] = JSON.parse(adminLives);
+      const now = new Date();
+      
+      const transformedLives: LiveSession[] = parsedLives.map(live => {
+        const liveDate = new Date(`${live.date}T${live.time}`);
+        let status: "upcoming" | "live" | "ended" = "upcoming";
+        
+        // Déterminer le statut
+        if (liveDate < now) {
+          status = "ended";
+        } else if (liveDate.getTime() - now.getTime() < 3600000) { // Dans l'heure
+          status = "live";
+        }
+        
+        // Vérifier si le membre de l'équipe est l'animateur
+        const isHost = live.animator.toLowerCase() === teamMember.firstName.toLowerCase();
+        
+        return {
+          id: live.id,
+          title: live.title,
+          date: live.date,
+          time: live.time,
+          status,
+          isHost,
+          link: live.meetLink,
+          animator: live.animator
+        };
+      });
+
+      // Trier : les lives où l'on est host en premier
+      const sortedLives = transformedLives.sort((a, b) => {
+        if (a.isHost && !b.isHost) return -1;
+        if (!a.isHost && b.isHost) return 1;
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      });
+
+      setLiveSessions(sortedLives);
+      
+      // Vérifier s'il y a un nouveau live où l'on est host
+      const hostLives = sortedLives.filter(l => l.isHost && l.status !== 'ended');
+      if (hostLives.length > 0) {
+        setHasNewHostLive(true);
+      }
+    }
+  };
 
   // Save course proposals
   useEffect(() => {
@@ -224,40 +264,80 @@ const EquipeAdmin = () => {
       </header>
 
       <main className="container mx-auto px-4 py-6 space-y-6">
-        {/* Notification prochain live */}
-        <Card className="border-primary bg-gradient-to-r from-primary/10 to-primary/5">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-                <Video className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <Bell className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-medium text-primary">Prochain live</span>
+        {/* Notification prochain live - Priorité aux lives où l'on est animateur */}
+        {(() => {
+          const hostLives = liveSessions.filter(l => l.isHost && l.status !== 'ended');
+          const upcomingLives = liveSessions.filter(l => l.status !== 'ended');
+          const nextLive = hostLives.length > 0 ? hostLives[0] : upcomingLives[0];
+          
+          if (!nextLive) return null;
+          
+          const isAnimator = nextLive.isHost;
+          
+          return (
+            <Card className={`${isAnimator 
+              ? 'border-red-500 bg-gradient-to-r from-red-500/10 to-red-500/5 ring-2 ring-red-500/30' 
+              : 'border-primary bg-gradient-to-r from-primary/10 to-primary/5'}`}>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className={`w-12 h-12 rounded-xl ${isAnimator ? 'bg-red-500' : 'bg-primary'} flex items-center justify-center flex-shrink-0`}>
+                    <Video className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Bell className={`w-4 h-4 ${isAnimator ? 'text-red-500 animate-pulse' : 'text-primary'}`} />
+                      <span className={`text-xs font-medium ${isAnimator ? 'text-red-500' : 'text-primary'}`}>
+                        {isAnimator ? '🎙️ Vous animez ce live !' : 'Prochain live'}
+                      </span>
+                      {isAnimator && (
+                        <Badge variant="destructive" className="text-xs">
+                          Animateur
+                        </Badge>
+                      )}
+                    </div>
+                    <h4 className="text-base font-semibold text-foreground">{nextLive.title}</h4>
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {new Date(nextLive.date).toLocaleDateString("fr-FR", { 
+                          weekday: "long", 
+                          day: "numeric", 
+                          month: "long" 
+                        })}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {nextLive.time}
+                      </span>
+                      {!isAnimator && nextLive.animator && (
+                        <span className="text-xs">
+                          Animé par {nextLive.animator}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <Button 
+                    size="sm"
+                    className={isAnimator ? 'bg-red-600 hover:bg-red-700' : ''}
+                    onClick={() => nextLive.link && window.open(nextLive.link, '_blank')}
+                  >
+                    {isAnimator ? (
+                      <>
+                        <Play className="w-4 h-4 mr-2" />
+                        Démarrer
+                      </>
+                    ) : (
+                      <>
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Rejoindre
+                      </>
+                    )}
+                  </Button>
                 </div>
-                <h4 className="text-base font-semibold text-foreground">{prochainLive.title}</h4>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-3 h-3" />
-                    {prochainLive.date}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {prochainLive.heure}
-                  </span>
-                </div>
-              </div>
-              <Button 
-                size="sm"
-                onClick={() => window.open(prochainLive.lienVisio, '_blank')}
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Rejoindre
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+          );
+        })()}
 
         <Tabs defaultValue="cours" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
@@ -276,9 +356,14 @@ const EquipeAdmin = () => {
                 </Badge>
               )}
             </TabsTrigger>
-            <TabsTrigger value="lives" className="gap-2">
+            <TabsTrigger value="lives" className="gap-2 relative">
               <Video className="h-4 w-4" />
               Lives
+              {liveSessions.filter(l => l.isHost && l.status !== 'ended').length > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
+                  {liveSessions.filter(l => l.isHost && l.status !== 'ended').length}
+                </span>
+              )}
             </TabsTrigger>
             <TabsTrigger value="accompagnements" className="gap-2">
               <Users className="h-4 w-4" />
@@ -542,59 +627,124 @@ const EquipeAdmin = () => {
 
           {/* Tab: Lives */}
           <TabsContent value="lives" className="space-y-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {liveSessions.map(session => (
-                <Card key={session.id} className={session.status === "live" ? "border-red-500/50 bg-red-500/5" : ""}>
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <CardTitle className="text-base">{session.title}</CardTitle>
-                      {session.status === "live" && (
-                        <Badge variant="destructive" className="animate-pulse">
-                          🔴 EN DIRECT
-                        </Badge>
-                      )}
-                      {session.status === "upcoming" && (
-                        <Badge variant="outline">À venir</Badge>
-                      )}
+            {/* Section Lives où je suis animateur */}
+            {(() => {
+              const hostLives = liveSessions.filter(l => l.isHost);
+              const otherLives = liveSessions.filter(l => !l.isHost);
+              
+              return (
+                <>
+                  {hostLives.length > 0 && (
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+                        <h3 className="text-lg font-semibold text-foreground">Mes lives à animer</h3>
+                        <Badge variant="destructive">{hostLives.length}</Badge>
+                      </div>
+                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {hostLives.map(session => (
+                          <Card key={session.id} className="border-red-500/50 bg-gradient-to-br from-red-500/10 to-red-500/5 ring-1 ring-red-500/30">
+                            <CardHeader>
+                              <div className="flex items-start justify-between">
+                                <CardTitle className="text-base">{session.title}</CardTitle>
+                                <Badge variant="destructive">
+                                  🎙️ Animateur
+                                </Badge>
+                              </div>
+                              <CardDescription>
+                                {new Date(session.date).toLocaleDateString("fr-FR", { 
+                                  weekday: "long", 
+                                  day: "numeric", 
+                                  month: "long" 
+                                })} à {session.time}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-3">
+                              <Button 
+                                className="w-full bg-red-600 hover:bg-red-700"
+                                onClick={() => session.link && window.open(session.link, '_blank')}
+                              >
+                                <Play className="h-4 w-4 mr-2" />
+                                Démarrer le live
+                              </Button>
+                              <p className="text-xs text-center text-red-600 font-medium">
+                                Vous êtes l'animateur de ce live
+                              </p>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
                     </div>
-                    <CardDescription>
-                      {new Date(session.date).toLocaleDateString("fr-FR", { 
-                        weekday: "long", 
-                        day: "numeric", 
-                        month: "long" 
-                      })} à {session.time}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex gap-2">
-                      {session.isHost ? (
-                        <Button className="flex-1 bg-red-600 hover:bg-red-700">
-                          <Play className="h-4 w-4 mr-2" />
-                          Démarrer le live
-                        </Button>
-                      ) : (
-                        <Button variant="secondary" className="flex-1">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Accéder au live
-                        </Button>
-                      )}
-                    </div>
-                    <p className="text-xs text-muted-foreground text-center">
-                      {session.isHost ? "Vous êtes l'animateur de ce live" : "Vous participez à ce live"}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  )}
 
-            {liveSessions.length === 0 && (
-              <Card>
-                <CardContent className="py-12 text-center text-muted-foreground">
-                  <Video className="h-12 w-12 mx-auto mb-3 opacity-50" />
-                  <p>Aucun live programmé</p>
-                </CardContent>
-              </Card>
-            )}
+                  {otherLives.length > 0 && (
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2">
+                        <Video className="w-5 h-5 text-primary" />
+                        <h3 className="text-lg font-semibold text-foreground">Autres lives programmés</h3>
+                        <Badge variant="secondary">{otherLives.length}</Badge>
+                      </div>
+                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {otherLives.map(session => (
+                          <Card key={session.id} className={session.status === "live" ? "border-primary/50 bg-primary/5" : ""}>
+                            <CardHeader>
+                              <div className="flex items-start justify-between">
+                                <CardTitle className="text-base">{session.title}</CardTitle>
+                                {session.status === "live" && (
+                                  <Badge variant="destructive" className="animate-pulse">
+                                    🔴 EN DIRECT
+                                  </Badge>
+                                )}
+                                {session.status === "upcoming" && (
+                                  <Badge variant="outline">À venir</Badge>
+                                )}
+                                {session.status === "ended" && (
+                                  <Badge variant="secondary">Terminé</Badge>
+                                )}
+                              </div>
+                              <CardDescription>
+                                {new Date(session.date).toLocaleDateString("fr-FR", { 
+                                  weekday: "long", 
+                                  day: "numeric", 
+                                  month: "long" 
+                                })} à {session.time}
+                                {session.animator && (
+                                  <span className="block mt-1">Animé par {session.animator}</span>
+                                )}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-3">
+                              <Button 
+                                variant="secondary" 
+                                className="w-full"
+                                onClick={() => session.link && window.open(session.link, '_blank')}
+                                disabled={session.status === "ended"}
+                              >
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                {session.status === "ended" ? "Live terminé" : "Accéder au live"}
+                              </Button>
+                              <p className="text-xs text-muted-foreground text-center">
+                                Vous participez à ce live
+                              </p>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {liveSessions.length === 0 && (
+                    <Card>
+                      <CardContent className="py-12 text-center text-muted-foreground">
+                        <Video className="h-12 w-12 mx-auto mb-3 opacity-50" />
+                        <p>Aucun live programmé</p>
+                        <p className="text-sm mt-1">Les lives seront affichés ici une fois créés par l'administrateur</p>
+                      </CardContent>
+                    </Card>
+                  )}
+                </>
+              );
+            })()}
           </TabsContent>
 
           {/* Tab: Accompagnements */}
