@@ -518,10 +518,12 @@ const Dashboard = () => {
       setTimeout(() => {
         toast("📅 Prochaine session FAQ", {
           description: `${prochaineFAQData.date} à ${prochaineFAQData.heure}`,
-          duration: 5000,
+          duration: 8000,
           action: {
             label: "Voir",
-            onClick: () => setActiveTab("faq")
+            onClick: () => {
+              setActiveTab("faq");
+            }
           }
         });
         sessionStorage.setItem('faqNotificationShown', 'true');
