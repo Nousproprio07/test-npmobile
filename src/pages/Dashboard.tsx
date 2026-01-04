@@ -516,13 +516,7 @@ const Dashboard = () => {
     const timer = setTimeout(() => {
       toast("📅 Prochaine session FAQ", {
         description: `${prochaineFAQData.date} à ${prochaineFAQData.heure}`,
-        duration: 8000,
-        action: {
-          label: "Voir",
-          onClick: () => {
-            setActiveTab("faq");
-          }
-        }
+        duration: 8000
       });
     }, 1500);
     
