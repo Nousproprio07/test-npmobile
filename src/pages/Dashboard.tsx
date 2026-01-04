@@ -503,6 +503,7 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState<"formation" | "bloc1" | "bloc3" | "faq">("formation");
   const [selectedModule, setSelectedModule] = useState<ModuleType | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hasInteractedWithDropdown, setHasInteractedWithDropdown] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
   const [faqQuestion, setFaqQuestion] = useState("");
   const [isSubmittingQuestion, setIsSubmittingQuestion] = useState(false);
@@ -1233,9 +1234,13 @@ const Dashboard = () => {
             <div className="md:hidden">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between animate-pulse-subtle hover:animate-none border-primary/30 shadow-sm">
+                  <Button 
+                    variant="outline" 
+                    className={`w-full justify-between border-primary/30 shadow-sm ${!hasInteractedWithDropdown ? 'animate-pulse-subtle hover:animate-none' : ''}`}
+                    onClick={() => setHasInteractedWithDropdown(true)}
+                  >
                     <span>{tabItems.find(t => t.id === activeTab)?.shortLabel}</span>
-                    <ChevronDown className="w-4 h-4 ml-2 animate-bounce-subtle" />
+                    <ChevronDown className={`w-4 h-4 ml-2 ${!hasInteractedWithDropdown ? 'animate-bounce-subtle' : ''}`} />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-[calc(100vw-2rem)]">
