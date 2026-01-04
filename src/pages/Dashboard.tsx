@@ -279,7 +279,7 @@ const coursSupplementaires: CoursBonusType[] = [
 const tabItems = [
   { id: "formation", label: "Modules", shortLabel: "Modules" },
   { id: "bloc1", label: "Ton point de départ", shortLabel: "Point de départ" },
-  { id: "bloc3", label: "Outils NousProprio", shortLabel: "Outils" },
+  { id: "bloc3", label: "Ma bibliothèque d'outils", shortLabel: "Outils" },
   { id: "faq", label: "Session FAQ live", shortLabel: "FAQ live" },
 ];
 
@@ -860,7 +860,7 @@ const Dashboard = () => {
               Bonjour {mockUser.firstName} 👋
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground">
-              Voici tes formations et ta feuille de route
+              Voici ta feuille de route et tes cours bonus
             </p>
           </div>
 
@@ -1524,9 +1524,14 @@ const Dashboard = () => {
 
         {isDirectionView && activeTab === "bloc3" && (
           <div className="space-y-4">
-            <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4">
-              Outils NousProprio
-            </h3>
+            <div>
+              <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-2">
+                Ma bibliothèque d'outils
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Retrouve ici tous les outils, documents et ressources présents dans tes modules. C'est ton espace centralisé pour accéder rapidement à tout ce dont tu as besoin.
+              </p>
+            </div>
             <div className="grid gap-3">
               {bloc3Content.map((item) => (
                 <Card key={item.id} className="hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98]">
