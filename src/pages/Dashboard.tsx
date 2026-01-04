@@ -1130,7 +1130,7 @@ const Dashboard = () => {
               onClick={handleBackFromCourseView}
               className="text-muted-foreground hover:text-primary p-0 h-auto"
             >
-              Mes formations
+              Ma direction
             </Button>
             <ChevronRight className="w-3 h-3" />
             <span className="text-foreground">{displayTitle}</span>
