@@ -514,15 +514,25 @@ const Dashboard = () => {
     response?: string;
     respondedAt?: string;
   }>>([]);
-  const [openBlocs, setOpenBlocs] = useState<{ bloc1: boolean; bloc2: boolean; bloc3: boolean }>({
-    bloc1: true,
-    bloc2: true,
-    bloc3: true,
-  });
   
   // Modules de la direction principale
   const modules = formationModules[mockUser.formation] || [];
   const currentModuleData = modules.find(m => m.current);
+  
+  // Détermine quel bloc contient le module en cours
+  const currentModuleIndex = modules.findIndex(m => m.current);
+  const getInitialOpenBlocs = () => {
+    if (currentModuleIndex >= 0 && currentModuleIndex < 3) {
+      return { bloc1: true, bloc2: false, bloc3: false };
+    } else if (currentModuleIndex >= 3 && currentModuleIndex < 5) {
+      return { bloc1: false, bloc2: true, bloc3: false };
+    } else if (currentModuleIndex >= 5) {
+      return { bloc1: false, bloc2: false, bloc3: true };
+    }
+    return { bloc1: true, bloc2: false, bloc3: false };
+  };
+  
+  const [openBlocs, setOpenBlocs] = useState<{ bloc1: boolean; bloc2: boolean; bloc3: boolean }>(getInitialOpenBlocs);
 
   // Notification toast pour la prochaine FAQ (à chaque visite du dashboard)
   useEffect(() => {
