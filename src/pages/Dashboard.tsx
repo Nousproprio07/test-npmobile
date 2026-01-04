@@ -845,7 +845,7 @@ const Dashboard = () => {
             {/* Notification FAQ */}
             <div className="mt-3 -mx-4 px-4 py-2 bg-primary/5 border-y border-primary/10">
               <div className="flex items-center gap-2 text-xs sm:text-sm">
-                <Bell className="w-4 h-4 text-primary flex-shrink-0 animate-pulse" />
+                <Bell className="w-4 h-4 text-destructive flex-shrink-0 animate-bell-ring" />
                 <span className="text-muted-foreground">Prochaine FAQ :</span>
                 <span className="font-semibold text-primary truncate">{prochaineFAQData.date} • {prochaineFAQData.heure}</span>
               </div>
@@ -1111,7 +1111,7 @@ const Dashboard = () => {
           {isDirectionView && (
             <div className="mt-3 -mx-4 px-4 py-2 bg-primary/5 border-y border-primary/10">
               <div className="flex items-center gap-2 text-xs sm:text-sm">
-                <Bell className="w-4 h-4 text-primary flex-shrink-0 animate-pulse" />
+                <Bell className="w-4 h-4 text-destructive flex-shrink-0 animate-bell-ring" />
                 <span className="text-muted-foreground">Prochaine FAQ :</span>
                 <span className="font-semibold text-primary truncate">{prochaineFAQData.date} • {prochaineFAQData.heure}</span>
               </div>
