@@ -1330,7 +1330,7 @@ const Dashboard = () => {
         {isDirectionView && activeTab === "formation" && (
           <div className="space-y-6">
             <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground">
-              Modules de la formation
+              Modules de "{mockUser.formation}"
             </h3>
             
             {/* Les 3 blocs principaux */}
