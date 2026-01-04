@@ -27,8 +27,10 @@ import {
   GraduationCap,
   Target,
   Sparkles,
-  Home
+  Home,
+  Award
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import {
   Sheet,
@@ -1339,7 +1341,15 @@ const Dashboard = () => {
                       1
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-display font-semibold text-foreground">Préparation & Fondations</h4>
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-display font-semibold text-foreground">Préparation & Fondations</h4>
+                        {modules.slice(0, 3).every(m => m.completed) && (
+                          <Badge className="bg-gradient-to-r from-amber-500 to-yellow-400 text-white border-0 gap-1">
+                            <Award className="w-3 h-3" />
+                            Complété
+                          </Badge>
+                        )}
+                      </div>
                       <p className="text-xs text-muted-foreground">Avant le financement</p>
                     </div>
                     <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openBlocs.bloc1 ? 'rotate-180' : ''}`} />
@@ -1413,7 +1423,15 @@ const Dashboard = () => {
                       2
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-display font-semibold text-foreground">Maîtrise du Financement & Concrétisation</h4>
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-display font-semibold text-foreground">Maîtrise du Financement & Concrétisation</h4>
+                        {modules.slice(3, 5).every(m => m.completed) && (
+                          <Badge className="bg-gradient-to-r from-amber-500 to-yellow-400 text-white border-0 gap-1">
+                            <Award className="w-3 h-3" />
+                            Complété
+                          </Badge>
+                        )}
+                      </div>
                       <p className="text-xs text-muted-foreground">Obtenir et sécuriser ton prêt</p>
                     </div>
                     <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openBlocs.bloc2 ? 'rotate-180' : ''}`} />
@@ -1487,7 +1505,15 @@ const Dashboard = () => {
                       3
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-display font-semibold text-foreground">Après l'Achat & Optimisation</h4>
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-display font-semibold text-foreground">Après l'Achat & Optimisation</h4>
+                        {modules.slice(5).every(m => m.completed) && (
+                          <Badge className="bg-gradient-to-r from-amber-500 to-yellow-400 text-white border-0 gap-1">
+                            <Award className="w-3 h-3" />
+                            Complété
+                          </Badge>
+                        )}
+                      </div>
                       <p className="text-xs text-muted-foreground">Gérer et valoriser ton bien</p>
                     </div>
                     <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openBlocs.bloc3 ? 'rotate-180' : ''}`} />
