@@ -236,3 +236,27 @@
   animation: bell-ring 1s ease-in-out forwards;
   transform-origin: top center;
 }
+
+/* Dropdown attention animation - plays once */
+@keyframes dropdown-attention {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0.7);
+    transform: scale(1);
+  }
+  25% {
+    box-shadow: 0 0 0 8px hsl(var(--primary) / 0.4);
+    transform: scale(1.02);
+  }
+  50% {
+    box-shadow: 0 0 0 12px hsl(var(--primary) / 0.2);
+    transform: scale(1.01);
+  }
+  75% {
+    box-shadow: 0 0 0 8px hsl(var(--primary) / 0.1);
+    transform: scale(1.02);
+  }
+}
+
+.animate-dropdown-attention {
+  animation: dropdown-attention 1.5s ease-in-out 3;
+}
