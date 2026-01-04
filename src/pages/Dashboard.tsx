@@ -511,24 +511,22 @@ const Dashboard = () => {
   const modules = formationModules[mockUser.formation] || [];
   const currentModuleData = modules.find(m => m.current);
 
-  // Notification toast pour la prochaine FAQ (une seule fois à la connexion)
+  // Notification toast pour la prochaine FAQ (à chaque visite du dashboard)
   useEffect(() => {
-    const hasShownFaqNotification = sessionStorage.getItem('faqNotificationShown');
-    if (!hasShownFaqNotification) {
-      setTimeout(() => {
-        toast("📅 Prochaine session FAQ", {
-          description: `${prochaineFAQData.date} à ${prochaineFAQData.heure}`,
-          duration: 8000,
-          action: {
-            label: "Voir",
-            onClick: () => {
-              setActiveTab("faq");
-            }
+    const timer = setTimeout(() => {
+      toast("📅 Prochaine session FAQ", {
+        description: `${prochaineFAQData.date} à ${prochaineFAQData.heure}`,
+        duration: 8000,
+        action: {
+          label: "Voir",
+          onClick: () => {
+            setActiveTab("faq");
           }
-        });
-        sessionStorage.setItem('faqNotificationShown', 'true');
-      }, 1500);
-    }
+        }
+      });
+    }, 1500);
+    
+    return () => clearTimeout(timer);
   }, []);
   
   // Cours bonus achetés
