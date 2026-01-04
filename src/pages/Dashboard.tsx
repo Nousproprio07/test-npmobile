@@ -510,6 +510,24 @@ const Dashboard = () => {
   // Modules de la direction principale
   const modules = formationModules[mockUser.formation] || [];
   const currentModuleData = modules.find(m => m.current);
+
+  // Notification toast pour la prochaine FAQ (une seule fois à la connexion)
+  useEffect(() => {
+    const hasShownFaqNotification = sessionStorage.getItem('faqNotificationShown');
+    if (!hasShownFaqNotification) {
+      setTimeout(() => {
+        toast("📅 Prochaine session FAQ", {
+          description: `${prochaineFAQData.date} à ${prochaineFAQData.heure}`,
+          duration: 5000,
+          action: {
+            label: "Voir",
+            onClick: () => setActiveTab("faq")
+          }
+        });
+        sessionStorage.setItem('faqNotificationShown', 'true');
+      }, 1500);
+    }
+  }, []);
   
   // Cours bonus achetés
   const purchasedBonusCourses = coursSupplementaires.filter(c => c.purchased);
