@@ -287,7 +287,8 @@ const tabItems = [
 const prochaineFAQData = {
   date: "Jeudi 2 Janvier",
   heure: "19h00",
-  lienVisio: "https://meet.google.com/abc-defg-hij"
+  lienVisio: "https://meet.google.com/abc-defg-hij",
+  dateObj: new Date(2026, 0, 2, 19, 0) // 2 Janvier 2026 à 19h00
 };
 
 // Composant FAQ Tab
@@ -514,9 +515,14 @@ const Dashboard = () => {
   // Notification toast pour la prochaine FAQ (à chaque visite du dashboard)
   useEffect(() => {
     const timer = setTimeout(() => {
+      const now = new Date();
+      const diffTime = prochaineFAQData.dateObj.getTime() - now.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const joursRestants = diffDays > 0 ? `Dans ${diffDays} jour${diffDays > 1 ? 's' : ''}` : "Aujourd'hui";
+      
       toast("📅 Prochaine session FAQ", {
-        description: `${prochaineFAQData.date} à ${prochaineFAQData.heure}`,
-        duration: 8000
+        description: `${joursRestants} - ${prochaineFAQData.date} à ${prochaineFAQData.heure}`,
+        duration: 4000
       });
     }, 1500);
     
