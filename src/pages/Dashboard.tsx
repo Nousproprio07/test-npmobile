@@ -1123,7 +1123,21 @@ const Dashboard = () => {
       <div className="px-4 py-6">
         {/* Welcome Section */}
         <div className="mb-5">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+          {/* Mobile: Bouton retour simple */}
+          <div className="md:hidden mb-2">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={handleBackFromCourseView}
+              className="text-muted-foreground hover:text-primary p-0 h-auto flex items-center gap-1"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Retour
+            </Button>
+          </div>
+          
+          {/* Desktop: Breadcrumb complet */}
+          <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground mb-2">
             <Button 
               variant="ghost" 
               size="sm"
