@@ -507,6 +507,7 @@ const Dashboard = () => {
     response?: string;
     respondedAt?: string;
   }>>([]);
+  const [showDropdownAnimation, setShowDropdownAnimation] = useState(false);
   
   // Modules de la direction principale
   const modules = formationModules[mockUser.formation] || [];
@@ -528,6 +529,19 @@ const Dashboard = () => {
     
     return () => clearTimeout(timer);
   }, []);
+
+  // Animation du dropdown mobile lors de la première connexion
+  useEffect(() => {
+    const hasSeenDropdownAnimation = localStorage.getItem('dropdownAnimationShown');
+    if (!hasSeenDropdownAnimation && currentView === "direction") {
+      setShowDropdownAnimation(true);
+      const timer = setTimeout(() => {
+        setShowDropdownAnimation(false);
+        localStorage.setItem('dropdownAnimationShown', 'true');
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [currentView]);
   
   // Cours bonus achetés
   const purchasedBonusCourses = coursSupplementaires.filter(c => c.purchased);
@@ -1211,7 +1225,10 @@ const Dashboard = () => {
             <div className="md:hidden">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
+                  <Button 
+                    variant="outline" 
+                    className={`w-full justify-between ${showDropdownAnimation ? 'animate-dropdown-attention border-primary' : ''}`}
+                  >
                     <span>{tabItems.find(t => t.id === activeTab)?.shortLabel}</span>
                     <ChevronDown className="w-4 h-4 ml-2" />
                   </Button>
