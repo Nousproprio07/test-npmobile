@@ -23,7 +23,11 @@ import {
   X,
   ChevronDown,
   MessageCircle,
-  Send
+  Send,
+  GraduationCap,
+  Target,
+  Sparkles,
+  Home
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -50,6 +54,19 @@ interface ModuleType {
   videoUrl: string;
   chapitres: string[];
 }
+
+interface CoursBonusType {
+  id: number;
+  title: string;
+  duration: string;
+  description: string;
+  purchased: boolean;
+  price: number;
+  modules?: ModuleType[];
+}
+
+// Types de vue pour le Dashboard
+type DashboardView = "home" | "direction" | "bonus-course";
 
 // Mock data
 const mockUser = {
@@ -213,18 +230,56 @@ const bloc3Content = [
   { id: 3, title: "Guide fiscal complet", type: "PDF", icon: FileText },
 ];
 
-const coursSupplementaires = [
-  { id: 1, title: "Investir en SCPI", duration: "30 min", new: true, price: 47, description: "Découvre comment investir dans l'immobilier sans acheter de bien physique grâce aux SCPI." },
-  { id: 2, title: "Le crowdfunding immobilier", duration: "25 min", new: true, price: 37, description: "Comprends le fonctionnement du crowdfunding immobilier et ses opportunités de rendement." },
-  { id: 3, title: "Optimiser sa fiscalité", duration: "45 min", new: false, price: 67, description: "Les meilleures stratégies pour réduire tes impôts grâce à l'immobilier." },
-  { id: 4, title: "Investir à l'étranger", duration: "40 min", new: false, price: 57, description: "Les clés pour réussir ton premier investissement immobilier hors de France." },
+// Cours bonus (certains achetés, d'autres non)
+const coursSupplementaires: CoursBonusType[] = [
+  { 
+    id: 1, 
+    title: "Investir en SCPI", 
+    duration: "30 min", 
+    price: 47, 
+    description: "Découvre comment investir dans l'immobilier sans acheter de bien physique grâce aux SCPI.",
+    purchased: true, // Ce cours est acheté
+    modules: [
+      { id: 1, title: "Qu'est-ce qu'une SCPI ?", duration: "10 min", completed: true, description: "Introduction aux SCPI et leur fonctionnement.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Définition", "Types de SCPI", "Avantages"] },
+      { id: 2, title: "Choisir sa SCPI", duration: "12 min", completed: false, current: true, description: "Les critères pour bien choisir.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Rendement", "Risques", "Diversification"] },
+      { id: 3, title: "Fiscalité des SCPI", duration: "8 min", completed: false, description: "Optimiser la fiscalité de ses SCPI.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Imposition", "Régimes fiscaux", "Stratégies"] },
+    ]
+  },
+  { 
+    id: 2, 
+    title: "Le crowdfunding immobilier", 
+    duration: "25 min", 
+    price: 37, 
+    description: "Comprends le fonctionnement du crowdfunding immobilier et ses opportunités de rendement.",
+    purchased: false
+  },
+  { 
+    id: 3, 
+    title: "Optimiser sa fiscalité", 
+    duration: "45 min", 
+    price: 67, 
+    description: "Les meilleures stratégies pour réduire tes impôts grâce à l'immobilier.",
+    purchased: true, // Ce cours est acheté
+    modules: [
+      { id: 1, title: "Les bases de la fiscalité immobilière", duration: "15 min", completed: false, current: true, description: "Comprendre les fondamentaux.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Revenus fonciers", "Plus-values", "IFI"] },
+      { id: 2, title: "Le régime LMNP", duration: "20 min", completed: false, description: "Tout sur le statut LMNP.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Éligibilité", "Amortissements", "Déclarations"] },
+      { id: 3, title: "Stratégies d'optimisation", duration: "10 min", completed: false, description: "Réduire légalement ses impôts.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Déficit foncier", "SCI", "Holding"] },
+    ]
+  },
+  { 
+    id: 4, 
+    title: "Investir à l'étranger", 
+    duration: "40 min", 
+    price: 57, 
+    description: "Les clés pour réussir ton premier investissement immobilier hors de France.",
+    purchased: false
+  },
 ];
 
 const tabItems = [
-  { id: "formation", label: "Ma feuille de route", shortLabel: "Feuille de route" },
+  { id: "formation", label: "Modules", shortLabel: "Modules" },
   { id: "bloc1", label: "Ton point de départ", shortLabel: "Point de départ" },
   { id: "bloc3", label: "Outils NousProprio", shortLabel: "Outils" },
-  { id: "bonus", label: "Cours Bonus", shortLabel: "Bonus" },
   { id: "faq", label: "Session FAQ live", shortLabel: "FAQ live" },
 ];
 
@@ -432,7 +487,12 @@ const FaqTab = ({
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<"formation" | "bloc1" | "bloc3" | "bonus" | "faq">("formation");
+  
+  // Vue principale du Dashboard
+  const [currentView, setCurrentView] = useState<DashboardView>("home");
+  const [selectedBonusCourse, setSelectedBonusCourse] = useState<CoursBonusType | null>(null);
+  
+  const [activeTab, setActiveTab] = useState<"formation" | "bloc1" | "bloc3" | "faq">("formation");
   const [selectedModule, setSelectedModule] = useState<ModuleType | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
@@ -446,8 +506,16 @@ const Dashboard = () => {
     response?: string;
     respondedAt?: string;
   }>>([]);
+  
+  // Modules de la direction principale
   const modules = formationModules[mockUser.formation] || [];
   const currentModuleData = modules.find(m => m.current);
+  
+  // Cours bonus achetés
+  const purchasedBonusCourses = coursSupplementaires.filter(c => c.purchased);
+  
+  // Récupérer les modules du cours bonus sélectionné
+  const bonusCourseModules = selectedBonusCourse?.modules || [];
 
   // Charger les questions du client
   const loadMyQuestions = () => {
@@ -514,9 +582,36 @@ const Dashboard = () => {
     navigate("/connexion");
   };
 
+  // Gestion du retour à la vue précédente
+  const handleBackFromModule = () => {
+    setSelectedModule(null);
+  };
+
+  const handleBackFromCourseView = () => {
+    if (selectedModule) {
+      setSelectedModule(null);
+    } else {
+      setCurrentView("home");
+      setSelectedBonusCourse(null);
+      setActiveTab("formation");
+    }
+  };
+
+  // Récupérer les modules actuels selon la vue
+  const getCurrentModules = (): ModuleType[] => {
+    if (currentView === "direction") {
+      return modules;
+    } else if (currentView === "bonus-course" && selectedBonusCourse?.modules) {
+      return selectedBonusCourse.modules;
+    }
+    return [];
+  };
+
   // Vue détaillée d'un module - OPTIMISÉE MOBILE
   if (selectedModule) {
-    const moduleIndex = modules.findIndex(m => m.id === selectedModule.id);
+    const currentModules = getCurrentModules();
+    const moduleIndex = currentModules.findIndex(m => m.id === selectedModule.id);
+    const contextTitle = currentView === "direction" ? mockUser.formation : selectedBonusCourse?.title || "";
     
     return (
       <div className="min-h-screen bg-background">
@@ -527,7 +622,7 @@ const Dashboard = () => {
               <Button 
                 variant="ghost" 
                 size="sm"
-                onClick={() => setSelectedModule(null)}
+                onClick={handleBackFromModule}
                 className="text-muted-foreground hover:text-[#99c5ff] hover:bg-[#99c5ff]/10 -ml-2 px-2"
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -535,7 +630,7 @@ const Dashboard = () => {
               </Button>
               
               <span className="text-xs sm:text-sm text-muted-foreground">
-                Module {moduleIndex + 1}/{modules.length}
+                Module {moduleIndex + 1}/{currentModules.length}
               </span>
               
               <Button 
@@ -633,7 +728,7 @@ const Dashboard = () => {
               size="icon"
               disabled={moduleIndex === 0}
               onClick={() => {
-                const prevModule = modules[moduleIndex - 1];
+                const prevModule = currentModules[moduleIndex - 1];
                 if (prevModule && (prevModule.completed || prevModule.current)) {
                   setSelectedModule(prevModule);
                 }
@@ -653,9 +748,9 @@ const Dashboard = () => {
                 variant="outline" 
                 className="flex-1" 
                 size="lg"
-                disabled={moduleIndex === modules.length - 1}
+                disabled={moduleIndex === currentModules.length - 1}
                 onClick={() => {
-                  const nextModule = modules[moduleIndex + 1];
+                  const nextModule = currentModules[moduleIndex + 1];
                   if (nextModule) {
                     setSelectedModule(nextModule);
                   }
@@ -669,9 +764,9 @@ const Dashboard = () => {
             <Button
               variant="outline"
               size="icon"
-              disabled={moduleIndex === modules.length - 1 || (!modules[moduleIndex + 1]?.completed && !modules[moduleIndex + 1]?.current)}
+              disabled={moduleIndex === currentModules.length - 1 || (!currentModules[moduleIndex + 1]?.completed && !currentModules[moduleIndex + 1]?.current)}
               onClick={() => {
-                const nextModule = modules[moduleIndex + 1];
+                const nextModule = currentModules[moduleIndex + 1];
                 if (nextModule) {
                   setSelectedModule(nextModule);
                 }
@@ -686,17 +781,256 @@ const Dashboard = () => {
     );
   }
 
-  // Vue principale du Dashboard
+  // ==============================
+  // VUE HOME - Page d'accueil avec les formations
+  // ==============================
+  if (currentView === "home") {
+    return (
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header className="bg-card border-b border-border sticky top-0 z-50">
+          <div className="px-4 py-3">
+            <div className="flex items-center justify-between">
+              <Link to="/" className="text-lg sm:text-xl font-display font-bold text-primary">
+                NousProprio
+              </Link>
+              
+              <div className="hidden md:flex items-center gap-4">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <User className="w-4 h-4" />
+                  <span>{mockUser.firstName} {mockUser.lastName}</span>
+                </div>
+                <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground hover:text-glacier-500">
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Déconnexion
+                </Button>
+              </div>
+              
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild className="md:hidden">
+                  <Button variant="ghost" size="icon">
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-80">
+                  <SheetHeader className="text-left pb-6 border-b border-border">
+                    <SheetTitle className="text-lg font-display">Mon compte</SheetTitle>
+                  </SheetHeader>
+                  <div className="py-6 space-y-6">
+                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-xl">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <User className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">{mockUser.firstName} {mockUser.lastName}</p>
+                        <p className="text-sm text-muted-foreground">{mockUser.email}</p>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start text-muted-foreground" 
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        handleLogout();
+                      }}
+                    >
+                      <LogOut className="w-4 h-4 mr-3" />
+                      Se déconnecter
+                    </Button>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+            
+            {/* Notification FAQ */}
+            <div className="mt-3 -mx-4 px-4 py-2 bg-primary/5 border-y border-primary/10">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
+                <Bell className="w-4 h-4 text-primary flex-shrink-0 animate-pulse" />
+                <span className="text-muted-foreground">Prochaine FAQ :</span>
+                <span className="font-semibold text-primary truncate">{prochaineFAQData.date} • {prochaineFAQData.heure}</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div className="px-4 py-6">
+          {/* Welcome */}
+          <div className="mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-1">
+              Bonjour {mockUser.firstName} 👋
+            </h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
+              Voici tes formations et ta feuille de route
+            </p>
+          </div>
+
+          {/* Section: Ma Direction (Feuille de route) */}
+          <div className="mb-8">
+            <h2 className="text-lg font-display font-semibold text-foreground mb-4 flex items-center gap-2">
+              <Target className="w-5 h-5 text-primary" />
+              Ma direction
+            </h2>
+            
+            <Card 
+              className="border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent hover:border-primary/50 transition-all cursor-pointer group"
+              onClick={() => setCurrentView("direction")}
+            >
+              <CardContent className="p-5">
+                <div className="flex items-start gap-4">
+                  <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <GraduationCap className="w-8 h-8 text-primary-foreground" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-display font-bold text-foreground mb-1">
+                      {mockUser.formation}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Ta feuille de route personnalisée
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Progression</span>
+                        <span className="font-bold text-primary">{mockUser.progress}%</span>
+                      </div>
+                      <Progress value={mockUser.progress} className="h-2" />
+                      <p className="text-xs text-muted-foreground">
+                        Module {mockUser.currentModule}/{mockUser.totalModules} • {currentModuleData?.title}
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Section: Mes cours bonus achetés */}
+          {purchasedBonusCourses.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-lg font-display font-semibold text-foreground mb-4 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary" />
+                Mes cours bonus
+              </h2>
+              
+              <div className="grid gap-4 sm:grid-cols-2">
+                {purchasedBonusCourses.map((cours) => {
+                  const courseModules = cours.modules || [];
+                  const completedModules = courseModules.filter(m => m.completed).length;
+                  const courseProgress = courseModules.length > 0 ? Math.round((completedModules / courseModules.length) * 100) : 0;
+                  const currentModule = courseModules.find(m => m.current);
+                  
+                  return (
+                    <Card 
+                      key={cours.id}
+                      className="hover:border-primary/50 transition-all cursor-pointer group"
+                      onClick={() => {
+                        setSelectedBonusCourse(cours);
+                        setCurrentView("bonus-course");
+                      }}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-[#99c5ff]/20 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                            <Play className="w-6 h-6 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-foreground mb-1">{cours.title}</h4>
+                            <p className="text-xs text-muted-foreground mb-2 line-clamp-1">{cours.description}</p>
+                            <div className="flex items-center justify-between text-xs mb-1">
+                              <span className="text-muted-foreground">{courseProgress}% complété</span>
+                              <span className="flex items-center gap-1 text-muted-foreground">
+                                <Clock className="w-3 h-3" /> {cours.duration}
+                              </span>
+                            </div>
+                            <Progress value={courseProgress} className="h-1.5" />
+                          </div>
+                          <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Section: Cours bonus disponibles à l'achat */}
+          <div>
+            <h2 className="text-lg font-display font-semibold text-foreground mb-4 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-muted-foreground" />
+              Cours bonus disponibles
+            </h2>
+            
+            <div className="grid gap-4 sm:grid-cols-2">
+              {coursSupplementaires.filter(c => !c.purchased).map((cours) => (
+                <Card key={cours.id} className="overflow-hidden hover:border-primary/30 transition-all">
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
+                        <Lock className="w-5 h-5 text-muted-foreground" />
+                      </div>
+                      <p className="text-xl font-bold text-primary">{cours.price}€</p>
+                    </div>
+                    
+                    <h4 className="text-base font-semibold text-foreground mb-1">
+                      {cours.title}
+                    </h4>
+                    
+                    <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
+                      {cours.description}
+                    </p>
+                    
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Clock className="w-3 h-3" /> {cours.duration}
+                      </span>
+                      <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                        Acheter
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ==============================
+  // VUE DIRECTION ou COURS BONUS - Contenu détaillé de la formation
+  // ==============================
+  const isDirectionView = currentView === "direction";
+  const isBonusCourseView = currentView === "bonus-course";
+  
+  // Modules à afficher selon la vue
+  const displayModules = isDirectionView ? modules : (selectedBonusCourse?.modules || []);
+  const displayTitle = isDirectionView ? mockUser.formation : (selectedBonusCourse?.title || "");
+  const completedCount = displayModules.filter(m => m.completed).length;
+  const displayProgress = displayModules.length > 0 ? Math.round((completedCount / displayModules.length) * 100) : 0;
+  const displayCurrentModule = displayModules.find(m => m.current);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header - Mobile optimisé */}
       <header className="bg-card border-b border-border sticky top-0 z-50">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link to="/" className="text-lg sm:text-xl font-display font-bold text-primary">
-              NousProprio
-            </Link>
+            {/* Bouton retour + Logo */}
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={handleBackFromCourseView}
+                className="text-muted-foreground hover:text-primary hover:bg-primary/10 -ml-2"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </Button>
+              <Link to="/" className="text-lg sm:text-xl font-display font-bold text-primary">
+                NousProprio
+              </Link>
+            </div>
             
             {/* Desktop: User info */}
             <div className="hidden md:flex items-center gap-4">
@@ -735,13 +1069,26 @@ const Dashboard = () => {
                   
                   {/* Formation info */}
                   <div className="p-3 bg-primary/5 rounded-xl border border-primary/20">
-                    <p className="text-sm text-muted-foreground mb-1">Ma formation</p>
-                    <p className="font-semibold text-foreground">{mockUser.formation}</p>
+                    <p className="text-sm text-muted-foreground mb-1">Formation actuelle</p>
+                    <p className="font-semibold text-foreground">{displayTitle}</p>
                     <div className="mt-2">
-                      <Progress value={mockUser.progress} className="h-2" />
-                      <p className="text-xs text-muted-foreground mt-1">{mockUser.progress}% complété</p>
+                      <Progress value={displayProgress} className="h-2" />
+                      <p className="text-xs text-muted-foreground mt-1">{displayProgress}% complété</p>
                     </div>
                   </div>
+                  
+                  {/* Retour accueil */}
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start text-muted-foreground" 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      handleBackFromCourseView();
+                    }}
+                  >
+                    <Home className="w-4 h-4 mr-3" />
+                    Retour à l'accueil
+                  </Button>
                   
                   {/* Actions */}
                   <Button 
@@ -760,25 +1107,39 @@ const Dashboard = () => {
             </Sheet>
           </div>
           
-          {/* Notification FAQ - Compacte sur mobile */}
-          <div className="mt-3 -mx-4 px-4 py-2 bg-primary/5 border-y border-primary/10">
-            <div className="flex items-center gap-2 text-xs sm:text-sm">
-              <Bell className="w-4 h-4 text-primary flex-shrink-0 animate-pulse" />
-              <span className="text-muted-foreground">Prochaine FAQ :</span>
-              <span className="font-semibold text-primary truncate">{prochaineFAQData.date} • {prochaineFAQData.heure}</span>
+          {/* Notification FAQ - Compacte sur mobile (uniquement pour la direction) */}
+          {isDirectionView && (
+            <div className="mt-3 -mx-4 px-4 py-2 bg-primary/5 border-y border-primary/10">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
+                <Bell className="w-4 h-4 text-primary flex-shrink-0 animate-pulse" />
+                <span className="text-muted-foreground">Prochaine FAQ :</span>
+                <span className="font-semibold text-primary truncate">{prochaineFAQData.date} • {prochaineFAQData.heure}</span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </header>
 
       <div className="px-4 py-6">
-        {/* Welcome Section - Compact sur mobile */}
+        {/* Welcome Section */}
         <div className="mb-5">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={handleBackFromCourseView}
+              className="text-muted-foreground hover:text-primary p-0 h-auto"
+            >
+              Mes formations
+            </Button>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-foreground">{displayTitle}</span>
+          </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-1">
-            Bonjour {mockUser.firstName} 👋
+            {displayTitle}
           </h1>
           <p className="text-sm sm:text-base text-muted-foreground">
-            Continue ta progression <span className="text-primary font-medium hidden sm:inline">dans {mockUser.formation}</span>
+            {isDirectionView ? "Ta feuille de route personnalisée" : "Cours bonus"}
           </p>
         </div>
 
@@ -788,20 +1149,20 @@ const Dashboard = () => {
             <div className="space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-base sm:text-lg font-semibold text-foreground">{mockUser.formation}</h2>
-                  <span className="text-sm font-bold text-primary">{mockUser.progress}%</span>
+                  <h2 className="text-base sm:text-lg font-semibold text-foreground">Progression</h2>
+                  <span className="text-sm font-bold text-primary">{displayProgress}%</span>
                 </div>
-                <Progress value={mockUser.progress} className="h-2 sm:h-3" />
+                <Progress value={displayProgress} className="h-2 sm:h-3" />
               </div>
               
               <div className="flex items-center justify-between gap-3">
                 <p className="text-xs sm:text-sm text-muted-foreground flex-1 line-clamp-1">
-                  Module {mockUser.currentModule}/{mockUser.totalModules} • {currentModuleData?.title}
+                  Module {completedCount + 1}/{displayModules.length} • {displayCurrentModule?.title || displayModules[0]?.title}
                 </p>
                 <Button 
                   size="default"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground flex-shrink-0"
-                  onClick={() => currentModuleData && setSelectedModule(currentModuleData)}
+                  onClick={() => displayCurrentModule && setSelectedModule(displayCurrentModule)}
                 >
                   <Play className="w-4 h-4 sm:mr-2" />
                   <span className="hidden sm:inline">Continuer</span>
@@ -811,51 +1172,116 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Navigation Tabs - Scroll horizontal sur mobile */}
-        <div className="mb-6">
-          {/* Mobile: Dropdown ou scroll horizontal */}
-          <div className="md:hidden">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-full justify-between">
-                  <span>{tabItems.find(t => t.id === activeTab)?.shortLabel}</span>
-                  <ChevronDown className="w-4 h-4 ml-2" />
+        {/* Navigation Tabs - uniquement pour la direction (pas pour les cours bonus) */}
+        {isDirectionView && (
+          <div className="mb-6">
+            {/* Mobile: Dropdown ou scroll horizontal */}
+            <div className="md:hidden">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="w-full justify-between">
+                    <span>{tabItems.find(t => t.id === activeTab)?.shortLabel}</span>
+                    <ChevronDown className="w-4 h-4 ml-2" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-[calc(100vw-2rem)]">
+                  {tabItems.map((tab) => (
+                    <DropdownMenuItem 
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                      className={activeTab === tab.id ? "bg-primary/10 text-primary" : ""}
+                    >
+                      {tab.label}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            
+            {/* Desktop: Tabs classiques */}
+            <div className="hidden md:flex flex-wrap gap-2 border-b border-border pb-4">
+              {tabItems.map((tab) => (
+                <Button
+                  key={tab.id}
+                  variant={activeTab === tab.id ? "default" : "outline"}
+                  onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                  className={activeTab === tab.id ? "bg-primary text-primary-foreground" : ""}
+                >
+                  {tab.label}
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-[calc(100vw-2rem)]">
-                {tabItems.map((tab) => (
-                  <DropdownMenuItem 
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                    className={activeTab === tab.id ? "bg-primary/10 text-primary" : ""}
-                  >
-                    {tab.label}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+              ))}
+            </div>
           </div>
-          
-          {/* Desktop: Tabs classiques */}
-          <div className="hidden md:flex flex-wrap gap-2 border-b border-border pb-4">
-            {tabItems.map((tab) => (
-              <Button
-                key={tab.id}
-                variant={activeTab === tab.id ? "default" : "outline"}
-                onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                className={activeTab === tab.id ? "bg-primary text-primary-foreground" : ""}
-              >
-                {tab.label}
-              </Button>
-            ))}
-          </div>
-        </div>
+        )}
 
-        {/* Content based on active tab */}
-        {activeTab === "formation" && (
+        {/* Contenu pour les cours bonus (liste simple des modules) */}
+        {isBonusCourseView && (
+          <div className="space-y-4">
+            <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground">
+              Modules du cours
+            </h3>
+            
+            <div className="space-y-3">
+              {displayModules.map((module, index) => (
+                <Card 
+                  key={module.id} 
+                  className={`transition-all ${
+                    module.current 
+                      ? "border-primary bg-primary/5" 
+                      : module.completed 
+                        ? "border-green-500/30 bg-green-500/5" 
+                        : "border-border opacity-70"
+                  }`}
+                >
+                  <CardContent className="p-3 sm:p-4">
+                    <div className="flex items-start gap-3">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        module.completed 
+                          ? "bg-green-500 text-white" 
+                          : module.current 
+                            ? "bg-primary text-primary-foreground" 
+                            : "bg-muted text-muted-foreground"
+                      }`}>
+                        {module.completed ? (
+                          <CheckCircle2 className="w-5 h-5" />
+                        ) : module.current ? (
+                          <Play className="w-5 h-5" />
+                        ) : (
+                          <Lock className="w-4 h-4" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
+                          {module.title}
+                        </p>
+                        <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                          <Clock className="w-3 h-3" /> {module.duration}
+                        </p>
+                      </div>
+                      {(module.completed || module.current) && (
+                        <Button 
+                          variant={module.current ? "default" : "ghost"} 
+                          size="sm"
+                          className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
+                          onClick={() => setSelectedModule(module)}
+                        >
+                          <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Content based on active tab - uniquement pour la direction */}
+        {isDirectionView && activeTab === "formation" && (
           <div className="space-y-6">
             <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground">
-              Ma feuille de route
+              Modules de la formation
             </h3>
             
             {/* Les 3 blocs principaux */}
@@ -1061,7 +1487,7 @@ const Dashboard = () => {
           </div>
         )}
 
-        {activeTab === "bloc1" && (
+        {isDirectionView && activeTab === "bloc1" && (
           <div className="space-y-4">
             <div>
               <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-2">
@@ -1096,11 +1522,10 @@ const Dashboard = () => {
           </div>
         )}
 
-        {activeTab === "bloc3" && (
+        {isDirectionView && activeTab === "bloc3" && (
           <div className="space-y-4">
             <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4">
               Outils NousProprio
-              Outils avancés
             </h3>
             <div className="grid gap-3">
               {bloc3Content.map((item) => (
@@ -1121,59 +1546,7 @@ const Dashboard = () => {
           </div>
         )}
 
-        {activeTab === "bonus" && (
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-1">
-                Cours bonus
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Formations complémentaires à la carte
-              </p>
-            </div>
-            
-            <div className="grid gap-4 sm:grid-cols-2">
-              {coursSupplementaires.map((cours) => (
-                <Card key={cours.id} className="overflow-hidden hover:border-primary/50 transition-all">
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-[#99c5ff]/20 flex items-center justify-center">
-                        <Play className="w-6 h-6 text-primary" />
-                      </div>
-                      <div className="text-right">
-                        {cours.new && (
-                          <span className="inline-block px-2 py-0.5 text-xs font-medium bg-green-500/20 text-green-600 rounded-full mb-1">
-                            Nouveau
-                          </span>
-                        )}
-                        <p className="text-xl font-bold text-primary">{cours.price}€</p>
-                      </div>
-                    </div>
-                    
-                    <h4 className="text-base font-semibold text-foreground mb-1">
-                      {cours.title}
-                    </h4>
-                    
-                    <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
-                      {cours.description}
-                    </p>
-                    
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs text-muted-foreground flex items-center gap-1">
-                        <Clock className="w-3 h-3" /> {cours.duration}
-                      </span>
-                      <Button size="sm" className="bg-primary hover:bg-[#99c5ff] text-primary-foreground">
-                        Acheter
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeTab === "faq" && (
+        {isDirectionView && activeTab === "faq" && (
           <FaqTab 
             faqQuestion={faqQuestion}
             setFaqQuestion={setFaqQuestion}
