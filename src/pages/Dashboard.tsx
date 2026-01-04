@@ -225,7 +225,7 @@ const pointDeDepartData = {
 };
 
 const bloc3Content = [
-  { id: 1, title: "Masterclass Négociation", type: "Vidéo", icon: Play },
+  { id: 1, title: "Mon comparateur d'annonces", type: "Outil", icon: FileText },
   { id: 2, title: "Template offre d'achat", type: "PDF", icon: FileText },
   { id: 3, title: "Guide fiscal complet", type: "PDF", icon: FileText },
 ];
@@ -278,7 +278,7 @@ const coursSupplementaires: CoursBonusType[] = [
 
 const tabItems = [
   { id: "formation", label: "Modules", shortLabel: "Modules" },
-  { id: "bloc1", label: "Ton point de départ", shortLabel: "Point de départ" },
+  { id: "bloc1", label: "Mon point de départ", shortLabel: "Point de départ" },
   { id: "bloc3", label: "Ma bibliothèque d'outils", shortLabel: "Outils" },
   { id: "faq", label: "Session FAQ live", shortLabel: "FAQ live" },
 ];
@@ -1491,10 +1491,10 @@ const Dashboard = () => {
           <div className="space-y-4">
             <div>
               <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-2">
-                Ton point de départ
+                Mon point de départ
               </h3>
-              <p className="text-sm text-muted-foreground">
-                D'après tes réponses, tu cherches une <strong className="text-foreground">trajectoire claire</strong>.
+              <p className="text-sm text-muted-foreground mb-4">
+                Voici les réponses que tu as renseignées dans le diagnostic pour déterminer ta direction. Elles nous permettent de personnaliser ton accompagnement.
               </p>
             </div>
             
