@@ -1233,9 +1233,9 @@ const Dashboard = () => {
             <div className="md:hidden">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
+                  <Button variant="outline" className="w-full justify-between animate-pulse-subtle hover:animate-none border-primary/30 shadow-sm">
                     <span>{tabItems.find(t => t.id === activeTab)?.shortLabel}</span>
-                    <ChevronDown className="w-4 h-4 ml-2" />
+                    <ChevronDown className="w-4 h-4 ml-2 animate-bounce-subtle" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-[calc(100vw-2rem)]">
