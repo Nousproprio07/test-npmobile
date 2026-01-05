@@ -237,11 +237,16 @@ const Resultat = () => {
             {/* Diagnostic des erreurs potentielles */}
             {/* Erreur 1: Se lancer sans apport de sécurité */}
             {(answers.capacite === "Non" || answers.capacite === "Un peu") && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                <p className="text-amber-800 text-sm">
-                  <strong className="text-amber-900">⚠️ Point de vigilance :</strong> Tu as indiqué mettre {answers.capacite === "Non" ? "pas" : "peu"} d'argent de côté → Constitue 3 à 6 mois d'épargne de sécurité avant de te lancer.
-                </p>
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-3 flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div className="text-amber-800 text-sm">
+                  <p className="mb-2">
+                    <strong className="text-amber-900">⚠️ Point de vigilance :</strong> Tu as indiqué {answers.capacite === "Non" ? "ne pas mettre" : "mettre peu"} d'argent de côté.
+                  </p>
+                  <p>
+                    <strong className="text-amber-900">Conseil :</strong> Constitue 3 à 6 mois d'épargne de sécurité pour faire face aux imprévus (travaux, vacance locative, perte d'emploi).
+                  </p>
+                </div>
               </div>
             )}
 
