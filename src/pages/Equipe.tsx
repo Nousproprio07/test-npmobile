@@ -18,7 +18,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Alexandre",
     role: "Fondateur",
-    description: "Un parcours complet au cœur de la finance pour vous accompagner avec expertise.",
+    description: "Un parcours complet au cœur de la finance pour t'accompagner avec expertise.",
     icon: Award,
     isFounder: true,
     parcours: [
