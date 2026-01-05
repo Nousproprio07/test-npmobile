@@ -240,7 +240,7 @@ const Resultat = () => {
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3 flex items-center gap-3">
                 <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
                 <p className="text-amber-800 text-sm">
-                  <strong className="text-amber-900">⚠️ Point de vigilance :</strong> Constitue 3 à 6 mois d'épargne de sécurité avant de te lancer.
+                  <strong className="text-amber-900">⚠️ Point de vigilance :</strong> Tu as indiqué mettre {answers.capacite === "Non" ? "pas" : "peu"} d'argent de côté → Constitue 3 à 6 mois d'épargne de sécurité avant de te lancer.
                 </p>
               </div>
             )}
