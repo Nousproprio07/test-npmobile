@@ -251,58 +251,41 @@ const Resultat = () => {
               </div>
             )}
 
+            {/* Warnings évités - Messages courts et positifs */}
             {/* Erreur 2: Sous-estimer sa capacité réelle d'emprunt */}
             {(answers.frein && (
               (Array.isArray(answers.frein) && answers.frein.includes("Je ne comprends pas les chiffres")) ||
               answers.frein === "Je ne comprends pas les chiffres"
             )) && (
-              <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-4 flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                <div className="text-orange-800 text-sm leading-relaxed">
-                  <strong className="text-orange-900 block mb-1">⚠️ Sous-estimer ta capacité réelle d'emprunt</strong>
-                  <p className="mb-2">
-                    <strong>Pourquoi c'est un risque dans ton cas :</strong> Tu as mentionné ne pas comprendre les chiffres. Beaucoup de personnes dans ta situation se limitent à tort ou, au contraire, surestiment leur capacité sans connaître les critères bancaires réels.
-                  </p>
-                  <p>
-                    <strong>Ce que tu dois clarifier avant d'aller plus loin :</strong> Fais une simulation précise de ta capacité d'emprunt avec nous pour connaître ton vrai budget et éviter les mauvaises surprises.
-                  </p>
-                </div>
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Warning évité :</strong> Sous-estimer ta capacité d'emprunt → On t'aide à calculer ton vrai budget.
+                </p>
               </div>
             )}
 
             {/* Erreur 3: Copier une stratégie qui ne correspond pas à sa situation */}
             {(answers.situation_actuelle === "J'ai déjà repéré quelques annonces" && 
               answers.situation_pro === "Étudiant(e)") && (
-              <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 mb-4 flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                <div className="text-purple-800 text-sm leading-relaxed">
-                  <strong className="text-purple-900 block mb-1">⚠️ Copier une stratégie qui ne correspond pas à ta situation</strong>
-                  <p className="mb-2">
-                    <strong>Pourquoi c'est un risque dans ton cas :</strong> Tu explores déjà des annonces en étant étudiant(e). Les stratégies que tu vois sur YouTube ou les réseaux ne s'appliquent pas forcément à ta situation (revenus, garanties bancaires, apport).
-                  </p>
-                  <p>
-                    <strong>Ce que tu dois clarifier avant d'aller plus loin :</strong> Définis d'abord TA stratégie adaptée à ton profil étudiant avant de chercher des biens. On peut t'aider à identifier ce qui est réaliste pour toi.
-                  </p>
-                </div>
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Warning évité :</strong> Copier une stratégie inadaptée → On construit TA stratégie selon ton profil.
+                </p>
               </div>
             )}
 
-            {/* Erreur 4: Ignorer l'impact des charges et du temps - Version positive/verte car traité dans la feuille de route */}
+            {/* Erreur 4: Ignorer l'impact des charges et du temps */}
             {(answers.benefice && (
               (Array.isArray(answers.benefice) && answers.benefice.includes("Investir pour générer un patrimoine et des revenus")) ||
               answers.benefice === "Investir pour générer un patrimoine et des revenus"
             )) && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-4 flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                <div className="text-emerald-800 text-sm leading-relaxed">
-                  <strong className="text-emerald-900 block mb-1">✅ L'impact des charges et du temps sera traité</strong>
-                  <p className="mb-2">
-                    <strong>Point de vigilance identifié :</strong> Tu veux générer des revenus immobiliers. Beaucoup sous-estiment les charges (taxe foncière, copropriété, travaux, vacance) et le temps de gestion nécessaire.
-                  </p>
-                  <p>
-                    <strong>Bonne nouvelle :</strong> Ta feuille de route inclut le calcul du rendement NET réel et l'estimation du temps de gestion. On t'accompagne là-dessus.
-                  </p>
-                </div>
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Warning évité :</strong> Ignorer les charges et le temps → On calcule ton rendement NET réel.
+                </p>
               </div>
             )}
 
