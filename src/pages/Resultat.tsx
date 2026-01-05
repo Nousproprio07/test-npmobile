@@ -237,17 +237,11 @@ const Resultat = () => {
             {/* Diagnostic des erreurs potentielles */}
             {/* Erreur 1: Se lancer sans apport de sécurité */}
             {(answers.capacite === "Non" || answers.capacite === "Un peu") && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4 flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                <div className="text-amber-800 text-sm leading-relaxed">
-                  <strong className="text-amber-900 block mb-1">⚠️ Se lancer sans apport de sécurité</strong>
-                  <p className="mb-2">
-                    <strong>Pourquoi c'est un risque dans ton cas :</strong> Tu as indiqué que tu {answers.capacite === "Non" ? "ne mets pas d'argent de côté" : "mets peu d'argent de côté"} chaque mois. Sans épargne de sécurité, un imprévu (travaux, vacance locative, perte d'emploi) peut mettre ton projet en péril.
-                  </p>
-                  <p>
-                    <strong>Ce que tu dois clarifier avant d'aller plus loin :</strong> Constitue au minimum 3 à 6 mois de charges en épargne de précaution avant de te lancer. On t'accompagne pour structurer ça.
-                  </p>
-                </div>
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                <p className="text-amber-800 text-sm">
+                  <strong className="text-amber-900">⚠️ Point de vigilance :</strong> Constitue 3 à 6 mois d'épargne de sécurité avant de te lancer.
+                </p>
               </div>
             )}
 
