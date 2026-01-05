@@ -234,6 +234,100 @@ const Resultat = () => {
               </div>
             )}
 
+            {/* Diagnostic des erreurs potentielles */}
+            {/* Erreur 1: Se lancer sans apport de sécurité */}
+            {(answers.capacite === "Non" || answers.capacite === "Un peu") && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4 flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                <div className="text-red-800 text-sm leading-relaxed">
+                  <strong className="text-red-900 block mb-1">⚠️ Se lancer sans apport de sécurité</strong>
+                  <p className="mb-2">
+                    <strong>Pourquoi c'est un risque dans ton cas :</strong> Tu as indiqué que tu {answers.capacite === "Non" ? "ne mets pas d'argent de côté" : "mets peu d'argent de côté"} chaque mois. Sans épargne de sécurité, un imprévu (travaux, vacance locative, perte d'emploi) peut mettre ton projet en péril.
+                  </p>
+                  <p>
+                    <strong>Ce que tu dois clarifier avant d'aller plus loin :</strong> Constitue au minimum 3 à 6 mois de charges en épargne de précaution avant de te lancer. On t'accompagne pour structurer ça.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Erreur 2: Sous-estimer sa capacité réelle d'emprunt */}
+            {(answers.frein && (
+              (Array.isArray(answers.frein) && answers.frein.includes("Je ne comprends pas les chiffres")) ||
+              answers.frein === "Je ne comprends pas les chiffres"
+            )) && (
+              <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-4 flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                <div className="text-orange-800 text-sm leading-relaxed">
+                  <strong className="text-orange-900 block mb-1">⚠️ Sous-estimer ta capacité réelle d'emprunt</strong>
+                  <p className="mb-2">
+                    <strong>Pourquoi c'est un risque dans ton cas :</strong> Tu as mentionné ne pas comprendre les chiffres. Beaucoup de personnes dans ta situation se limitent à tort ou, au contraire, surestiment leur capacité sans connaître les critères bancaires réels.
+                  </p>
+                  <p>
+                    <strong>Ce que tu dois clarifier avant d'aller plus loin :</strong> Fais une simulation précise de ta capacité d'emprunt avec nous pour connaître ton vrai budget et éviter les mauvaises surprises.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Erreur 3: Copier une stratégie qui ne correspond pas à sa situation */}
+            {(answers.situation_actuelle === "J'ai déjà repéré quelques annonces" && 
+              answers.situation_pro === "Étudiant(e)") && (
+              <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 mb-4 flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                <div className="text-purple-800 text-sm leading-relaxed">
+                  <strong className="text-purple-900 block mb-1">⚠️ Copier une stratégie qui ne correspond pas à ta situation</strong>
+                  <p className="mb-2">
+                    <strong>Pourquoi c'est un risque dans ton cas :</strong> Tu explores déjà des annonces en étant étudiant(e). Les stratégies que tu vois sur YouTube ou les réseaux ne s'appliquent pas forcément à ta situation (revenus, garanties bancaires, apport).
+                  </p>
+                  <p>
+                    <strong>Ce que tu dois clarifier avant d'aller plus loin :</strong> Définis d'abord TA stratégie adaptée à ton profil étudiant avant de chercher des biens. On peut t'aider à identifier ce qui est réaliste pour toi.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Erreur 4: Ignorer l'impact des charges et du temps */}
+            {(answers.benefice && (
+              (Array.isArray(answers.benefice) && answers.benefice.includes("Investir pour générer un patrimoine et des revenus")) ||
+              answers.benefice === "Investir pour générer un patrimoine et des revenus"
+            )) && (
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                <div className="text-blue-800 text-sm leading-relaxed">
+                  <strong className="text-blue-900 block mb-1">⚠️ Ignorer l'impact des charges et du temps</strong>
+                  <p className="mb-2">
+                    <strong>Pourquoi c'est un risque dans ton cas :</strong> Tu veux générer des revenus immobiliers. Attention : beaucoup sous-estiment les charges (taxe foncière, copropriété, travaux, vacance) et le temps de gestion nécessaire, surtout en location courte durée.
+                  </p>
+                  <p>
+                    <strong>Ce que tu dois clarifier avant d'aller plus loin :</strong> Calcule le rendement NET réel (pas le rendement brut affiché) et estime le temps que tu peux consacrer à la gestion. On t'aide à faire ces calculs.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Erreur 5: Confondre projet de vie et projet de rendement */}
+            {(answers.benefice && (
+              (Array.isArray(answers.benefice) && answers.benefice.includes("Me sentir enfin chez moi et en sécurité pour l'avenir")) ||
+              answers.benefice === "Me sentir enfin chez moi et en sécurité pour l'avenir"
+            )) && answers.ressenti && (
+              (Array.isArray(answers.ressenti) && answers.ressenti.includes("De l'excitation")) ||
+              answers.ressenti === "De l'excitation"
+            ) && (
+              <div className="bg-teal-50 border border-teal-200 rounded-xl p-4 mb-4 flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
+                <div className="text-teal-800 text-sm leading-relaxed">
+                  <strong className="text-teal-900 block mb-1">⚠️ Confondre projet de vie et projet de rendement</strong>
+                  <p className="mb-2">
+                    <strong>Pourquoi c'est un risque dans ton cas :</strong> Tu cherches avant tout un chez-toi, mais tu ressens de l'excitation à l'idée d'investir. Attention à ne pas mélanger les deux : ta résidence principale n'est pas un investissement rentable, c'est un projet de vie.
+                  </p>
+                  <p>
+                    <strong>Ce que tu dois clarifier avant d'aller plus loin :</strong> Définis clairement ta priorité : veux-tu d'abord te loger ou d'abord investir ? Les deux stratégies sont différentes. On t'aide à trancher.
+                  </p>
+                </div>
+              </div>
+            )}
+
             <p className="text-foreground font-semibold italic border-l-4 border-primary pl-4">
               Voici comment nous allons t'accompagner pour y arriver.
             </p>
