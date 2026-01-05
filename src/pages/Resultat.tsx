@@ -283,7 +283,7 @@ const Resultat = () => {
               <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
                 <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Warning évité :</strong> Ignorer les charges et le temps → Notre outil calcule automatiquement ton rendement NET réel.
+                  <strong className="text-emerald-900">Warning évité :</strong> Ignorer les charges et le temps → Notre outil calcule automatiquement tes charges et ton rendement.
                 </p>
               </div>
             )}
