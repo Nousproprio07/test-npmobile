@@ -265,7 +265,7 @@ const Resultat = () => {
             </div>
 
             <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
-              Bloc 3 — Ta route patrimoniale
+              Bloc 3 - Ta feuille de route
             </h2>
             
             <p className="text-lg md:text-xl text-[#99c5ff] font-semibold mb-8">
