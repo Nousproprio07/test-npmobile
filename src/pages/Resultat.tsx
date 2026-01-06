@@ -265,8 +265,14 @@ const Resultat = () => {
             )}
 
             {/* Erreur 3: Copier une stratégie qui ne correspond pas à sa situation */}
-            {(answers.situation_actuelle === "J'ai déjà repéré quelques annonces" && 
-              answers.situation_pro === "Étudiant(e)") && (
+            {answers.situation_actuelle === "J'ai déjà repéré quelques annonces" ? (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                <p className="text-amber-800 text-sm">
+                  <strong className="text-amber-900">Warning :</strong> Copier une stratégie inadaptée → Attention à ne pas te précipiter sur des annonces sans avoir validé ta stratégie.
+                </p>
+              </div>
+            ) : (
               <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
                 <p className="text-emerald-800 text-sm">
