@@ -332,6 +332,86 @@ const Resultat = () => {
               </div>
             )}
 
+            {/* Avantage revenus élevés */}
+            {answers.revenus === "Plus de 5 000 €" && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Atout majeur :</strong> Avec ta capacité financière, tu peux viser des stratégies diversifiées et accélérer ta constitution de patrimoine.
+                </p>
+              </div>
+            )}
+
+            {/* Avantage bonne capacité financière */}
+            {answers.revenus === "Entre 3 500 € et 5 000 €" && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Bon potentiel :</strong> Ta capacité d'emprunt te donne accès à plusieurs options intéressantes.
+                </p>
+              </div>
+            )}
+
+            {/* Avantage déjà propriétaire */}
+            {answers.logement_actuel === "Déjà propriétaire" && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Expérience valorisée :</strong> En tant que propriétaire, tu peux utiliser ton patrimoine existant comme levier pour tes prochains projets.
+                </p>
+              </div>
+            )}
+
+            {/* Avantage en couple */}
+            {(answers.situation_familiale === "En couple" || answers.situation_familiale === "En couple avec enfant(s)") && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Force du duo :</strong> À deux, ta capacité d'emprunt est renforcée et les risques sont mieux répartis.
+                </p>
+              </div>
+            )}
+
+            {/* Avantage locataire + investissement locatif */}
+            {answers.logement_actuel === "Locataire" && accompaniment.type === "Patrimoine Actif" && (
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                <p className="text-blue-800 text-sm">
+                  <strong className="text-blue-900">Stratégie validée :</strong> Rester locataire tout en investissant peut être très rentable — on t'explique comment.
+                </p>
+              </div>
+            )}
+
+            {/* Avantage épargne régulière */}
+            {answers.capacite === "Oui, régulièrement" && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Discipline récompensée :</strong> Ta capacité à épargner régulièrement est un signal fort pour les banques.
+                </p>
+              </div>
+            )}
+
+            {/* Message horizon long terme */}
+            {answers.horizon === "Plus tard, quand je me sentirai prêt" && (
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                <p className="text-blue-800 text-sm">
+                  <strong className="text-blue-900">Sage décision :</strong> Prendre le temps de bien se préparer, c'est déjà avancer. On t'accompagne à ton rythme.
+                </p>
+              </div>
+            )}
+
+            {/* Message salarié CDI */}
+            {answers.situation_pro === "Salarié(e)" && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Profil bancaire solide :</strong> Le statut salarié rassure les banques et facilite l'accès au crédit.
+                </p>
+              </div>
+            )}
+
             {/* Warnings évités - Messages courts et positifs */}
             {/* Erreur 2: Sous-estimer sa capacité réelle d'emprunt */}
             {(answers.frein && (
