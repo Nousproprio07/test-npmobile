@@ -93,9 +93,9 @@ const Resultat = () => {
   // Helper function for family situation reading
   const getFamilleReading = () => {
     const famille = answers.situation_familiale;
-    if (famille === "Célibataire sans enfant") return "Projet individuel, flexibilité maximale dans les choix";
+    if (famille === "Célibataire") return "Projet individuel, flexibilité maximale dans les choix";
     if (famille === "Célibataire avec enfant(s)") return "Priorité stabilité et espace, capacité à gérer seul(e)";
-    if (famille === "En couple sans enfant") return "Projet à deux, capacité d'emprunt renforcée";
+    if (famille === "En couple") return "Projet à deux, capacité d'emprunt renforcée";
     if (famille === "En couple avec enfant(s)") return "Priorité familiale, surface et localisation adaptées";
     return "Non renseigné";
   };
