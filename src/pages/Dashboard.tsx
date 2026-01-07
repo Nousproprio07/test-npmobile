@@ -228,7 +228,8 @@ const pointDeDepartData = {
   benefice: ["Développer un patrimoine sur le long terme", "Investir pour générer un patrimoine et des revenus"],
   ressenti: ["De l'excitation", "Du doute"],
   frein: ["Je ne sais pas par où commencer", "Je manque de temps pour m'en occuper"],
-  horizon: "Dans les 6 prochains mois"
+  horizon: "Dans les 6 prochains mois",
+  situation_pro: "Salarié(e)"
 };
 
 const bloc3Content = [
@@ -923,7 +924,7 @@ const Dashboard = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-lg font-display font-bold text-foreground mb-1">
-                      {mockUser.formation}
+                      {mockUser.formation} - {pointDeDepartData.situation_pro}
                     </h3>
                     <p className="text-sm text-muted-foreground mb-3">
                       Ta feuille de route personnalisée
@@ -1191,7 +1192,7 @@ const Dashboard = () => {
             <span className="text-foreground">{displayTitle}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-1">
-            {displayTitle}
+            {isDirectionView ? `${displayTitle} - ${pointDeDepartData.situation_pro}` : displayTitle}
           </h1>
           <p className="text-sm sm:text-base text-muted-foreground">
             {isDirectionView ? "Ta feuille de route personnalisée" : "Cours bonus"}
