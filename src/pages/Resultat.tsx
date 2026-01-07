@@ -346,7 +346,7 @@ const Resultat = () => {
                     }
                   </div>
                   <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-                    {accompaniment.type}
+                    {accompaniment.type} - {answers.situation_pro || "Salarié(e)"}
                   </h3>
                 </div>
                 
