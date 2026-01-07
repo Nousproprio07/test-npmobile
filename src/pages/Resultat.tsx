@@ -262,193 +262,173 @@ const Resultat = () => {
               </li>
             </ul>
 
-            {/* Warning pour les personnes qui veulent aller trop vite */}
-            {answers.horizon === "Moins de 3 mois" && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                <p className="text-amber-800 text-sm leading-relaxed">
-                  <strong className="text-amber-900">Prends le temps qu'il faut.</strong> Un projet immobilier solide se construit avec méthode, pas dans l'urgence. Mieux vaut un bon projet dans 6 mois qu'une erreur dans 3. On est là pour t'accompagner à ton rythme.
-                </p>
-              </div>
-            )}
+            {/* Messages personnalisés - limités à 5 maximum */}
+            {(() => {
+              const messages: { type: 'warning' | 'info' | 'success'; title: string; text: string; priority: number }[] = [];
 
-            {/* Warning revenus faibles + investissement locatif */}
-            {answers.revenus === "Moins de 2 000 €" && accompaniment.type === "Patrimoine Actif" && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-3 flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                <div className="text-amber-800 text-sm">
-                  <p className="mb-2">
-                    <strong className="text-amber-900">⚠️ Attention :</strong> Avec tes revenus actuels, l'investissement locatif nécessite une préparation minutieuse.
-                  </p>
-                  <p>
-                    <strong className="text-amber-900">Notre approche :</strong> On va d'abord optimiser ta situation avant de te lancer.
-                  </p>
-                </div>
-              </div>
-            )}
+              // Warnings prioritaires (affichés en premier)
+              if (answers.horizon === "Moins de 3 mois") {
+                messages.push({
+                  type: 'warning',
+                  title: 'Prends le temps qu\'il faut.',
+                  text: 'Un projet immobilier solide se construit avec méthode, pas dans l\'urgence. Mieux vaut un bon projet dans 6 mois qu\'une erreur dans 3.',
+                  priority: 1
+                });
+              }
 
-            {/* Warning hébergé gratuitement + achat RP */}
-            {answers.logement_actuel === "Hébergé(e) gratuitement" && accompaniment.type === "Résidence Essentiel" && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Avantage détecté :</strong> Sans loyer actuel, tu peux maximiser ton épargne avant l'achat. Timing idéal !
-                </p>
-              </div>
-            )}
+              if (answers.revenus === "Moins de 2 000 €" && accompaniment.type === "Patrimoine Actif") {
+                messages.push({
+                  type: 'warning',
+                  title: '⚠️ Attention :',
+                  text: 'Avec tes revenus actuels, l\'investissement locatif nécessite une préparation minutieuse. On va d\'abord optimiser ta situation.',
+                  priority: 2
+                });
+              }
 
-            {/* Diagnostic des erreurs potentielles */}
-            {/* Erreur 1: Se lancer sans apport de sécurité */}
-            {(answers.capacite === "Non" || answers.capacite === "Un peu") && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-3 flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                <div className="text-amber-800 text-sm">
-                  <p className="mb-2">
-                    <strong className="text-amber-900">⚠️ Point de vigilance :</strong> Tu as indiqué {answers.capacite === "Non" ? "ne pas mettre" : "mettre peu"} d'argent de côté.
-                  </p>
-                  <p>
-                    <strong className="text-amber-900">Conseil :</strong> Constitue 3 à 6 mois d'épargne de sécurité pour faire face aux imprévus (travaux, vacance locative, perte d'emploi).
-                  </p>
-                </div>
-              </div>
-            )}
+              if (answers.capacite === "Non" || answers.capacite === "Un peu") {
+                messages.push({
+                  type: 'warning',
+                  title: '⚠️ Point de vigilance :',
+                  text: `Tu as indiqué ${answers.capacite === "Non" ? "ne pas mettre" : "mettre peu"} d'argent de côté. Constitue 3 à 6 mois d'épargne de sécurité.`,
+                  priority: 3
+                });
+              }
 
-            {/* Warning situation familiale avec enfants - adapté selon la direction */}
-            {(answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Résidence Essentiel" && (
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                <p className="text-blue-800 text-sm">
-                  <strong className="text-blue-900">Pris en compte :</strong> Avec des enfants, on priorise stabilité, espace et proximité des écoles dans tes critères.
-                </p>
-              </div>
-            )}
+              // Messages informatifs (bleus)
+              if ((answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Résidence Essentiel") {
+                messages.push({
+                  type: 'info',
+                  title: 'Pris en compte :',
+                  text: 'Avec des enfants, on priorise stabilité, espace et proximité des écoles dans tes critères.',
+                  priority: 4
+                });
+              }
 
-            {(answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Patrimoine Actif" && (
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                <p className="text-blue-800 text-sm">
-                  <strong className="text-blue-900">Pris en compte :</strong> Avec des enfants, on priorise l'accessibilité des biens pour éviter de longs déplacements.
-                </p>
-              </div>
-            )}
+              if ((answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Patrimoine Actif") {
+                messages.push({
+                  type: 'info',
+                  title: 'Pris en compte :',
+                  text: 'Avec des enfants, on priorise l\'accessibilité des biens pour éviter de longs déplacements.',
+                  priority: 4
+                });
+              }
 
-            {/* Avantage revenus élevés */}
-            {answers.revenus === "Plus de 5 000 €" && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Atout majeur :</strong> Avec ta capacité financière, tu peux viser des stratégies diversifiées et accélérer ta constitution de patrimoine.
-                </p>
-              </div>
-            )}
+              if (answers.logement_actuel === "Locataire" && accompaniment.type === "Patrimoine Actif") {
+                messages.push({
+                  type: 'info',
+                  title: 'Stratégie validée :',
+                  text: 'Rester locataire tout en investissant peut être très rentable — on t\'explique comment.',
+                  priority: 5
+                });
+              }
 
-            {/* Avantage bonne capacité financière */}
-            {answers.revenus === "Entre 3 500 € et 5 000 €" && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Bon potentiel :</strong> Ta capacité d'emprunt te donne accès à plusieurs options intéressantes.
-                </p>
-              </div>
-            )}
+              if (answers.horizon === "Plus tard, quand je me sentirai prêt") {
+                messages.push({
+                  type: 'info',
+                  title: 'Sage décision :',
+                  text: 'Prendre le temps de bien se préparer, c\'est déjà avancer. On t\'accompagne à ton rythme.',
+                  priority: 6
+                });
+              }
 
-            {/* Avantage déjà propriétaire */}
-            {answers.logement_actuel === "Déjà propriétaire" && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Expérience valorisée :</strong> En tant que propriétaire, tu peux utiliser ton patrimoine existant comme levier pour tes prochains projets.
-                </p>
-              </div>
-            )}
+              // Messages positifs (verts)
+              if (answers.logement_actuel === "Hébergé(e) gratuitement" && accompaniment.type === "Résidence Essentiel") {
+                messages.push({
+                  type: 'success',
+                  title: 'Avantage détecté :',
+                  text: 'Sans loyer actuel, tu peux maximiser ton épargne avant l\'achat. Timing idéal !',
+                  priority: 7
+                });
+              }
 
-            {/* Avantage en couple */}
-            {(answers.situation_familiale === "En couple" || answers.situation_familiale === "En couple avec enfant(s)") && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Force du duo :</strong> À deux, ta capacité d'emprunt est renforcée et les risques sont mieux répartis.
-                </p>
-              </div>
-            )}
+              if (answers.revenus === "Plus de 5 000 €") {
+                messages.push({
+                  type: 'success',
+                  title: 'Atout majeur :',
+                  text: 'Avec ta capacité financière, tu peux viser des stratégies diversifiées et accélérer ta constitution de patrimoine.',
+                  priority: 8
+                });
+              }
 
-            {/* Avantage locataire + investissement locatif */}
-            {answers.logement_actuel === "Locataire" && accompaniment.type === "Patrimoine Actif" && (
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                <p className="text-blue-800 text-sm">
-                  <strong className="text-blue-900">Stratégie validée :</strong> Rester locataire tout en investissant peut être très rentable — on t'explique comment.
-                </p>
-              </div>
-            )}
+              if (answers.revenus === "Entre 3 500 € et 5 000 €") {
+                messages.push({
+                  type: 'success',
+                  title: 'Bon potentiel :',
+                  text: 'Ta capacité d\'emprunt te donne accès à plusieurs options intéressantes.',
+                  priority: 9
+                });
+              }
 
-            {/* Avantage épargne régulière */}
-            {answers.capacite === "Oui, régulièrement" && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Discipline récompensée :</strong> Ta capacité à épargner régulièrement est un signal fort pour les banques.
-                </p>
-              </div>
-            )}
+              if (answers.logement_actuel === "Déjà propriétaire") {
+                messages.push({
+                  type: 'success',
+                  title: 'Expérience valorisée :',
+                  text: 'En tant que propriétaire, tu peux utiliser ton patrimoine existant comme levier pour tes prochains projets.',
+                  priority: 10
+                });
+              }
 
-            {/* Message horizon long terme */}
-            {answers.horizon === "Plus tard, quand je me sentirai prêt" && (
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                <p className="text-blue-800 text-sm">
-                  <strong className="text-blue-900">Sage décision :</strong> Prendre le temps de bien se préparer, c'est déjà avancer. On t'accompagne à ton rythme.
-                </p>
-              </div>
-            )}
+              if (answers.situation_familiale === "En couple" || answers.situation_familiale === "En couple avec enfant(s)") {
+                messages.push({
+                  type: 'success',
+                  title: 'Force du duo :',
+                  text: 'À deux, ta capacité d\'emprunt est renforcée et les risques sont mieux répartis.',
+                  priority: 11
+                });
+              }
 
-            {/* Message salarié CDI */}
-            {answers.situation_pro === "Salarié(e)" && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Profil bancaire solide :</strong> Le statut salarié rassure les banques et facilite l'accès au crédit.
-                </p>
-              </div>
-            )}
+              if (answers.capacite === "Oui, régulièrement") {
+                messages.push({
+                  type: 'success',
+                  title: 'Discipline récompensée :',
+                  text: 'Ta capacité à épargner régulièrement est un signal fort pour les banques.',
+                  priority: 12
+                });
+              }
 
-            {/* Warnings évités - Messages courts et positifs */}
-            {/* Erreur 2: Sous-estimer sa capacité réelle d'emprunt */}
-            {(answers.frein && (
-              (Array.isArray(answers.frein) && answers.frein.includes("Je ne comprends pas les chiffres")) ||
-              answers.frein === "Je ne comprends pas les chiffres"
-            )) && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Warning évité :</strong> Sous-estimer ta capacité d'emprunt → On t'aide à calculer ton vrai budget.
-                </p>
-              </div>
-            )}
+              if (answers.situation_pro === "Salarié(e)") {
+                messages.push({
+                  type: 'success',
+                  title: 'Profil bancaire solide :',
+                  text: 'Le statut salarié rassure les banques et facilite l\'accès au crédit.',
+                  priority: 13
+                });
+              }
 
-            {/* Erreur 3: Copier une stratégie qui ne correspond pas à sa situation */}
-            {(answers.situation_actuelle === "J'ai déjà repéré quelques annonces" && 
-              answers.situation_pro === "Étudiant(e)") && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Warning évité :</strong> Copier une stratégie inadaptée → On construit TA stratégie selon ton profil.
-                </p>
-              </div>
-            )}
+              // Trier par priorité et limiter à 5
+              const sortedMessages = messages.sort((a, b) => a.priority - b.priority).slice(0, 5);
 
-            {/* Erreur 4: Ignorer l'impact des charges et du temps */}
-            {(answers.benefice && (
-              (Array.isArray(answers.benefice) && answers.benefice.includes("Investir pour générer un patrimoine et des revenus")) ||
-              answers.benefice === "Investir pour générer un patrimoine et des revenus"
-            )) && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 text-sm">
-                  <strong className="text-emerald-900">Warning évité :</strong> Ignorer les charges et le temps → Notre outil calcule automatiquement tes charges et ton rendement.
-                </p>
-              </div>
-            )}
+              return sortedMessages.map((msg, index) => {
+                if (msg.type === 'warning') {
+                  return (
+                    <div key={index} className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-3 flex items-start gap-3">
+                      <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-amber-800 text-sm leading-relaxed">
+                        <strong className="text-amber-900">{msg.title}</strong> {msg.text}
+                      </p>
+                    </div>
+                  );
+                }
+                if (msg.type === 'info') {
+                  return (
+                    <div key={index} className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                      <p className="text-blue-800 text-sm">
+                        <strong className="text-blue-900">{msg.title}</strong> {msg.text}
+                      </p>
+                    </div>
+                  );
+                }
+                return (
+                  <div key={index} className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <p className="text-emerald-800 text-sm">
+                      <strong className="text-emerald-900">{msg.title}</strong> {msg.text}
+                    </p>
+                  </div>
+                );
+              });
+            })()}
 
             <p className="text-foreground font-semibold italic border-l-4 border-primary pl-4">
               Voici comment nous allons t'accompagner pour y arriver.
