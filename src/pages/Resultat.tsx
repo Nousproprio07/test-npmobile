@@ -403,7 +403,7 @@ const Resultat = () => {
                   <Button 
                     size="lg" 
                     className="flex-1 group text-lg py-6 bg-[#99c5ff] text-primary hover:bg-[#7ab3ff] transition-colors"
-                    onClick={() => navigate("/achat", { state: { accompaniment, prenom } })}
+                    onClick={() => navigate("/achat", { state: { accompaniment, prenom, situationPro: answers.situation_pro } })}
                   >
                     En savoir plus
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -412,7 +412,7 @@ const Resultat = () => {
                     variant="outline" 
                     size="lg" 
                     className="flex-1 group border-primary text-primary hover:bg-primary hover:text-primary-foreground text-lg py-6"
-                    onClick={() => navigate("/reserver-appel", { state: { accompaniment, prenom } })}
+                    onClick={() => navigate("/reserver-appel", { state: { accompaniment, prenom, situationPro: answers.situation_pro } })}
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     Réserver un appel
