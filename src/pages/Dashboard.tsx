@@ -234,7 +234,9 @@ const pointDeDepartData = {
   ressenti: ["De l'excitation", "Du doute"],
   frein: ["Je ne sais pas par où commencer", "Je manque de temps pour m'en occuper"],
   horizon: "Dans les 6 prochains mois",
-  situation_pro: "Salarié(e)"
+  situation_pro: "Salarié(e)",
+  logement_actuel: "Locataire",
+  logementReading: "Charges locatives actuelles convertibles en mensualités"
 };
 
 const bloc3Content = [
@@ -1461,6 +1463,7 @@ const Dashboard = () => {
             <div className="space-y-3">
               {[
                 { label: "Ta situation actuelle", value: pointDeDepartData.situationReading },
+                { label: "Ton logement actuel", value: `${pointDeDepartData.logement_actuel} — ${pointDeDepartData.logementReading}` },
                 { label: "Ton intention profonde", value: pointDeDepartData.benefice.join(", ") },
                 { label: "Ton rapport à l'investissement", value: `Tu ressens ${pointDeDepartData.ressenti.map(r => r.toLowerCase()).join(", ")}` },
                 { label: "Ton principal blocage", value: pointDeDepartData.frein.join(", ") },
