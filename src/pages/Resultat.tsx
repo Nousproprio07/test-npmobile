@@ -90,6 +90,34 @@ const Resultat = () => {
     return "Tu démarres de zéro et cherches une direction claire";
   };
 
+  // Helper function for family situation reading
+  const getFamilleReading = () => {
+    const famille = answers.situation_familiale;
+    if (famille === "Célibataire") return "Projet individuel, plus de flexibilité dans les choix";
+    if (famille === "En couple") return "Projet à deux, capacité d'emprunt potentiellement renforcée";
+    if (famille === "Avec enfant(s)") return "Priorité stabilité, surface et localisation adaptées";
+    return "Non renseigné";
+  };
+
+  // Helper function for housing status reading
+  const getLogementReading = () => {
+    const logement = answers.logement_actuel;
+    if (logement === "Locataire") return "Charges locatives actuelles convertibles en mensualités";
+    if (logement === "Hébergé(e) gratuitement") return "Capacité d'épargne optimale, bon timing pour préparer";
+    if (logement === "Déjà propriétaire") return "Expérience acquise, potentiel de leverage";
+    return "Non renseigné";
+  };
+
+  // Helper function for income reading
+  const getRevenusReading = () => {
+    const revenus = answers.revenus;
+    if (revenus === "Moins de 2 000 €") return "Budget serré, projet à préparer avec méthode";
+    if (revenus === "Entre 2 000 € et 3 500 €") return "Capacité d'emprunt moyenne, bon potentiel avec stratégie";
+    if (revenus === "Entre 3 500 € et 5 000 €") return "Bonne capacité, plusieurs options possibles";
+    if (revenus === "Plus de 5 000 €") return "Forte capacité, accès à des stratégies diversifiées";
+    return "Non renseigné";
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header section with gradient */}
@@ -135,31 +163,40 @@ const Resultat = () => {
                   </thead>
                   <tbody className="text-primary-foreground">
                     <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ta situation actuelle</td>
-                      <td className="py-4">
-                        {answers.situation_actuelle || "Non renseigné"} — <strong>{getSituationReading()}</strong>
-                      </td>
-                    </tr>
-                    <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton intention profonde</td>
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton projet de vie</td>
                       <td className="py-4">
                         {Array.isArray(answers.benefice) ? answers.benefice.join(", ") : (answers.benefice || "Non renseigné")}
                       </td>
                     </tr>
                     <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton rapport à l'investissement</td>
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ta situation familiale</td>
                       <td className="py-4">
-                        Tu ressens surtout {Array.isArray(answers.ressenti) ? answers.ressenti.map(r => r.toLowerCase()).join(", ") : (answers.ressenti?.toLowerCase() || "des doutes")}
+                        {answers.situation_familiale || "Non renseigné"} — <strong>{getFamilleReading()}</strong>
                       </td>
                     </tr>
                     <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton principal blocage</td>
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton logement actuel</td>
                       <td className="py-4">
-                        {Array.isArray(answers.frein) ? answers.frein.join(", ") : (answers.frein || "Non renseigné")}
+                        {answers.logement_actuel || "Non renseigné"} — <strong>{getLogementReading()}</strong>
+                      </td>
+                    </tr>
+                    <tr className="border-b border-primary-foreground/10">
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ta capacité financière</td>
+                      <td className="py-4">
+                        {answers.revenus || "Non renseigné"} — <strong>{getRevenusReading()}</strong>
+                      </td>
+                    </tr>
+                    <tr className="border-b border-primary-foreground/10">
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton rapport au risque</td>
+                      <td className="py-4">
+                        Tu ressens surtout {Array.isArray(answers.ressenti) ? answers.ressenti.map(r => r.toLowerCase()).join(" et ") : (answers.ressenti?.toLowerCase() || "des doutes")}
+                        {Array.isArray(answers.frein) && answers.frein.length > 0 && (
+                          <span> — Freins identifiés : {answers.frein.join(", ").toLowerCase()}</span>
+                        )}
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton horizon de passage à l'action</td>
+                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton horizon de temps</td>
                       <td className="py-4">
                         {answers.horizon || "Non renseigné"}
                       </td>
@@ -234,6 +271,31 @@ const Resultat = () => {
               </div>
             )}
 
+            {/* Warning revenus faibles + investissement locatif */}
+            {answers.revenus === "Moins de 2 000 €" && accompaniment.type === "Patrimoine Actif" && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-3 flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div className="text-amber-800 text-sm">
+                  <p className="mb-2">
+                    <strong className="text-amber-900">⚠️ Attention :</strong> Avec tes revenus actuels, l'investissement locatif nécessite une préparation minutieuse.
+                  </p>
+                  <p>
+                    <strong className="text-amber-900">Notre approche :</strong> On va d'abord optimiser ta situation avant de te lancer.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Warning hébergé gratuitement + achat RP */}
+            {answers.logement_actuel === "Hébergé(e) gratuitement" && accompaniment.type === "Résidence Essentiel" && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                <p className="text-emerald-800 text-sm">
+                  <strong className="text-emerald-900">Avantage détecté :</strong> Sans loyer actuel, tu peux maximiser ton épargne avant l'achat. Timing idéal !
+                </p>
+              </div>
+            )}
+
             {/* Diagnostic des erreurs potentielles */}
             {/* Erreur 1: Se lancer sans apport de sécurité */}
             {(answers.capacite === "Non" || answers.capacite === "Un peu") && (
@@ -247,6 +309,16 @@ const Resultat = () => {
                     <strong className="text-amber-900">Conseil :</strong> Constitue 3 à 6 mois d'épargne de sécurité pour faire face aux imprévus (travaux, vacance locative, perte d'emploi).
                   </p>
                 </div>
+              </div>
+            )}
+
+            {/* Warning situation familiale avec enfants */}
+            {answers.situation_familiale === "Avec enfant(s)" && (
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                <p className="text-blue-800 text-sm">
+                  <strong className="text-blue-900">Pris en compte :</strong> Avec des enfants, on priorise stabilité, espace et proximité des écoles dans tes critères.
+                </p>
               </div>
             )}
 
