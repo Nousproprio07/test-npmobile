@@ -94,7 +94,32 @@ interface PhaseType {
   modules: ModuleType[];
 }
 
-const formationPhases: Record<string, PhaseType[]> = {
+// Module de financement conditionnel selon la situation professionnelle
+const getFinancementModuleTitle = (situationPro: string): string => {
+  switch (situationPro) {
+    case "Étudiant(e)":
+      return "Financer son premier bien locatif quand on est étudiant";
+    case "Indépendant(e) / Freelance":
+      return "Financer son premier bien locatif quand on est indépendant";
+    case "Salarié(e)":
+    default:
+      return "Financer son premier bien locatif quand on est salarié";
+  }
+};
+
+const getFinancementModuleDescription = (situationPro: string): string => {
+  switch (situationPro) {
+    case "Étudiant(e)":
+      return "Stratégies de financement adaptées aux étudiants.";
+    case "Indépendant(e) / Freelance":
+      return "Stratégies de financement adaptées aux indépendants et freelances.";
+    case "Salarié(e)":
+    default:
+      return "Stratégies de financement adaptées aux salariés.";
+  }
+};
+
+const getFormationPhases = (situationPro: string): Record<string, PhaseType[]> => ({
   "Patrimoine Actif": [
     {
       id: 1,
@@ -118,7 +143,7 @@ const formationPhases: Record<string, PhaseType[]> = {
       title: "Maîtrise du Financement & Concrétisation",
       subtitle: "Obtenir et sécuriser ton prêt",
       modules: [
-        { id: 11, title: "Financer son premier bien locatif quand on est salarié", duration: "35 min", completed: false, description: "Stratégies de financement adaptées aux salariés.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Capacité d'emprunt", "Les banques qui financent", "Monter son dossier"] },
+        { id: 11, title: getFinancementModuleTitle(situationPro), duration: "35 min", completed: false, description: getFinancementModuleDescription(situationPro), videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Capacité d'emprunt", "Les banques qui financent", "Monter son dossier"] },
         { id: 12, title: "Comprendre tous les frais de son achat", duration: "25 min", completed: false, description: "Panorama complet de tous les frais liés à l'achat.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Frais de notaire", "Frais bancaires", "Frais annexes"] },
         { id: 13, title: "Emprunter quand on est en CDD", duration: "30 min", completed: false, description: "Solutions pour financer son projet en CDD.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les critères bancaires", "Renforcer son dossier", "Les alternatives"] },
         { id: 14, title: "Gérer son compte bancaire pour son projet", duration: "20 min", completed: false, description: "Optimise la gestion de tes comptes pour ton projet immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Assainir ses comptes", "Épargner efficacement", "Les bons réflexes"] },
@@ -170,7 +195,7 @@ const formationPhases: Record<string, PhaseType[]> = {
       title: "Maîtrise du Financement & Concrétisation",
       subtitle: "Obtenir et sécuriser ton prêt",
       modules: [
-        { id: 11, title: "Financer son premier bien locatif quand on est salarié", duration: "35 min", completed: false, description: "Stratégies de financement adaptées aux salariés.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Capacité d'emprunt", "Les banques qui financent", "Monter son dossier"] },
+        { id: 11, title: getFinancementModuleTitle(situationPro), duration: "35 min", completed: false, description: getFinancementModuleDescription(situationPro), videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Capacité d'emprunt", "Les banques qui financent", "Monter son dossier"] },
         { id: 12, title: "Comprendre tous les frais de son achat", duration: "25 min", completed: false, description: "Panorama complet de tous les frais liés à l'achat.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Frais de notaire", "Frais bancaires", "Frais annexes"] },
         { id: 13, title: "Emprunter quand on est en CDD", duration: "30 min", completed: false, description: "Solutions pour financer son projet en CDD.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les critères bancaires", "Renforcer son dossier", "Les alternatives"] },
         { id: 14, title: "Gérer son compte bancaire pour son projet", duration: "20 min", completed: false, description: "Optimise la gestion de tes comptes pour ton projet immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Assainir ses comptes", "Épargner efficacement", "Les bons réflexes"] },
@@ -199,7 +224,7 @@ const formationPhases: Record<string, PhaseType[]> = {
       ]
     }
   ]
-};
+});
 
 // Mock data pour "Ton point de départ" basé sur les réponses utilisateur
 const pointDeDepartData = {
@@ -498,6 +523,7 @@ const Dashboard = () => {
   }>>([]);
   
   // Phases de la direction principale
+  const formationPhases = getFormationPhases(pointDeDepartData.situation_pro);
   const phases = formationPhases[mockUser.formation] || [];
   
   // Tous les modules à plat pour retrouver le module en cours
