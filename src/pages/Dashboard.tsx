@@ -86,138 +86,118 @@ const mockUser = {
   totalModules: 8
 };
 
-const formationModules: Record<string, ModuleType[]> = {
+// Structure des phases de formation avec les vrais modules
+interface PhaseType {
+  id: number;
+  title: string;
+  subtitle: string;
+  modules: ModuleType[];
+}
+
+const formationPhases: Record<string, PhaseType[]> = {
   "Patrimoine Actif": [
-    { 
-      id: 1, 
-      title: "Introduction au patrimoine actif", 
-      duration: "45 min", 
-      completed: true,
-      description: "Découvre les fondamentaux de l'investissement immobilier et comment construire un patrimoine qui génère des revenus passifs. Ce module pose les bases de ta stratégie patrimoniale.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Qu'est-ce que le patrimoine actif ?", "Les différents types d'investissement", "Définir tes objectifs patrimoniaux", "Les erreurs à éviter"]
+    {
+      id: 1,
+      title: "Préparation & Fondations",
+      subtitle: "Avant le financement",
+      modules: [
+        { id: 1, title: "On déconstruit les idées reçues sur l'immobilier", duration: "20 min", completed: true, description: "Démystifie les croyances limitantes et découvre la réalité de l'investissement immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les mythes courants", "La réalité du marché", "Ce qui fonctionne vraiment"] },
+        { id: 2, title: "Rechercher un bien pour se projeter", duration: "25 min", completed: false, current: true, description: "Apprends à chercher efficacement et à te projeter dans un investissement.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Où chercher", "Les critères essentiels", "Se projeter dans l'investissement"] },
+        { id: 3, title: "Comprendre ce qu'on achète vraiment", duration: "30 min", completed: false, description: "Analyse approfondie de ce que représente un achat immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Au-delà du bien", "Les aspects juridiques", "Les implications à long terme"] },
+        { id: 4, title: "Savoir ce qu'on regarde en visite d'appartement", duration: "35 min", completed: false, description: "Checklist complète pour ne rien manquer lors d'une visite d'appartement.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les points clés", "Les signaux d'alerte", "Les questions à poser"] },
+        { id: 5, title: "Savoir ce qu'on regarde en visite de maison", duration: "35 min", completed: false, description: "Checklist complète pour ne rien manquer lors d'une visite de maison.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Structure et gros œuvre", "Terrain et extérieurs", "Les diagnostics essentiels"] },
+        { id: 6, title: "Acheter un bien locatif dans le neuf", duration: "25 min", completed: false, description: "Avantages et inconvénients de l'achat dans le neuf pour du locatif.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Le neuf vs l'ancien", "Les garanties", "La fiscalité du neuf"] },
+        { id: 7, title: "Faire une offre d'achat sans se tromper", duration: "30 min", completed: false, description: "Rédige une offre d'achat percutante et négocie efficacement.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Préparer son offre", "Les clauses importantes", "La négociation"] },
+        { id: 8, title: "Lire une annonce et comprendre le marché", duration: "20 min", completed: false, description: "Décrypte les annonces immobilières et analyse le marché local.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Décoder les annonces", "Analyser les prix", "Comprendre le marché local"] },
+        { id: 9, title: "Comparateur d'annonces immobilières", duration: "15 min", completed: false, description: "Utilise notre outil pour comparer efficacement les annonces.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Présentation de l'outil", "Comparer les biens", "Prendre une décision"] },
+        { id: 10, title: "Comprendre la fiscalité de son investissement", duration: "40 min", completed: false, description: "Maîtrise les bases de la fiscalité immobilière.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les régimes fiscaux", "LMNP et LMP", "Optimiser sa fiscalité"] },
+      ]
     },
-    { 
-      id: 2, 
-      title: "Stratégies d'investissement locatif", 
-      duration: "1h 20", 
-      completed: false, 
-      current: true,
-      description: "Maîtrise les différentes stratégies locatives : location nue, meublée, courte durée, colocation. Apprends à choisir celle qui correspond à ton profil et tes objectifs.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Location nue vs meublée", "La location courte durée", "La colocation rentable", "Choisir sa stratégie"]
+    {
+      id: 2,
+      title: "Maîtrise du Financement & Concrétisation",
+      subtitle: "Obtenir et sécuriser ton prêt",
+      modules: [
+        { id: 11, title: "Financer son premier bien locatif quand on est salarié", duration: "35 min", completed: false, description: "Stratégies de financement adaptées aux salariés.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Capacité d'emprunt", "Les banques qui financent", "Monter son dossier"] },
+        { id: 12, title: "Comprendre tous les frais de son achat", duration: "25 min", completed: false, description: "Panorama complet de tous les frais liés à l'achat.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Frais de notaire", "Frais bancaires", "Frais annexes"] },
+        { id: 13, title: "Emprunter quand on est en CDD", duration: "30 min", completed: false, description: "Solutions pour financer son projet en CDD.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les critères bancaires", "Renforcer son dossier", "Les alternatives"] },
+        { id: 14, title: "Gérer son compte bancaire pour son projet", duration: "20 min", completed: false, description: "Optimise la gestion de tes comptes pour ton projet immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Assainir ses comptes", "Épargner efficacement", "Les bons réflexes"] },
+        { id: 15, title: "Préparer son rendez-vous bancaire", duration: "30 min", completed: false, description: "Tout pour réussir ton rendez-vous avec la banque.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Documents à préparer", "Les bonnes réponses", "Négocier les conditions"] },
+        { id: 16, title: "Comprendre sa fiscalité avec des cas concrets", duration: "40 min", completed: false, description: "Cas pratiques pour maîtriser ta fiscalité.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Cas pratique #1", "Cas pratique #2", "Cas pratique #3"] },
+        { id: 17, title: "Réduire ses impôts en toute légalité", duration: "35 min", completed: false, description: "Stratégies légales pour optimiser tes impôts.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Déficit foncier", "Amortissements", "Dispositifs fiscaux"] },
+        { id: 18, title: "Préparer la signature chez le notaire", duration: "25 min", completed: false, description: "Tout ce qu'il faut savoir avant la signature.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Documents à vérifier", "Le jour J", "Après la signature"] },
+      ]
     },
-    { 
-      id: 3, 
-      title: "Analyse de rentabilité", 
-      duration: "55 min", 
-      completed: false,
-      description: "Apprends à calculer la rentabilité réelle d'un investissement et à identifier les bonnes affaires. Maîtrise les indicateurs clés : rendement brut, net, cash-flow.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Rendement brut et net", "Le cash-flow", "Les charges à prévoir", "Simuler un investissement"]
-    },
-    { 
-      id: 4, 
-      title: "Fiscalité immobilière avancée", 
-      duration: "1h 10", 
-      completed: false,
-      description: "Comprends les régimes fiscaux et optimise tes impôts. LMNP, LMP, SCI : découvre les montages les plus avantageux pour ta situation.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Les régimes fiscaux", "LMNP en détail", "Créer une SCI", "Optimiser sa fiscalité"]
-    },
-    { 
-      id: 5, 
-      title: "Montage financier optimisé", 
-      duration: "1h 30", 
-      completed: false,
-      description: "Maîtrise le financement bancaire : comment présenter ton dossier, négocier les meilleures conditions et structurer ton emprunt.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Préparer son dossier bancaire", "Négocier son taux", "L'effet de levier", "Les garanties bancaires"]
-    },
-    { 
-      id: 6, 
-      title: "Gestion locative efficace", 
-      duration: "50 min", 
-      completed: false,
-      description: "Gère tes biens comme un pro : sélection des locataires, rédaction du bail, gestion des impayés et relation locataire.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Trouver le bon locataire", "Le bail et les documents", "Gérer les incidents", "Automatiser sa gestion"]
-    },
-    { 
-      id: 7, 
-      title: "Développer son patrimoine", 
-      duration: "1h 15", 
-      completed: false,
-      description: "Passe à l'échelle : comment enchaîner les investissements et construire un patrimoine immobilier conséquent.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Réinvestir ses revenus", "Diversifier son patrimoine", "Les signaux d'alerte", "Planifier sur 10 ans"]
-    },
-    { 
-      id: 8, 
-      title: "Cas pratiques et mise en action", 
-      duration: "2h", 
-      completed: false,
-      description: "Mets en pratique tout ce que tu as appris avec des études de cas réelles et un plan d'action personnalisé.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Étude de cas #1", "Étude de cas #2", "Ton plan d'action", "Les prochaines étapes"]
-    },
+    {
+      id: 3,
+      title: "Après l'Achat & Optimisation",
+      subtitle: "Gérer et valoriser ton bien",
+      modules: [
+        { id: 19, title: "La check-list du propriétaire bailleur", duration: "20 min", completed: false, description: "Tout ce que tu dois faire en tant que propriétaire.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Obligations légales", "Assurances", "Gestion courante"] },
+        { id: 20, title: "Rénover un bien locatif sans mettre en danger sa rentabilité", duration: "35 min", completed: false, description: "Rénove intelligemment pour maximiser ton ROI.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Travaux essentiels", "Budget travaux", "Éviter les pièges"] },
+        { id: 21, title: "Comprendre et améliorer la rentabilité de son bien", duration: "30 min", completed: false, description: "Analyse et optimise la rentabilité de ton investissement.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Calculer sa rentabilité", "Leviers d'amélioration", "Suivi dans le temps"] },
+        { id: 22, title: "Choisir ses locataires avec méthode", duration: "25 min", completed: false, description: "Sélectionne les meilleurs locataires pour ton bien.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les critères de sélection", "Vérifier un dossier", "Les garanties"] },
+        { id: 23, title: "Choisir entre location courte et longue durée", duration: "30 min", completed: false, description: "Compare les deux modes de location pour ton bien.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Avantages et inconvénients", "Rentabilité comparée", "Aspects pratiques"] },
+        { id: 24, title: "Réussir sa location saisonnière", duration: "35 min", completed: false, description: "Les clés pour une location saisonnière rentable.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Mise en place", "Optimiser son annonce", "Gérer les réservations"] },
+        { id: 25, title: "Comprendre le permis de louer", duration: "20 min", completed: false, description: "Tout sur le permis de louer et ses implications.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Zones concernées", "Démarches", "Sanctions"] },
+        { id: 26, title: "Déclarer ses revenus locatifs sans se tromper", duration: "30 min", completed: false, description: "Guide complet pour déclarer tes revenus locatifs.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Formulaires à remplir", "Régimes fiscaux", "Erreurs à éviter"] },
+        { id: 27, title: "Préparer la revente de son bien", duration: "25 min", completed: false, description: "Optimise la revente de ton bien immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Quand revendre", "Valoriser son bien", "Fiscalité de la plus-value"] },
+        { id: 28, title: "Anticiper la succession de son bien immobilier", duration: "30 min", completed: false, description: "Prépare la transmission de ton patrimoine.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Droits de succession", "SCI familiale", "Donation"] },
+        { id: 29, title: "Les projets de demain dans l'immobilier", duration: "20 min", completed: false, description: "Les tendances et opportunités futures.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Tendances du marché", "Nouvelles opportunités", "Se préparer pour demain"] },
+      ]
+    }
   ],
   "Résidence Essentiel": [
-    { 
-      id: 1, 
-      title: "Définir son projet résidentiel", 
-      duration: "40 min", 
-      completed: true,
-      description: "Clarifie ton projet de vie et définis les critères essentiels de ta future résidence principale. Un bon projet commence par une vision claire.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Tes besoins réels", "Localisation idéale", "Neuf ou ancien ?", "Ta checklist personnelle"]
+    {
+      id: 1,
+      title: "Préparation & Fondations",
+      subtitle: "Avant le financement",
+      modules: [
+        { id: 1, title: "On déconstruit les idées reçues sur l'immobilier", duration: "20 min", completed: true, description: "Démystifie les croyances limitantes et découvre la réalité de l'achat immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les mythes courants", "La réalité du marché", "Ce qui fonctionne vraiment"] },
+        { id: 2, title: "Rechercher un bien pour se projeter", duration: "25 min", completed: false, current: true, description: "Apprends à chercher efficacement et à te projeter dans ton futur chez-toi.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Où chercher", "Les critères essentiels", "Se projeter dans l'achat"] },
+        { id: 3, title: "Comprendre ce qu'on achète vraiment", duration: "30 min", completed: false, description: "Analyse approfondie de ce que représente un achat immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Au-delà du bien", "Les aspects juridiques", "Les implications à long terme"] },
+        { id: 4, title: "Savoir ce qu'on regarde en visite d'appartement", duration: "35 min", completed: false, description: "Checklist complète pour ne rien manquer lors d'une visite d'appartement.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les points clés", "Les signaux d'alerte", "Les questions à poser"] },
+        { id: 5, title: "Savoir ce qu'on regarde en visite de maison", duration: "35 min", completed: false, description: "Checklist complète pour ne rien manquer lors d'une visite de maison.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Structure et gros œuvre", "Terrain et extérieurs", "Les diagnostics essentiels"] },
+        { id: 6, title: "Acheter un bien locatif dans le neuf", duration: "25 min", completed: false, description: "Avantages et inconvénients de l'achat dans le neuf.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Le neuf vs l'ancien", "Les garanties", "La fiscalité du neuf"] },
+        { id: 7, title: "Faire une offre d'achat sans se tromper", duration: "30 min", completed: false, description: "Rédige une offre d'achat percutante et négocie efficacement.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Préparer son offre", "Les clauses importantes", "La négociation"] },
+        { id: 8, title: "Lire une annonce et comprendre le marché", duration: "20 min", completed: false, description: "Décrypte les annonces immobilières et analyse le marché local.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Décoder les annonces", "Analyser les prix", "Comprendre le marché local"] },
+        { id: 9, title: "Comparateur d'annonces immobilières", duration: "15 min", completed: false, description: "Utilise notre outil pour comparer efficacement les annonces.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Présentation de l'outil", "Comparer les biens", "Prendre une décision"] },
+        { id: 10, title: "Comprendre la fiscalité de son investissement", duration: "40 min", completed: false, description: "Maîtrise les bases de la fiscalité immobilière.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les régimes fiscaux", "Avantages fiscaux", "Optimiser sa fiscalité"] },
+      ]
     },
-    { 
-      id: 2, 
-      title: "Budget et capacité d'emprunt", 
-      duration: "55 min", 
-      completed: false, 
-      current: true,
-      description: "Calcule précisément ta capacité d'achat et comprends les critères bancaires. Apprends à optimiser ton dossier de financement.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Calculer sa capacité", "L'apport personnel", "Les frais annexes", "Optimiser son dossier"]
+    {
+      id: 2,
+      title: "Maîtrise du Financement & Concrétisation",
+      subtitle: "Obtenir et sécuriser ton prêt",
+      modules: [
+        { id: 11, title: "Financer son premier bien locatif quand on est salarié", duration: "35 min", completed: false, description: "Stratégies de financement adaptées aux salariés.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Capacité d'emprunt", "Les banques qui financent", "Monter son dossier"] },
+        { id: 12, title: "Comprendre tous les frais de son achat", duration: "25 min", completed: false, description: "Panorama complet de tous les frais liés à l'achat.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Frais de notaire", "Frais bancaires", "Frais annexes"] },
+        { id: 13, title: "Emprunter quand on est en CDD", duration: "30 min", completed: false, description: "Solutions pour financer son projet en CDD.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les critères bancaires", "Renforcer son dossier", "Les alternatives"] },
+        { id: 14, title: "Gérer son compte bancaire pour son projet", duration: "20 min", completed: false, description: "Optimise la gestion de tes comptes pour ton projet immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Assainir ses comptes", "Épargner efficacement", "Les bons réflexes"] },
+        { id: 15, title: "Préparer son rendez-vous bancaire", duration: "30 min", completed: false, description: "Tout pour réussir ton rendez-vous avec la banque.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Documents à préparer", "Les bonnes réponses", "Négocier les conditions"] },
+        { id: 16, title: "Comprendre sa fiscalité avec des cas concrets", duration: "40 min", completed: false, description: "Cas pratiques pour maîtriser ta fiscalité.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Cas pratique #1", "Cas pratique #2", "Cas pratique #3"] },
+        { id: 17, title: "Réduire ses impôts en toute légalité", duration: "35 min", completed: false, description: "Stratégies légales pour optimiser tes impôts.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Déficit foncier", "Amortissements", "Dispositifs fiscaux"] },
+        { id: 18, title: "Préparer la signature chez le notaire", duration: "25 min", completed: false, description: "Tout ce qu'il faut savoir avant la signature.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Documents à vérifier", "Le jour J", "Après la signature"] },
+      ]
     },
-    { 
-      id: 3, 
-      title: "Recherche et sélection de biens", 
-      duration: "1h", 
-      completed: false,
-      description: "Méthodologie pour rechercher efficacement et identifier les biens à fort potentiel. Évite les pièges et repère les bonnes affaires.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Où chercher ?", "Analyser une annonce", "La visite efficace", "Les points de vigilance"]
-    },
-    { 
-      id: 4, 
-      title: "Négociation et offre d'achat", 
-      duration: "45 min", 
-      completed: false,
-      description: "Maîtrise l'art de la négociation immobilière et rédige une offre d'achat percutante. Obtiens le meilleur prix.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Préparer sa négociation", "Les arguments qui marchent", "Rédiger son offre", "Gérer le refus"]
-    },
-    { 
-      id: 5, 
-      title: "Le financement de A à Z", 
-      duration: "1h 20", 
-      completed: false,
-      description: "Tout sur le crédit immobilier : comparaison des offres, négociation avec les banques, assurance emprunteur.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Comparer les banques", "Négocier son prêt", "L'assurance emprunteur", "Les garanties"]
-    },
-    { 
-      id: 6, 
-      title: "Les étapes jusqu'à la signature", 
-      duration: "1h", 
-      completed: false,
-      description: "Du compromis à l'acte authentique : toutes les étapes, les délais et les points de vigilance pour une transaction sereine.",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      chapitres: ["Le compromis de vente", "Les conditions suspensives", "Chez le notaire", "La remise des clés"]
-    },
+    {
+      id: 3,
+      title: "Après l'Achat & Optimisation",
+      subtitle: "Gérer et valoriser ton bien",
+      modules: [
+        { id: 19, title: "La check-list du propriétaire bailleur", duration: "20 min", completed: false, description: "Tout ce que tu dois faire en tant que propriétaire.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Obligations légales", "Assurances", "Gestion courante"] },
+        { id: 20, title: "Rénover un bien locatif sans mettre en danger sa rentabilité", duration: "35 min", completed: false, description: "Rénove intelligemment pour maximiser ton ROI.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Travaux essentiels", "Budget travaux", "Éviter les pièges"] },
+        { id: 21, title: "Comprendre et améliorer la rentabilité de son bien", duration: "30 min", completed: false, description: "Analyse et optimise la rentabilité de ton investissement.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Calculer sa rentabilité", "Leviers d'amélioration", "Suivi dans le temps"] },
+        { id: 22, title: "Choisir ses locataires avec méthode", duration: "25 min", completed: false, description: "Sélectionne les meilleurs locataires pour ton bien.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Les critères de sélection", "Vérifier un dossier", "Les garanties"] },
+        { id: 23, title: "Choisir entre location courte et longue durée", duration: "30 min", completed: false, description: "Compare les deux modes de location pour ton bien.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Avantages et inconvénients", "Rentabilité comparée", "Aspects pratiques"] },
+        { id: 24, title: "Réussir sa location saisonnière", duration: "35 min", completed: false, description: "Les clés pour une location saisonnière rentable.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Mise en place", "Optimiser son annonce", "Gérer les réservations"] },
+        { id: 25, title: "Comprendre le permis de louer", duration: "20 min", completed: false, description: "Tout sur le permis de louer et ses implications.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Zones concernées", "Démarches", "Sanctions"] },
+        { id: 26, title: "Déclarer ses revenus locatifs sans se tromper", duration: "30 min", completed: false, description: "Guide complet pour déclarer tes revenus locatifs.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Formulaires à remplir", "Régimes fiscaux", "Erreurs à éviter"] },
+        { id: 27, title: "Préparer la revente de son bien", duration: "25 min", completed: false, description: "Optimise la revente de ton bien immobilier.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Quand revendre", "Valoriser son bien", "Fiscalité de la plus-value"] },
+        { id: 28, title: "Anticiper la succession de son bien immobilier", duration: "30 min", completed: false, description: "Prépare la transmission de ton patrimoine.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Droits de succession", "SCI familiale", "Donation"] },
+        { id: 29, title: "Les projets de demain dans l'immobilier", duration: "20 min", completed: false, description: "Les tendances et opportunités futures.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", chapitres: ["Tendances du marché", "Nouvelles opportunités", "Se préparer pour demain"] },
+      ]
+    }
   ]
 };
 
@@ -517,19 +497,23 @@ const Dashboard = () => {
     respondedAt?: string;
   }>>([]);
   
-  // Modules de la direction principale
-  const modules = formationModules[mockUser.formation] || [];
-  const currentModuleData = modules.find(m => m.current);
+  // Phases de la direction principale
+  const phases = formationPhases[mockUser.formation] || [];
+  
+  // Tous les modules à plat pour retrouver le module en cours
+  const allModules = phases.flatMap(phase => phase.modules);
+  const currentModuleData = allModules.find(m => m.current);
   
   // Détermine quel bloc contient le module en cours
-  const currentModuleIndex = modules.findIndex(m => m.current);
   const getInitialOpenBlocs = () => {
-    if (currentModuleIndex >= 0 && currentModuleIndex < 3) {
-      return { bloc1: true, bloc2: false, bloc3: false };
-    } else if (currentModuleIndex >= 3 && currentModuleIndex < 5) {
-      return { bloc1: false, bloc2: true, bloc3: false };
-    } else if (currentModuleIndex >= 5) {
-      return { bloc1: false, bloc2: false, bloc3: true };
+    for (let i = 0; i < phases.length; i++) {
+      if (phases[i].modules.some(m => m.current)) {
+        return { 
+          bloc1: i === 0, 
+          bloc2: i === 1, 
+          bloc3: i === 2 
+        };
+      }
     }
     return { bloc1: true, bloc2: false, bloc3: false };
   };
@@ -642,7 +626,7 @@ const Dashboard = () => {
   // Récupérer les modules actuels selon la vue
   const getCurrentModules = (): ModuleType[] => {
     if (currentView === "direction") {
-      return modules;
+      return allModules;
     } else if (currentView === "bonus-course" && selectedBonusCourse?.modules) {
       return selectedBonusCourse.modules;
     }
@@ -1047,7 +1031,7 @@ const Dashboard = () => {
   const isBonusCourseView = currentView === "bonus-course";
   
   // Modules à afficher selon la vue
-  const displayModules = isDirectionView ? modules : (selectedBonusCourse?.modules || []);
+  const displayModules = isDirectionView ? allModules : (selectedBonusCourse?.modules || []);
   const displayTitle = isDirectionView ? mockUser.formation : (selectedBonusCourse?.title || "");
   const completedCount = displayModules.filter(m => m.completed).length;
   const displayProgress = displayModules.length > 0 ? Math.round((completedCount / displayModules.length) * 100) : 0;
@@ -1344,253 +1328,94 @@ const Dashboard = () => {
               Modules de {mockUser.formation}
             </h3>
             
-            {/* Les 3 blocs principaux */}
+            {/* Les 3 blocs principaux - dynamiques depuis les phases */}
             <div className="space-y-6">
-              {/* Bloc 1: Préparation & Fondations */}
-              <Collapsible 
-                open={openBlocs.bloc1} 
-                onOpenChange={(open) => setOpenBlocs(prev => ({ ...prev, bloc1: open }))}
-              >
-                <CollapsibleTrigger asChild>
-                  <div className="flex items-center gap-3 cursor-pointer hover:bg-muted/50 p-2 rounded-lg transition-colors">
-                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
-                      1
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-display font-semibold text-foreground">Préparation & Fondations</h4>
-                        {modules.slice(0, 3).every(m => m.completed) && (
-                          <Badge className="bg-gradient-to-r from-amber-500 to-yellow-400 text-white border-0 gap-1">
-                            <Award className="w-3 h-3" />
-                            Complété
-                          </Badge>
-                        )}
-                      </div>
-                      <p className="text-xs text-muted-foreground">Avant le financement</p>
-                    </div>
-                    <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openBlocs.bloc1 ? 'rotate-180' : ''}`} />
-                  </div>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <div className="ml-4 border-l-2 border-primary/20 pl-6 space-y-3 mt-3">
-                    {modules.slice(0, 3).map((module) => (
-                      <Card 
-                        key={module.id} 
-                        className={`transition-all ${
-                          module.current 
-                            ? "border-primary bg-primary/5" 
-                            : module.completed 
-                              ? "border-green-500/30 bg-green-500/5" 
-                              : "border-border opacity-70"
-                        }`}
-                      >
-                        <CardContent className="p-3 sm:p-4">
-                          <div className="flex items-start gap-3">
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              module.completed 
-                                ? "bg-green-500 text-white" 
-                                : module.current 
-                                  ? "bg-primary text-primary-foreground" 
-                                  : "bg-muted text-muted-foreground"
-                            }`}>
-                              {module.completed ? (
-                                <CheckCircle2 className="w-5 h-5" />
-                              ) : module.current ? (
-                                <Play className="w-5 h-5" />
-                              ) : (
-                                <Lock className="w-4 h-4" />
-                              )}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
-                                {module.title}
-                              </p>
-                              <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
-                                <Clock className="w-3 h-3" /> {module.duration}
-                              </p>
-                            </div>
-                            {(module.completed || module.current) && (
-                              <Button 
-                                variant={module.current ? "default" : "ghost"} 
-                                size="sm"
-                                className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
-                                onClick={() => setSelectedModule(module)}
-                              >
-                                <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
-                                <ChevronRight className="w-4 h-4" />
-                              </Button>
+              {phases.map((phase, phaseIndex) => {
+                const blocKey = `bloc${phaseIndex + 1}` as 'bloc1' | 'bloc2' | 'bloc3';
+                return (
+                  <Collapsible 
+                    key={phase.id}
+                    open={openBlocs[blocKey]} 
+                    onOpenChange={(open) => setOpenBlocs(prev => ({ ...prev, [blocKey]: open }))}
+                  >
+                    <CollapsibleTrigger asChild>
+                      <div className="flex items-center gap-3 cursor-pointer hover:bg-muted/50 p-2 rounded-lg transition-colors">
+                        <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
+                          {phaseIndex + 1}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <h4 className="font-display font-semibold text-foreground">{phase.title}</h4>
+                            {phase.modules.every(m => m.completed) && (
+                              <Badge className="bg-gradient-to-r from-amber-500 to-yellow-400 text-white border-0 gap-1">
+                                <Award className="w-3 h-3" />
+                                Complété
+                              </Badge>
                             )}
                           </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
-
-              {/* Bloc 2: Maîtrise du Financement & Concrétisation */}
-              <Collapsible 
-                open={openBlocs.bloc2} 
-                onOpenChange={(open) => setOpenBlocs(prev => ({ ...prev, bloc2: open }))}
-              >
-                <CollapsibleTrigger asChild>
-                  <div className="flex items-center gap-3 cursor-pointer hover:bg-muted/50 p-2 rounded-lg transition-colors">
-                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
-                      2
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-display font-semibold text-foreground">Maîtrise du Financement & Concrétisation</h4>
-                        {modules.slice(3, 5).every(m => m.completed) && (
-                          <Badge className="bg-gradient-to-r from-amber-500 to-yellow-400 text-white border-0 gap-1">
-                            <Award className="w-3 h-3" />
-                            Complété
-                          </Badge>
-                        )}
+                          <p className="text-xs text-muted-foreground">{phase.subtitle}</p>
+                        </div>
+                        <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openBlocs[blocKey] ? 'rotate-180' : ''}`} />
                       </div>
-                      <p className="text-xs text-muted-foreground">Obtenir et sécuriser ton prêt</p>
-                    </div>
-                    <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openBlocs.bloc2 ? 'rotate-180' : ''}`} />
-                  </div>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <div className="ml-4 border-l-2 border-primary/20 pl-6 space-y-3 mt-3">
-                    {modules.slice(3, 5).map((module) => (
-                      <Card 
-                        key={module.id} 
-                        className={`transition-all ${
-                          module.current 
-                            ? "border-primary bg-primary/5" 
-                            : module.completed 
-                              ? "border-green-500/30 bg-green-500/5" 
-                              : "border-border opacity-70"
-                        }`}
-                      >
-                        <CardContent className="p-3 sm:p-4">
-                          <div className="flex items-start gap-3">
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              module.completed 
-                                ? "bg-green-500 text-white" 
-                                : module.current 
-                                  ? "bg-primary text-primary-foreground" 
-                                  : "bg-muted text-muted-foreground"
-                            }`}>
-                              {module.completed ? (
-                                <CheckCircle2 className="w-5 h-5" />
-                              ) : module.current ? (
-                                <Play className="w-5 h-5" />
-                              ) : (
-                                <Lock className="w-4 h-4" />
-                              )}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
-                                {module.title}
-                              </p>
-                              <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
-                                <Clock className="w-3 h-3" /> {module.duration}
-                              </p>
-                            </div>
-                            {(module.completed || module.current) && (
-                              <Button 
-                                variant={module.current ? "default" : "ghost"} 
-                                size="sm"
-                                className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
-                                onClick={() => setSelectedModule(module)}
-                              >
-                                <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
-                                <ChevronRight className="w-4 h-4" />
-                              </Button>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
-
-              {/* Bloc 3: Après l'Achat & Optimisation */}
-              <Collapsible 
-                open={openBlocs.bloc3} 
-                onOpenChange={(open) => setOpenBlocs(prev => ({ ...prev, bloc3: open }))}
-              >
-                <CollapsibleTrigger asChild>
-                  <div className="flex items-center gap-3 cursor-pointer hover:bg-muted/50 p-2 rounded-lg transition-colors">
-                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
-                      3
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-display font-semibold text-foreground">Après l'Achat & Optimisation</h4>
-                        {modules.slice(5).every(m => m.completed) && (
-                          <Badge className="bg-gradient-to-r from-amber-500 to-yellow-400 text-white border-0 gap-1">
-                            <Award className="w-3 h-3" />
-                            Complété
-                          </Badge>
-                        )}
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <div className="ml-4 border-l-2 border-primary/20 pl-6 space-y-3 mt-3">
+                        {phase.modules.map((module) => (
+                          <Card 
+                            key={module.id} 
+                            className={`transition-all ${
+                              module.current 
+                                ? "border-primary bg-primary/5" 
+                                : module.completed 
+                                  ? "border-green-500/30 bg-green-500/5" 
+                                  : "border-border opacity-70"
+                            }`}
+                          >
+                            <CardContent className="p-3 sm:p-4">
+                              <div className="flex items-start gap-3">
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                  module.completed 
+                                    ? "bg-green-500 text-white" 
+                                    : module.current 
+                                      ? "bg-primary text-primary-foreground" 
+                                      : "bg-muted text-muted-foreground"
+                                }`}>
+                                  {module.completed ? (
+                                    <CheckCircle2 className="w-5 h-5" />
+                                  ) : module.current ? (
+                                    <Play className="w-5 h-5" />
+                                  ) : (
+                                    <Lock className="w-4 h-4" />
+                                  )}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
+                                    {module.title}
+                                  </p>
+                                  <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                                    <Clock className="w-3 h-3" /> {module.duration}
+                                  </p>
+                                </div>
+                                {(module.completed || module.current) && (
+                                  <Button 
+                                    variant={module.current ? "default" : "ghost"} 
+                                    size="sm"
+                                    className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
+                                    onClick={() => setSelectedModule(module)}
+                                  >
+                                    <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
+                                    <ChevronRight className="w-4 h-4" />
+                                  </Button>
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
                       </div>
-                      <p className="text-xs text-muted-foreground">Gérer et valoriser ton bien</p>
-                    </div>
-                    <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openBlocs.bloc3 ? 'rotate-180' : ''}`} />
-                  </div>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <div className="ml-4 border-l-2 border-primary/20 pl-6 space-y-3 mt-3">
-                    {modules.slice(5).map((module) => (
-                      <Card 
-                        key={module.id} 
-                        className={`transition-all ${
-                          module.current 
-                            ? "border-primary bg-primary/5" 
-                            : module.completed 
-                              ? "border-green-500/30 bg-green-500/5" 
-                              : "border-border opacity-70"
-                        }`}
-                      >
-                        <CardContent className="p-3 sm:p-4">
-                          <div className="flex items-start gap-3">
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              module.completed 
-                                ? "bg-green-500 text-white" 
-                                : module.current 
-                                  ? "bg-primary text-primary-foreground" 
-                                  : "bg-muted text-muted-foreground"
-                            }`}>
-                              {module.completed ? (
-                                <CheckCircle2 className="w-5 h-5" />
-                              ) : module.current ? (
-                                <Play className="w-5 h-5" />
-                              ) : (
-                                <Lock className="w-4 h-4" />
-                              )}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
-                                {module.title}
-                              </p>
-                              <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
-                                <Clock className="w-3 h-3" /> {module.duration}
-                              </p>
-                            </div>
-                            {(module.completed || module.current) && (
-                              <Button 
-                                variant={module.current ? "default" : "ghost"} 
-                                size="sm"
-                                className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
-                                onClick={() => setSelectedModule(module)}
-                              >
-                                <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
-                                <ChevronRight className="w-4 h-4" />
-                              </Button>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
+                    </CollapsibleContent>
+                  </Collapsible>
+                );
+              })}
             </div>
           </div>
         )}
