@@ -59,19 +59,6 @@ const ComingSoon = () => {
           </div>
         </div>
 
-        {/* Contact info */}
-        <div className="flex flex-col items-center gap-4 animate-fade-up-delay-3">
-          <p className="text-sm text-muted-foreground">
-            Une question ? Contacte-nous
-          </p>
-          <a 
-            href="mailto:contact@nousproprio.fr" 
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-np-blue text-white font-medium hover:bg-np-blue/90 transition-colors"
-          >
-            <Mail className="w-4 h-4" />
-            contact@nousproprio.fr
-          </a>
-        </div>
 
         {/* Footer */}
         <p className="mt-12 text-xs text-muted-foreground/60 animate-fade-up-delay-3">
