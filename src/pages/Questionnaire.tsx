@@ -48,9 +48,10 @@ const questions: Question[] = [
     question: "Aujourd'hui, tu es plutôt…",
     type: "single",
     options: [
-      "Célibataire",
-      "En couple",
-      "Avec enfant(s)"
+      "Célibataire sans enfant",
+      "Célibataire avec enfant(s)",
+      "En couple sans enfant",
+      "En couple avec enfant(s)"
     ]
   },
   {

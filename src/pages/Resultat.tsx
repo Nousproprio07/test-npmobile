@@ -93,9 +93,10 @@ const Resultat = () => {
   // Helper function for family situation reading
   const getFamilleReading = () => {
     const famille = answers.situation_familiale;
-    if (famille === "Célibataire") return "Projet individuel, plus de flexibilité dans les choix";
-    if (famille === "En couple") return "Projet à deux, capacité d'emprunt potentiellement renforcée";
-    if (famille === "Avec enfant(s)") return "Priorité stabilité, surface et localisation adaptées";
+    if (famille === "Célibataire sans enfant") return "Projet individuel, flexibilité maximale dans les choix";
+    if (famille === "Célibataire avec enfant(s)") return "Priorité stabilité et espace, capacité à gérer seul(e)";
+    if (famille === "En couple sans enfant") return "Projet à deux, capacité d'emprunt renforcée";
+    if (famille === "En couple avec enfant(s)") return "Priorité familiale, surface et localisation adaptées";
     return "Non renseigné";
   };
 
@@ -313,7 +314,7 @@ const Resultat = () => {
             )}
 
             {/* Warning situation familiale avec enfants */}
-            {answers.situation_familiale === "Avec enfant(s)" && (
+            {(answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && (
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
                 <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
                 <p className="text-blue-800 text-sm">
