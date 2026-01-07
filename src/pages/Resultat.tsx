@@ -313,12 +313,21 @@ const Resultat = () => {
               </div>
             )}
 
-            {/* Warning situation familiale avec enfants */}
-            {(answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && (
+            {/* Warning situation familiale avec enfants - adapté selon la direction */}
+            {(answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Résidence Essentiel" && (
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
                 <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
                 <p className="text-blue-800 text-sm">
                   <strong className="text-blue-900">Pris en compte :</strong> Avec des enfants, on priorise stabilité, espace et proximité des écoles dans tes critères.
+                </p>
+              </div>
+            )}
+
+            {(answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Patrimoine Actif" && (
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                <p className="text-blue-800 text-sm">
+                  <strong className="text-blue-900">Pris en compte :</strong> Avec des enfants, on priorise l'accessibilité des biens pour éviter de longs déplacements.
                 </p>
               </div>
             )}
