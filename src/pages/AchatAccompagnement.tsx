@@ -266,7 +266,7 @@ const AchatAccompagnement = () => {
               </div>
               <div>
                 <span className="text-xs font-semibold text-primary uppercase tracking-wide">Ton accompagnement</span>
-                <h1 className="font-display text-lg font-bold text-foreground">{accompaniment.type} - {situationPro}</h1>
+                <h1 className="font-display text-lg font-bold text-foreground">{accompaniment.type} - {prenom} - {situationPro}</h1>
               </div>
             </div>
             <p className="text-sm text-muted-foreground mb-4">{accompaniment.description}</p>
