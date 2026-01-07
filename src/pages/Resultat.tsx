@@ -395,6 +395,24 @@ const Resultat = () => {
                 });
               }
 
+              if (answers.situation_pro === "Indépendant(e) / Freelance") {
+                messages.push({
+                  type: 'info',
+                  title: 'Profil bancaire spécifique :',
+                  text: 'En tant qu\'indépendant, les banques demandent généralement 2 à 3 bilans. On t\'aide à préparer un dossier solide.',
+                  priority: 14
+                });
+              }
+
+              if (answers.situation_pro === "Étudiant(e)") {
+                messages.push({
+                  type: 'info',
+                  title: 'Profil bancaire en construction :',
+                  text: 'En tant qu\'étudiant, c\'est le moment idéal pour apprendre et préparer ton projet. L\'accès au crédit viendra avec ton premier emploi stable.',
+                  priority: 15
+                });
+              }
+
               // Trier par priorité et limiter à 5
               const sortedMessages = messages.sort((a, b) => a.priority - b.priority).slice(0, 5);
 
