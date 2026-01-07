@@ -43,8 +43,30 @@ const questions: Question[] = [
     ]
   },
   {
+    id: "situation_familiale",
+    stepTitle: "Étape 3 – Ta situation personnelle",
+    question: "Aujourd'hui, tu es plutôt…",
+    type: "single",
+    options: [
+      "Célibataire",
+      "En couple",
+      "Avec enfant(s)"
+    ]
+  },
+  {
+    id: "logement_actuel",
+    stepTitle: "Étape 4 – Ton logement actuel",
+    question: "Actuellement, tu es…",
+    type: "single",
+    options: [
+      "Locataire",
+      "Hébergé(e) gratuitement",
+      "Déjà propriétaire"
+    ]
+  },
+  {
     id: "ressenti",
-    stepTitle: "Étape 3 – Ton ressenti face à l'investissement",
+    stepTitle: "Étape 5 – Ton ressenti face à l'investissement",
     question: "Quand tu penses à investir, tu ressens surtout…",
     type: "multi",
     maxSelections: 2,
@@ -57,7 +79,7 @@ const questions: Question[] = [
   },
   {
     id: "frein",
-    stepTitle: "Étape 4 – Ce qui te freine aujourd'hui",
+    stepTitle: "Étape 6 – Ce qui te freine aujourd'hui",
     question: "Qu'est-ce qui t'empêche le plus d'avancer ?",
     type: "multi",
     maxSelections: 2,
@@ -70,7 +92,7 @@ const questions: Question[] = [
   },
   {
     id: "situation_pro",
-    stepTitle: "Étape 5 – Ta situation actuelle",
+    stepTitle: "Étape 7 – Ta situation professionnelle",
     question: "Pour adapter cette direction à ta réalité quotidienne, tu es plutôt…",
     type: "single",
     options: [
@@ -80,8 +102,21 @@ const questions: Question[] = [
     ]
   },
   {
+    id: "revenus",
+    stepTitle: "Étape 8 – Tes revenus",
+    question: "Quel est ton revenu net mensuel (ou celui de ton foyer) ?",
+    description: "Cette info reste confidentielle et nous permet d'adapter nos recommandations.",
+    type: "single",
+    options: [
+      "Moins de 2 000 €",
+      "Entre 2 000 € et 3 500 €",
+      "Entre 3 500 € et 5 000 €",
+      "Plus de 5 000 €"
+    ]
+  },
+  {
     id: "horizon",
-    stepTitle: "Étape 6 – Ton horizon de passage à l'action",
+    stepTitle: "Étape 9 – Ton horizon de passage à l'action",
     question: "Tu aimerais avancer sérieusement dans…",
     type: "single",
     options: [
@@ -92,7 +127,7 @@ const questions: Question[] = [
   },
   {
     id: "capacite",
-    stepTitle: "Étape 7 – Ta capacité aujourd'hui (sans jargon)",
+    stepTitle: "Étape 10 – Ta capacité d'épargne",
     question: "Aujourd'hui, arrives-tu à mettre un peu d'argent de côté chaque mois ?",
     type: "single",
     options: [
@@ -103,7 +138,7 @@ const questions: Question[] = [
   },
   {
     id: "prenom",
-    stepTitle: "Étape 8 – Faisons connaissance",
+    stepTitle: "Étape 11 – Faisons connaissance",
     question: "Quel est ton prénom ?",
     description: "Chez NousProprio, on ne te parle pas comme à un numéro.\nOn préfère t'accompagner comme une vraie personne, avec ton histoire et tes objectifs.",
     type: "text",
