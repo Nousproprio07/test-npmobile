@@ -307,25 +307,9 @@ const Questionnaire = () => {
                 Trouve ta direction immobilière
               </h1>
               
-              <div className="text-left mb-8">
-                <p className="text-primary-foreground/90 text-lg mb-4">
-                  <strong className="text-primary-foreground">11 questions</strong> pour :
-                </p>
-                <ul className="space-y-2 text-primary-foreground/80">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#99c5ff]">•</span>
-                    Clarifier ta situation actuelle
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#99c5ff]">•</span>
-                    Identifier ce qui te bloque
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#99c5ff]">•</span>
-                    Recevoir ta feuille de route personnalisée
-                  </li>
-                </ul>
-              </div>
+              <p className="text-primary-foreground/90 text-lg mb-8 text-center">
+                <strong className="text-primary-foreground">3 minutes</strong> pour recevoir ta feuille de route personnalisée
+              </p>
 
               <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-primary-foreground/20">
                 <p className="text-primary-foreground/80 text-base leading-relaxed">
