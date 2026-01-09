@@ -98,10 +98,15 @@ const ActionSection = () => {
                   </p>
                   
                   {/* Arrow indicator - desktop only */}
-                  <div className="mt-4 md:mt-6 hidden md:flex items-center gap-2 text-glacier-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button 
+                    onClick={() => {
+                      document.getElementById('boussole')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="mt-4 md:mt-6 hidden md:flex items-center gap-2 text-glacier-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer hover:text-white"
+                  >
                     <span className="text-sm font-medium">Découvrir</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
+                  </button>
                 </div>
               </div>
             ))}

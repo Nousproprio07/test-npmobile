@@ -25,7 +25,7 @@ const steps = [
 
 const OffreSection = () => {
   return (
-    <section className="relative py-14 md:py-20 bg-background overflow-hidden">
+    <section id="boussole" className="relative py-14 md:py-20 bg-background overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 right-0 w-96 h-96 bg-glacier/10 rounded-full blur-3xl" />
