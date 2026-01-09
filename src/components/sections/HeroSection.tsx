@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
-import { ArrowRight, Check, Users, LogIn } from "lucide-react";
+import { ArrowRight, Users, LogIn, Eye, ShieldCheck, Map } from "lucide-react";
 
 const HeroSection = () => {
   const benefits = [
-    "Comprend ta situation réelle",
-    "Évite les erreurs coûteuses",
-    "Avance avec un plan clair"
+    { text: "Comprend ta situation réelle", icon: Eye },
+    { text: "Évite les erreurs coûteuses", icon: ShieldCheck },
+    { text: "Avance avec un plan clair", icon: Map }
   ];
 
   return (
@@ -68,22 +68,17 @@ const HeroSection = () => {
             </span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-primary-foreground/85 mb-6 md:mb-8 animate-fade-up-delay-1 leading-relaxed px-2">
-            Un diagnostic intelligent pour comprendre où tu en es et savoir quoi faire maintenant.
-          </p>
-
-          {/* 3 bénéfices clés - stacked layout for all screens */}
-          <div className="flex flex-col gap-2.5 justify-center mb-8 md:mb-10 animate-fade-up-delay-2 px-4 max-w-md mx-auto">
+          {/* 3 bénéfices clés - avec pictogrammes */}
+          <div className="flex flex-col gap-3 justify-center mb-8 md:mb-10 animate-fade-up-delay-1 px-4 max-w-md mx-auto">
             {benefits.map((benefit, index) => (
               <div 
                 key={index}
-                className="flex items-center gap-3 text-primary-foreground bg-primary-foreground/10 backdrop-blur-sm rounded-xl px-4 py-3"
+                className="flex items-center gap-4 text-primary-foreground bg-primary-foreground/10 backdrop-blur-sm rounded-2xl px-5 py-4 hover:bg-primary-foreground/15 transition-all duration-300"
               >
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-glacier flex items-center justify-center">
-                  <Check className="w-3 h-3 text-glacier-foreground" strokeWidth={3} />
+                <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-glacier flex items-center justify-center shadow-lg">
+                  <benefit.icon className="w-5 h-5 text-glacier-foreground" strokeWidth={2.5} />
                 </span>
-                <span className="text-sm md:text-base font-medium">{benefit}</span>
+                <span className="text-base md:text-lg font-medium">{benefit.text}</span>
               </div>
             ))}
           </div>
