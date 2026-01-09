@@ -49,6 +49,16 @@ const PourQuiSection = () => {
                     </p>
                   </div>
                 </div>
+
+                {/* Notre objectif */}
+                <div className="pt-6 md:pt-8">
+                  <p className="text-sm md:text-base text-muted-foreground mb-2">Notre objectif</p>
+                  <p className="text-lg sm:text-xl md:text-2xl font-display font-bold text-foreground leading-relaxed">
+                    Ne pas rester avec <span className="text-muted-foreground">"une direction"</span>,
+                    <br className="hidden md:block" />
+                    mais un <span className="text-glacier-foreground">chemin clair</span> pour la concrétiser.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
