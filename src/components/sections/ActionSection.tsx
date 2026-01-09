@@ -106,29 +106,6 @@ const ActionSection = () => {
               </div>
             ))}
           </div>
-
-          {/* Objective Banner */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 rounded-2xl blur-xl" />
-            <div className="relative bg-white/10 backdrop-blur-md border border-white/30 rounded-2xl p-8 md:p-10">
-              <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-                <div className="flex-shrink-0">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-glacier-300 to-white flex items-center justify-center shadow-2xl">
-                    <CheckCircle2 className="w-10 h-10 text-np-blue" />
-                  </div>
-                </div>
-                
-                <div className="text-center md:text-left flex-1">
-                  <p className="text-lg md:text-xl text-white/60 mb-2">Notre objectif</p>
-                <p className="text-xl md:text-2xl lg:text-3xl font-display font-bold text-white leading-relaxed">
-                    Ne pas rester avec <span className="text-white/80">"une direction"</span>,
-                    <br className="hidden md:block" />
-                    mais un <span className="text-glacier-300">chemin clair</span> pour la concrétiser.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
