@@ -7,7 +7,7 @@ const steps = [
     icon: ClipboardCheck,
     number: "01",
     title: "Un questionnaire simple",
-    description: "Quelques minutes pour poser les bases de ton projet.",
+    description: "3 minutes pour poser les bases de ton projet.",
   },
   {
     icon: BarChart3,
