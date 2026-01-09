@@ -55,7 +55,7 @@ const HeroSection = () => {
         {/* Hero content - centered vertically */}
         <div className="flex-1 flex flex-col justify-center max-w-2xl mx-auto text-center px-2 pb-20 md:pb-24">
           {/* Main headline */}
-          <h1 className="font-display text-[1.75rem] leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 md:mb-6 animate-fade-up">
+          <h1 className="font-display text-[1.75rem] leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-8 md:mb-14 animate-fade-up">
             Trouve la bonne direction pour ton projet immobilier{" "}
             <span className="relative inline-block whitespace-nowrap">
               en 3 minutes.
