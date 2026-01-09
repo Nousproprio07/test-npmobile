@@ -64,7 +64,7 @@ const HeroSection = () => {
             Trouve la bonne direction pour ton projet immobilier{" "}
             <span className="relative inline-block whitespace-nowrap">
               en 3 minutes.
-              <span className="absolute -bottom-0.5 md:-bottom-1 left-0 right-0 h-0.5 md:h-1 bg-glacier rounded-full" />
+              <span className="absolute -bottom-0.5 md:-bottom-1 left-0 right-0 h-0.5 md:h-1 bg-red-500 rounded-full" />
             </span>
           </h1>
 
