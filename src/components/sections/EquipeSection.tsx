@@ -1,13 +1,6 @@
-import { Users, ArrowRight, Building2, HardHat, Wallet, Landmark, type LucideIcon } from "lucide-react";
+import { Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
-const teamMembers: { role: string; icon: LucideIcon }[] = [
-  { role: "Une directrice d'agence bancaire", icon: Building2 },
-  { role: "Un ancien développeur immobilier", icon: HardHat },
-  { role: "Une experte en financement bancaire", icon: Wallet },
-  { role: "Une ancienne banquière", icon: Landmark },
-];
 
 
 const EquipeSection = () => {
@@ -36,28 +29,6 @@ const EquipeSection = () => {
         {/* Main card */}
         <div className="max-w-4xl mx-auto">
           <div className="p-6 md:p-10 rounded-3xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-glacier/30 transition-all duration-500 hover:shadow-[0_8px_30px_-10px_hsl(var(--glacier)/0.3)]">
-            
-            {/* Team members */}
-            <p className="text-lg md:text-xl font-medium text-foreground mb-6">
-              Notre équipe est composée de :
-            </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-8">
-              {teamMembers.map((member, index) => {
-                const IconComponent = member.icon;
-                return (
-                  <div
-                    key={index}
-                    className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier text-primary-foreground group hover:scale-[1.02] transition-transform duration-300"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <p className="font-medium text-base md:text-lg">{member.role}</p>
-                  </div>
-                );
-              })}
-            </div>
 
             {/* Highlight message */}
             <div className="relative p-6 md:p-8 rounded-2xl bg-glacier/10 border border-glacier/20 mb-8">
