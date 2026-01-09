@@ -35,10 +35,6 @@ const OffreSection = () => {
       <div className="container relative z-10">
         {/* Header */}
         <div className="text-center mb-10 md:mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <Compass className="w-4 h-4 text-primary" />
-            <span className="text-primary text-sm font-medium">La méthode</span>
-          </div>
           
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
             La boussole{" "}

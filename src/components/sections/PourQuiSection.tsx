@@ -1,4 +1,4 @@
-import { Compass, ArrowDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 const PourQuiSection = () => {
   return (
@@ -11,13 +11,6 @@ const PourQuiSection = () => {
 
       <div className="container px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
-          {/* Badge animé */}
-          <div className="flex justify-center mb-8 animate-fade-up">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-np-blue/10 border border-np-blue/20 text-np-blue text-sm font-medium">
-              <Compass className="w-4 h-4" />
-              Le vrai problème
-            </span>
-          </div>
 
           {/* Titre principal avec accent */}
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-8 md:mb-12 leading-tight animate-fade-up-delay-1">
