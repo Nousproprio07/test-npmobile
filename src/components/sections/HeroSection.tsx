@@ -69,16 +69,16 @@ const HeroSection = () => {
           </h1>
 
           {/* 3 bénéfices clés - avec pictogrammes */}
-          <div className="flex flex-col gap-3 justify-center mb-8 md:mb-10 animate-fade-up-delay-1 px-4 max-w-md mx-auto">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8 md:mb-10 animate-fade-up-delay-1 px-4">
             {benefits.map((benefit, index) => (
               <div 
                 key={index}
-                className="flex items-center gap-4 text-primary-foreground bg-primary-foreground/10 backdrop-blur-sm rounded-2xl px-5 py-4 hover:bg-primary-foreground/15 transition-all duration-300"
+                className="flex flex-col items-center gap-2 text-primary-foreground"
               >
-                <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-glacier flex items-center justify-center shadow-lg">
-                  <benefit.icon className="w-5 h-5 text-glacier-foreground" strokeWidth={2.5} />
+                <span className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center">
+                  <benefit.icon className="w-6 h-6 text-glacier" strokeWidth={2} />
                 </span>
-                <span className="text-base md:text-lg font-medium">{benefit.text}</span>
+                <span className="text-sm md:text-base font-medium text-center max-w-[120px]">{benefit.text}</span>
               </div>
             ))}
           </div>
