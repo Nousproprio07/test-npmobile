@@ -30,40 +30,29 @@ const PourQuiSection = () => {
           <div className="relative animate-fade-up-delay-2">
             <div className="absolute inset-0 bg-gradient-to-br from-glacier/20 to-np-blue/10 rounded-3xl blur-xl" />
             <div className="relative bg-background/80 backdrop-blur-sm border border-border/50 rounded-3xl p-6 sm:p-8 md:p-12 shadow-card">
-              
-              {/* Phrase clé */}
-              <p className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-center text-foreground mb-8 md:mb-10 leading-relaxed">
-                Tu as un projet.{" "}
-                <span className="text-glacier-foreground bg-glacier/30 px-2 py-1 rounded-lg">
-                  Mais pas le chemin
-                </span>{" "}
-                pour y arriver.
-              </p>
-
-              {/* Séparateur stylé */}
-              <div className="flex items-center justify-center gap-4 mb-8 md:mb-10">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-                <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-              </div>
 
               {/* Texte explicatif */}
               <div className="space-y-6 text-center">
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
                   Aujourd'hui, la plupart des futurs investisseurs abandonnent non pas par manque d'argent,{" "}
                   <span className="font-semibold text-foreground">
                     mais par manque de direction.
                   </span>
                 </p>
 
+                <p className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-foreground leading-relaxed">
+                  Tu as un projet.{" "}
+                  <span className="text-glacier-foreground bg-glacier/30 px-2 py-1 rounded-lg">
+                    Mais pas le cap
+                  </span>{" "}
+                  pour y arriver.
+                </p>
+
                 {/* Bloc NousProprio */}
                 <div className="pt-4 md:pt-6">
                   <div className="inline-flex flex-col items-center gap-3 p-4 sm:p-6 rounded-2xl bg-np-blue/5 border border-np-blue/10">
-                    <p className="text-sm sm:text-base text-muted-foreground">
-                      NousProprio existe pour répondre à une seule question :
-                    </p>
                     <p className="font-display font-bold text-lg sm:text-xl md:text-2xl text-np-blue">
-                      Par quoi commencer quand on débute ?
+                      NousProprio t'apporte la solution
                     </p>
                   </div>
                 </div>
