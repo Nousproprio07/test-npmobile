@@ -43,7 +43,7 @@ const PourQuiSection = () => {
 
                 {/* Bloc NousProprio */}
                 <div className="pt-4 md:pt-6">
-                  <div className="inline-flex flex-col items-center gap-3 p-4 sm:p-6 rounded-2xl bg-np-blue/5 border border-np-blue/10">
+                  <div className="inline-flex flex-col items-center gap-3 p-4 sm:p-6 rounded-2xl bg-glacier/10 border border-glacier/20">
                     <p className="font-display font-bold text-lg sm:text-xl md:text-2xl text-np-blue">
                       NousProprio t'apporte la solution
                     </p>
