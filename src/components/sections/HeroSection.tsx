@@ -63,21 +63,27 @@ const HeroSection = () => {
             </span>
           </h1>
 
-          {/* 3 bénéfices clés - design épuré et élégant */}
-          <div className="flex items-center justify-center gap-3 md:gap-4 mb-10 md:mb-12 animate-fade-up-delay-1 flex-wrap px-4">
-            <div className="flex items-center gap-2">
-              <Eye className="w-4 h-4 text-glacier" />
-              <span className="text-sm md:text-base text-primary-foreground/90">Comprend ta situation</span>
+          {/* 3 bénéfices clés - expérience unique */}
+          <div className="flex flex-col items-center gap-5 md:gap-6 mb-10 md:mb-12 animate-fade-up-delay-1">
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-glacier/60" />
+              <Eye className="w-5 h-5 text-glacier" />
+              <span className="text-base md:text-lg text-primary-foreground font-light tracking-wide">Comprend ta situation</span>
+              <span className="w-8 h-[1px] bg-gradient-to-l from-transparent to-glacier/60" />
             </div>
-            <span className="hidden sm:block w-1 h-1 rounded-full bg-primary-foreground/40" />
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-glacier" />
-              <span className="text-sm md:text-base text-primary-foreground/90">Évite les erreurs</span>
+            
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-glacier/60" />
+              <ShieldCheck className="w-5 h-5 text-glacier" />
+              <span className="text-base md:text-lg text-primary-foreground font-light tracking-wide">Évite les erreurs</span>
+              <span className="w-8 h-[1px] bg-gradient-to-l from-transparent to-glacier/60" />
             </div>
-            <span className="hidden sm:block w-1 h-1 rounded-full bg-primary-foreground/40" />
-            <div className="flex items-center gap-2">
-              <Map className="w-4 h-4 text-glacier" />
-              <span className="text-sm md:text-base text-primary-foreground/90">Avance avec un plan</span>
+            
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-glacier/60" />
+              <Map className="w-5 h-5 text-glacier" />
+              <span className="text-base md:text-lg text-primary-foreground font-light tracking-wide">Avance avec un plan</span>
+              <span className="w-8 h-[1px] bg-gradient-to-l from-transparent to-glacier/60" />
             </div>
           </div>
 
