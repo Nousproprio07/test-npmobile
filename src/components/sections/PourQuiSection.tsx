@@ -21,11 +21,8 @@ const PourQuiSection = () => {
 
           {/* Titre principal avec accent */}
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-8 md:mb-12 leading-tight animate-fade-up-delay-1">
-            Pourquoi tu es{" "}
-            <span className="relative inline-block">
-              bloqué
-              <span className="absolute -bottom-1 left-0 right-0 h-1 bg-accent/60 rounded-full" />
-            </span>
+            Pourquoi es-tu{" "}
+            <span className="text-red-500">bloqué</span>
             <span className="text-accent"> ?</span>
           </h2>
 
