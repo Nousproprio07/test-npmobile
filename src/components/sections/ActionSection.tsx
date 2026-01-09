@@ -52,9 +52,9 @@ const ActionSection = () => {
           <div className="text-center mb-16 md:mb-20">
             
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight">
-              Une fois ta direction
+              On crée ta
               <span className="block mt-2 text-glacier-300">
-                trouvée
+                feuille de route
               </span>
             </h2>
             
