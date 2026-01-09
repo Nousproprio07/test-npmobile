@@ -33,7 +33,7 @@ const questions: Question[] = [
   {
     id: "benefice",
     stepTitle: "Étape 2 – Ce que ce projet changerait vraiment pour toi",
-    question: "Si ce projet aboutissait, qu'est-ce que ça t'apporterait avant tout ?",
+    question: "Quel est l'objectif de ton projet immobilier ?",
     description: "Tu peux sélectionner une seule réponse",
     type: "single",
     options: [
@@ -45,7 +45,7 @@ const questions: Question[] = [
   {
     id: "situation_familiale",
     stepTitle: "Étape 3 – Ta situation personnelle",
-    question: "Aujourd'hui, tu es plutôt…",
+    question: "Aujourd'hui, tu es …",
     type: "single",
     options: [
       "Célibataire",
@@ -94,7 +94,7 @@ const questions: Question[] = [
   {
     id: "situation_pro",
     stepTitle: "Étape 7 – Ta situation professionnelle",
-    question: "Pour adapter cette direction à ta réalité quotidienne, tu es plutôt…",
+    question: "Pour adapter cette direction à ta réalité quotidienne, tu es …",
     type: "single",
     options: [
       "Étudiant(e)",
