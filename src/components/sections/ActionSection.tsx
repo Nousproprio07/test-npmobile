@@ -50,10 +50,6 @@ const ActionSection = () => {
         <div className="max-w-5xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16 md:mb-20">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 mb-6">
-              <Sparkles className="w-4 h-4 text-glacier-200" />
-              <span className="text-white/90 text-sm font-medium">Passe à l'action</span>
-            </div>
             
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight">
               Une fois ta direction
