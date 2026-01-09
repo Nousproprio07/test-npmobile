@@ -28,7 +28,7 @@ const EquipeSection = () => {
 
             {/* Highlight message */}
             <div className="relative p-6 md:p-8 rounded-2xl bg-glacier/10 border border-glacier/20 mb-8">
-              <div className="absolute -top-3 left-6 px-3 py-1 bg-glacier text-glacier-foreground text-xs font-bold rounded-full">
+              <div className="absolute -top-3 left-6 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
                 Le plus important
               </div>
               <p className="text-xl md:text-2xl font-bold text-foreground text-center pt-2">
