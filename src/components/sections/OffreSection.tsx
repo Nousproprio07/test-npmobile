@@ -19,7 +19,7 @@ const steps = [
     icon: Navigation,
     number: "03",
     title: "Une restitution personnalisée",
-    description: "Ta direction patrimoniale claire, adaptée à toi.",
+    description: "Ta feuille de route claire, adaptée à toi.",
   },
 ];
 
