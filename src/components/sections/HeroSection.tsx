@@ -4,11 +4,6 @@ import Logo from "@/components/Logo";
 import { ArrowRight, Users, LogIn, Eye, ShieldCheck, Map } from "lucide-react";
 
 const HeroSection = () => {
-  const benefits = [
-    { text: "Comprend ta situation réelle", icon: Eye },
-    { text: "Évite les erreurs coûteuses", icon: ShieldCheck },
-    { text: "Avance avec un plan clair", icon: Map }
-  ];
 
   return (
     <section className="relative min-h-[100svh] bg-hero overflow-hidden flex flex-col">
@@ -68,19 +63,22 @@ const HeroSection = () => {
             </span>
           </h1>
 
-          {/* 3 bénéfices clés - avec pictogrammes */}
-          <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8 md:mb-10 animate-fade-up-delay-1 px-4">
-            {benefits.map((benefit, index) => (
-              <div 
-                key={index}
-                className="flex flex-col items-center gap-2 text-primary-foreground"
-              >
-                <span className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center">
-                  <benefit.icon className="w-6 h-6 text-glacier" strokeWidth={2} />
-                </span>
-                <span className="text-sm md:text-base font-medium text-center max-w-[120px]">{benefit.text}</span>
-              </div>
-            ))}
+          {/* 3 bénéfices clés - design épuré et élégant */}
+          <div className="flex items-center justify-center gap-3 md:gap-4 mb-10 md:mb-12 animate-fade-up-delay-1 flex-wrap px-4">
+            <div className="flex items-center gap-2">
+              <Eye className="w-4 h-4 text-glacier" />
+              <span className="text-sm md:text-base text-primary-foreground/90">Comprend ta situation</span>
+            </div>
+            <span className="hidden sm:block w-1 h-1 rounded-full bg-primary-foreground/40" />
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-glacier" />
+              <span className="text-sm md:text-base text-primary-foreground/90">Évite les erreurs</span>
+            </div>
+            <span className="hidden sm:block w-1 h-1 rounded-full bg-primary-foreground/40" />
+            <div className="flex items-center gap-2">
+              <Map className="w-4 h-4 text-glacier" />
+              <span className="text-sm md:text-base text-primary-foreground/90">Avance avec un plan</span>
+            </div>
           </div>
 
           {/* CTA Button - same style for all screens */}
