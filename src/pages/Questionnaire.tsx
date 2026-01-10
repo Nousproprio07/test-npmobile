@@ -239,6 +239,13 @@ const Questionnaire = () => {
     const currentAnswers = (answers[questionId] as string[]) || [];
     
     if (currentAnswers.length > 0 && currentStep < totalSteps - 1) {
+      // Trigger encouragement message if applicable
+      const encouragementMessage = encouragementTriggers[questionId];
+      if (encouragementMessage) {
+        setShowEncouragement(encouragementMessage);
+        setTimeout(() => setShowEncouragement(null), 3000);
+      }
+      
       setIsAnimating(true);
       setIsRevisiting(false);
       setTimeout(() => {
