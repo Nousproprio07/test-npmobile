@@ -61,7 +61,7 @@ const OffreSection = () => {
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier flex items-center justify-center shadow-lg">
                       <step.icon className="w-7 h-7 text-primary-foreground" />
                     </div>
-                    <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center shadow-md">
+                    <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-np-red text-white text-xs font-bold flex items-center justify-center shadow-md">
                       {step.number}
                     </span>
                   </div>
@@ -86,15 +86,15 @@ const OffreSection = () => {
                 className="group relative"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className="h-full flex flex-col p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-glacier/30 hover:bg-card/80 transition-all duration-500 group-hover:shadow-[0_8px_30px_-10px_hsl(var(--glacier)/0.3)] group-hover:scale-[1.02]">
-                  {/* Number badge */}
-                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-glacier/20 text-glacier text-lg font-bold mb-5">
-                    {step.number}
-                  </span>
-                  
-                  {/* Icon */}
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier flex items-center justify-center shadow-lg mb-5 group-hover:scale-105 transition-transform duration-300">
-                    <step.icon className="w-7 h-7 text-primary-foreground" />
+                <div className="h-full flex flex-col items-center text-center p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-glacier/30 hover:bg-card/80 transition-all duration-500 group-hover:shadow-[0_8px_30px_-10px_hsl(var(--glacier)/0.3)] group-hover:scale-[1.02]">
+                  {/* Icon with number badge */}
+                  <div className="relative mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                      <step.icon className="w-8 h-8 text-primary-foreground" />
+                    </div>
+                    <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-np-red text-white text-sm font-bold flex items-center justify-center shadow-md">
+                      {step.number}
+                    </span>
                   </div>
                   
                   {/* Content */}
