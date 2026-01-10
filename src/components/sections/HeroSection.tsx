@@ -53,9 +53,9 @@ const HeroSection = () => {
         </header>
 
         {/* Hero content - centered vertically */}
-        <div className="flex-1 flex flex-col justify-center max-w-2xl mx-auto text-center px-2 pb-20 md:pb-24">
+        <div className="flex-1 flex flex-col justify-center max-w-5xl mx-auto text-center px-2 pb-20 md:pb-24">
           {/* Main headline */}
-          <h1 className="font-display text-[1.75rem] leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-8 md:mb-10 animate-fade-up">
+          <h1 className="font-display text-[1.75rem] leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-8 md:mb-12 animate-fade-up">
             Trouve la bonne direction pour ton projet immobilier{" "}
             <span className="relative inline-block whitespace-nowrap">
               en 3 minutes.
@@ -63,33 +63,73 @@ const HeroSection = () => {
             </span>
           </h1>
 
-          {/* 3 bénéfices clés - expérience unique et cohérente mobile/desktop */}
-          <div className="flex flex-col items-center gap-4 md:gap-5 mb-10 md:mb-12 animate-fade-up-delay-1">
-            <div className="flex items-center gap-3 md:gap-4">
-              <span className="w-6 md:w-10 h-[1px] bg-gradient-to-r from-transparent to-glacier/60" />
-              <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-glacier/10 flex items-center justify-center">
-                <Eye className="w-4 h-4 md:w-5 md:h-5 text-glacier" />
+          {/* 3 bénéfices clés - Mobile: vertical / Desktop: horizontal cards */}
+          {/* Mobile layout */}
+          <div className="flex flex-col items-center gap-4 mb-10 md:hidden animate-fade-up-delay-1">
+            <div className="flex items-center gap-3">
+              <span className="w-6 h-[1px] bg-gradient-to-r from-transparent to-glacier/60" />
+              <div className="w-9 h-9 rounded-full bg-glacier/10 flex items-center justify-center">
+                <Eye className="w-4 h-4 text-glacier" />
               </div>
-              <span className="text-base md:text-lg text-primary-foreground font-light tracking-wide">Comprend ta situation</span>
-              <span className="w-6 md:w-10 h-[1px] bg-gradient-to-l from-transparent to-glacier/60" />
+              <span className="text-base text-primary-foreground font-light tracking-wide">Comprend ta situation</span>
+              <span className="w-6 h-[1px] bg-gradient-to-l from-transparent to-glacier/60" />
             </div>
             
-            <div className="flex items-center gap-3 md:gap-4">
-              <span className="w-6 md:w-10 h-[1px] bg-gradient-to-r from-transparent to-glacier/60" />
-              <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-glacier/10 flex items-center justify-center">
-                <ShieldCheck className="w-4 h-4 md:w-5 md:h-5 text-glacier" />
+            <div className="flex items-center gap-3">
+              <span className="w-6 h-[1px] bg-gradient-to-r from-transparent to-glacier/60" />
+              <div className="w-9 h-9 rounded-full bg-glacier/10 flex items-center justify-center">
+                <ShieldCheck className="w-4 h-4 text-glacier" />
               </div>
-              <span className="text-base md:text-lg text-primary-foreground font-light tracking-wide">Évite les erreurs</span>
-              <span className="w-6 md:w-10 h-[1px] bg-gradient-to-l from-transparent to-glacier/60" />
+              <span className="text-base text-primary-foreground font-light tracking-wide">Évite les erreurs</span>
+              <span className="w-6 h-[1px] bg-gradient-to-l from-transparent to-glacier/60" />
             </div>
             
-            <div className="flex items-center gap-3 md:gap-4">
-              <span className="w-6 md:w-10 h-[1px] bg-gradient-to-r from-transparent to-glacier/60" />
-              <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-glacier/10 flex items-center justify-center">
-                <Map className="w-4 h-4 md:w-5 md:h-5 text-glacier" />
+            <div className="flex items-center gap-3">
+              <span className="w-6 h-[1px] bg-gradient-to-r from-transparent to-glacier/60" />
+              <div className="w-9 h-9 rounded-full bg-glacier/10 flex items-center justify-center">
+                <Map className="w-4 h-4 text-glacier" />
               </div>
-              <span className="text-base md:text-lg text-primary-foreground font-light tracking-wide">Avance avec un plan</span>
-              <span className="w-6 md:w-10 h-[1px] bg-gradient-to-l from-transparent to-glacier/60" />
+              <span className="text-base text-primary-foreground font-light tracking-wide">Avance avec un plan</span>
+              <span className="w-6 h-[1px] bg-gradient-to-l from-transparent to-glacier/60" />
+            </div>
+          </div>
+
+          {/* Desktop layout - Horizontal cards */}
+          <div className="hidden md:grid md:grid-cols-3 gap-6 mb-14 animate-fade-up-delay-1 px-4">
+            <div className="group relative bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-2xl p-6 hover:bg-primary-foreground/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-glacier/10">
+              <div className="flex flex-col items-center text-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-glacier/20 flex items-center justify-center group-hover:bg-glacier/30 transition-colors">
+                  <Eye className="w-7 h-7 text-glacier" />
+                </div>
+                <span className="text-lg text-primary-foreground font-medium tracking-wide">Comprend ta situation</span>
+                <p className="text-sm text-primary-foreground/60 leading-relaxed">
+                  Un diagnostic adapté à ton profil et tes objectifs
+                </p>
+              </div>
+            </div>
+            
+            <div className="group relative bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-2xl p-6 hover:bg-primary-foreground/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-glacier/10">
+              <div className="flex flex-col items-center text-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-glacier/20 flex items-center justify-center group-hover:bg-glacier/30 transition-colors">
+                  <ShieldCheck className="w-7 h-7 text-glacier" />
+                </div>
+                <span className="text-lg text-primary-foreground font-medium tracking-wide">Évite les erreurs</span>
+                <p className="text-sm text-primary-foreground/60 leading-relaxed">
+                  Les pièges à éviter selon ta situation
+                </p>
+              </div>
+            </div>
+            
+            <div className="group relative bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-2xl p-6 hover:bg-primary-foreground/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-glacier/10">
+              <div className="flex flex-col items-center text-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-glacier/20 flex items-center justify-center group-hover:bg-glacier/30 transition-colors">
+                  <Map className="w-7 h-7 text-glacier" />
+                </div>
+                <span className="text-lg text-primary-foreground font-medium tracking-wide">Avance avec un plan</span>
+                <p className="text-sm text-primary-foreground/60 leading-relaxed">
+                  Des étapes claires pour concrétiser ton projet
+                </p>
+              </div>
             </div>
           </div>
 
