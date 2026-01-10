@@ -30,7 +30,7 @@ const ActionSection = () => {
       description: "Pour avancer dans le bon ordre, à ton rythme",
       gradient: "from-np-blue to-glacier-400",
       bgGlow: "bg-np-blue/20",
-      badge: "onair",
+      badge: "counter",
     },
     {
       icon: MessageCircle,
@@ -38,7 +38,7 @@ const ActionSection = () => {
       description: "Chaque semaine pour débloquer tes points de friction",
       gradient: "from-glacier-500 to-glacier-300",
       bgGlow: "bg-glacier-400/20",
-      badge: "counter",
+      badge: "onair",
     },
   ];
 
