@@ -133,30 +133,16 @@ const Resultat = () => {
           </header>
 
           <div className={`max-w-3xl mx-auto text-center pb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4">
-              Ta direction immobilière
+            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-10">
+              <span className="text-[#99c5ff]">{prenom}</span>, voici ta feuille de route
             </h1>
-            
-            <p className="text-xl text-primary-foreground/90 mb-10">
-              <span className="text-[#99c5ff] font-bold">{prenom}</span>, voici la direction la plus cohérente pour toi aujourd'hui
-            </p>
 
-            {/* Bloc - Ta feuille de route (remplace ancien bloc 1) */}
+            {/* Bloc - Feuille de route */}
             <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-8 relative overflow-hidden">
               {/* Sparkle icon */}
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#99c5ff]/20 mb-4 animate-scale-in">
                 <Sparkles className="w-7 h-7 text-[#99c5ff]" />
               </div>
-
-              <h2 className="text-xl md:text-2xl font-display font-bold text-primary-foreground mb-4">
-                Ta feuille de route
-              </h2>
-              
-              <p className="text-lg text-[#99c5ff] font-semibold mb-6">
-                Direction : {accompaniment.type === "Résidence Essentiel" 
-                  ? "devenir propriétaire intelligemment avant de penser investissement" 
-                  : "Comprendre comment créer son patrimoine et ses revenus immobiliers"}
-              </p>
 
               {/* Recommendation card */}
               <div className="bg-primary-foreground rounded-2xl p-6 md:p-8 shadow-xl text-left relative overflow-hidden">
