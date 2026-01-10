@@ -166,9 +166,9 @@ const Resultat = () => {
                       <h3 className="font-display text-lg md:text-2xl font-bold text-foreground leading-tight">
                         {accompaniment.type}
                       </h3>
-                      <p className="text-base md:text-lg font-medium text-primary/80">
+                      <span className="inline-block mt-1 px-3 py-1 rounded-full bg-[#99c5ff]/20 text-primary font-semibold text-sm md:text-base">
                         {prenom} • {answers.situation_pro || "Salarié(e)"}
-                      </p>
+                      </span>
                     </div>
                   </div>
                   
