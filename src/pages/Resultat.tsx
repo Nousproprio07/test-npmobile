@@ -146,7 +146,7 @@ const Resultat = () => {
               </div>
 
               {/* Recommendation card */}
-              <div className="bg-primary-foreground rounded-xl md:rounded-2xl p-4 md:p-8 shadow-xl text-left relative overflow-hidden">
+              <div className="bg-primary-foreground rounded-xl md:rounded-2xl p-5 md:p-10 shadow-xl text-left relative overflow-hidden mx-0 md:-mx-6 lg:-mx-10">
                 <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
                 
                 <div className="relative z-10">
