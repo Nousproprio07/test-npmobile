@@ -46,40 +46,64 @@ const OffreSection = () => {
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="grid gap-4 md:gap-6">
+        {/* Steps - Mobile: vertical / Desktop: horizontal */}
+        <div className="max-w-6xl mx-auto mb-12">
+          {/* Mobile layout */}
+          <div className="grid gap-4 md:hidden">
             {steps.map((step, index) => (
               <div
                 key={index}
                 className="group relative"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                {/* Connection line */}
-                {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute left-[39px] top-20 w-0.5 h-8 bg-gradient-to-b from-glacier/50 to-glacier/10" />
-                )}
-                
-                <div className="flex gap-5 md:gap-8 p-6 md:p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-glacier/30 hover:bg-card/80 transition-all duration-500 group-hover:shadow-[0_8px_30px_-10px_hsl(var(--glacier)/0.3)]">
-                  {/* Number & Icon */}
+                <div className="flex gap-5 p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-glacier/30 hover:bg-card/80 transition-all duration-500">
                   <div className="flex-shrink-0 relative">
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                      <step.icon className="w-7 h-7 md:w-8 md:h-8 text-primary-foreground" />
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier flex items-center justify-center shadow-lg">
+                      <step.icon className="w-7 h-7 text-primary-foreground" />
                     </div>
                     <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center shadow-md">
                       {step.number}
                     </span>
                   </div>
-                  
-                  {/* Content */}
                   <div className="flex-1 pt-1">
-                    <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-glacier transition-colors duration-300">
+                    <h3 className="font-display text-xl font-bold text-foreground mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+                    <p className="text-muted-foreground text-base leading-relaxed">
                       {step.description}
                     </p>
                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop layout - Horizontal cards */}
+          <div className="hidden md:grid md:grid-cols-3 gap-6">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                className="group relative"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
+                <div className="h-full flex flex-col p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-glacier/30 hover:bg-card/80 transition-all duration-500 group-hover:shadow-[0_8px_30px_-10px_hsl(var(--glacier)/0.3)] group-hover:scale-[1.02]">
+                  {/* Number badge */}
+                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-glacier/20 text-glacier text-lg font-bold mb-5">
+                    {step.number}
+                  </span>
+                  
+                  {/* Icon */}
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier flex items-center justify-center shadow-lg mb-5 group-hover:scale-105 transition-transform duration-300">
+                    <step.icon className="w-7 h-7 text-primary-foreground" />
+                  </div>
+                  
+                  {/* Content */}
+                  <h3 className="font-display text-xl font-bold text-foreground mb-3 group-hover:text-glacier transition-colors duration-300">
+                    {step.title}
+                  </h3>
+                  <p className="text-muted-foreground text-base leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
               </div>
             ))}
