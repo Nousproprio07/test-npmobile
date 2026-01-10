@@ -247,50 +247,17 @@ const Resultat = () => {
         </div>
       </div>
 
-      {/* Bloc 2 — Ta direction patrimoniale (fond blanc) */}
+      {/* Bloc 2 — Tes points de vigilance (fond blanc) */}
       <div className="container py-8 md:py-12">
         <div className={`max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="bg-card rounded-2xl p-6 md:p-8 shadow-elegant border border-border text-left">
             <h2 className="text-xl md:text-2xl font-display font-bold text-foreground mb-4">
-              Bloc 2 — Ta direction patrimoniale
+              Bloc 2 — Tes points de vigilance
             </h2>
             
-            <p className="text-muted-foreground mb-4">
-              Ta priorité est de <strong className="text-foreground">
-                {accompaniment.type === "Résidence Essentiel" ? "sécuriser ton premier projet de vie" : "bâtir un patrimoine aligné avec tes objectifs"}
-              </strong>.
-            </p>
-
             <p className="text-muted-foreground mb-6">
-              <strong className="text-foreground">Tu cherches à :</strong>
+              Voici les points identifiés selon ta situation :
             </p>
-
-            <ul className="space-y-3 mb-6">
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-foreground">
-                  <strong className="text-primary">
-                    {accompaniment.type === "Résidence Essentiel" ? "Clarifier ce que tu veux vraiment construire" : "Comprendre comment créer des revenus immobiliers"}
-                  </strong>
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-foreground">
-                  <strong className="text-primary">
-                    {accompaniment.type === "Résidence Essentiel" ? "Structurer ton projet avant d'acheter" : "Choisir une stratégie adaptée à ton profil"}
-                  </strong>
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-foreground">
-                  <strong className="text-primary">
-                    {accompaniment.type === "Résidence Essentiel" ? "Faire des choix qui ont du sens pour ton avenir" : "Sécuriser tes premières décisions d'investisseur"}
-                  </strong>
-                </span>
-              </li>
-            </ul>
 
             {/* Messages personnalisés - limités à 5 maximum */}
             {(() => {
