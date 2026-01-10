@@ -133,7 +133,7 @@ const Resultat = () => {
             <Logo variant="light" />
           </header>
 
-          <div className={`max-w-3xl mx-auto text-center pb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`max-w-4xl mx-auto text-center pb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-10">
               <span className="text-[#99c5ff]">{prenom}</span>, voici ta feuille de route
             </h1>
