@@ -497,7 +497,7 @@ const Questionnaire = () => {
                   disabled={!prenomInput.trim() || !emailInput.trim() || !consentChecked}
                   className="w-full group bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold disabled:opacity-50"
                 >
-                  Recevoir ma feuille de route
+                  Voir ma feuille de route
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </Button>
               </div>
