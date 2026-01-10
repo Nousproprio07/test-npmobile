@@ -95,7 +95,7 @@ const HeroSection = () => {
                 size="lg" 
                 className="group w-full text-base py-6 rounded-2xl"
               >
-                Démarrer mon diagnostic
+                Découvrir ma direction
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0 ml-1" />
               </Button>
             </Link>
