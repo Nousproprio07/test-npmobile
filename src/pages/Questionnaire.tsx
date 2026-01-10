@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowRight, ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
 import Logo from "@/components/Logo";
 
@@ -10,7 +11,7 @@ interface Question {
   id: string;
   stepTitle: string;
   question: string;
-  type: "text" | "single" | "multi";
+  type: "text" | "single" | "multi" | "contact";
   options?: string[];
   placeholder?: string;
   description?: string;
@@ -138,12 +139,12 @@ const questions: Question[] = [
     ]
   },
   {
-    id: "prenom",
+    id: "contact",
     stepTitle: "Étape 11 – Faisons connaissance",
-    question: "Quel est ton prénom ?",
+    question: "Reçois ta feuille de route personnalisée",
     description: "Chez NousProprio, on ne te parle pas comme à un numéro.\nOn préfère t'accompagner comme une vraie personne, avec ton histoire et tes objectifs.",
-    type: "text",
-    placeholder: "Ton prénom..."
+    type: "contact",
+    placeholder: ""
   }
 ];
 
@@ -158,6 +159,9 @@ const Questionnaire = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [textInput, setTextInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [prenomInput, setPrenomInput] = useState("");
+  const [consentChecked, setConsentChecked] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [showEncouragement, setShowEncouragement] = useState<string | null>(null);
   const [isRevisiting, setIsRevisiting] = useState(false); // Track if user came back to this question
@@ -259,6 +263,32 @@ const Questionnaire = () => {
       setShowEncouragement("Merci ! Ta feuille de route arrive... ✨");
       setTimeout(() => {
         navigate("/resultat", { state: { answers: { ...answers, [questionId]: textInput.trim() } } });
+      }, 2000);
+    }
+  };
+
+  const handleContactSubmit = () => {
+    if (prenomInput.trim() && emailInput.trim() && consentChecked) {
+      setAnswers(prev => ({ 
+        ...prev, 
+        prenom: prenomInput.trim(),
+        email: emailInput.trim(),
+        consent: "true"
+      }));
+      
+      // Show encouragement for last question
+      setShowEncouragement("Merci ! Ta feuille de route arrive... ✨");
+      setTimeout(() => {
+        navigate("/resultat", { 
+          state: { 
+            answers: { 
+              ...answers, 
+              prenom: prenomInput.trim(),
+              email: emailInput.trim(),
+              consent: "true"
+            } 
+          } 
+        });
       }, 2000);
     }
   };
@@ -396,7 +426,51 @@ const Questionnaire = () => {
             )}
 
             {/* Answer options */}
-            {currentQuestion.type === "text" ? (
+            {currentQuestion.type === "contact" ? (
+              <div className="space-y-4 mt-4">
+                <Input
+                  type="text"
+                  value={prenomInput}
+                  onChange={(e) => setPrenomInput(e.target.value)}
+                  placeholder="Ton prénom..."
+                  className="h-14 text-lg bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
+                  autoFocus
+                />
+                <Input
+                  type="email"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  placeholder="Ton email..."
+                  className="h-14 text-lg bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
+                />
+                
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-primary-foreground/5 border border-primary-foreground/20">
+                  <Checkbox 
+                    id="consent" 
+                    checked={consentChecked}
+                    onCheckedChange={(checked) => setConsentChecked(checked === true)}
+                    className="mt-1 border-primary-foreground/50 data-[state=checked]:bg-[#99c5ff] data-[state=checked]:border-[#99c5ff]"
+                  />
+                  <label htmlFor="consent" className="text-primary-foreground/80 text-sm leading-relaxed cursor-pointer">
+                    J'accepte de recevoir ma feuille de route personnalisée par email
+                  </label>
+                </div>
+                
+                <p className="text-primary-foreground/50 text-xs leading-relaxed">
+                  🔒 Tes données sont protégées conformément au RGPD. Nous ne les partageons jamais avec des tiers et tu peux te désinscrire à tout moment.
+                </p>
+                
+                <Button
+                  size="lg"
+                  onClick={handleContactSubmit}
+                  disabled={!prenomInput.trim() || !emailInput.trim() || !consentChecked}
+                  className="w-full group bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold disabled:opacity-50"
+                >
+                  Recevoir ma feuille de route
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </div>
+            ) : currentQuestion.type === "text" ? (
               <div className="space-y-4 mt-4">
                 <Input
                   type="text"
