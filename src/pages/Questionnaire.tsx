@@ -334,38 +334,40 @@ const Questionnaire = () => {
           <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary-foreground rounded-full blur-3xl opacity-20" />
         </div>
 
-        <div className="container relative z-10 min-h-screen flex flex-col py-6">
+        <div className="container relative z-10 min-h-screen flex flex-col py-6 md:py-12">
           {/* Header */}
-          <header className="flex items-center justify-between mb-8">
+          <header className="flex items-center justify-between mb-8 md:mb-16">
             <Logo variant="light" />
           </header>
 
-          {/* Intro content */}
-          <div className="flex-1 flex flex-col justify-center max-w-xl mx-auto w-full text-center px-4">
+          {/* Intro content - wider on desktop */}
+          <div className="flex-1 flex flex-col justify-center max-w-xl md:max-w-3xl mx-auto w-full text-center px-4">
             <div className={`transition-all duration-500 ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
-              <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6 leading-tight">
+              <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 md:mb-8 leading-tight">
                 Trouve ta direction immobilière
               </h1>
               
-              <p className="text-primary-foreground/90 text-lg mb-8 text-center">
+              <p className="text-primary-foreground/90 text-lg md:text-xl mb-8 md:mb-10 text-center">
                 <strong className="text-primary-foreground">3 minutes</strong> pour recevoir ta feuille de route personnalisée
               </p>
 
-              <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-primary-foreground/20">
-                <p className="text-primary-foreground/80 text-base leading-relaxed">
+              <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-8 md:mb-10 border border-primary-foreground/20 max-w-lg mx-auto">
+                <p className="text-primary-foreground/80 text-base md:text-lg leading-relaxed">
                   Il n'y a pas de bonnes ou de mauvaises réponses.<br />
                   Réponds <strong className="text-primary-foreground">instinctivement</strong>.
                 </p>
               </div>
 
-              <Button
-                size="lg"
-                onClick={handleStartQuiz}
-                className="w-full group text-lg py-6 bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold"
-              >
-                Démarrer
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Button>
+              <div className="max-w-md mx-auto">
+                <Button
+                  size="lg"
+                  onClick={handleStartQuiz}
+                  className="w-full group text-lg md:text-xl py-6 md:py-7 bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold"
+                >
+                  Démarrer
+                  <ArrowRight className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -382,226 +384,241 @@ const Questionnaire = () => {
         <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary-foreground rounded-full blur-3xl opacity-20" />
       </div>
 
-      <div className="container relative z-10 min-h-screen flex flex-col py-6">
+      <div className="container relative z-10 min-h-screen flex flex-col py-6 md:py-12">
         {/* Header */}
-        <header className="flex items-center justify-between mb-8">
+        <header className="flex items-center justify-between mb-8 md:mb-12">
           <Logo variant="light" />
-          <span className="text-primary-foreground/70 text-sm">
+          <span className="text-primary-foreground/70 text-sm md:text-base font-medium">
             {currentStep + 1} / {totalSteps}
           </span>
         </header>
 
-        <div className="mb-8">
-          <Progress value={progress} className="h-2 bg-primary-foreground/20 [&>div]:bg-[#99c5ff]" />
+        <div className="mb-8 md:mb-12 max-w-3xl mx-auto w-full">
+          <Progress value={progress} className="h-2 md:h-3 bg-primary-foreground/20 [&>div]:bg-[#99c5ff]" />
         </div>
 
         {/* Encouragement message */}
         <div className={`mb-6 transition-all duration-500 ${showEncouragement ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none h-0 mb-0'}`}>
-          <div className="bg-white rounded-2xl shadow-lg border border-primary/10 p-4 max-w-md mx-auto flex items-center gap-4 animate-scale-in">
-            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
-              <span className="text-2xl">{showEncouragement?.emoji}</span>
+          <div className="bg-white rounded-2xl shadow-lg border border-primary/10 p-4 md:p-5 max-w-md md:max-w-lg mx-auto flex items-center gap-4 animate-scale-in">
+            <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
+              <span className="text-2xl md:text-3xl">{showEncouragement?.emoji}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-primary/60 uppercase tracking-wide mb-0.5">
+              <p className="text-xs md:text-sm font-semibold text-primary/60 uppercase tracking-wide mb-0.5">
                 NousProprio
               </p>
-              <p className="text-primary font-medium text-base leading-snug">
+              <p className="text-primary font-medium text-base md:text-lg leading-snug">
                 {showEncouragement?.message}
               </p>
             </div>
-            <span className="text-xs text-primary/40 flex-shrink-0">
+            <span className="text-xs md:text-sm text-primary/40 flex-shrink-0">
               maintenant
             </span>
           </div>
         </div>
 
-        {/* Question content */}
-        <div className="flex-1 flex flex-col justify-center max-w-xl mx-auto w-full">
+        {/* Question content - wider on desktop */}
+        <div className="flex-1 flex flex-col justify-center max-w-xl md:max-w-3xl mx-auto w-full px-4 md:px-0">
           <div className={`transition-all duration-300 ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
             {/* Step title */}
-            <span className="inline-block px-3 py-1 rounded-full bg-[#99c5ff]/20 text-[#99c5ff] text-xs font-semibold tracking-wide mb-4">
+            <span className="inline-block px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-[#99c5ff]/20 text-[#99c5ff] text-xs md:text-sm font-semibold tracking-wide mb-4 md:mb-6">
               {currentQuestion.stepTitle}
             </span>
 
             {/* Question */}
-            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4 leading-tight">
+            <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4 md:mb-6 leading-tight">
               {currentQuestion.question}
             </h2>
 
             {/* Description for text questions */}
             {currentQuestion.description && (
-              <p className="text-primary-foreground/70 text-base mb-6 leading-relaxed whitespace-pre-line">
+              <p className="text-primary-foreground/70 text-base md:text-lg mb-6 md:mb-8 leading-relaxed whitespace-pre-line">
                 {currentQuestion.description}
               </p>
             )}
 
             {/* Answer options */}
             {currentQuestion.type === "contact" ? (
-              <div className="space-y-4 mt-4">
-                <Input
-                  type="text"
-                  value={prenomInput}
-                  onChange={(e) => setPrenomInput(e.target.value)}
-                  placeholder="Ton prénom..."
-                  className="h-14 text-lg bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
-                  autoFocus
-                />
-                <div className="relative">
+              <div className="space-y-4 md:space-y-5 mt-4 md:mt-6">
+                <div className="md:grid md:grid-cols-2 md:gap-5 space-y-4 md:space-y-0">
                   <Input
-                    type="email"
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
-                    placeholder="Ton email..."
-                    className="h-14 text-lg bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
+                    type="text"
+                    value={prenomInput}
+                    onChange={(e) => setPrenomInput(e.target.value)}
+                    placeholder="Ton prénom..."
+                    className="h-14 md:h-16 text-lg md:text-xl bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
+                    autoFocus
                   />
-                  {/* Email domain suggestions */}
-                  {emailInput && emailInput.includes("@") && !emailInput.includes(".") && (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {["@gmail.com", "@outlook.fr", "@hotmail.com", "@yahoo.fr", "@icloud.com"].map((domain) => {
-                        const localPart = emailInput.split("@")[0];
-                        const suggestion = localPart + domain;
-                        return (
-                          <button
-                            key={domain}
-                            type="button"
-                            onClick={() => setEmailInput(suggestion)}
-                            className="px-3 py-1.5 text-sm rounded-lg bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground/80 hover:bg-[#99c5ff]/20 hover:border-[#99c5ff]/50 hover:text-[#99c5ff] transition-all"
-                          >
-                            {domain}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
+                  <div className="relative">
+                    <Input
+                      type="email"
+                      value={emailInput}
+                      onChange={(e) => setEmailInput(e.target.value)}
+                      placeholder="Ton email..."
+                      className="h-14 md:h-16 text-lg md:text-xl bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
+                    />
+                  </div>
                 </div>
                 
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-primary-foreground/5 border border-primary-foreground/20">
+                {/* Email domain suggestions */}
+                {emailInput && emailInput.includes("@") && !emailInput.includes(".") && (
+                  <div className="flex flex-wrap gap-2">
+                    {["@gmail.com", "@outlook.fr", "@hotmail.com", "@yahoo.fr", "@icloud.com"].map((domain) => {
+                      const localPart = emailInput.split("@")[0];
+                      const suggestion = localPart + domain;
+                      return (
+                        <button
+                          key={domain}
+                          type="button"
+                          onClick={() => setEmailInput(suggestion)}
+                          className="px-3 py-1.5 text-sm rounded-lg bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground/80 hover:bg-[#99c5ff]/20 hover:border-[#99c5ff]/50 hover:text-[#99c5ff] transition-all"
+                        >
+                          {domain}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+                
+                <div className="flex items-start gap-3 p-4 md:p-5 rounded-xl bg-primary-foreground/5 border border-primary-foreground/20">
                   <Checkbox 
                     id="consent" 
                     checked={consentChecked}
                     onCheckedChange={(checked) => setConsentChecked(checked === true)}
                     className="mt-1 border-primary-foreground/50 data-[state=checked]:bg-[#99c5ff] data-[state=checked]:border-[#99c5ff]"
                   />
-                  <label htmlFor="consent" className="text-primary-foreground/80 text-sm leading-relaxed cursor-pointer">
+                  <label htmlFor="consent" className="text-primary-foreground/80 text-sm md:text-base leading-relaxed cursor-pointer">
                     J'accepte de recevoir ma feuille de route personnalisée par email
                   </label>
                 </div>
                 
-                <p className="text-primary-foreground/50 text-xs leading-relaxed">
+                <p className="text-primary-foreground/50 text-xs md:text-sm leading-relaxed">
                   🔒 Tes données sont protégées conformément au RGPD. Nous ne les partageons jamais avec des tiers et tu peux te désinscrire à tout moment.
                 </p>
                 
-                <Button
-                  size="lg"
-                  onClick={handleContactSubmit}
-                  disabled={!prenomInput.trim() || !emailInput.trim() || !consentChecked}
-                  className="w-full group bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold disabled:opacity-50"
-                >
-                  Voir ma feuille de route
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Button>
+                <div className="max-w-md mx-auto md:max-w-lg">
+                  <Button
+                    size="lg"
+                    onClick={handleContactSubmit}
+                    disabled={!prenomInput.trim() || !emailInput.trim() || !consentChecked}
+                    className="w-full group text-lg md:text-xl py-6 md:py-7 bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold disabled:opacity-50"
+                  >
+                    Voir ma feuille de route
+                    <ArrowRight className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </div>
               </div>
             ) : currentQuestion.type === "text" ? (
-              <div className="space-y-4 mt-4">
+              <div className="space-y-4 md:space-y-5 mt-4 md:mt-6">
                 <Input
                   type="text"
                   value={textInput}
                   onChange={(e) => setTextInput(e.target.value)}
                   placeholder={currentQuestion.placeholder}
-                  className="h-14 text-lg bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
+                  className="h-14 md:h-16 text-lg md:text-xl bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
                   onKeyDown={(e) => e.key === "Enter" && handleTextSubmit()}
                   autoFocus
                 />
-                <Button
-                  size="lg"
-                  onClick={handleTextSubmit}
-                  disabled={!textInput.trim()}
-                  className="w-full group bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold disabled:opacity-50"
-                >
-                  Voir ma feuille de route
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Button>
+                <div className="max-w-md mx-auto md:max-w-lg">
+                  <Button
+                    size="lg"
+                    onClick={handleTextSubmit}
+                    disabled={!textInput.trim()}
+                    className="w-full group text-lg md:text-xl py-6 md:py-7 bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold disabled:opacity-50"
+                  >
+                    Voir ma feuille de route
+                    <ArrowRight className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </div>
               </div>
             ) : currentQuestion.type === "multi" ? (
-              <div className="space-y-3 mt-4">
-                <p className="text-primary-foreground/70 text-sm mb-2">
+              <div className="space-y-3 md:space-y-4 mt-4 md:mt-6">
+                <p className="text-primary-foreground/70 text-sm md:text-base mb-2">
                   Tu peux sélectionner jusqu'à {currentQuestion.maxSelections} réponses
                 </p>
-                {currentQuestion.options?.map((option, index) => {
-                  const selectedAnswers = (answers[currentQuestion.id] as string[]) || [];
-                  const isSelected = selectedAnswers.includes(option);
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => handleAnswer(option)}
-                      className={`w-full text-left p-4 rounded-xl border transition-all duration-200 group ${
-                        isSelected 
-                          ? 'bg-[#99c5ff]/20 border-[#99c5ff] text-[#99c5ff]' 
-                          : 'bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:border-[#99c5ff]/50'
-                      }`}
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      <span className="flex items-center justify-between">
-                        {option}
-                        <CheckCircle2 className={`w-5 h-5 transition-all ${
+                <div className="md:grid md:grid-cols-2 md:gap-4 space-y-3 md:space-y-0">
+                  {currentQuestion.options?.map((option, index) => {
+                    const selectedAnswers = (answers[currentQuestion.id] as string[]) || [];
+                    const isSelected = selectedAnswers.includes(option);
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => handleAnswer(option)}
+                        className={`w-full text-left p-4 md:p-5 rounded-xl border transition-all duration-200 group ${
                           isSelected 
-                            ? 'opacity-100 text-[#99c5ff]' 
-                            : 'opacity-0'
-                        }`} />
-                      </span>
-                    </button>
-                  );
-                })}
+                            ? 'bg-[#99c5ff]/20 border-[#99c5ff] text-[#99c5ff]' 
+                            : 'bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:border-[#99c5ff]/50'
+                        }`}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <span className="flex items-center justify-between text-base md:text-lg">
+                          {option}
+                          <CheckCircle2 className={`w-5 h-5 md:w-6 md:h-6 transition-all ${
+                            isSelected 
+                              ? 'opacity-100 text-[#99c5ff]' 
+                              : 'opacity-0'
+                          }`} />
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
 
                 {/* Bouton Suivant pour les questions multi */}
                 {((answers[currentQuestion.id] as string[])?.length > 0) && currentStep < totalSteps - 1 && (
-                  <Button
-                    size="lg"
-                    onClick={handleMultiNext}
-                    className="w-full mt-4 group bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold"
-                  >
-                    Suivant
-                    <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-                  </Button>
+                  <div className="max-w-md mx-auto md:max-w-lg pt-2">
+                    <Button
+                      size="lg"
+                      onClick={handleMultiNext}
+                      className="w-full group text-lg md:text-xl py-6 md:py-7 bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold"
+                    >
+                      Suivant
+                      <ArrowRight className="w-5 h-5 md:w-6 md:h-6 ml-2 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </div>
                 )}
               </div>
             ) : (
-              <div className="space-y-3 mt-4">
-                {currentQuestion.options?.map((option, index) => {
-                  const isSelected = answers[currentQuestion.id] === option;
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => handleAnswer(option)}
-                      className={`w-full text-left p-4 rounded-xl border transition-all duration-200 group ${
-                        isSelected 
-                          ? 'bg-[#99c5ff]/20 border-[#99c5ff] text-[#99c5ff]' 
-                          : 'bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:border-[#99c5ff]/50'
-                      }`}
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      <span className="flex items-center justify-between">
-                        {option}
-                        <ArrowRight className={`w-5 h-5 transition-all ${
+              <div className="space-y-3 md:space-y-4 mt-4 md:mt-6">
+                <div className="md:grid md:grid-cols-2 md:gap-4 space-y-3 md:space-y-0">
+                  {currentQuestion.options?.map((option, index) => {
+                    const isSelected = answers[currentQuestion.id] === option;
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => handleAnswer(option)}
+                        className={`w-full text-left p-4 md:p-5 rounded-xl border transition-all duration-200 group ${
                           isSelected 
-                            ? 'opacity-100 translate-x-0 text-[#99c5ff]' 
-                            : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
-                        }`} />
-                      </span>
-                    </button>
-                  );
-                })}
+                            ? 'bg-[#99c5ff]/20 border-[#99c5ff] text-[#99c5ff]' 
+                            : 'bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:border-[#99c5ff]/50'
+                        }`}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <span className="flex items-center justify-between text-base md:text-lg">
+                          {option}
+                          <ArrowRight className={`w-5 h-5 md:w-6 md:h-6 transition-all ${
+                            isSelected 
+                              ? 'opacity-100 translate-x-0 text-[#99c5ff]' 
+                              : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
+                          }`} />
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
 
                 {/* Bouton Suivant - seulement si on revient sur une question et qu'une réponse est sélectionnée */}
                 {isRevisiting && answers[currentQuestion.id] && currentStep < totalSteps - 1 && (
-                  <Button
-                    size="lg"
-                    onClick={handleNext}
-                    className="w-full mt-4 group bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold"
-                  >
-                    Suivant
-                    <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-                  </Button>
+                  <div className="max-w-md mx-auto md:max-w-lg pt-2">
+                    <Button
+                      size="lg"
+                      onClick={handleNext}
+                      className="w-full group text-lg md:text-xl py-6 md:py-7 bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold"
+                    >
+                      Suivant
+                      <ArrowRight className="w-5 h-5 md:w-6 md:h-6 ml-2 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </div>
                 )}
               </div>
             )}
@@ -609,12 +626,12 @@ const Questionnaire = () => {
         </div>
 
         {/* Navigation */}
-        <div className="mt-8">
+        <div className="mt-8 md:mt-12 max-w-3xl mx-auto w-full px-4 md:px-0">
           <button
             onClick={handleBack}
-            className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+            className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors text-base md:text-lg"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
             Retour
           </button>
         </div>
