@@ -103,7 +103,7 @@ const HeroSection = () => {
                 </div>
                 <span className="text-lg text-primary-foreground font-medium tracking-wide">Comprend ta situation</span>
                 <p className="text-sm text-primary-foreground/60 leading-relaxed">
-                  Un diagnostic adapté à ton profil et tes objectifs
+                  Une feuille de route adaptée à ton profil et tes objectifs
                 </p>
               </div>
             </div>
