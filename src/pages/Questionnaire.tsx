@@ -142,7 +142,7 @@ const questions: Question[] = [
     id: "contact",
     stepTitle: "Étape 11 – Faisons connaissance",
     question: "Dernière étape avant ta feuille de route",
-    description: "Ici, tu n'es pas un numéro. On t'accompagne comme une personne à part entière.",
+    description: "À qui avons-nous l'honneur ? 😊",
     type: "contact",
     placeholder: ""
   }
