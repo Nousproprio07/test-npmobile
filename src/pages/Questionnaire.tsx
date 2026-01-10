@@ -141,8 +141,8 @@ const questions: Question[] = [
   {
     id: "contact",
     stepTitle: "Étape 11 – Faisons connaissance",
-    question: "Reçois ta feuille de route personnalisée",
-    description: "Chez NousProprio, on ne te parle pas comme à un numéro.\nOn préfère t'accompagner comme une vraie personne, avec ton histoire et tes objectifs.",
+    question: "Dernière étape avant ta feuille de route",
+    description: "Ici, tu n'es pas un numéro. On t'accompagne comme une vraie personne.",
     type: "contact",
     placeholder: ""
   }
