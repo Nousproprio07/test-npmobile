@@ -1,6 +1,20 @@
-import { Video, MessageCircle, User, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Video, MessageCircle, User } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const ActionSection = () => {
+  const [messageCount, setMessageCount] = useState(1);
+
+  // Animation du compteur de messages
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMessageCount(prev => {
+        if (prev >= 5) return 1;
+        return prev + 1;
+      });
+    }, 800);
+    return () => clearInterval(interval);
+  }, []);
+
   const features = [
     {
       icon: User,
@@ -8,6 +22,7 @@ const ActionSection = () => {
       description: "Centralise ton parcours et tes prochaines étapes",
       gradient: "from-primary to-primary/70",
       bgGlow: "bg-primary/20",
+      badge: null,
     },
     {
       icon: Video,
@@ -15,6 +30,7 @@ const ActionSection = () => {
       description: "Pour avancer dans le bon ordre, à ton rythme",
       gradient: "from-np-blue to-glacier-400",
       bgGlow: "bg-np-blue/20",
+      badge: "onair",
     },
     {
       icon: MessageCircle,
@@ -22,6 +38,7 @@ const ActionSection = () => {
       description: "Chaque semaine pour débloquer tes points de friction",
       gradient: "from-glacier-500 to-glacier-300",
       bgGlow: "bg-glacier-400/20",
+      badge: "counter",
     },
   ];
 
@@ -78,8 +95,25 @@ const ActionSection = () => {
                 <div className="relative z-10">
                   {/* Mobile: Icon + Title inline | Desktop: Stacked */}
                   <div className="flex items-center gap-3 md:flex-col md:items-start">
-                    <div className={`w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
-                      <feature.icon className="w-5 h-5 md:w-8 md:h-8 text-white" />
+                    <div className="relative flex-shrink-0">
+                      <div className={`w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <feature.icon className="w-5 h-5 md:w-8 md:h-8 text-white" />
+                      </div>
+                      
+                      {/* Badge "On air" pour vidéos */}
+                      {feature.badge === "onair" && (
+                        <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 flex items-center gap-1 bg-red-500 text-white text-[8px] md:text-[10px] font-bold px-1.5 md:px-2 py-0.5 rounded-full shadow-lg animate-pulse">
+                          <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full animate-ping" />
+                          <span>LIVE</span>
+                        </div>
+                      )}
+                      
+                      {/* Badge compteur pour messages */}
+                      {feature.badge === "counter" && (
+                        <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 min-w-5 h-5 md:min-w-6 md:h-6 bg-red-500 text-white text-xs md:text-sm font-bold flex items-center justify-center rounded-full shadow-lg">
+                          <span className="transition-all duration-200">{messageCount}</span>
+                        </div>
+                      )}
                     </div>
                     
                     <div className="flex-1 md:mt-6">
