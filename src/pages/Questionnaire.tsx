@@ -363,7 +363,7 @@ const Questionnaire = () => {
                 onClick={handleStartQuiz}
                 className="w-full group text-lg py-6 bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold"
               >
-                Découvrir
+                Démarrer
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </div>
