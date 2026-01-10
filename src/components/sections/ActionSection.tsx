@@ -97,15 +97,15 @@ const ActionSection = () => {
                     {feature.description}
                   </p>
                   
-                  {/* Arrow indicator - desktop only */}
+                  {/* Arrow indicator */}
                   <button 
                     onClick={() => {
                       document.getElementById('boussole')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="mt-4 md:mt-6 hidden md:flex items-center gap-2 text-glacier-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer hover:text-white"
+                    className="mt-3 md:mt-6 flex items-center gap-2 text-glacier-300 hover:text-white transition-colors duration-300 cursor-pointer"
                   >
                     <span className="text-sm font-medium">Découvrir</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </div>
