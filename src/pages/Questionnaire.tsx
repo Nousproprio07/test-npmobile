@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowRight, ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
 import Logo from "@/components/Logo";
+import { useNotificationSound } from "@/hooks/use-notification-sound";
 
 interface Question {
   id: string;
@@ -158,6 +159,7 @@ const encouragementTriggers: Record<string, { message: string; emoji: string }> 
 
 const Questionnaire = () => {
   const navigate = useNavigate();
+  const { playNotification } = useNotificationSound();
   const [showIntro, setShowIntro] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
@@ -216,6 +218,7 @@ const Questionnaire = () => {
     const encouragementMessage = encouragementTriggers[questionId];
     if (encouragementMessage) {
       setShowEncouragement(encouragementMessage);
+      playNotification();
       setTimeout(() => setShowEncouragement(null), 2500);
     }
 
@@ -239,6 +242,7 @@ const Questionnaire = () => {
       const encouragementMessage = encouragementTriggers[questionId];
       if (encouragementMessage) {
         setShowEncouragement(encouragementMessage);
+        playNotification();
         setTimeout(() => setShowEncouragement(null), 3000);
       }
       
@@ -271,6 +275,7 @@ const Questionnaire = () => {
       
       // Show encouragement for last question
       setShowEncouragement({ message: "Merci ! Ta feuille de route arrive...", emoji: "✨" });
+      playNotification();
       setTimeout(() => {
         navigate("/resultat", { state: { answers: { ...answers, [questionId]: textInput.trim() } } });
       }, 2000);
@@ -288,6 +293,7 @@ const Questionnaire = () => {
       
       // Show encouragement for last question
       setShowEncouragement({ message: "Merci ! Ta feuille de route arrive...", emoji: "✨" });
+      playNotification();
       setTimeout(() => {
         navigate("/resultat", { 
           state: { 
