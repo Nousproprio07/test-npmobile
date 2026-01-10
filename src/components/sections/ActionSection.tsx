@@ -102,10 +102,10 @@ const ActionSection = () => {
                     onClick={() => {
                       document.getElementById('boussole')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="mt-3 md:mt-6 flex items-center gap-2 text-glacier-300 hover:text-white transition-colors duration-300 cursor-pointer"
+                    className="mt-3 md:mt-6 flex flex-col items-center gap-1 text-glacier-300 hover:text-white transition-colors duration-300 cursor-pointer"
                   >
                     <span className="text-sm font-medium">Découvrir</span>
-                    <ArrowRight className="w-4 h-4 hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 rotate-90 hover:translate-y-1 transition-transform" />
                   </button>
                 </div>
               </div>
