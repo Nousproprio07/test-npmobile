@@ -1,4 +1,6 @@
-import { Video, MessageCircle, User } from "lucide-react";
+import { Video, MessageCircle, User, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const ActionSection = () => {
@@ -133,6 +135,21 @@ const ActionSection = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* CTA Button */}
+          <div className="text-center">
+            <Button 
+              asChild 
+              variant="glacier" 
+              size="lg" 
+              className="group"
+            >
+              <Link to="/questionnaire">
+                Voir ma feuille de route
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
