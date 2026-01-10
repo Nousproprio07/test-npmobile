@@ -41,8 +41,8 @@ const Resultat = () => {
           "Guide complet pour négocier ton premier achat",
           "Accès aux lives privés hebdomadaires"
         ],
-        price: "297€",
-        priceDetail: "Paiement unique"
+        price: "895€",
+        priceDetail: "Paiement en plusieurs fois possible"
       };
     }
     
@@ -59,8 +59,8 @@ const Resultat = () => {
           "Coaching individuel mensuel",
           "Accès prioritaire à nos experts bancaires"
         ],
-        price: "497€",
-        priceDetail: "Paiement unique"
+        price: "975€",
+        priceDetail: "Paiement en plusieurs fois possible"
       };
     }
     
@@ -75,8 +75,8 @@ const Resultat = () => {
         "Guide complet pour négocier ton premier achat",
         "Accès aux lives privés hebdomadaires"
       ],
-      price: "297€",
-      priceDetail: "Paiement unique"
+      price: "895€",
+      priceDetail: "Paiement en plusieurs fois possible"
     };
   };
 
