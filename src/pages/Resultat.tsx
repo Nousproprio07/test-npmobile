@@ -139,98 +139,104 @@ const Resultat = () => {
             </h1>
 
             {/* Bloc - Feuille de route */}
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-8 relative overflow-hidden">
+            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-4 md:p-8 mb-8 relative overflow-hidden">
               {/* Sparkle icon */}
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#99c5ff]/20 mb-4 animate-scale-in">
-                <Sparkles className="w-7 h-7 text-[#99c5ff]" />
+              <div className="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#99c5ff]/20 mb-4 animate-scale-in">
+                <Sparkles className="w-6 h-6 md:w-7 md:h-7 text-[#99c5ff]" />
               </div>
 
               {/* Recommendation card */}
-              <div className="bg-primary-foreground rounded-2xl p-6 md:p-8 shadow-xl text-left relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+              <div className="bg-primary-foreground rounded-xl md:rounded-2xl p-4 md:p-8 shadow-xl text-left relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
                 
                 <div className="relative z-10">
-                  <span className="inline-block text-xs font-bold text-primary-foreground bg-primary px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+                  <span className="inline-block text-[10px] md:text-xs font-bold text-primary-foreground bg-primary px-2 md:px-3 py-1 rounded-full uppercase tracking-wider mb-3 md:mb-4">
                     Ton accompagnement recommandé
                   </span>
                   
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-hero flex items-center justify-center shadow-lg">
+                  {/* Mobile: Stack icon and title | Desktop: Side by side */}
+                  <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-4">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-hero flex items-center justify-center shadow-lg flex-shrink-0">
                       {accompaniment.type === "Résidence Essentiel" 
-                        ? <Home className="w-6 h-6 text-primary-foreground" />
-                        : <TrendingUp className="w-6 h-6 text-primary-foreground" />
+                        ? <Home className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
+                        : <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
                       }
                     </div>
-                    <h3 className="font-display text-xl md:text-2xl font-bold text-foreground">
-                      {accompaniment.type} - {answers.prenom || prenom} - {answers.situation_pro || "Salarié(e)"}
-                    </h3>
+                    <div>
+                      <h3 className="font-display text-lg md:text-2xl font-bold text-foreground leading-tight">
+                        {accompaniment.type}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {prenom} • {answers.situation_pro || "Salarié(e)"}
+                      </p>
+                    </div>
                   </div>
                   
-                  <p className="text-muted-foreground mb-6">
+                  <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6">
                     {accompaniment.type === "Résidence Essentiel" 
                       ? "Acheter ta résidence principale sans te tromper de projet."
                       : "Construire ton premier investissement locatif rentable."}
                   </p>
 
-                  <h4 className="font-semibold text-foreground mb-3 text-sm">Pourquoi c'est fait pour toi :</h4>
+                  <h4 className="font-semibold text-foreground mb-2 md:mb-3 text-xs md:text-sm">Pourquoi c'est fait pour toi :</h4>
                   
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-2 md:space-y-3 mb-4 md:mb-6">
                     {accompaniment.type === "Résidence Essentiel" ? (
                       <>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                          <span className="text-foreground">Tu poses les fondations de ton patrimoine</span>
+                        <li className="flex items-start gap-2 md:gap-3">
+                          <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground text-sm md:text-base">Tu poses les fondations de ton patrimoine</span>
                         </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                          <span className="text-foreground">Tu apprends à lire un projet immobilier sans jargon</span>
+                        <li className="flex items-start gap-2 md:gap-3">
+                          <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground text-sm md:text-base">Tu apprends à lire un projet immobilier sans jargon</span>
                         </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                          <span className="text-foreground">Tu évites les erreurs irréversibles du premier achat</span>
+                        <li className="flex items-start gap-2 md:gap-3">
+                          <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground text-sm md:text-base">Tu évites les erreurs irréversibles du premier achat</span>
                         </li>
                       </>
                     ) : (
                       <>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                          <span className="text-foreground">Tu apprends à choisir entre courte et longue durée</span>
+                        <li className="flex items-start gap-2 md:gap-3">
+                          <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground text-sm md:text-base">Tu apprends à choisir entre courte et longue durée</span>
                         </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                          <span className="text-foreground">Tu structures un projet qui génère du cash-flow</span>
+                        <li className="flex items-start gap-2 md:gap-3">
+                          <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground text-sm md:text-base">Tu structures un projet qui génère du cash-flow</span>
                         </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                          <span className="text-foreground">Tu transformes ta réflexion en stratégie concrète</span>
+                        <li className="flex items-start gap-2 md:gap-3">
+                          <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground text-sm md:text-base">Tu transformes ta réflexion en stratégie concrète</span>
                         </li>
                       </>
                     )}
                   </ul>
 
                   {/* Price */}
-                  <div className="rounded-xl p-4 mb-4 text-center bg-muted/50">
-                    <p className="text-3xl font-display font-bold text-primary mb-1">{accompaniment.price}</p>
-                    <p className="text-muted-foreground text-sm">Paiement en plusieurs fois possible</p>
+                  <div className="rounded-lg md:rounded-xl p-3 md:p-4 mb-4 text-center bg-muted/50">
+                    <p className="text-2xl md:text-3xl font-display font-bold text-primary mb-0.5 md:mb-1">{accompaniment.price}</p>
+                    <p className="text-muted-foreground text-xs md:text-sm">Paiement en plusieurs fois possible</p>
                   </div>
 
                   {/* CTAs */}
-                  <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex flex-col gap-2 md:gap-3">
                     <Button 
                       size="lg" 
-                      className="flex-1 group bg-[#99c5ff] text-primary hover:bg-[#7ab3ff] transition-colors"
+                      className="w-full group bg-[#99c5ff] text-primary hover:bg-[#7ab3ff] transition-colors text-sm md:text-base py-3 md:py-4"
                       onClick={() => navigate("/achat", { state: { accompaniment, prenom, situationPro: answers.situation_pro } })}
                     >
                       En savoir plus
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 md:w-5 md:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Button>
                     <Button 
                       variant="outline" 
                       size="lg" 
-                      className="flex-1 group border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                      className="w-full group border-primary text-primary hover:bg-primary hover:text-primary-foreground text-sm md:text-base py-3 md:py-4"
                       onClick={() => navigate("/reserver-appel", { state: { accompaniment, prenom, situationPro: answers.situation_pro } })}
                     >
-                      <Phone className="w-5 h-5 mr-2" />
+                      <Phone className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                       Réserver un appel
                     </Button>
                   </div>
