@@ -9,7 +9,8 @@ const Resultat = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const answers = location.state?.answers || {};
-  const prenom = answers.prenom || "Ami(e)";
+  const rawPrenom = answers.prenom || "Ami(e)";
+  const prenom = rawPrenom.charAt(0).toUpperCase() + rawPrenom.slice(1).toLowerCase();
 
   useEffect(() => {
     if (!location.state?.answers) {
