@@ -139,10 +139,10 @@ const Resultat = () => {
             </h1>
 
             {/* Bloc - Feuille de route */}
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-4 md:p-8 mb-8 relative overflow-hidden">
+            <div className="bg-primary-foreground rounded-2xl p-4 md:p-8 mb-8 relative overflow-hidden shadow-xl">
               {/* Sparkle icon */}
-              <div className="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#99c5ff]/20 mb-4 animate-scale-in">
-                <Sparkles className="w-6 h-6 md:w-7 md:h-7 text-[#99c5ff]" />
+              <div className="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary/20 mb-4 animate-scale-in">
+                <Sparkles className="w-6 h-6 md:w-7 md:h-7 text-primary" />
               </div>
 
               {/* Recommendation card */}
