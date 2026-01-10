@@ -268,7 +268,7 @@ const Resultat = () => {
 
             {/* Messages personnalisés - limités à 5 maximum */}
             {(() => {
-              const messages: { type: 'warning' | 'info' | 'success'; title: string; text: string; priority: number }[] = [];
+              const messages: { type: 'warning' | 'success'; title: string; text: string; priority: number }[] = [];
 
               // Warnings prioritaires (affichés en premier)
               if (answers.horizon === "Moins de 3 mois") {
@@ -298,10 +298,10 @@ const Resultat = () => {
                 });
               }
 
-              // Messages informatifs (bleus)
+              // Messages positifs (verts) - anciennement info
               if ((answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Résidence Essentiel") {
                 messages.push({
-                  type: 'info',
+                  type: 'success',
                   title: 'Pris en compte :',
                   text: 'Avec des enfants, on priorise stabilité, espace et proximité des écoles dans tes critères.',
                   priority: 4
@@ -310,7 +310,7 @@ const Resultat = () => {
 
               if ((answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Patrimoine Actif") {
                 messages.push({
-                  type: 'info',
+                  type: 'success',
                   title: 'Pris en compte :',
                   text: 'Avec des enfants, on priorise l\'accessibilité des biens pour éviter de longs déplacements.',
                   priority: 4
@@ -319,7 +319,7 @@ const Resultat = () => {
 
               if (answers.logement_actuel === "Locataire" && accompaniment.type === "Patrimoine Actif") {
                 messages.push({
-                  type: 'info',
+                  type: 'success',
                   title: 'Stratégie validée :',
                   text: 'Rester locataire tout en investissant peut être très rentable — on t\'explique comment.',
                   priority: 5
@@ -328,7 +328,7 @@ const Resultat = () => {
 
               if (answers.horizon === "Plus tard, quand je me sentirai prêt") {
                 messages.push({
-                  type: 'info',
+                  type: 'success',
                   title: 'Sage décision :',
                   text: 'Prendre le temps de bien se préparer, c\'est déjà avancer. On t\'accompagne à ton rythme.',
                   priority: 6
@@ -401,8 +401,8 @@ const Resultat = () => {
 
               if (answers.situation_pro === "Indépendant(e) / Freelance") {
                 messages.push({
-                  type: 'info',
-                  title: 'Profil bancaire spécifique :',
+                  type: 'success',
+                  title: 'Profil entrepreneur :',
                   text: 'En tant qu\'indépendant, les banques demandent généralement 2 à 3 bilans. On t\'aide à préparer un dossier solide.',
                   priority: 14
                 });
@@ -410,8 +410,8 @@ const Resultat = () => {
 
               if (answers.situation_pro === "Étudiant(e)") {
                 messages.push({
-                  type: 'info',
-                  title: 'Profil bancaire en construction :',
+                  type: 'success',
+                  title: 'Profil en devenir :',
                   text: 'En tant qu\'étudiant, c\'est le moment idéal pour apprendre et préparer ton projet. L\'accès au crédit viendra avec ton premier emploi stable.',
                   priority: 15
                 });
@@ -427,16 +427,6 @@ const Resultat = () => {
                       <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                       <p className="text-amber-800 text-sm leading-relaxed">
                         <strong className="text-amber-900">{msg.title}</strong> {msg.text}
-                      </p>
-                    </div>
-                  );
-                }
-                if (msg.type === 'info') {
-                  return (
-                    <div key={index} className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3 flex items-center gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                      <p className="text-blue-800 text-sm">
-                        <strong className="text-blue-900">{msg.title}</strong> {msg.text}
                       </p>
                     </div>
                   );
