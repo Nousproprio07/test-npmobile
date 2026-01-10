@@ -436,13 +436,34 @@ const Questionnaire = () => {
                   className="h-14 text-lg bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
                   autoFocus
                 />
-                <Input
-                  type="email"
-                  value={emailInput}
-                  onChange={(e) => setEmailInput(e.target.value)}
-                  placeholder="Ton email..."
-                  className="h-14 text-lg bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
-                />
+                <div className="relative">
+                  <Input
+                    type="email"
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
+                    placeholder="Ton email..."
+                    className="h-14 text-lg bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent"
+                  />
+                  {/* Email domain suggestions */}
+                  {emailInput && emailInput.includes("@") && !emailInput.includes(".") && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {["@gmail.com", "@outlook.fr", "@hotmail.com", "@yahoo.fr", "@icloud.com"].map((domain) => {
+                        const localPart = emailInput.split("@")[0];
+                        const suggestion = localPart + domain;
+                        return (
+                          <button
+                            key={domain}
+                            type="button"
+                            onClick={() => setEmailInput(suggestion)}
+                            className="px-3 py-1.5 text-sm rounded-lg bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground/80 hover:bg-[#99c5ff]/20 hover:border-[#99c5ff]/50 hover:text-[#99c5ff] transition-all"
+                          >
+                            {domain}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
                 
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-primary-foreground/5 border border-primary-foreground/20">
                   <Checkbox 
