@@ -141,69 +141,113 @@ const Resultat = () => {
               <span className="text-[#99c5ff] font-bold">{prenom}</span>, voici la direction la plus cohérente pour toi aujourd'hui
             </p>
 
-            {/* Bloc 1 — Ce que ta situation révèle */}
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-left mb-8">
+            {/* Bloc - Ta feuille de route (remplace ancien bloc 1) */}
+            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-8 relative overflow-hidden">
+              {/* Sparkle icon */}
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#99c5ff]/20 mb-4 animate-scale-in">
+                <Sparkles className="w-7 h-7 text-[#99c5ff]" />
+              </div>
+
               <h2 className="text-xl md:text-2xl font-display font-bold text-primary-foreground mb-4">
-                Bloc 1 — Ce que ta situation révèle
+                Ta feuille de route
               </h2>
               
-              <p className="text-primary-foreground/80 mb-6">
-                D'après tes réponses, tu n'es pas en train de "chercher un investissement".<br />
-                <strong className="text-primary-foreground">Tu cherches une trajectoire claire.</strong>
+              <p className="text-lg text-[#99c5ff] font-semibold mb-6">
+                Direction : {accompaniment.type === "Résidence Essentiel" 
+                  ? "devenir propriétaire intelligemment avant de penser investissement" 
+                  : "Comprendre comment créer son patrimoine et ses revenus immobiliers"}
               </p>
 
-              <h3 className="text-lg font-semibold text-[#99c5ff] mb-4">Ton point de départ</h3>
+              {/* Recommendation card */}
+              <div className="bg-primary-foreground rounded-2xl p-6 md:p-8 shadow-xl text-left relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                
+                <div className="relative z-10">
+                  <span className="inline-block text-xs font-bold text-primary-foreground bg-primary px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+                    Ton accompagnement recommandé
+                  </span>
+                  
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-hero flex items-center justify-center shadow-lg">
+                      {accompaniment.type === "Résidence Essentiel" 
+                        ? <Home className="w-6 h-6 text-primary-foreground" />
+                        : <TrendingUp className="w-6 h-6 text-primary-foreground" />
+                      }
+                    </div>
+                    <h3 className="font-display text-xl md:text-2xl font-bold text-foreground">
+                      {accompaniment.type} - {answers.prenom || prenom} - {answers.situation_pro || "Salarié(e)"}
+                    </h3>
+                  </div>
+                  
+                  <p className="text-muted-foreground mb-6">
+                    {accompaniment.type === "Résidence Essentiel" 
+                      ? "Acheter ta résidence principale sans te tromper de projet."
+                      : "Construire ton premier investissement locatif rentable."}
+                  </p>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead>
-                    <tr className="border-b border-primary-foreground/20">
-                      <th className="py-3 pr-4 text-primary-foreground/70 font-medium text-sm">Élément</th>
-                      <th className="py-3 text-primary-foreground/70 font-medium text-sm">Lecture NousProprio</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-primary-foreground">
-                    <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton projet de vie</td>
-                      <td className="py-4">
-                        {Array.isArray(answers.benefice) ? answers.benefice.join(", ") : (answers.benefice || "Non renseigné")}
-                      </td>
-                    </tr>
-                    <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ta situation familiale</td>
-                      <td className="py-4">
-                        {answers.situation_familiale || "Non renseigné"} — <strong>{getFamilleReading()}</strong>
-                      </td>
-                    </tr>
-                    <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton logement actuel</td>
-                      <td className="py-4">
-                        {answers.logement_actuel || "Non renseigné"} — <strong>{getLogementReading()}</strong>
-                      </td>
-                    </tr>
-                    <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ta capacité financière</td>
-                      <td className="py-4">
-                        {answers.revenus || "Non renseigné"} — <strong>{getRevenusReading()}</strong>
-                      </td>
-                    </tr>
-                    <tr className="border-b border-primary-foreground/10">
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton rapport au risque</td>
-                      <td className="py-4">
-                        Tu ressens surtout {Array.isArray(answers.ressenti) ? answers.ressenti.map(r => r.toLowerCase()).join(" et ") : (answers.ressenti?.toLowerCase() || "des doutes")}
-                        {Array.isArray(answers.frein) && answers.frein.length > 0 && (
-                          <span> — Freins identifiés : {answers.frein.join(", ").toLowerCase()}</span>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-4 pr-4 font-bold text-[#99c5ff]">Ton horizon de temps</td>
-                      <td className="py-4">
-                        {answers.horizon || "Non renseigné"}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                  <h4 className="font-semibold text-foreground mb-3 text-sm">Pourquoi c'est fait pour toi :</h4>
+                  
+                  <ul className="space-y-3 mb-6">
+                    {accompaniment.type === "Résidence Essentiel" ? (
+                      <>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground">Tu poses les fondations de ton patrimoine</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground">Tu apprends à lire un projet immobilier sans jargon</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground">Tu évites les erreurs irréversibles du premier achat</span>
+                        </li>
+                      </>
+                    ) : (
+                      <>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground">Tu apprends à choisir entre courte et longue durée</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground">Tu structures un projet qui génère du cash-flow</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground">Tu transformes ta réflexion en stratégie concrète</span>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+
+                  {/* Price */}
+                  <div className="rounded-xl p-4 mb-4 text-center bg-muted/50">
+                    <p className="text-3xl font-display font-bold text-primary mb-1">{accompaniment.price}</p>
+                    <p className="text-muted-foreground text-sm">Paiement en plusieurs fois possible</p>
+                  </div>
+
+                  {/* CTAs */}
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button 
+                      size="lg" 
+                      className="flex-1 group bg-[#99c5ff] text-primary hover:bg-[#7ab3ff] transition-colors"
+                      onClick={() => navigate("/achat", { state: { accompaniment, prenom, situationPro: answers.situation_pro } })}
+                    >
+                      En savoir plus
+                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="flex-1 group border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                      onClick={() => navigate("/reserver-appel", { state: { accompaniment, prenom, situationPro: answers.situation_pro } })}
+                    >
+                      <Phone className="w-5 h-5 mr-2" />
+                      Réserver un appel
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -455,134 +499,6 @@ const Resultat = () => {
         </div>
       </div>
 
-      {/* Wave transition to Bloc 3 */}
-      <div className="relative -mb-1">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-          <path d="M0 120L60 110C120 100 240 80 360 75C480 70 600 80 720 85C840 90 960 90 1080 85C1200 80 1320 70 1380 65L1440 60V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="hsl(var(--primary))" />
-        </svg>
-      </div>
-
-      {/* Bloc 3 — Ta route patrimoniale (LA RÉVÉLATION) */}
-      <div className="bg-hero relative overflow-hidden py-12 md:py-16">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/20 rounded-full blur-3xl" />
-          <div className="absolute top-10 right-10 w-32 h-32 bg-[#99c5ff]/30 rounded-full blur-2xl animate-pulse" />
-          <div className="absolute bottom-10 left-10 w-48 h-48 bg-accent/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
-        </div>
-        
-        <div className="container relative z-10">
-          <div className={`max-w-3xl mx-auto text-center transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            
-            {/* Sparkle icon */}
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#99c5ff]/20 mb-6 animate-scale-in">
-              <Sparkles className="w-8 h-8 text-[#99c5ff]" />
-            </div>
-
-            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
-              Bloc 3 - Ta feuille de route
-            </h2>
-            
-            <p className="text-lg md:text-xl text-[#99c5ff] font-semibold mb-8">
-              Direction : {accompaniment.type === "Résidence Essentiel" 
-                ? "devenir propriétaire intelligemment avant de penser investissement" 
-                : "Comprendre comment créer son patrimoine et ses revenus immobiliers"}
-            </p>
-
-            {/* Recommendation card - THE BIG REVEAL */}
-            <div className="bg-primary-foreground rounded-3xl p-8 md:p-10 shadow-2xl text-left relative overflow-hidden">
-              {/* Decorative gradient */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
-              
-              <div className="relative z-10">
-                <span className="inline-block text-xs font-bold text-primary-foreground bg-primary px-3 py-1 rounded-full uppercase tracking-wider mb-4">
-                  Ton accompagnement recommandé
-                </span>
-                
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-hero flex items-center justify-center shadow-lg">
-                    {accompaniment.type === "Résidence Essentiel" 
-                      ? <Home className="w-7 h-7 text-primary-foreground" />
-                      : <TrendingUp className="w-7 h-7 text-primary-foreground" />
-                    }
-                  </div>
-                  <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-                    {accompaniment.type} - {answers.prenom || "Prénom"} - {answers.situation_pro || "Salarié(e)"}
-                  </h3>
-                </div>
-                
-                <p className="text-lg text-muted-foreground mb-6">
-                  {accompaniment.type === "Résidence Essentiel" 
-                    ? "Acheter ta résidence principale sans te tromper de projet."
-                    : "Construire ton premier investissement locatif rentable."}
-                </p>
-
-                <h4 className="font-semibold text-foreground mb-4">Pourquoi c'est fait pour toi :</h4>
-                
-                <ul className="space-y-4 mb-8">
-                  {accompaniment.type === "Résidence Essentiel" ? (
-                    <>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground text-lg">Tu poses les fondations de ton patrimoine</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground text-lg">Tu apprends à lire un projet immobilier sans jargon</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground text-lg">Tu évites les erreurs irréversibles du premier achat</span>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground text-lg">Tu apprends à choisir entre courte et longue durée</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground text-lg">Tu structures un projet qui génère du cash-flow</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-6 h-6 text-[#99c5ff] flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground text-lg">Tu transformes ta réflexion en stratégie concrète</span>
-                      </li>
-                    </>
-                  )}
-                </ul>
-
-                {/* Price reveal */}
-                <div className="rounded-2xl p-6 mb-6 text-center">
-                  <p className="text-4xl md:text-5xl font-display font-bold text-primary mb-1">{accompaniment.price}</p>
-                  <p className="text-muted-foreground">Paiement en plusieurs fois possible</p>
-                </div>
-
-                {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    size="lg" 
-                    className="flex-1 group text-lg py-6 bg-[#99c5ff] text-primary hover:bg-[#7ab3ff] transition-colors"
-                    onClick={() => navigate("/achat", { state: { accompaniment, prenom, situationPro: answers.situation_pro } })}
-                  >
-                    En savoir plus
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="lg" 
-                    className="flex-1 group border-primary text-primary hover:bg-primary hover:text-primary-foreground text-lg py-6"
-                    onClick={() => navigate("/reserver-appel", { state: { accompaniment, prenom, situationPro: answers.situation_pro } })}
-                  >
-                    <Phone className="w-5 h-5 mr-2" />
-                    Réserver un appel
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
 
       {/* Trust badge */}
