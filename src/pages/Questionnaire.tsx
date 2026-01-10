@@ -149,8 +149,15 @@ const questions: Question[] = [
 ];
 
 // Messages d'encouragement déclenchés après certaines questions
-const encouragementTriggers: Record<string, string> = {
-  "frein": "Super, on avance bien ensemble ! 🚀"
+const encouragementTriggers: Record<string, { message: string; emoji: string }> = {
+  "ressenti": { 
+    message: "C'est normal de ressentir ça ! On est là pour t'aider à avancer sereinement.", 
+    emoji: "💪" 
+  },
+  "frein": { 
+    message: "Super, on avance bien ensemble !", 
+    emoji: "🚀" 
+  }
 };
 
 const Questionnaire = () => {
@@ -163,7 +170,7 @@ const Questionnaire = () => {
   const [prenomInput, setPrenomInput] = useState("");
   const [consentChecked, setConsentChecked] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
-  const [showEncouragement, setShowEncouragement] = useState<string | null>(null);
+  const [showEncouragement, setShowEncouragement] = useState<{ message: string; emoji: string } | null>(null);
   const [isRevisiting, setIsRevisiting] = useState(false); // Track if user came back to this question
 
   const totalSteps = questions.length;
@@ -260,7 +267,7 @@ const Questionnaire = () => {
       setAnswers(prev => ({ ...prev, [questionId]: textInput.trim() }));
       
       // Show encouragement for last question
-      setShowEncouragement("Merci ! Ta feuille de route arrive... ✨");
+      setShowEncouragement({ message: "Merci ! Ta feuille de route arrive...", emoji: "✨" });
       setTimeout(() => {
         navigate("/resultat", { state: { answers: { ...answers, [questionId]: textInput.trim() } } });
       }, 2000);
@@ -277,7 +284,7 @@ const Questionnaire = () => {
       }));
       
       // Show encouragement for last question
-      setShowEncouragement("Merci ! Ta feuille de route arrive... ✨");
+      setShowEncouragement({ message: "Merci ! Ta feuille de route arrive...", emoji: "✨" });
       setTimeout(() => {
         navigate("/resultat", { 
           state: { 
@@ -387,16 +394,16 @@ const Questionnaire = () => {
 
         {/* Encouragement message */}
         <div className={`mb-6 transition-all duration-500 ${showEncouragement ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none h-0 mb-0'}`}>
-          <div className="bg-white rounded-2xl shadow-lg border border-primary/10 p-4 max-w-md mx-auto flex items-center gap-4">
+          <div className="bg-white rounded-2xl shadow-lg border border-primary/10 p-4 max-w-md mx-auto flex items-center gap-4 animate-scale-in">
             <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
-              <Sparkles className="w-6 h-6 text-white" />
+              <span className="text-2xl">{showEncouragement?.emoji}</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-primary/60 uppercase tracking-wide mb-0.5">
                 NousProprio
               </p>
               <p className="text-primary font-medium text-base leading-snug">
-                {showEncouragement}
+                {showEncouragement?.message}
               </p>
             </div>
             <span className="text-xs text-primary/40 flex-shrink-0">
