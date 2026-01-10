@@ -58,21 +58,10 @@ const ActionSection = () => {
               </span>
             </h2>
             
-            <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto leading-relaxed mb-8">
+            <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto leading-relaxed">
               Tu accèdes à tout ce qu'il faut pour{" "}
               <span className="text-white font-semibold">passer à l'action</span>, étape par étape
             </p>
-
-            {/* Découvrir button with scroll */}
-            <button 
-              onClick={() => {
-                document.getElementById('boussole')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="inline-flex flex-col items-center gap-1 text-glacier-300 hover:text-white transition-colors duration-300 cursor-pointer group"
-            >
-              <span className="text-sm font-medium">Découvrir</span>
-              <ArrowRight className="w-5 h-5 rotate-90 group-hover:translate-y-1 transition-transform" />
-            </button>
           </div>
 
           {/* Features Grid */}
