@@ -102,9 +102,6 @@ const HeroSection = () => {
                   <Eye className="w-7 h-7 text-glacier" />
                 </div>
                 <span className="text-lg text-primary-foreground font-medium tracking-wide">Comprend ta situation</span>
-                <p className="text-sm text-primary-foreground/60 leading-relaxed">
-                  Une feuille de route adaptée à ton profil et tes objectifs
-                </p>
               </div>
             </div>
             
@@ -114,9 +111,6 @@ const HeroSection = () => {
                   <ShieldCheck className="w-7 h-7 text-glacier" />
                 </div>
                 <span className="text-lg text-primary-foreground font-medium tracking-wide">Évite les erreurs</span>
-                <p className="text-sm text-primary-foreground/60 leading-relaxed">
-                  Les pièges à éviter selon ta situation
-                </p>
               </div>
             </div>
             
@@ -126,9 +120,6 @@ const HeroSection = () => {
                   <Map className="w-7 h-7 text-glacier" />
                 </div>
                 <span className="text-lg text-primary-foreground font-medium tracking-wide">Avance avec un plan</span>
-                <p className="text-sm text-primary-foreground/60 leading-relaxed">
-                  Des étapes claires pour concrétiser ton projet
-                </p>
               </div>
             </div>
           </div>
