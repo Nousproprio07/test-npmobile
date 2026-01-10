@@ -53,7 +53,7 @@ const ComingSoon = () => {
               </p>
             </div>
             <p className="text-muted-foreground">
-              Un diagnostic personnalisé pour débloquer ton projet immobilier, 
+              Une feuille de route personnalisée pour débloquer ton projet immobilier, 
               que tu sois primo-accédant ou investisseur.
             </p>
           </div>
