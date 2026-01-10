@@ -153,10 +153,6 @@ const encouragementTriggers: Record<string, { message: string; emoji: string }> 
   "ressenti": { 
     message: "C'est normal de ressentir ça ! On est là pour t'aider à avancer sereinement.", 
     emoji: "💪" 
-  },
-  "frein": { 
-    message: "Super, on avance bien ensemble !", 
-    emoji: "🚀" 
   }
 };
 
