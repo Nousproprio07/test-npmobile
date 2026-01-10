@@ -417,8 +417,25 @@ const Resultat = () => {
                 });
               }
 
-              // Trier par priorité et limiter à 5
-              const sortedMessages = messages.sort((a, b) => a.priority - b.priority).slice(0, 5);
+              // Message positif par défaut
+              messages.push({
+                type: 'success',
+                title: 'Premier pas franchi :',
+                text: 'Tu as fait le premier pas en découvrant ta feuille de route. C\'est le début de ton projet.',
+                priority: 20
+              });
+
+              // Séparer warnings et succès
+              const warnings = messages.filter(m => m.type === 'warning').sort((a, b) => a.priority - b.priority);
+              const successes = messages.filter(m => m.type === 'success').sort((a, b) => a.priority - b.priority);
+              
+              // Limiter à 2 warnings max, puis compléter avec des succès (total 5 max)
+              const limitedWarnings = warnings.slice(0, 2);
+              const remainingSlots = 5 - limitedWarnings.length;
+              const limitedSuccesses = successes.slice(0, remainingSlots);
+              
+              // Afficher d'abord les verts, puis les warnings
+              const sortedMessages = [...limitedSuccesses, ...limitedWarnings];
 
               return sortedMessages.map((msg, index) => {
                 if (msg.type === 'warning') {
