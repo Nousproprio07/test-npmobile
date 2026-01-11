@@ -293,7 +293,7 @@ const coursSupplementaires: CoursBonusType[] = [
 ];
 
 const tabItems = [
-  { id: "formation", label: "Ma formation", shortLabel: "Formation" },
+  { id: "formation", label: "Ma feuille de route", shortLabel: "Feuille de route" },
   { id: "faq", label: "Session FAQ live", shortLabel: "FAQ live" },
 ];
 
