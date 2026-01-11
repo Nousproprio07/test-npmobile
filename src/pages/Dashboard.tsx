@@ -917,12 +917,12 @@ const Dashboard = () => {
             </p>
             
             {/* Notification FAQ */}
-            <div className="mt-4 bg-primary/5 rounded-2xl p-4 border border-primary/10">
+            <div className="mt-4 bg-primary rounded-2xl p-4">
               <div className="flex items-center gap-3">
-                <Bell className="w-5 h-5 text-primary flex-shrink-0" />
+                <Bell className="w-5 h-5 text-white flex-shrink-0" />
                 <div className="flex-1">
-                  <span className="text-sm text-muted-foreground">Prochaine session FAQ : </span>
-                  <span className="text-sm font-semibold text-primary">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
+                  <span className="text-sm text-white/90">Prochaine session FAQ : </span>
+                  <span className="text-sm font-bold text-white">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
                 </div>
               </div>
             </div>
@@ -963,9 +963,9 @@ const Dashboard = () => {
                         <span className="text-muted-foreground font-medium">Progression globale</span>
                         <span className="font-bold text-primary text-lg">{mockUser.progress}%</span>
                       </div>
-                      <div className="h-3 bg-primary/10 rounded-full overflow-hidden">
+                      <div className="h-3 bg-green-100 rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-500"
+                          className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-500"
                           style={{ width: `${mockUser.progress}%` }}
                         />
                       </div>
