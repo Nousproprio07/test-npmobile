@@ -1149,7 +1149,7 @@ const Dashboard = () => {
               >
                 <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
-              <Logo size="xl" className="sm:hidden" />
+              <Logo size="xxl" className="sm:hidden" />
               <Logo size="xxxl" className="hidden sm:block" />
             </div>
             
