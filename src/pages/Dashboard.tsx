@@ -912,7 +912,7 @@ const Dashboard = () => {
               Bonjour {mockUser.firstName} 👋
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground">
-              Choisis ta direction pour continuer
+              Ton espace adapté à ton objectif
             </p>
           </div>
 
