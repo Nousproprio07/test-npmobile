@@ -7,15 +7,11 @@ export function useNotificationSound() {
     // Check if Vibration API is supported
     if ("vibrate" in navigator) {
       // Gentle vibration pattern: short pulse, pause, short pulse
-      // Pattern: vibrate 80ms, pause 50ms, vibrate 80ms
       navigator.vibrate([80, 50, 80]);
     }
   }, []);
 
   const playNotification = useCallback(() => {
-    // Always trigger vibration (works even on silent mode)
-    triggerVibration();
-
     try {
       // Create audio element if it doesn't exist
       if (!audioRef.current) {
@@ -26,11 +22,14 @@ export function useNotificationSound() {
       // Reset and play
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(() => {
-        // Silently fail if autoplay is blocked
-        console.log("Audio playback blocked by browser");
+        // Sound blocked or on silent mode - trigger vibration as fallback
+        console.log("Audio playback blocked - using vibration fallback");
+        triggerVibration();
       });
     } catch (error) {
-      console.log("Audio not supported");
+      // Audio not supported - trigger vibration as fallback
+      console.log("Audio not supported - using vibration fallback");
+      triggerVibration();
     }
   }, [triggerVibration]);
 
