@@ -169,7 +169,8 @@ const Questionnaire = () => {
   const [consentChecked, setConsentChecked] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [showEncouragement, setShowEncouragement] = useState<{ message: string; emoji: string } | null>(null);
-  const [isRevisiting, setIsRevisiting] = useState(false); // Track if user came back to this question
+  const [isRevisiting, setIsRevisiting] = useState(false);
+  const [seenEncouragements, setSeenEncouragements] = useState<Set<string>>(new Set());
 
   const totalSteps = questions.length;
   const progress = ((currentStep + 1) / totalSteps) * 100;
@@ -214,11 +215,12 @@ const Questionnaire = () => {
     // Réponse unique
     setAnswers(prev => ({ ...prev, [questionId]: answer }));
     
-    // Trigger encouragement message if applicable
+    // Trigger encouragement message if applicable and not already seen
     const encouragementMessage = encouragementTriggers[questionId];
-    if (encouragementMessage) {
+    if (encouragementMessage && !seenEncouragements.has(questionId)) {
       setShowEncouragement(encouragementMessage);
       playNotification();
+      setSeenEncouragements(prev => new Set(prev).add(questionId));
       setTimeout(() => setShowEncouragement(null), 2500);
     }
 
@@ -238,11 +240,12 @@ const Questionnaire = () => {
     const currentAnswers = (answers[questionId] as string[]) || [];
     
     if (currentAnswers.length > 0 && currentStep < totalSteps - 1) {
-      // Trigger encouragement message if applicable
+      // Trigger encouragement message if applicable and not already seen
       const encouragementMessage = encouragementTriggers[questionId];
-      if (encouragementMessage) {
+      if (encouragementMessage && !seenEncouragements.has(questionId)) {
         setShowEncouragement(encouragementMessage);
         playNotification();
+        setSeenEncouragements(prev => new Set(prev).add(questionId));
         setTimeout(() => setShowEncouragement(null), 3000);
       }
       
