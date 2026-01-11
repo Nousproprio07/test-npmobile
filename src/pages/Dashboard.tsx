@@ -514,6 +514,7 @@ const Dashboard = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hasInteractedWithDropdown, setHasInteractedWithDropdown] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
+  const [showAvailableCourses, setShowAvailableCourses] = useState(false);
   const [faqQuestion, setFaqQuestion] = useState("");
   const [isSubmittingQuestion, setIsSubmittingQuestion] = useState(false);
   const [myQuestions, setMyQuestions] = useState<Array<{
@@ -1029,12 +1030,32 @@ const Dashboard = () => {
                   </div>
                 )}
                 
-                {/* Cours disponibles à l'achat */}
-                {coursSupplementaires.filter(c => !c.purchased).length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">
-                      Cours disponibles
-                    </h3>
+                {/* CTA pour découvrir les cours disponibles */}
+                {coursSupplementaires.filter(c => !c.purchased).length > 0 && !showAvailableCourses && (
+                  <button
+                    onClick={() => setShowAvailableCourses(true)}
+                    className="w-full py-4 px-6 bg-gradient-to-r from-primary/5 to-primary/10 hover:from-primary/10 hover:to-primary/15 rounded-2xl border border-dashed border-primary/30 hover:border-primary/50 transition-all flex items-center justify-center gap-3 group"
+                  >
+                    <Sparkles className="w-5 h-5 text-primary" />
+                    <span className="font-medium text-primary">Découvrir nos cours bonus</span>
+                    <ChevronRight className="w-5 h-5 text-primary/50 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                )}
+                
+                {/* Cours disponibles à l'achat - affichés après clic */}
+                {coursSupplementaires.filter(c => !c.purchased).length > 0 && showAvailableCourses && (
+                  <div className="animate-fade-up">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+                        Cours disponibles
+                      </h3>
+                      <button 
+                        onClick={() => setShowAvailableCourses(false)}
+                        className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        Masquer
+                      </button>
+                    </div>
                     <div className="grid gap-4 sm:grid-cols-2">
                       {coursSupplementaires.filter(c => !c.purchased).map((cours) => (
                         <div 
