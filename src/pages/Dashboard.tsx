@@ -841,19 +841,26 @@ const Dashboard = () => {
   // ==============================
   if (currentView === "home") {
     return (
-      <div className="min-h-screen bg-background">
-        {/* Header */}
-        <header className="bg-card border-b border-border sticky top-0 z-50">
-          <div className="px-4 py-3">
+      <div className="min-h-screen bg-white">
+        {/* Header Premium - épuré */}
+        <header className="bg-white border-b border-primary/10 sticky top-0 z-50">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4">
             <div className="flex items-center justify-between">
               <Logo size="xxl" />
               
-              <div className="hidden md:flex items-center gap-4">
+              <div className="hidden md:flex items-center gap-6">
                 <div className="flex items-center gap-2 text-muted-foreground">
-                  <User className="w-4 h-4" />
-                  <span>{mockUser.firstName} {mockUser.lastName}</span>
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                    <User className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="font-medium">{mockUser.firstName} {mockUser.lastName}</span>
                 </div>
-                <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground hover:text-glacier-500">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={handleLogout} 
+                  className="text-muted-foreground hover:text-primary hover:bg-primary/5"
+                >
                   <LogOut className="w-4 h-4 mr-2" />
                   Déconnexion
                 </Button>
@@ -861,16 +868,16 @@ const Dashboard = () => {
               
               <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                 <SheetTrigger asChild className="md:hidden">
-                  <Button variant="ghost" size="icon">
-                    <Menu className="w-6 h-6" />
+                  <Button variant="ghost" size="icon" className="hover:bg-primary/5">
+                    <Menu className="w-6 h-6 text-primary" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-80">
-                  <SheetHeader className="text-left pb-6 border-b border-border">
-                    <SheetTitle className="text-lg font-display">Mon compte</SheetTitle>
+                <SheetContent side="right" className="w-80 bg-white">
+                  <SheetHeader className="text-left pb-6 border-b border-primary/10">
+                    <SheetTitle className="text-lg font-display text-primary">Mon compte</SheetTitle>
                   </SheetHeader>
                   <div className="py-6 space-y-6">
-                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-xl">
+                    <div className="flex items-center gap-3 p-4 bg-primary/5 rounded-2xl border border-primary/10">
                       <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                         <User className="w-6 h-6 text-primary" />
                       </div>
@@ -881,7 +888,7 @@ const Dashboard = () => {
                     </div>
                     <Button 
                       variant="outline" 
-                      className="w-full justify-start text-muted-foreground" 
+                      className="w-full justify-start text-muted-foreground border-primary/20 hover:bg-primary/5 hover:text-primary" 
                       onClick={() => {
                         setMobileMenuOpen(false);
                         handleLogout();
@@ -894,156 +901,186 @@ const Dashboard = () => {
                 </SheetContent>
               </Sheet>
             </div>
-            
-            {/* Notification FAQ */}
-            <div className="mt-3 -mx-4 px-4 py-2 bg-primary/5 border-y border-primary/10">
-              <div className="flex items-center gap-2 text-xs sm:text-sm">
-                <Bell className="w-4 h-4 text-destructive flex-shrink-0 animate-bell-ring" />
-                <span className="text-muted-foreground">Prochaine FAQ :</span>
-                <span className="font-semibold text-primary truncate">{prochaineFAQData.date} • {prochaineFAQData.heure}</span>
-              </div>
-            </div>
           </div>
         </header>
 
-        <div className="px-4 py-6">
-          {/* Welcome */}
-          <div className="mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-1">
+        {/* Contenu principal - Fond blanc, centré */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+          {/* Welcome - Plus espacé et premium */}
+          <div className="mb-10 sm:mb-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-2">
               Bonjour {mockUser.firstName} 👋
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground">
-              Voici ta feuille de route et tes cours bonus
+            <p className="text-base sm:text-lg text-muted-foreground">
+              Choisis ta direction pour continuer
             </p>
           </div>
 
-          {/* Section: Ma Direction (Feuille de route) */}
-          <div className="mb-8">
-            <h2 className="text-lg font-display font-semibold text-foreground mb-4 flex items-center gap-2">
-              <Target className="w-5 h-5 text-primary" />
-              Ma direction
-            </h2>
+          {/* Deux grandes cartes empilées */}
+          <div className="space-y-6">
             
-            <Card 
-              className="border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent hover:border-primary/50 transition-all cursor-pointer group"
+            {/* CARTE 1: Ma Feuille de Route */}
+            <div 
+              className="group cursor-pointer bg-white rounded-3xl border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 overflow-hidden shadow-sm hover:shadow-lg"
               onClick={() => setCurrentView("direction")}
             >
-              <CardContent className="p-5">
-                <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                    <GraduationCap className="w-8 h-8 text-primary-foreground" />
+              <div className="p-6 sm:p-8">
+                <div className="flex items-start gap-5 sm:gap-6">
+                  {/* Icône grande */}
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-primary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <Target className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                   </div>
+                  
+                  {/* Contenu */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-display font-bold text-foreground mb-1">
-                      {mockUser.formation} - {pointDeDepartData.situation_pro}
-                    </h3>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      Ta feuille de route personnalisée
-                    </p>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Progression</span>
-                        <span className="font-bold text-primary">{mockUser.progress}%</span>
+                    <div className="flex items-start justify-between gap-4 mb-3">
+                      <div>
+                        <h2 className="text-xl sm:text-2xl font-display font-bold text-primary mb-1">
+                          Ma Feuille de Route
+                        </h2>
+                        <p className="text-sm sm:text-base text-muted-foreground">
+                          {mockUser.formation}
+                        </p>
                       </div>
-                      <Progress value={mockUser.progress} className="h-2" />
-                      <p className="text-xs text-muted-foreground">
-                        Module {mockUser.currentModule}/{mockUser.totalModules} • {currentModuleData?.title}
+                      <ChevronRight className="w-6 h-6 text-primary/40 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" />
+                    </div>
+                    
+                    {/* Progression */}
+                    <div className="mt-4 space-y-3">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground font-medium">Progression globale</span>
+                        <span className="font-bold text-primary text-lg">{mockUser.progress}%</span>
+                      </div>
+                      <div className="h-3 bg-primary/10 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-500"
+                          style={{ width: `${mockUser.progress}%` }}
+                        />
+                      </div>
+                      <p className="text-sm text-muted-foreground flex items-center gap-2">
+                        <Play className="w-4 h-4 text-primary" />
+                        Module en cours : <span className="font-medium text-foreground">{currentModuleData?.title}</span>
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Section: Mes cours bonus achetés */}
-          {purchasedBonusCourses.length > 0 && (
-            <div className="mb-8">
-              <h2 className="text-lg font-display font-semibold text-foreground mb-4 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-primary" />
-                Mes cours bonus
-              </h2>
-              
-              <div className="grid gap-4 sm:grid-cols-2">
-                {purchasedBonusCourses.map((cours) => {
-                  const courseModules = cours.modules || [];
-                  const completedModules = courseModules.filter(m => m.completed).length;
-                  const courseProgress = courseModules.length > 0 ? Math.round((completedModules / courseModules.length) * 100) : 0;
-                  const currentModule = courseModules.find(m => m.current);
-                  
-                  return (
-                    <Card 
-                      key={cours.id}
-                      className="hover:border-primary/50 transition-all cursor-pointer group"
-                      onClick={() => {
-                        setSelectedBonusCourse(cours);
-                        setCurrentView("bonus-course");
-                      }}
-                    >
-                      <CardContent className="p-4">
-                        <div className="flex items-start gap-3">
-                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-[#99c5ff]/20 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                            <Play className="w-6 h-6 text-primary" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-semibold text-foreground mb-1">{cours.title}</h4>
-                            <p className="text-xs text-muted-foreground mb-2 line-clamp-1">{cours.description}</p>
-                            <div className="flex items-center justify-between text-xs mb-1">
-                              <span className="text-muted-foreground">{courseProgress}% complété</span>
-                              <span className="flex items-center gap-1 text-muted-foreground">
-                                <Clock className="w-3 h-3" /> {cours.duration}
-                              </span>
-                            </div>
-                            <Progress value={courseProgress} className="h-1.5" />
-                          </div>
-                          <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
               </div>
             </div>
-          )}
 
-          {/* Section: Cours bonus disponibles à l'achat */}
-          <div>
-            <h2 className="text-lg font-display font-semibold text-foreground mb-4 flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-muted-foreground" />
-              Cours bonus disponibles
-            </h2>
-            
-            <div className="grid gap-4 sm:grid-cols-2">
-              {coursSupplementaires.filter(c => !c.purchased).map((cours) => (
-                <Card key={cours.id} className="overflow-hidden hover:border-primary/30 transition-all">
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
-                        <Lock className="w-5 h-5 text-muted-foreground" />
-                      </div>
-                      <p className="text-xl font-bold text-primary">{cours.price}€</p>
+            {/* CARTE 2: Mes Cours */}
+            <div className="bg-white rounded-3xl border-2 border-primary/20 overflow-hidden shadow-sm">
+              <div className="p-6 sm:p-8">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <BookOpen className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-display font-bold text-primary">
+                    Mes Cours
+                  </h2>
+                </div>
+                
+                {/* Cours bonus achetés */}
+                {purchasedBonusCourses.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4 flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-primary" />
+                      Cours débloqués
+                    </h3>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      {purchasedBonusCourses.map((cours) => {
+                        const courseModules = cours.modules || [];
+                        const completedModules = courseModules.filter(m => m.completed).length;
+                        const courseProgress = courseModules.length > 0 ? Math.round((completedModules / courseModules.length) * 100) : 0;
+                        
+                        return (
+                          <div 
+                            key={cours.id}
+                            className="group/card cursor-pointer bg-primary/5 hover:bg-primary/10 rounded-2xl p-4 border border-primary/10 hover:border-primary/30 transition-all"
+                            onClick={() => {
+                              setSelectedBonusCourse(cours);
+                              setCurrentView("bonus-course");
+                            }}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className="w-10 h-10 rounded-xl bg-white border border-primary/20 flex items-center justify-center flex-shrink-0">
+                                <Play className="w-5 h-5 text-primary" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">{cours.title}</h4>
+                                <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                                  <span>{courseProgress}% complété</span>
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="w-3 h-3" /> {cours.duration}
+                                  </span>
+                                </div>
+                                <div className="h-1.5 bg-white rounded-full overflow-hidden">
+                                  <div 
+                                    className="h-full bg-primary rounded-full"
+                                    style={{ width: `${courseProgress}%` }}
+                                  />
+                                </div>
+                              </div>
+                              <ChevronRight className="w-5 h-5 text-primary/40 group-hover/card:text-primary transition-colors flex-shrink-0" />
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                    
-                    <h4 className="text-base font-semibold text-foreground mb-1">
-                      {cours.title}
-                    </h4>
-                    
-                    <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
-                      {cours.description}
-                    </p>
-                    
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs text-muted-foreground flex items-center gap-1">
-                        <Clock className="w-3 h-3" /> {cours.duration}
-                      </span>
-                      <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                        Acheter
-                      </Button>
+                  </div>
+                )}
+                
+                {/* Cours disponibles à l'achat */}
+                {coursSupplementaires.filter(c => !c.purchased).length > 0 && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">
+                      Cours disponibles
+                    </h3>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      {coursSupplementaires.filter(c => !c.purchased).map((cours) => (
+                        <div 
+                          key={cours.id} 
+                          className="bg-muted/30 rounded-2xl p-4 border border-border hover:border-primary/20 transition-all"
+                        >
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
+                              <Lock className="w-5 h-5 text-muted-foreground" />
+                            </div>
+                            <span className="text-lg font-bold text-primary">{cours.price}€</span>
+                          </div>
+                          <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">{cours.title}</h4>
+                          <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{cours.description}</p>
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs text-muted-foreground flex items-center gap-1">
+                              <Clock className="w-3 h-3" /> {cours.duration}
+                            </span>
+                            <Button size="sm" className="bg-primary hover:bg-primary/90 text-white text-xs h-8">
+                              Débloquer
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
+                  </div>
+                )}
+                
+                {/* Message si aucun cours */}
+                {purchasedBonusCourses.length === 0 && coursSupplementaires.filter(c => !c.purchased).length === 0 && (
+                  <p className="text-center text-muted-foreground py-8">
+                    Aucun cours bonus disponible pour le moment.
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Notification FAQ discrète en bas */}
+          <div className="mt-8 bg-primary/5 rounded-2xl p-4 border border-primary/10">
+            <div className="flex items-center gap-3">
+              <Bell className="w-5 h-5 text-primary flex-shrink-0" />
+              <div className="flex-1">
+                <span className="text-sm text-muted-foreground">Prochaine session FAQ : </span>
+                <span className="text-sm font-semibold text-primary">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
+              </div>
             </div>
           </div>
         </div>
