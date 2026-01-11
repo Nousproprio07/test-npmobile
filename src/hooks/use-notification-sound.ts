@@ -7,7 +7,7 @@ export function useNotificationSound() {
     try {
       // Create audio element if it doesn't exist
       if (!audioRef.current) {
-        audioRef.current = new Audio("/sounds/notification.mp3");
+        audioRef.current = new Audio("/sounds/notification.m4a");
         audioRef.current.volume = 0.6;
       }
       
