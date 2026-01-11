@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -1321,9 +1322,7 @@ const AdminDashboard = () => {
                   <span className="hidden sm:inline">Lives</span>
                 </Button>
               </div>
-              <Link to="/" className="text-lg font-display font-bold text-primary">
-                NousProprio
-              </Link>
+              <Logo />
             </div>
           </div>
         </div>
