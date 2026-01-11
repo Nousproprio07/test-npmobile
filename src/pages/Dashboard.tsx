@@ -1149,8 +1149,8 @@ const Dashboard = () => {
               >
                 <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
-              <Logo size="lg" className="sm:hidden" />
-              <Logo size="xl" className="hidden sm:block" />
+              <Logo size="xl" className="sm:hidden" />
+              <Logo size="xxxl" className="hidden sm:block" />
             </div>
             
             <div className="hidden md:flex items-center gap-4">
