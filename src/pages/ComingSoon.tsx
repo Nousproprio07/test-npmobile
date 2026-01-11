@@ -25,7 +25,7 @@ const ComingSoon = () => {
 
         {/* Main heading */}
         <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight animate-fade-up-delay-1">
-          On refait tout,{" "}
+          On refait tout.{" "}
           <span className="relative inline-block">
             En mieux.
             <span className="absolute -bottom-1 left-0 right-0 h-1 bg-accent/60 rounded-full" />
