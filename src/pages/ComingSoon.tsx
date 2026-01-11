@@ -1,5 +1,5 @@
-import { Compass, ArrowRight, Mail } from "lucide-react";
-import Logo from "@/components/Logo";
+import { Compass, ArrowRight } from "lucide-react";
+import logoImage from "@/assets/Logo_Nousproprio.png";
 
 const ComingSoon = () => {
   return (
@@ -14,7 +14,7 @@ const ComingSoon = () => {
       <div className="relative z-10 max-w-2xl mx-auto text-center">
         {/* Logo */}
         <div className="mb-8 animate-fade-up">
-          <Logo />
+          <img src={logoImage} alt="NousProprio" className="h-12 mx-auto" />
         </div>
 
         {/* Badge */}
