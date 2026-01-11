@@ -914,36 +914,49 @@ const Dashboard = () => {
               Ton espace adapté à ton objectif
             </p>
             
-            {/* Notification FAQ */}
-            <div className="mt-4 bg-primary rounded-2xl p-4">
-              <div className="flex items-center gap-3">
+            {/* Notification FAQ - Mobile optimisé */}
+            <div className="mt-4 bg-primary rounded-2xl p-3 sm:p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                 <Bell className="w-5 h-5 text-white flex-shrink-0" />
                 <div className="flex-1">
-                  <span className="text-sm text-white/90">Prochaine session FAQ : </span>
-                  <span className="text-sm font-bold text-white">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
+                  <span className="text-xs sm:text-sm text-white/90">Prochaine session FAQ : </span>
+                  <span className="text-xs sm:text-sm font-bold text-white block sm:inline">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Deux grandes cartes empilées */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             
-            {/* CARTE 1: Ma Feuille de Route */}
+            {/* CARTE 1: Ma Feuille de Route - Mobile optimisé */}
             <div 
-              className="group cursor-pointer bg-white rounded-3xl border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 overflow-hidden shadow-sm hover:shadow-lg"
+              className="group cursor-pointer bg-white rounded-2xl sm:rounded-3xl border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 overflow-hidden shadow-sm hover:shadow-lg"
               onClick={() => setCurrentView("direction")}
             >
-              <div className="p-6 sm:p-8">
-                <div className="flex items-start gap-5 sm:gap-6">
-                  {/* Icône grande */}
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-primary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-                    <Target className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+              <div className="p-4 sm:p-6 md:p-8">
+                <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-5 md:gap-6">
+                  {/* Icône + Titre sur mobile */}
+                  <div className="flex items-center gap-3 sm:block">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-primary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                      <Target className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
+                    </div>
+                    {/* Titre visible uniquement sur mobile */}
+                    <div className="sm:hidden flex-1">
+                      <h2 className="text-lg font-display font-bold text-primary">
+                        Ma Feuille de Route
+                      </h2>
+                      <p className="text-xs text-muted-foreground">
+                        {mockUser.formation}
+                      </p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 sm:hidden text-primary/40 group-hover:text-primary flex-shrink-0" />
                   </div>
                   
                   {/* Contenu */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-4 mb-3">
+                    {/* Titre desktop uniquement */}
+                    <div className="hidden sm:flex items-start justify-between gap-4 mb-3">
                       <div>
                         <h2 className="text-xl sm:text-2xl font-display font-bold text-primary mb-1">
                           Ma Feuille de Route
@@ -955,21 +968,21 @@ const Dashboard = () => {
                       <ChevronRight className="w-6 h-6 text-primary/40 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" />
                     </div>
                     
-                    {/* Progression */}
-                    <div className="mt-4 space-y-3">
-                      <div className="flex items-center justify-between text-sm">
+                    {/* Progression - Mobile optimisé */}
+                    <div className="space-y-2 sm:space-y-3 sm:mt-4">
+                      <div className="flex items-center justify-between text-xs sm:text-sm">
                         <span className="text-muted-foreground font-medium">Progression globale</span>
-                        <span className="font-bold text-primary text-lg">{mockUser.progress}%</span>
+                        <span className="font-bold text-primary text-base sm:text-lg">{mockUser.progress}%</span>
                       </div>
-                      <div className="h-3 bg-green-100 rounded-full overflow-hidden">
+                      <div className="h-2 sm:h-3 bg-green-100 rounded-full overflow-hidden">
                         <div 
                           className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-500"
                           style={{ width: `${mockUser.progress}%` }}
                         />
                       </div>
-                      <p className="text-sm text-muted-foreground flex items-center gap-2">
-                        <Play className="w-4 h-4 text-primary" />
-                        Module en cours : <span className="font-medium text-foreground">{currentModuleData?.title}</span>
+                      <p className="text-xs sm:text-sm text-muted-foreground flex items-start sm:items-center gap-2">
+                        <Play className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5 sm:mt-0" />
+                        <span className="line-clamp-2 sm:line-clamp-1">Module en cours : <span className="font-medium text-foreground">{currentModuleData?.title}</span></span>
                       </p>
                     </div>
                   </div>
