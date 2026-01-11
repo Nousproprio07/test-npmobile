@@ -293,9 +293,7 @@ const coursSupplementaires: CoursBonusType[] = [
 ];
 
 const tabItems = [
-  { id: "formation", label: "Modules", shortLabel: "Modules" },
-  { id: "bloc1", label: "Mon point de départ", shortLabel: "Point de départ" },
-  { id: "bloc3", label: "Ma bibliothèque d'outils", shortLabel: "Outils" },
+  { id: "formation", label: "Ma formation", shortLabel: "Formation" },
   { id: "faq", label: "Session FAQ live", shortLabel: "FAQ live" },
 ];
 
@@ -509,7 +507,7 @@ const Dashboard = () => {
   const [currentView, setCurrentView] = useState<DashboardView>("home");
   const [selectedBonusCourse, setSelectedBonusCourse] = useState<CoursBonusType | null>(null);
   
-  const [activeTab, setActiveTab] = useState<"formation" | "bloc1" | "bloc3" | "faq">("formation");
+  const [activeTab, setActiveTab] = useState<"formation" | "faq">("formation");
   const [selectedModule, setSelectedModule] = useState<ModuleType | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hasInteractedWithDropdown, setHasInteractedWithDropdown] = useState(false);
@@ -1407,167 +1405,132 @@ const Dashboard = () => {
 
         {/* Content based on active tab - uniquement pour la direction */}
         {isDirectionView && activeTab === "formation" && (
-          <div className="space-y-6">
-            <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground">
-              Modules de {mockUser.formation}
-            </h3>
-            
-            {/* Les 3 blocs principaux - dynamiques depuis les phases */}
-            <div className="space-y-6">
-              {phases.map((phase, phaseIndex) => {
-                const blocKey = `bloc${phaseIndex + 1}` as 'bloc1' | 'bloc2' | 'bloc3';
-                return (
-                  <Collapsible 
-                    key={phase.id}
-                    open={openBlocs[blocKey]} 
-                    onOpenChange={(open) => setOpenBlocs(prev => ({ ...prev, [blocKey]: open }))}
-                  >
-                    <CollapsibleTrigger asChild>
-                      <div className="flex items-center gap-3 cursor-pointer hover:bg-muted/50 p-2 rounded-lg transition-colors">
-                        <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
-                          {phaseIndex + 1}
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <h4 className="font-display font-semibold text-foreground">{phase.title}</h4>
-                            {phase.modules.every(m => m.completed) && (
-                              <Badge className="bg-gradient-to-r from-amber-500 to-yellow-400 text-white border-0 gap-1">
-                                <Award className="w-3 h-3" />
-                                Complété
-                              </Badge>
-                            )}
+          <div className="space-y-8">
+            {/* Section Modules */}
+            <div>
+              <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4">
+                Tes modules
+              </h3>
+              
+              {/* Les 3 blocs principaux - dynamiques depuis les phases */}
+              <div className="space-y-6">
+                {phases.map((phase, phaseIndex) => {
+                  const blocKey = `bloc${phaseIndex + 1}` as 'bloc1' | 'bloc2' | 'bloc3';
+                  return (
+                    <Collapsible 
+                      key={phase.id}
+                      open={openBlocs[blocKey]} 
+                      onOpenChange={(open) => setOpenBlocs(prev => ({ ...prev, [blocKey]: open }))}
+                    >
+                      <CollapsibleTrigger asChild>
+                        <div className="flex items-center gap-3 cursor-pointer hover:bg-muted/50 p-2 rounded-lg transition-colors">
+                          <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
+                            {phaseIndex + 1}
                           </div>
-                          <p className="text-xs text-muted-foreground">{phase.subtitle}</p>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-display font-semibold text-foreground">{phase.title}</h4>
+                              {phase.modules.every(m => m.completed) && (
+                                <Badge className="bg-gradient-to-r from-amber-500 to-yellow-400 text-white border-0 gap-1">
+                                  <Award className="w-3 h-3" />
+                                  Complété
+                                </Badge>
+                              )}
+                            </div>
+                            <p className="text-xs text-muted-foreground">{phase.subtitle}</p>
+                          </div>
+                          <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openBlocs[blocKey] ? 'rotate-180' : ''}`} />
                         </div>
-                        <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openBlocs[blocKey] ? 'rotate-180' : ''}`} />
-                      </div>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <div className="ml-4 border-l-2 border-primary/20 pl-6 space-y-3 mt-3">
-                        {phase.modules.map((module) => (
-                          <Card 
-                            key={module.id} 
-                            className={`transition-all ${
-                              module.current 
-                                ? "border-primary bg-primary/5" 
-                                : module.completed 
-                                  ? "border-green-500/30 bg-green-500/5" 
-                                  : "border-border opacity-70"
-                            }`}
-                          >
-                            <CardContent className="p-3 sm:p-4">
-                              <div className="flex items-start gap-3">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                  module.completed 
-                                    ? "bg-green-500 text-white" 
-                                    : module.current 
-                                      ? "bg-primary text-primary-foreground" 
-                                      : "bg-muted text-muted-foreground"
-                                }`}>
-                                  {module.completed ? (
-                                    <CheckCircle2 className="w-5 h-5" />
-                                  ) : module.current ? (
-                                    <Play className="w-5 h-5" />
-                                  ) : (
-                                    <Lock className="w-4 h-4" />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <div className="ml-4 border-l-2 border-primary/20 pl-6 space-y-3 mt-3">
+                          {phase.modules.map((module) => (
+                            <Card 
+                              key={module.id} 
+                              className={`transition-all ${
+                                module.current 
+                                  ? "border-primary bg-primary/5" 
+                                  : module.completed 
+                                    ? "border-green-500/30 bg-green-500/5" 
+                                    : "border-border opacity-70"
+                              }`}
+                            >
+                              <CardContent className="p-3 sm:p-4">
+                                <div className="flex items-start gap-3">
+                                  <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                    module.completed 
+                                      ? "bg-green-500 text-white" 
+                                      : module.current 
+                                        ? "bg-primary text-primary-foreground" 
+                                        : "bg-muted text-muted-foreground"
+                                  }`}>
+                                    {module.completed ? (
+                                      <CheckCircle2 className="w-5 h-5" />
+                                    ) : module.current ? (
+                                      <Play className="w-5 h-5" />
+                                    ) : (
+                                      <Lock className="w-4 h-4" />
+                                    )}
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
+                                      {module.title}
+                                    </p>
+                                    <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                                      <Clock className="w-3 h-3" /> {module.duration}
+                                    </p>
+                                  </div>
+                                  {(module.completed || module.current) && (
+                                    <Button 
+                                      variant={module.current ? "default" : "ghost"} 
+                                      size="sm"
+                                      className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
+                                      onClick={() => setSelectedModule(module)}
+                                    >
+                                      <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
+                                      <ChevronRight className="w-4 h-4" />
+                                    </Button>
                                   )}
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className={`font-medium text-sm sm:text-base leading-tight ${module.completed || module.current ? "text-foreground" : "text-muted-foreground"}`}>
-                                    {module.title}
-                                  </p>
-                                  <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
-                                    <Clock className="w-3 h-3" /> {module.duration}
-                                  </p>
-                                </div>
-                                {(module.completed || module.current) && (
-                                  <Button 
-                                    variant={module.current ? "default" : "ghost"} 
-                                    size="sm"
-                                    className={`flex-shrink-0 ${module.current ? "bg-primary text-primary-foreground" : ""}`}
-                                    onClick={() => setSelectedModule(module)}
-                                  >
-                                    <span className="hidden sm:inline mr-1">{module.current ? "Continuer" : "Revoir"}</span>
-                                    <ChevronRight className="w-4 h-4" />
-                                  </Button>
-                                )}
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Section Bibliothèque d'outils */}
+            <div className="pt-6 border-t border-border">
+              <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-2">
+                Ta bibliothèque d'outils
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Tous les outils et ressources de ta formation, accessibles rapidement.
+              </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {bloc3Content.map((item) => (
+                  <Card key={item.id} className="hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98]">
+                    <CardContent className="p-4 flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <item.icon className="w-6 h-6 text-primary" />
                       </div>
-                    </CollapsibleContent>
-                  </Collapsible>
-                );
-              })}
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-foreground">{item.title}</p>
+                        <p className="text-sm text-muted-foreground">{item.type}</p>
+                      </div>
+                      <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         )}
 
-        {isDirectionView && activeTab === "bloc1" && (
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-2">
-                Mon point de départ
-              </h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Voici les réponses que tu as renseignées dans le diagnostic pour déterminer ta direction. Elles nous permettent de personnaliser ton accompagnement.
-              </p>
-            </div>
-            
-            {/* Cards au lieu du tableau sur mobile */}
-            <div className="space-y-3">
-              {[
-                { label: "Ta situation actuelle", value: pointDeDepartData.situationReading },
-                { label: "Ton logement actuel", value: `${pointDeDepartData.logement_actuel} — ${pointDeDepartData.logementReading}` },
-                { label: "Ton intention profonde", value: pointDeDepartData.benefice.join(", ") },
-                { label: "Ton rapport à l'investissement", value: `Tu ressens ${pointDeDepartData.ressenti.map(r => r.toLowerCase()).join(", ")}` },
-                { label: "Ton principal blocage", value: pointDeDepartData.frein.join(", ") },
-                { label: "Ton horizon", value: pointDeDepartData.horizon },
-              ].map((item, index) => (
-                <Card key={index} className="border-primary/10">
-                  <CardContent className="p-4">
-                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">
-                      {item.label}
-                    </p>
-                    <p className="text-sm text-foreground">
-                      {item.value}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {isDirectionView && activeTab === "bloc3" && (
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-2">
-                Ma bibliothèque d'outils
-              </h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Retrouve ici tous les outils, documents et ressources présents dans tes modules. C'est ton espace centralisé pour accéder rapidement à tout ce dont tu as besoin.
-              </p>
-            </div>
-            <div className="grid gap-3">
-              {bloc3Content.map((item) => (
-                <Card key={item.id} className="hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98]">
-                  <CardContent className="p-4 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <item.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-foreground">{item.title}</p>
-                      <p className="text-sm text-muted-foreground">{item.type}</p>
-                    </div>
-                    <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
 
         {isDirectionView && activeTab === "faq" && (
           <FaqTab 
