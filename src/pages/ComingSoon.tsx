@@ -14,7 +14,7 @@ const ComingSoon = () => {
       <div className="relative z-10 max-w-2xl mx-auto text-center">
         {/* Logo */}
         <div className="mb-8 animate-fade-up">
-          <img src={logoImage} alt="NousProprio" className="h-12 mx-auto" />
+          <img src={logoImage} alt="NousProprio" className="h-20 sm:h-24 mx-auto" />
         </div>
 
         {/* Badge */}
