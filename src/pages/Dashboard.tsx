@@ -847,7 +847,7 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <Logo size="xxl" />
               
-              <div className="hidden md:flex items-center gap-6">
+              <div className="hidden md:flex items-center gap-4">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <User className="w-4 h-4 text-primary" />
