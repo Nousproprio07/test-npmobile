@@ -915,6 +915,17 @@ const Dashboard = () => {
             <p className="text-base sm:text-lg text-muted-foreground">
               Ton espace adapté à ton objectif
             </p>
+            
+            {/* Notification FAQ */}
+            <div className="mt-4 bg-primary/5 rounded-2xl p-4 border border-primary/10">
+              <div className="flex items-center gap-3">
+                <Bell className="w-5 h-5 text-primary flex-shrink-0" />
+                <div className="flex-1">
+                  <span className="text-sm text-muted-foreground">Prochaine session FAQ : </span>
+                  <span className="text-sm font-semibold text-primary">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Deux grandes cartes empilées */}
@@ -1094,16 +1105,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Notification FAQ discrète en bas */}
-          <div className="mt-8 bg-primary/5 rounded-2xl p-4 border border-primary/10">
-            <div className="flex items-center gap-3">
-              <Bell className="w-5 h-5 text-primary flex-shrink-0" />
-              <div className="flex-1">
-                <span className="text-sm text-muted-foreground">Prochaine session FAQ : </span>
-                <span className="text-sm font-semibold text-primary">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     );
