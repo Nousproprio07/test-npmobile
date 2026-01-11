@@ -18,7 +18,7 @@ const Logo = ({ className, variant = "dark", size = "sm" }: LogoProps) => {
     md: "h-8 md:h-10",
     lg: "h-10 md:h-12",
     xl: "h-12 md:h-14",
-    xxl: "h-14 md:h-16"
+    xxl: "h-20 md:h-24"
   };
   
   return (
