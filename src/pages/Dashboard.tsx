@@ -1080,9 +1080,7 @@ const Dashboard = () => {
               >
                 <ArrowLeft className="w-5 h-5" />
               </Button>
-              <Link to="/" className="text-lg sm:text-xl font-display font-bold text-primary">
-                NousProprio
-              </Link>
+              <Logo size="lg" />
             </div>
             
             {/* Desktop: User info */}
