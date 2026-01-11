@@ -16,7 +16,7 @@ const HeroSection = () => {
       <div className="container relative z-10 pt-4 md:pt-8 flex-1 flex flex-col">
         {/* Header - compact on mobile */}
         <header className="flex items-center justify-between mb-8 md:mb-16">
-          <Link to="/"><img src={logoWhite} alt="NousProprio" className="h-8 md:h-10" /></Link>
+          <Link to="/"><img src={logoWhite} alt="NousProprio" className="h-6 md:h-8" /></Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
