@@ -89,7 +89,7 @@ const Equipe = () => {
               <span className="text-glacier"><span className="underline decoration-red-500 decoration-[3px] underline-offset-8">aussi</span> investi.</span>
             </h1>
             <p className="text-primary-foreground/80 text-lg animate-fade-up-delay-2">
-              Une équipe pluridisciplinaire au service de votre réussite immobilière.
+              Une équipe pluridisciplinaire au service de ta réussite immobilière.
             </p>
           </div>
         </div>
