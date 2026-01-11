@@ -6,7 +6,7 @@ import logoDark from "@/assets/Logo_Nousproprio.png";
 interface LogoProps {
   className?: string;
   variant?: "light" | "dark";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
 }
 
 const Logo = ({ className, variant = "dark", size = "sm" }: LogoProps) => {
@@ -16,7 +16,8 @@ const Logo = ({ className, variant = "dark", size = "sm" }: LogoProps) => {
   const sizeClasses = {
     sm: "h-6 md:h-8",
     md: "h-8 md:h-10",
-    lg: "h-10 md:h-12"
+    lg: "h-10 md:h-12",
+    xl: "h-12 md:h-14"
   };
   
   return (
