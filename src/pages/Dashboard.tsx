@@ -1138,21 +1138,22 @@ const Dashboard = () => {
     <div className="min-h-screen bg-white">
       {/* Header Premium - style cohérent avec home */}
       <header className="bg-white border-b border-primary/10 sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4">
+        <div className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <Button 
                 variant="ghost" 
                 size="icon"
                 onClick={handleBackFromCourseView}
-                className="text-primary hover:bg-primary/10 -ml-2"
+                className="text-primary hover:bg-primary/10 -ml-1 sm:-ml-2 w-8 h-8 sm:w-10 sm:h-10"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
-              <Logo size="xxl" />
+              <Logo size="lg" className="sm:hidden" />
+              <Logo size="xl" className="hidden sm:block" />
             </div>
             
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-4">
               <div className="flex items-center gap-2 text-muted-foreground">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <User className="w-4 h-4 text-primary" />
@@ -1173,26 +1174,26 @@ const Dashboard = () => {
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild className="md:hidden">
                 <Button variant="ghost" size="icon" className="hover:bg-primary/5">
-                  <Menu className="w-6 h-6 text-primary" />
+                  <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 bg-white">
-                <SheetHeader className="text-left pb-6 border-b border-primary/10">
-                  <SheetTitle className="text-lg font-display text-primary">Mon compte</SheetTitle>
+              <SheetContent side="right" className="w-72 sm:w-80 bg-white">
+                <SheetHeader className="text-left pb-4 sm:pb-6 border-b border-primary/10">
+                  <SheetTitle className="text-base sm:text-lg font-display text-primary">Mon compte</SheetTitle>
                 </SheetHeader>
-                <div className="py-6 space-y-6">
-                  <div className="flex items-center gap-3 p-4 bg-primary/5 rounded-2xl border border-primary/10">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <User className="w-6 h-6 text-primary" />
+                <div className="py-4 sm:py-6 space-y-4 sm:space-y-6">
+                  <div className="flex items-center gap-3 p-3 sm:p-4 bg-primary/5 rounded-xl sm:rounded-2xl border border-primary/10">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <User className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                     </div>
                     <div>
-                      <p className="font-semibold text-foreground">{mockUser.firstName} {mockUser.lastName}</p>
-                      <p className="text-sm text-muted-foreground">{mockUser.email}</p>
+                      <p className="font-semibold text-sm sm:text-base text-foreground">{mockUser.firstName} {mockUser.lastName}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{mockUser.email}</p>
                     </div>
                   </div>
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start text-muted-foreground border-primary/20 hover:bg-primary/5" 
+                    className="w-full justify-start text-muted-foreground border-primary/20 hover:bg-primary/5 text-sm sm:text-base" 
                     onClick={() => {
                       setMobileMenuOpen(false);
                       handleBackFromCourseView();
@@ -1203,7 +1204,7 @@ const Dashboard = () => {
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start text-muted-foreground border-primary/20 hover:bg-primary/5" 
+                    className="w-full justify-start text-muted-foreground border-primary/20 hover:bg-primary/5 text-sm sm:text-base" 
                     onClick={() => {
                       setMobileMenuOpen(false);
                       handleLogout();
@@ -1220,38 +1221,53 @@ const Dashboard = () => {
       </header>
 
       {/* Contenu principal - Fond blanc, centré */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-2">
+      <div className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-12">
+        {/* Welcome Section - Mobile optimisé */}
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary mb-1 sm:mb-2">
             {displayTitle}
           </h1>
-          <p className="text-base sm:text-lg text-muted-foreground">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
             {isDirectionView ? "Ta feuille de route personnalisée" : "Cours bonus"}
           </p>
           
-          {/* Notification FAQ - style cohérent */}
+          {/* Notification FAQ - Mobile optimisé */}
           {isDirectionView && (
-            <div className="mt-4 bg-primary rounded-2xl p-4">
-              <div className="flex items-center gap-3">
-                <Bell className="w-5 h-5 text-white flex-shrink-0" />
+            <div className="mt-3 sm:mt-4 bg-primary rounded-xl sm:rounded-2xl p-3 sm:p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <Bell className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0" />
                 <div className="flex-1">
-                  <span className="text-sm text-white/90">Prochaine session FAQ : </span>
-                  <span className="text-sm font-bold text-white">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
+                  <span className="text-xs sm:text-sm text-white/90">Prochaine session FAQ : </span>
+                  <span className="text-xs sm:text-sm font-bold text-white block sm:inline">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
                 </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* Progress Card - Style premium blanc avec bordure bleue */}
-        <div className="mb-8 bg-white rounded-3xl border-2 border-primary/20 p-6 sm:p-8">
-          <div className="flex items-start gap-5 sm:gap-6">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-primary flex items-center justify-center flex-shrink-0">
-              <Target className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+        {/* Progress Card - Mobile optimisé */}
+        <div className="mb-6 sm:mb-8 bg-white rounded-2xl sm:rounded-3xl border-2 border-primary/20 p-4 sm:p-6 md:p-8">
+          <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-5 md:gap-6">
+            {/* Icône + titre sur mobile */}
+            <div className="flex items-center gap-3 sm:block">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-primary flex items-center justify-center flex-shrink-0">
+                <Target className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
+              </div>
+              {/* Titre visible uniquement sur mobile */}
+              <div className="sm:hidden flex-1">
+                <h2 className="text-lg font-display font-bold text-primary">
+                  Progression
+                </h2>
+                <p className="text-xs text-muted-foreground">
+                  Module {completedCount + 1}/{displayModules.length}
+                </p>
+              </div>
+              <span className="sm:hidden text-xl font-bold text-primary">{displayProgress}%</span>
             </div>
+            
             <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between mb-4">
+              {/* Titre desktop uniquement */}
+              <div className="hidden sm:flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-xl sm:text-2xl font-display font-bold text-primary">
                     Progression
@@ -1263,25 +1279,25 @@ const Dashboard = () => {
                 <span className="text-2xl sm:text-3xl font-bold text-primary">{displayProgress}%</span>
               </div>
               
-              <div className="space-y-3">
-                <div className="h-3 bg-green-100 rounded-full overflow-hidden">
+              <div className="space-y-2 sm:space-y-3">
+                <div className="h-2 sm:h-3 bg-green-100 rounded-full overflow-hidden">
                   <div 
                     className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-500"
                     style={{ width: `${displayProgress}%` }}
                   />
                 </div>
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm text-muted-foreground flex items-center gap-2">
-                    <Play className="w-4 h-4 text-primary" />
-                    En cours : <span className="font-medium text-foreground">{displayCurrentModule?.title || displayModules[0]?.title}</span>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3">
+                  <p className="text-xs sm:text-sm text-muted-foreground flex items-start sm:items-center gap-2">
+                    <Play className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5 sm:mt-0" />
+                    <span className="line-clamp-2 sm:line-clamp-1">En cours : <span className="font-medium text-foreground">{displayCurrentModule?.title || displayModules[0]?.title}</span></span>
                   </p>
                   <Button 
                     size="default"
-                    className="bg-primary hover:bg-primary/90 text-white flex-shrink-0"
+                    className="bg-primary hover:bg-primary/90 text-white flex-shrink-0 w-full sm:w-auto"
                     onClick={() => displayCurrentModule && setSelectedModule(displayCurrentModule)}
                   >
-                    <Play className="w-4 h-4 sm:mr-2" />
-                    <span className="hidden sm:inline">Continuer</span>
+                    <Play className="w-4 h-4 mr-2" />
+                    <span>Continuer</span>
                   </Button>
                 </div>
               </div>
@@ -1289,15 +1305,15 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Navigation Tabs - Style épuré */}
+        {/* Navigation Tabs - Mobile optimisé */}
         {isDirectionView && (
-          <div className="mb-8">
-            <div className="flex gap-2">
+          <div className="mb-6 sm:mb-8">
+            <div className="flex gap-2 overflow-x-auto pb-2 -mx-3 px-3 sm:mx-0 sm:px-0 scrollbar-hide">
               {tabItems.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                  className={`px-6 py-3 rounded-2xl font-medium transition-all ${
+                  className={`px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-medium transition-all whitespace-nowrap text-sm sm:text-base ${
                     activeTab === tab.id 
                       ? "bg-primary text-white" 
                       : "bg-primary/5 text-primary hover:bg-primary/10 border border-primary/20"
