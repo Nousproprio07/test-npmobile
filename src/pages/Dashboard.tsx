@@ -915,12 +915,12 @@ const Dashboard = () => {
             </p>
             
             {/* Notification FAQ - Mobile optimisé */}
-            <div className="mt-4 bg-primary rounded-2xl p-3 sm:p-4">
+            <div className="mt-4 bg-primary/10 rounded-2xl p-3 sm:p-4">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-center">
-                <Bell className="w-5 h-5 text-white flex-shrink-0" />
+                <Bell className="w-5 h-5 text-primary flex-shrink-0" />
                 <div>
-                  <span className="text-xs sm:text-sm text-white/90">Prochaine session FAQ : </span>
-                  <span className="text-xs sm:text-sm font-bold text-white">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
+                  <span className="text-xs sm:text-sm text-primary/80">Prochaine session FAQ : </span>
+                  <span className="text-xs sm:text-sm font-bold text-primary">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
                 </div>
               </div>
             </div>
@@ -1233,12 +1233,12 @@ const Dashboard = () => {
           
           {/* Notification FAQ - Mobile optimisé */}
           {isDirectionView && (
-            <div className="mt-3 sm:mt-4 bg-primary rounded-xl sm:rounded-2xl p-3 sm:p-4">
+            <div className="mt-3 sm:mt-4 bg-primary/10 rounded-xl sm:rounded-2xl p-3 sm:p-4">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-center">
-                <Bell className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0" />
+                <Bell className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
                 <div>
-                  <span className="text-xs sm:text-sm text-white/90">Prochaine session FAQ : </span>
-                  <span className="text-xs sm:text-sm font-bold text-white">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
+                  <span className="text-xs sm:text-sm text-primary/80">Prochaine session FAQ : </span>
+                  <span className="text-xs sm:text-sm font-bold text-primary">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
                 </div>
               </div>
             </div>
