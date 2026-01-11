@@ -1122,50 +1122,53 @@ const Dashboard = () => {
   const displayCurrentModule = displayModules.find(m => m.current);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header - Mobile optimisé */}
-      <header className="bg-card border-b border-border sticky top-0 z-50">
-        <div className="px-4 py-3">
+    <div className="min-h-screen bg-white">
+      {/* Header Premium - style cohérent avec home */}
+      <header className="bg-white border-b border-primary/10 sticky top-0 z-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
-            {/* Bouton retour + Logo */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Button 
                 variant="ghost" 
                 size="icon"
                 onClick={handleBackFromCourseView}
-                className="text-muted-foreground hover:text-primary hover:bg-primary/10 -ml-2"
+                className="text-primary hover:bg-primary/10 -ml-2"
               >
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <Logo size="xxl" />
             </div>
             
-            {/* Desktop: User info */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-6">
               <div className="flex items-center gap-2 text-muted-foreground">
-                <User className="w-4 h-4" />
-                <span>{mockUser.firstName} {mockUser.lastName}</span>
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <User className="w-4 h-4 text-primary" />
+                </div>
+                <span className="font-medium">{mockUser.firstName} {mockUser.lastName}</span>
               </div>
-              <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground hover:text-glacier-500">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleLogout} 
+                className="text-muted-foreground hover:text-primary hover:bg-primary/5"
+              >
                 <LogOut className="w-4 h-4 mr-2" />
                 Déconnexion
               </Button>
             </div>
             
-            {/* Mobile: Menu burger */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild className="md:hidden">
-                <Button variant="ghost" size="icon">
-                  <Menu className="w-6 h-6" />
+                <Button variant="ghost" size="icon" className="hover:bg-primary/5">
+                  <Menu className="w-6 h-6 text-primary" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80">
-                <SheetHeader className="text-left pb-6 border-b border-border">
-                  <SheetTitle className="text-lg font-display">Mon compte</SheetTitle>
+              <SheetContent side="right" className="w-80 bg-white">
+                <SheetHeader className="text-left pb-6 border-b border-primary/10">
+                  <SheetTitle className="text-lg font-display text-primary">Mon compte</SheetTitle>
                 </SheetHeader>
                 <div className="py-6 space-y-6">
-                  {/* User info */}
-                  <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-primary/5 rounded-2xl border border-primary/10">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                       <User className="w-6 h-6 text-primary" />
                     </div>
@@ -1174,21 +1177,9 @@ const Dashboard = () => {
                       <p className="text-sm text-muted-foreground">{mockUser.email}</p>
                     </div>
                   </div>
-                  
-                  {/* Formation info */}
-                  <div className="p-3 bg-primary/5 rounded-xl border border-primary/20">
-                    <p className="text-sm text-muted-foreground mb-1">Formation actuelle</p>
-                    <p className="font-semibold text-foreground">{displayTitle}</p>
-                    <div className="mt-2">
-                      <Progress value={displayProgress} className="h-2" />
-                      <p className="text-xs text-muted-foreground mt-1">{displayProgress}% complété</p>
-                    </div>
-                  </div>
-                  
-                  {/* Retour accueil */}
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start text-muted-foreground" 
+                    className="w-full justify-start text-muted-foreground border-primary/20 hover:bg-primary/5" 
                     onClick={() => {
                       setMobileMenuOpen(false);
                       handleBackFromCourseView();
@@ -1197,11 +1188,9 @@ const Dashboard = () => {
                     <Home className="w-4 h-4 mr-3" />
                     Retour à l'accueil
                   </Button>
-                  
-                  {/* Actions */}
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start text-muted-foreground" 
+                    className="w-full justify-start text-muted-foreground border-primary/20 hover:bg-primary/5" 
                     onClick={() => {
                       setMobileMenuOpen(false);
                       handleLogout();
@@ -1214,127 +1203,95 @@ const Dashboard = () => {
               </SheetContent>
             </Sheet>
           </div>
+        </div>
+      </header>
+
+      {/* Contenu principal - Fond blanc, centré */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Welcome Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-2">
+            {displayTitle}
+          </h1>
+          <p className="text-base sm:text-lg text-muted-foreground">
+            {isDirectionView ? "Ta feuille de route personnalisée" : "Cours bonus"}
+          </p>
           
-          {/* Notification FAQ - Compacte sur mobile (uniquement pour la direction) */}
+          {/* Notification FAQ - style cohérent */}
           {isDirectionView && (
-            <div className="mt-3 -mx-4 px-4 py-2 bg-primary/5 border-y border-primary/10">
-              <div className="flex items-center gap-2 text-xs sm:text-sm">
-                <Bell className="w-4 h-4 text-destructive flex-shrink-0 animate-bell-ring" />
-                <span className="text-muted-foreground">Prochaine FAQ :</span>
-                <span className="font-semibold text-primary truncate">{prochaineFAQData.date} • {prochaineFAQData.heure}</span>
+            <div className="mt-4 bg-primary rounded-2xl p-4">
+              <div className="flex items-center gap-3">
+                <Bell className="w-5 h-5 text-white flex-shrink-0" />
+                <div className="flex-1">
+                  <span className="text-sm text-white/90">Prochaine session FAQ : </span>
+                  <span className="text-sm font-bold text-white">{prochaineFAQData.date} à {prochaineFAQData.heure}</span>
+                </div>
               </div>
             </div>
           )}
         </div>
-      </header>
 
-      <div className="px-4 py-6">
-        {/* Welcome Section */}
-        <div className="mb-5">
-          {/* Mobile: Bouton retour simple */}
-          <div className="md:hidden mb-2">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={handleBackFromCourseView}
-              className="text-muted-foreground hover:text-primary p-0 h-auto flex items-center gap-1"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Retour
-            </Button>
-          </div>
-          
-          {/* Desktop: Breadcrumb complet */}
-          <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground mb-2">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={handleBackFromCourseView}
-              className="text-muted-foreground hover:text-primary p-0 h-auto"
-            >
-              Ma direction
-            </Button>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-foreground">{displayTitle}</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-1">
-            {isDirectionView ? `${displayTitle} - ${pointDeDepartData.situation_pro}` : displayTitle}
-          </h1>
-          <p className="text-sm sm:text-base text-muted-foreground">
-            {isDirectionView ? "Ta feuille de route personnalisée" : "Cours bonus"}
-          </p>
-        </div>
-
-        {/* Progress Card - Optimisée mobile */}
-        <Card className="mb-6 bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
-          <CardContent className="p-4 sm:p-6">
-            <div className="space-y-4">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-base sm:text-lg font-semibold text-foreground">Progression</h2>
-                  <span className="text-sm font-bold text-primary">{displayProgress}%</span>
+        {/* Progress Card - Style premium blanc avec bordure bleue */}
+        <div className="mb-8 bg-white rounded-3xl border-2 border-primary/20 p-6 sm:p-8">
+          <div className="flex items-start gap-5 sm:gap-6">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-primary flex items-center justify-center flex-shrink-0">
+              <Target className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-display font-bold text-primary">
+                    Progression
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Module {completedCount + 1}/{displayModules.length}
+                  </p>
                 </div>
-                <Progress value={displayProgress} className="h-2 sm:h-3" />
+                <span className="text-2xl sm:text-3xl font-bold text-primary">{displayProgress}%</span>
               </div>
               
-              <div className="flex items-center justify-between gap-3">
-                <p className="text-xs sm:text-sm text-muted-foreground flex-1 line-clamp-1">
-                  Module {completedCount + 1}/{displayModules.length} • {displayCurrentModule?.title || displayModules[0]?.title}
-                </p>
-                <Button 
-                  size="default"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground flex-shrink-0"
-                  onClick={() => displayCurrentModule && setSelectedModule(displayCurrentModule)}
-                >
-                  <Play className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">Continuer</span>
-                </Button>
+              <div className="space-y-3">
+                <div className="h-3 bg-green-100 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-500"
+                    style={{ width: `${displayProgress}%` }}
+                  />
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm text-muted-foreground flex items-center gap-2">
+                    <Play className="w-4 h-4 text-primary" />
+                    En cours : <span className="font-medium text-foreground">{displayCurrentModule?.title || displayModules[0]?.title}</span>
+                  </p>
+                  <Button 
+                    size="default"
+                    className="bg-primary hover:bg-primary/90 text-white flex-shrink-0"
+                    onClick={() => displayCurrentModule && setSelectedModule(displayCurrentModule)}
+                  >
+                    <Play className="w-4 h-4 sm:mr-2" />
+                    <span className="hidden sm:inline">Continuer</span>
+                  </Button>
+                </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* Navigation Tabs - uniquement pour la direction (pas pour les cours bonus) */}
+        {/* Navigation Tabs - Style épuré */}
         {isDirectionView && (
-          <div className="mb-6">
-            {/* Mobile: Dropdown ou scroll horizontal */}
-            <div className="md:hidden">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    className={`w-full justify-between border-primary/30 shadow-sm ${!hasInteractedWithDropdown ? 'animate-pulse-subtle hover:animate-none' : ''}`}
-                    onClick={() => setHasInteractedWithDropdown(true)}
-                  >
-                    <span>{tabItems.find(t => t.id === activeTab)?.shortLabel}</span>
-                    <ChevronDown className={`w-4 h-4 ml-2 ${!hasInteractedWithDropdown ? 'animate-bounce-subtle' : ''}`} />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-[calc(100vw-2rem)]">
-                  {tabItems.map((tab) => (
-                    <DropdownMenuItem 
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                      className={activeTab === tab.id ? "bg-primary/10 text-primary" : ""}
-                    >
-                      {tab.label}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-            
-            {/* Desktop: Tabs classiques */}
-            <div className="hidden md:flex flex-wrap gap-2 border-b border-border pb-4">
+          <div className="mb-8">
+            <div className="flex gap-2">
               {tabItems.map((tab) => (
-                <Button
+                <button
                   key={tab.id}
-                  variant={activeTab === tab.id ? "default" : "outline"}
                   onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                  className={activeTab === tab.id ? "bg-primary text-primary-foreground" : ""}
+                  className={`px-6 py-3 rounded-2xl font-medium transition-all ${
+                    activeTab === tab.id 
+                      ? "bg-primary text-white" 
+                      : "bg-primary/5 text-primary hover:bg-primary/10 border border-primary/20"
+                  }`}
                 >
                   {tab.label}
-                </Button>
+                </button>
               ))}
             </div>
           </div>
