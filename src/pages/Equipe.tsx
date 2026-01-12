@@ -86,7 +86,13 @@ const Equipe = () => {
             </span>
             <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground leading-tight mb-4 animate-fade-up-delay-1">
               Des experts qui ont{" "}
-              <span className="text-glacier">aussi investi.</span>
+              <span className="text-glacier">
+                <span className="relative inline-block">
+                  aussi
+                  <span className="absolute -bottom-0.5 md:-bottom-1 left-0 right-0 h-0.5 md:h-1 bg-glacier rounded-full" />
+                </span>{" "}
+                investi.
+              </span>
             </h1>
             <p className="text-primary-foreground/80 text-lg animate-fade-up-delay-2">
               Une équipe pluridisciplinaire au service de ta réussite immobilière.
