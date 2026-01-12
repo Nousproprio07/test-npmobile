@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const directions = [
   {
     icon: Home,
-    title: "Résidence Essentiel",
+    title: "Résidence Essentielle",
     tagline: "Construire intelligemment ton premier projet de vie.",
     description: "Pour celles et ceux qui veulent sécuriser leur avenir avant de chercher la rentabilité.",
   },

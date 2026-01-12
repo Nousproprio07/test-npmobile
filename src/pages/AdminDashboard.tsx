@@ -1111,7 +1111,7 @@ const AdminDashboard = () => {
                       ? 'bg-primary/10 text-primary' 
                       : 'bg-secondary text-secondary-foreground'
                   }`}>
-                    {client.accompagnement === 'patrimoine-actif' ? 'Patrimoine Actif' : 'Résidence Essentiel'}
+                    {client.accompagnement === 'patrimoine-actif' ? 'Patrimoine Actif' : 'Résidence Essentielle'}
                   </span>
                   <span className="text-sm text-muted-foreground">
                     Client depuis le {new Date(client.joinedAt).toLocaleDateString('fr-FR')}
@@ -1359,7 +1359,7 @@ const AdminDashboard = () => {
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-muted-foreground">Résidence Essentiel</p>
+                          <p className="text-sm text-muted-foreground">Résidence Essentielle</p>
                           <p className="text-3xl font-bold text-foreground">{residenceEssentielClients.length}</p>
                           <p className="text-xs text-muted-foreground mt-1">
                             {residenceEssentielClients.reduce((acc, c) => acc + c.amountSpent, 0)}€ total
@@ -1401,7 +1401,7 @@ const AdminDashboard = () => {
                         {clientFilter === 'all' 
                           ? 'Tous les clients' 
                           : clientFilter === 'residence-essentiel' 
-                            ? 'Clients Résidence Essentiel' 
+                            ? 'Clients Résidence Essentielle' 
                             : 'Clients Patrimoine Actif'}
                         <span className="text-sm font-normal text-muted-foreground">
                           ({filteredClients.length})
@@ -1997,22 +1997,22 @@ const AdminDashboard = () => {
                               <input
                                 type="checkbox"
                                 id="admin-residence-essentiel"
-                                checked={newCourseForm.directions.includes("Résidence Essentiel")}
-                                onChange={(e) => handleCourseDirectionChange("Résidence Essentiel", e.target.checked)}
+                                checked={newCourseForm.directions.includes("Résidence Essentielle")}
+                                onChange={(e) => handleCourseDirectionChange("Résidence Essentielle", e.target.checked)}
                                 className="h-4 w-4 rounded border-input"
                               />
                               <label htmlFor="admin-residence-essentiel" className="text-sm cursor-pointer">
-                                Résidence Essentiel
+                                Résidence Essentielle
                               </label>
                             </div>
                             <div className="flex items-center space-x-2">
                               <input
                                 type="checkbox"
                                 id="admin-les-deux"
-                                checked={newCourseForm.directions.includes("Patrimoine Actif") && newCourseForm.directions.includes("Résidence Essentiel")}
+                                checked={newCourseForm.directions.includes("Patrimoine Actif") && newCourseForm.directions.includes("Résidence Essentielle")}
                                 onChange={(e) => {
                                   if (e.target.checked) {
-                                    setNewCourseForm(prev => ({ ...prev, directions: ["Patrimoine Actif", "Résidence Essentiel"] }));
+                                    setNewCourseForm(prev => ({ ...prev, directions: ["Patrimoine Actif", "Résidence Essentielle"] }));
                                   } else {
                                     setNewCourseForm(prev => ({ ...prev, directions: [] }));
                                   }

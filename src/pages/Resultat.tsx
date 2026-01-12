@@ -29,10 +29,10 @@ const Resultat = () => {
     // benefice est maintenant un tableau de réponses
     const beneficeArray = Array.isArray(benefice) ? benefice : [benefice];
     
-    // Pack Résidence Essentiel - Si "Me sentir enfin chez moi et en sécurité pour l'avenir" est sélectionné
+    // Pack Résidence Essentielle - Si "Me sentir enfin chez moi et en sécurité pour l'avenir" est sélectionné
     if (beneficeArray.includes("Me sentir enfin chez moi et en sécurité pour l'avenir")) {
       return {
-        type: "Résidence Essentiel",
+        type: "Résidence Essentielle",
         tagline: "Ton premier chez-toi, en toute confiance",
         description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
         features: [
@@ -64,9 +64,9 @@ const Resultat = () => {
       };
     }
     
-    // Fallback par défaut → Résidence Essentiel
+    // Fallback par défaut → Résidence Essentielle
     return {
-      type: "Résidence Essentiel",
+      type: "Résidence Essentielle",
       tagline: "Ton premier chez-toi, en toute confiance",
       description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
       features: [
@@ -157,7 +157,7 @@ const Resultat = () => {
                   {/* Mobile: Stack icon and title | Desktop: Side by side */}
                   <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-4">
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-hero flex items-center justify-center shadow-lg flex-shrink-0">
-                      {accompaniment.type === "Résidence Essentiel" 
+                      {accompaniment.type === "Résidence Essentielle" 
                         ? <Home className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
                         : <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
                       }
@@ -173,7 +173,7 @@ const Resultat = () => {
                   </div>
                   
                   <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6">
-                    {accompaniment.type === "Résidence Essentiel" 
+                    {accompaniment.type === "Résidence Essentielle" 
                       ? "Acheter ta résidence principale sans te tromper de projet."
                       : "Construire ton premier investissement locatif rentable."}
                   </p>
@@ -181,7 +181,7 @@ const Resultat = () => {
                   <h4 className="font-semibold text-foreground mb-2 md:mb-3 text-xs md:text-sm">Pourquoi c'est fait pour toi :</h4>
                   
                   <ul className="space-y-2 md:space-y-3 mb-4 md:mb-6">
-                    {accompaniment.type === "Résidence Essentiel" ? (
+                    {accompaniment.type === "Résidence Essentielle" ? (
                       <>
                         <li className="flex items-start gap-2 md:gap-3">
                           <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-[#99c5ff] flex-shrink-0 mt-0.5" />
@@ -299,7 +299,7 @@ const Resultat = () => {
               }
 
               // Messages positifs (verts) - anciennement info
-              if ((answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Résidence Essentiel") {
+              if ((answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment.type === "Résidence Essentielle") {
                 messages.push({
                   type: 'success',
                   title: 'Pris en compte :',
@@ -336,7 +336,7 @@ const Resultat = () => {
               }
 
               // Messages positifs (verts)
-              if (answers.logement_actuel === "Hébergé(e) gratuitement" && accompaniment.type === "Résidence Essentiel") {
+              if (answers.logement_actuel === "Hébergé(e) gratuitement" && accompaniment.type === "Résidence Essentielle") {
                 messages.push({
                   type: 'success',
                   title: 'Avantage détecté :',

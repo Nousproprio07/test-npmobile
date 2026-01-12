@@ -169,7 +169,7 @@ const strategieGlobaleModules = [
 
 // Mapping by accompaniment type
 const moduleCategoriesByType: Record<string, typeof residenceEssentielModules> = {
-  "Résidence Essentiel": residenceEssentielModules,
+  "Résidence Essentielle": residenceEssentielModules,
   "Patrimoine Actif": patrimoineActifModules,
   "Stratégie Globale": strategieGlobaleModules
 };
