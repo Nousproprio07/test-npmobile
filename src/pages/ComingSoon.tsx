@@ -20,7 +20,7 @@ const ComingSoon = () => {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-np-blue/10 border border-np-blue/20 text-np-blue text-sm font-medium mb-8 animate-fade-up">
           <Compass className="w-4 h-4" />
-          Nouveau site en préparation
+          Nouveau site en préparation • Disponible en février
         </div>
 
         {/* Main heading */}
