@@ -201,7 +201,7 @@ const Equipe = () => {
             </h2>
             <Link to="/questionnaire">
               <Button variant="glacier" size="lg">
-                Démarrer mon diagnostic
+                Découvrir ma direction
               </Button>
             </Link>
           </div>
