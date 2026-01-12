@@ -509,7 +509,7 @@ const Questionnaire = () => {
                   <Button
                     size="lg"
                     onClick={handleContactSubmit}
-                    disabled={!prenomInput.trim() || !emailInput.trim() || !consentChecked}
+                    disabled={!prenomInput.trim() || !emailInput.trim() || !consentChecked || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.trim())}
                     className="w-full group text-lg md:text-xl py-6 md:py-7 bg-[#99c5ff] hover:bg-[#7ab3ff] text-primary font-semibold disabled:opacity-50"
                   >
                     Voir ma feuille de route
