@@ -276,7 +276,7 @@ const AchatAccompagnement = () => {
                 </div>
                 
                 {/* User badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#99c5ff]/20 mb-4 md:mb-5">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#99c5ff]/20 mb-4 md:mb-5 animate-scale-in hover:scale-105 transition-transform duration-200 cursor-default">
                   <span className="text-sm md:text-base font-medium text-primary">{prenom} • {situationPro}</span>
                 </div>
                 
