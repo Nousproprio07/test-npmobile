@@ -55,10 +55,13 @@ const PourQuiSection = () => {
 
           {/* Indicateur scroll */}
           <div className="flex justify-center mt-8 md:mt-10 animate-fade-up-delay-3">
-            <div className="flex flex-col items-center gap-2 text-muted-foreground/60">
+            <button 
+              onClick={() => document.getElementById('boussole')?.scrollIntoView({ behavior: 'smooth' })}
+              className="flex flex-col items-center gap-2 text-muted-foreground/60 hover:text-glacier transition-colors cursor-pointer"
+            >
               <span className="text-xs uppercase tracking-widest">Découvrir</span>
               <ArrowDown className="w-5 h-5 animate-bounce" />
-            </div>
+            </button>
           </div>
         </div>
       </div>
