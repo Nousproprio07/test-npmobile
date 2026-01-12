@@ -57,10 +57,10 @@ const HeroSection = () => {
           {/* Main headline */}
           <h1 className="font-display text-[1.75rem] leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-8 md:mb-12 animate-fade-up">
             Trouve la bonne direction pour ton projet immobilier{" "}
-            <span className="relative inline-block whitespace-nowrap">
+            <Link to="/questionnaire" className="relative inline-block whitespace-nowrap hover:opacity-80 transition-opacity cursor-pointer">
               en 3 minutes.
               <span className="absolute -bottom-0.5 md:-bottom-1 left-0 right-0 h-0.5 md:h-1 bg-red-500 rounded-full" />
-            </span>
+            </Link>
           </h1>
 
           {/* 3 bénéfices clés - Mobile: vertical / Desktop: horizontal cards */}
