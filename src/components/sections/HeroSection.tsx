@@ -13,7 +13,7 @@ const HeroSection = () => {
         <div className="absolute bottom-32 -left-10 w-64 md:w-96 h-64 md:h-96 bg-primary-foreground rounded-full blur-3xl opacity-20" />
       </div>
 
-      <div className="container relative z-10 pt-4 md:pt-8 flex-1 flex flex-col">
+      <div className="container relative z-10 pt-6 md:pt-8 flex-1 flex flex-col">
         {/* Header - compact on mobile */}
         <header className="flex items-center justify-between mb-8 md:mb-16">
           <Link to="/"><img src={logoWhite} alt="NousProprio" className="h-6 md:h-8" /></Link>
