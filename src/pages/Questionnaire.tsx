@@ -472,7 +472,7 @@ const Questionnaire = () => {
                 {/* Email domain suggestions */}
                 {emailInput && emailInput.includes("@") && !emailInput.includes(".") && (
                   <div className="flex flex-wrap gap-2">
-                    {["@gmail.com", "@outlook.fr", "@hotmail.com", "@yahoo.fr", "@icloud.com"].map((domain) => {
+                    {["@gmail.com", "@outlook.fr", "@hotmail.fr", "@yahoo.fr", "@icloud.com"].map((domain) => {
                       const localPart = emailInput.split("@")[0];
                       const suggestion = localPart + domain;
                       return (
