@@ -173,7 +173,7 @@ const getFormationPhases = (situationPro: string): Record<string, PhaseType[]> =
       ]
     }
   ],
-  "Résidence Essentiel": [
+  "Résidence Essentielle": [
     {
       id: 1,
       title: "Préparation & Fondations",

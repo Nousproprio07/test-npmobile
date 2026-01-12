@@ -424,20 +424,20 @@ const EquipeAdmin = () => {
                       <div className="flex items-center space-x-2">
                         <Checkbox
                           id="residence-essentiel"
-                          checked={newCourse.directions.includes("Résidence Essentiel")}
-                          onCheckedChange={(checked) => handleDirectionChange("Résidence Essentiel", checked as boolean)}
+                          checked={newCourse.directions.includes("Résidence Essentielle")}
+                          onCheckedChange={(checked) => handleDirectionChange("Résidence Essentielle", checked as boolean)}
                         />
                         <label htmlFor="residence-essentiel" className="text-sm font-medium cursor-pointer">
-                          Résidence Essentiel
+                          Résidence Essentielle
                         </label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
                           id="les-deux"
-                          checked={newCourse.directions.includes("Patrimoine Actif") && newCourse.directions.includes("Résidence Essentiel")}
+                          checked={newCourse.directions.includes("Patrimoine Actif") && newCourse.directions.includes("Résidence Essentielle")}
                           onCheckedChange={(checked) => {
                             if (checked) {
-                              setNewCourse(prev => ({ ...prev, directions: ["Patrimoine Actif", "Résidence Essentiel"] }));
+                              setNewCourse(prev => ({ ...prev, directions: ["Patrimoine Actif", "Résidence Essentielle"] }));
                             } else {
                               setNewCourse(prev => ({ ...prev, directions: [] }));
                             }
