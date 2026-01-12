@@ -17,11 +17,6 @@ const ComingSoon = () => {
           <img src={logoImage} alt="NousProprio" className="h-20 sm:h-24 mx-auto" />
         </div>
 
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-np-blue/10 border border-np-blue/20 text-np-blue text-sm font-medium mb-8 animate-fade-up">
-          <Compass className="w-4 h-4" />
-          Nouveau site en préparation
-        </div>
 
         {/* Main heading */}
         <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight animate-fade-up-delay-1">
