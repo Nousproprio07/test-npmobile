@@ -276,8 +276,8 @@ const AchatAccompagnement = () => {
                 </div>
                 
                 {/* User badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-glacier/10 mb-4 md:mb-5">
-                  <span className="text-sm md:text-base font-medium text-glacier">{prenom} • {situationPro}</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#99c5ff]/20 mb-4 md:mb-5">
+                  <span className="text-sm md:text-base font-medium text-primary">{prenom} • {situationPro}</span>
                 </div>
                 
                 <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6 leading-relaxed">{accompaniment.description}</p>
