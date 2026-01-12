@@ -700,19 +700,8 @@ const Dashboard = () => {
         </header>
 
         <div className="pb-24">
-          {/* Player vidéo - Full width sur mobile */}
-          <div className="aspect-video bg-black w-full">
-            <iframe
-              src={selectedModule.videoUrl}
-              title={selectedModule.title}
-              className="w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-
-          {/* Contenu sous la vidéo */}
-          <div className="px-4 py-4 space-y-4">
+          {/* Titre et description AVANT la vidéo pour visibilité immédiate */}
+          <div className="px-4 py-4 space-y-3">
             {/* Titre et durée */}
             <div>
               <h1 className="text-lg sm:text-xl md:text-2xl font-display font-bold text-foreground leading-tight">
@@ -732,12 +721,27 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Description - Collapsible sur mobile */}
-            <div className="bg-muted/30 rounded-xl p-4">
+            {/* Description */}
+            <div className="bg-muted/30 rounded-xl p-3">
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {selectedModule.description}
               </p>
             </div>
+          </div>
+
+          {/* Player vidéo - Sous le titre et description */}
+          <div className="aspect-video bg-black w-full">
+            <iframe
+              src={selectedModule.videoUrl}
+              title={selectedModule.title}
+              className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+
+          {/* Contenu sous la vidéo */}
+          <div className="px-4 py-4 space-y-4">
 
             {/* Chapitres - Accordion style sur mobile */}
             <div className="bg-card rounded-xl border border-border overflow-hidden">
