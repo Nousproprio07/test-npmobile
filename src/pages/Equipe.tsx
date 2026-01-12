@@ -89,7 +89,20 @@ const Equipe = () => {
               <span className="text-glacier">
                 <span className="relative inline-block">
                   aussi
-                  <span className="absolute -bottom-0.5 md:-bottom-1 left-0 right-0 h-0.5 md:h-1 bg-glacier rounded-full" />
+                  <svg 
+                    className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-2 md:h-3" 
+                    viewBox="0 0 100 12" 
+                    preserveAspectRatio="none"
+                  >
+                    <path 
+                      d="M0 6 L10 2 L20 10 L30 2 L40 10 L50 2 L60 10 L70 2 L80 10 L90 2 L100 6" 
+                      fill="none" 
+                      stroke="hsl(var(--glacier))" 
+                      strokeWidth="3" 
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </span>{" "}
                 investi.
               </span>
