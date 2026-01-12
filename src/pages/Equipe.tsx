@@ -90,17 +90,23 @@ const Equipe = () => {
                 <span className="relative inline-block">
                   aussi
                   <svg 
-                    className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-2 md:h-3" 
-                    viewBox="0 0 100 12" 
+                    className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-3 md:h-4" 
+                    viewBox="0 0 100 16" 
                     preserveAspectRatio="none"
                   >
+                    <defs>
+                      <linearGradient id="brushGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="hsl(var(--glacier))" stopOpacity="0.3" />
+                        <stop offset="50%" stopColor="hsl(var(--glacier))" stopOpacity="1" />
+                        <stop offset="100%" stopColor="hsl(var(--glacier))" stopOpacity="0.3" />
+                      </linearGradient>
+                    </defs>
                     <path 
-                      d="M0 6 L10 2 L20 10 L30 2 L40 10 L50 2 L60 10 L70 2 L80 10 L90 2 L100 6" 
+                      d="M0 10 Q25 4, 50 8 T100 6" 
                       fill="none" 
-                      stroke="hsl(var(--glacier))" 
+                      stroke="url(#brushGradient)" 
                       strokeWidth="3" 
                       strokeLinecap="round"
-                      strokeLinejoin="round"
                     />
                   </svg>
                 </span>{" "}
