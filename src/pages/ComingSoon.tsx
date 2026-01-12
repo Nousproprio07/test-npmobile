@@ -20,7 +20,7 @@ const ComingSoon = () => {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-np-blue/10 border border-np-blue/20 text-np-blue text-sm font-medium mb-8 animate-fade-up">
           <Compass className="w-4 h-4" />
-          Nouveau site en préparation • Disponible en février
+          Nouveau site en préparation
         </div>
 
         {/* Main heading */}
@@ -49,7 +49,7 @@ const ComingSoon = () => {
                 <ArrowRight className="w-5 h-5 text-np-blue" />
               </div>
               <p className="font-display font-bold text-xl sm:text-2xl text-np-blue">
-                Bientôt disponible
+                Disponible en Février
               </p>
             </div>
             <p className="text-muted-foreground">
