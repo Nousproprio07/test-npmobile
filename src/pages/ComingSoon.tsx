@@ -52,7 +52,7 @@ const ComingSoon = () => {
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-up-delay-1 max-sm:text-sm max-sm:px-2">
-            Primo-accédant ou investisseur, obtiens une feuille de route personnalisée 
+            Primo-accédant ou investisseur, obtiens ta feuille de route personnalisée 
             pour débloquer ton projet en toute confiance.
           </p>
         </div>
