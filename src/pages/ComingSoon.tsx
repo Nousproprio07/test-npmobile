@@ -117,7 +117,7 @@ const ComingSoon = () => {
                   </p>
                 </div>
                 <p className="text-muted-foreground text-center mb-6">
-                  Inscris-toi pour être informé dès que notre accompagnement sera disponible.
+                  Inscris-toi pour être informé dès que notre offre sera disponible.
                 </p>
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
                   <Input
