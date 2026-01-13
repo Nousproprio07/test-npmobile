@@ -15,10 +15,7 @@ const ComingSoon = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 🔧 CONFIGURATION: Remplacez cette URL par votre webhook Google Sheets
-  // Créez un Google Apps Script avec doPost() qui ajoute l'email au sheet
-  // Exemple: https://script.google.com/macros/s/VOTRE_SCRIPT_ID/exec
-  const GOOGLE_SHEET_WEBHOOK_URL = "";
+  const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxN4NJCQKDs_tzJPUoO32gMeD_8L1lpZlWd2zOeaslIidoQzxycHZWndGa5iw6WnSm9/exec";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
