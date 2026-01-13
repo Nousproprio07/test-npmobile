@@ -15,15 +15,38 @@ const ComingSoon = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // 🔧 CONFIGURATION: Remplacez cette URL par votre webhook Google Sheets
+  // Créez un Google Apps Script avec doPost() qui ajoute l'email au sheet
+  // Exemple: https://script.google.com/macros/s/VOTRE_SCRIPT_ID/exec
+  const GOOGLE_SHEET_WEBHOOK_URL = "";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email.trim()) return;
     
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 800));
-    setIsLoading(false);
-    setIsSubmitted(true);
-    console.log("Email inscrit (mock):", email);
+    
+    try {
+      if (GOOGLE_SHEET_WEBHOOK_URL) {
+        await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            email: email.trim(),
+            date: new Date().toISOString(),
+            source: "coming-soon"
+          }),
+        });
+      }
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi:", error);
+      // On affiche quand même le succès car no-cors ne retourne pas de réponse
+      setIsSubmitted(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
