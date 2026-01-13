@@ -74,7 +74,7 @@ const ComingSoon = () => {
         
         {/* Logo */}
         <div className="text-center mb-6 sm:mb-10 animate-fade-up shrink-0">
-          <img src={logoImage} alt="NousProprio" className="h-14 sm:h-28 mx-auto" />
+          <img src={logoImage} alt="NousProprio" className="h-20 sm:h-28 mx-auto" />
         </div>
 
         {/* Hero Section */}
