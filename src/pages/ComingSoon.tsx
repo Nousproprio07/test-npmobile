@@ -174,10 +174,10 @@ const ComingSoon = () => {
                     <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8 text-green-600" />
                   </div>
                   <h3 className="font-display font-bold text-lg sm:text-xl text-foreground mb-2">
-                    Tu es sur la liste ! 🎉
+                    Bienvenue dans le cercle ! 🎉
                   </h3>
-                  <p className="text-muted-foreground text-sm sm:text-base">
-                    On te contacte dès que c'est prêt. À très vite !
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                    Tu fais partie des premiers à découvrir NousProprio. On t'envoie un accès prioritaire dès le lancement.
                   </p>
                 </div>
               )}
