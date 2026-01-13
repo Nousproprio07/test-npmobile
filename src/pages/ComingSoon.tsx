@@ -117,8 +117,7 @@ const ComingSoon = () => {
                   </p>
                 </div>
                 <p className="text-muted-foreground text-center mb-6">
-                  Rejoins la liste d'attente et sois parmi les premiers à découvrir 
-                  ta direction immobilière.
+                  Inscris-toi pour être informé dès que notre accompagnement sera disponible.
                 </p>
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
                   <Input
