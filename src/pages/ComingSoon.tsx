@@ -177,7 +177,7 @@ const ComingSoon = () => {
                     Bienvenue dans le cercle ! 🎉
                   </h3>
                   <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                    Tu fais partie des premiers à découvrir NousProprio. On t'envoie un accès prioritaire dès le lancement.
+                    On t'envoie un accès prioritaire dès le lancement.
                   </p>
                 </div>
               )}
