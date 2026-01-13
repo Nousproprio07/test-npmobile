@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, Target, Clock, TrendingUp, Users } from "lucide-react";
+import { ArrowRight, CheckCircle2, ClipboardCheck, BarChart3, Navigation, Eye, ShieldCheck, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import logoImage from "@/assets/Logo_Nousproprio.png";
 
-const benefits = [
-  { icon: Clock, text: "Moins de 3 minutes pour des réponses claires" },
-  { icon: Target, text: "Une direction précise, pas du blabla" },
-  { icon: TrendingUp, text: "Ta feuille de route personnalisée" },
-  { icon: Users, text: "Du conseil, pas de la vente" },
+const steps = [
+  { number: "01", icon: ClipboardCheck, title: "Questionnaire rapide", subtitle: "3 minutes chrono" },
+  { number: "02", icon: BarChart3, title: "Analyse personnalisée", subtitle: "On décrypte ta situation" },
+  { number: "03", icon: Navigation, title: "Ta feuille de route", subtitle: "Direction claire et actionnable" },
+];
+
+const advantages = [
+  { icon: Eye, text: "Du conseil, pas de la vente" },
+  { icon: ShieldCheck, text: "Solution innovante et unique" },
+  { icon: Map, text: "Résultats en 3 minutes" },
 ];
 
 const ComingSoon = () => {
@@ -21,7 +26,6 @@ const ComingSoon = () => {
     if (!email) return;
     
     setIsLoading(true);
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 800));
     setIsLoading(false);
     setIsSubmitted(true);
@@ -37,40 +41,56 @@ const ComingSoon = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl max-sm:w-[300px] max-sm:h-[300px]" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 py-12 sm:py-20 max-sm:py-6 max-sm:flex max-sm:flex-col max-sm:min-h-[100dvh]">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 py-12 sm:py-16 max-sm:py-6 max-sm:flex max-sm:flex-col max-sm:min-h-[100dvh]">
         {/* Logo */}
-        <div className="text-center mb-10 animate-fade-up max-sm:mb-6">
+        <div className="text-center mb-8 sm:mb-10 animate-fade-up max-sm:mb-5">
           <img src={logoImage} alt="NousProprio" className="h-16 sm:h-20 mx-auto max-sm:h-12" />
         </div>
 
         {/* Hero Section */}
-        <div className="text-center mb-12 sm:mb-16 max-sm:mb-6">
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight animate-fade-up max-sm:text-2xl max-sm:mb-3 max-sm:px-2">
-            Ton projet immobilier mérite{" "}
+        <div className="text-center mb-10 sm:mb-12 max-sm:mb-6">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight animate-fade-up max-sm:text-xl max-sm:mb-3 max-sm:px-2">
+            Trouve ta direction immobilière{" "}
             <span className="relative inline-block">
-              une direction claire.
+              en 3 minutes
               <span className="absolute -bottom-1 left-0 right-0 h-1 bg-accent/60 rounded-full max-sm:h-0.5 max-sm:-bottom-0.5" />
             </span>
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-up-delay-1 max-sm:text-base max-sm:px-2">
-            Primo-accédant ou investisseur, obtiens une feuille de route personnalisée 
-            pour débloquer ton projet en toute confiance.
-          </p>
         </div>
 
-        {/* Benefits List */}
-        <div className="flex flex-col gap-3 sm:gap-4 mb-12 sm:mb-16 max-w-lg mx-auto max-sm:gap-2.5 max-sm:mb-8">
-          {benefits.map((benefit, index) => (
+        {/* Competitive advantages - like HeroSection */}
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-10 sm:mb-12 animate-fade-up-delay-1 max-sm:gap-2 max-sm:mb-6">
+          {advantages.map((adv, index) => (
+            <div key={index} className="flex items-center gap-2 sm:gap-3 max-sm:text-xs">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-np-blue/10 flex items-center justify-center max-sm:w-7 max-sm:h-7">
+                <adv.icon className="w-4 h-4 sm:w-5 sm:h-5 text-np-blue max-sm:w-3.5 max-sm:h-3.5" />
+              </div>
+              <span className="font-medium text-foreground text-sm sm:text-base max-sm:text-xs">{adv.text}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Steps - like OffreSection */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-10 sm:mb-14 max-sm:gap-2 max-sm:mb-6">
+          {steps.map((step, index) => (
             <div 
-              key={benefit.text}
-              className="flex items-center gap-3 sm:gap-4 animate-fade-up"
+              key={step.number}
+              className="relative text-center animate-fade-up group"
               style={{ animationDelay: `${(index + 2) * 100}ms` }}
             >
-              <div className="w-10 h-10 rounded-full bg-np-blue/10 flex items-center justify-center flex-shrink-0 max-sm:w-8 max-sm:h-8">
-                <benefit.icon className="w-5 h-5 text-np-blue max-sm:w-4 max-sm:h-4" />
+              <div className="relative inline-block mb-3 sm:mb-4 max-sm:mb-2">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-primary via-primary to-glacier flex items-center justify-center shadow-lg mx-auto max-sm:w-11 max-sm:h-11 max-sm:rounded-xl">
+                  <step.icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary-foreground max-sm:w-5 max-sm:h-5" />
+                </div>
+                <span className="absolute -top-2 -right-2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-np-red text-white text-xs sm:text-sm font-bold flex items-center justify-center shadow-md max-sm:w-5 max-sm:h-5 max-sm:text-[10px] max-sm:-top-1 max-sm:-right-1">
+                  {step.number}
+                </span>
               </div>
-              <p className="font-medium text-foreground text-base sm:text-lg max-sm:text-sm">
-                {benefit.text}
+              <h3 className="font-display font-bold text-foreground text-sm sm:text-lg mb-1 max-sm:text-[11px] max-sm:leading-tight max-sm:mb-0.5">
+                {step.title}
+              </h3>
+              <p className="text-muted-foreground text-xs sm:text-sm max-sm:text-[10px] max-sm:leading-tight">
+                {step.subtitle}
               </p>
             </div>
           ))}
