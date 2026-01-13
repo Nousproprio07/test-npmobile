@@ -8,7 +8,7 @@ const benefits = [
   {
     icon: Target,
     title: "Ta direction en 3 minutes",
-    description: "Un diagnostic personnalisé pour savoir exactement par où commencer."
+    description: "Un bilan personnalisé pour savoir exactement par où commencer."
   },
   {
     icon: Clock,
