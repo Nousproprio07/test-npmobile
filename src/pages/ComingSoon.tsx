@@ -22,7 +22,7 @@ const benefits = [
   },
   {
     icon: Users,
-    title: "Accompagnement sur-mesure",
+    title: "Ta feuille de route personnalisée",
     description: "Une équipe d'experts terrain et bancaire à tes côtés."
   }
 ];
