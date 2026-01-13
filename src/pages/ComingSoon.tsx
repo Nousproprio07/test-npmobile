@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, ClipboardCheck, BarChart3, Navigation, Eye, ShieldCheck, Map } from "lucide-react";
+import { ArrowRight, CheckCircle2, ClipboardCheck, BarChart3, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import logoImage from "@/assets/Logo_Nousproprio.png";
@@ -10,11 +10,6 @@ const steps = [
   { number: "03", icon: Navigation, title: "Ta feuille de route", subtitle: "Direction claire et actionnable" },
 ];
 
-const advantages = [
-  { icon: Eye, text: "Du conseil, pas de la vente" },
-  { icon: ShieldCheck, text: "Solution innovante et unique" },
-  { icon: Map, text: "Résultats en 3 minutes" },
-];
 
 const ComingSoon = () => {
   const [email, setEmail] = useState("");
@@ -56,18 +51,10 @@ const ComingSoon = () => {
               <span className="absolute -bottom-1 left-0 right-0 h-1 bg-accent/60 rounded-full max-sm:h-0.5 max-sm:-bottom-0.5" />
             </span>
           </h1>
-        </div>
-
-        {/* Competitive advantages - like HeroSection */}
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-10 sm:mb-12 animate-fade-up-delay-1 max-sm:gap-2 max-sm:mb-6">
-          {advantages.map((adv, index) => (
-            <div key={index} className="flex items-center gap-2 sm:gap-3 max-sm:text-xs">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-np-blue/10 flex items-center justify-center max-sm:w-7 max-sm:h-7">
-                <adv.icon className="w-4 h-4 sm:w-5 sm:h-5 text-np-blue max-sm:w-3.5 max-sm:h-3.5" />
-              </div>
-              <span className="font-medium text-foreground text-sm sm:text-base max-sm:text-xs">{adv.text}</span>
-            </div>
-          ))}
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-up-delay-1 max-sm:text-sm max-sm:px-2">
+            Primo-accédant ou investisseur, obtiens une feuille de route personnalisée 
+            pour débloquer ton projet en toute confiance.
+          </p>
         </div>
 
         {/* Steps - like OffreSection */}
