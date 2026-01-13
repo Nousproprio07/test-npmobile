@@ -5,26 +5,10 @@ import { Input } from "@/components/ui/input";
 import logoImage from "@/assets/Logo_Nousproprio.png";
 
 const benefits = [
-  {
-    icon: Target,
-    title: "Ta direction en 3 minutes",
-    description: "Un bilan personnalisé pour savoir exactement par où commencer."
-  },
-  {
-    icon: Clock,
-    title: "Gagne des mois de recherche",
-    description: "Plus besoin de chercher partout, on te donne une feuille de route claire."
-  },
-  {
-    icon: TrendingUp,
-    title: "Maximise ta capacité d'achat",
-    description: "Découvre les stratégies pour optimiser ton budget et ton financement."
-  },
-  {
-    icon: Users,
-    title: "Ta feuille de route personnalisée",
-    description: "Une équipe d'experts terrain et bancaire à tes côtés."
-  }
+  { icon: Clock, text: "Moins de 3 minutes pour des réponses claires" },
+  { icon: Target, text: "Une direction précise, pas du blabla" },
+  { icon: TrendingUp, text: "Ta feuille de route personnalisée" },
+  { icon: Users, text: "Du conseil, pas de la vente" },
 ];
 
 const ComingSoon = () => {
@@ -74,30 +58,20 @@ const ComingSoon = () => {
           </p>
         </div>
 
-        {/* Benefits Grid */}
-        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-12 sm:mb-16 max-sm:gap-3 max-sm:mb-6">
+        {/* Benefits List */}
+        <div className="flex flex-col gap-3 sm:gap-4 mb-12 sm:mb-16 max-w-lg mx-auto max-sm:gap-2.5 max-sm:mb-8">
           {benefits.map((benefit, index) => (
             <div 
-              key={benefit.title}
-              className="relative group animate-fade-up"
+              key={benefit.text}
+              className="flex items-center gap-3 sm:gap-4 animate-fade-up"
               style={{ animationDelay: `${(index + 2) * 100}ms` }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-glacier/10 to-np-blue/5 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl p-5 sm:p-6 h-full hover:border-np-blue/30 transition-colors max-sm:p-4 max-sm:active:scale-[0.98] max-sm:touch-manipulation">
-                <div className="flex items-start gap-4 max-sm:gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-np-blue/10 flex items-center justify-center flex-shrink-0 max-sm:w-9 max-sm:h-9">
-                    <benefit.icon className="w-5 h-5 text-np-blue max-sm:w-4 max-sm:h-4" />
-                  </div>
-                  <div>
-                    <h3 className="font-display font-semibold text-foreground mb-1 max-sm:text-sm max-sm:mb-0.5">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground max-sm:text-xs max-sm:leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </div>
+              <div className="w-10 h-10 rounded-full bg-np-blue/10 flex items-center justify-center flex-shrink-0 max-sm:w-8 max-sm:h-8">
+                <benefit.icon className="w-5 h-5 text-np-blue max-sm:w-4 max-sm:h-4" />
               </div>
+              <p className="font-medium text-foreground text-base sm:text-lg max-sm:text-sm">
+                {benefit.text}
+              </p>
             </div>
           ))}
         </div>
