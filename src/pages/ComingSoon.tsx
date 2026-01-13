@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, CheckCircle2, ClipboardCheck, BarChart3, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,19 @@ const ComingSoon = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    if (isSubmitted && !showSuccess) {
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setShowSuccess(true);
+        setIsTransitioning(false);
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [isSubmitted, showSuccess]);
 
   const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxN4NJCQKDs_tzJPUoO32gMeD_8L1lpZlWd2zOeaslIidoQzxycHZWndGa5iw6WnSm9/exec";
 
@@ -112,55 +125,63 @@ const ComingSoon = () => {
         <div className="relative animate-fade-up-delay-2 max-w-xl mx-auto w-full shrink-0">
           <div className="absolute inset-0 bg-gradient-to-br from-glacier/20 to-np-blue/10 rounded-2xl blur-xl" />
           <div className="relative bg-background/80 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-5 sm:p-8 shadow-card">
-            {!isSubmitted ? (
-              <>
-                <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-np-blue/10 flex items-center justify-center">
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-np-blue" />
+            <div className={`transition-all duration-400 ease-out ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+              {!showSuccess ? (
+                <>
+                  <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-np-blue/10 flex items-center justify-center">
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-np-blue" />
+                    </div>
+                    <p className="font-display font-bold text-lg sm:text-2xl text-np-blue">
+                      Disponible en Février
+                    </p>
                   </div>
-                  <p className="font-display font-bold text-lg sm:text-2xl text-np-blue">
-                    Disponible en Février
+                  <p className="text-muted-foreground text-center mb-4 sm:mb-6 text-sm sm:text-base">
+                    Inscris-toi pour être informé dès que notre offre sera disponible.
+                  </p>
+                  <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+                    <Input
+                      type="email"
+                      placeholder="ton@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      disabled={isLoading}
+                      className="flex-1 h-12 sm:h-12 bg-background/50 text-base touch-manipulation"
+                      autoComplete="email"
+                      inputMode="email"
+                    />
+                    <Button 
+                      type="submit" 
+                      disabled={isLoading}
+                      className="h-12 px-6 bg-np-blue hover:bg-np-blue/90 active:bg-np-blue/80 text-white font-semibold touch-manipulation transition-all duration-200"
+                    >
+                      {isLoading ? (
+                        <span className="flex items-center gap-2">
+                          <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Envoi...
+                        </span>
+                      ) : "Je m'inscris"}
+                    </Button>
+                  </form>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground/60 text-center mt-3 sm:mt-4">
+                    Pas de spam. Tu recevras uniquement les infos de lancement.
+                  </p>
+                </>
+              ) : (
+                <div className="text-center py-3 sm:py-4 animate-fade-up">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3 sm:mb-4 animate-bounce-subtle">
+                    <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8 text-green-600" />
+                  </div>
+                  <h3 className="font-display font-bold text-lg sm:text-xl text-foreground mb-2">
+                    Tu es sur la liste ! 🎉
+                  </h3>
+                  <p className="text-muted-foreground text-sm sm:text-base">
+                    On te contacte dès que c'est prêt. À très vite !
                   </p>
                 </div>
-                <p className="text-muted-foreground text-center mb-4 sm:mb-6 text-sm sm:text-base">
-                  Inscris-toi pour être informé dès que notre offre sera disponible.
-                </p>
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-                  <Input
-                    type="email"
-                    placeholder="ton@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="flex-1 h-12 sm:h-12 bg-background/50 text-base touch-manipulation"
-                    autoComplete="email"
-                    inputMode="email"
-                  />
-                  <Button 
-                    type="submit" 
-                    disabled={isLoading}
-                    className="h-12 px-6 bg-np-blue hover:bg-np-blue/90 active:bg-np-blue/80 text-white font-semibold touch-manipulation transition-colors"
-                  >
-                    {isLoading ? "..." : "Je m'inscris"}
-                  </Button>
-                </form>
-                <p className="text-[10px] sm:text-xs text-muted-foreground/60 text-center mt-3 sm:mt-4">
-                  Pas de spam. Tu recevras uniquement les infos de lancement.
-                </p>
-              </>
-            ) : (
-              <div className="text-center py-3 sm:py-4">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8 text-green-600" />
-                </div>
-                <h3 className="font-display font-bold text-lg sm:text-xl text-foreground mb-2">
-                  Tu es sur la liste ! 🎉
-                </h3>
-                <p className="text-muted-foreground text-sm sm:text-base">
-                  On te contacte dès que c'est prêt. À très vite !
-                </p>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
 
