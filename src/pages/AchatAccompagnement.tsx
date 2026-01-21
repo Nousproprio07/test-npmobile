@@ -14,7 +14,8 @@ import {
   Award,
   HelpCircle,
   Play,
-  AlertTriangle
+  AlertTriangle,
+  Trophy
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import {
@@ -437,6 +438,14 @@ const AchatAccompagnement = () => {
             
             {/* Left column - Main content */}
             <div className="md:col-span-3">
+              {/* Section title */}
+              <div className="flex items-center gap-3 mb-4 md:mb-6">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Trophy className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+                </div>
+                <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">Mon résultat</h2>
+              </div>
+              
               {/* Accompaniment summary card */}
               <div className="bg-card rounded-2xl p-5 md:p-8 shadow-elegant border border-border mb-6 md:mb-8">
                 <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-5">
