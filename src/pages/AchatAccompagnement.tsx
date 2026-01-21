@@ -498,7 +498,7 @@ const AchatAccompagnement = () => {
               <div className={`mb-6 md:mb-8 transition-all duration-500 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <div className="flex items-center gap-2 mb-4 md:mb-6">
                   <Play className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-                  <h2 className="font-display text-lg md:text-2xl font-bold text-foreground">Ce qui t'attend</h2>
+                  <h2 className="font-display text-lg md:text-2xl font-bold text-foreground">Ce qui s'offre à toi</h2>
                   <span className="ml-auto text-xs md:text-sm text-muted-foreground bg-muted px-2 py-1 md:px-3 md:py-1.5 rounded-full">
                     {moduleCategories.reduce((acc, cat) => acc + cat.modules.length, 0)} modules
                   </span>
