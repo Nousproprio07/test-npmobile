@@ -443,7 +443,7 @@ const AchatAccompagnement = () => {
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <Trophy className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                 </div>
-                <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">Mon résultat</h2>
+                <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">Ma feuille de route</h2>
               </div>
               
               {/* Accompaniment summary card */}
