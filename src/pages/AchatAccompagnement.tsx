@@ -449,8 +449,8 @@ const AchatAccompagnement = () => {
               {/* Accompaniment summary card */}
               <div className="bg-card rounded-2xl p-5 md:p-8 shadow-elegant border border-border mb-6 md:mb-8">
                 <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-5">
-                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-primary flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 md:w-7 md:h-7 text-primary-foreground" />
+                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-red-100 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 md:w-7 md:h-7 text-red-600" />
                   </div>
                   <div>
                     <span className="text-xs md:text-sm font-semibold text-primary uppercase tracking-wide">Ton accompagnement</span>
@@ -459,8 +459,8 @@ const AchatAccompagnement = () => {
                 </div>
                 
                 {/* User badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-100 mb-4 md:mb-5">
-                  <span className="text-sm md:text-base font-medium text-red-700">{prenom} • {situationPro}</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#99c5ff]/20 mb-4 md:mb-5">
+                  <span className="text-sm md:text-base font-medium text-primary">{prenom} • {situationPro}</span>
                 </div>
                 
                 <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6 leading-relaxed">{accompaniment.description}</p>
