@@ -439,14 +439,19 @@ const AchatAccompagnement = () => {
             {/* Left column - Main content */}
             <div className="md:col-span-3">
               {/* Section title */}
-              <div className="flex items-center gap-3 mb-4 md:mb-6">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Trophy className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+              <div className="mb-6 md:mb-8">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                    <Trophy className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
+                  </div>
+                  <span className="text-xs md:text-sm font-medium text-primary uppercase tracking-wider">Résultat personnalisé</span>
                 </div>
-                <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">
-                  <span className="block md:inline">{prenom},</span>
-                  <span className="block md:inline"> d'après tes réponses voici ta feuille de route</span>
+                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mt-3">
+                  <span className="text-primary">{prenom}</span>, d'après tes réponses
                 </h2>
+                <p className="text-lg md:text-xl text-muted-foreground font-medium mt-1">
+                  voici <span className="text-foreground font-semibold">ta feuille de route</span>
+                </p>
               </div>
               
               {/* Accompaniment summary card */}
