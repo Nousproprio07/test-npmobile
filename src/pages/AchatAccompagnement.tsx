@@ -446,9 +446,6 @@ const AchatAccompagnement = () => {
                   </div>
                   <span className="text-xs md:text-sm font-medium text-primary uppercase tracking-wider">Résultat personnalisé</span>
                 </div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mt-3">
-                  <span className="text-primary">{prenom}</span>, voici ta feuille de route
-                </h2>
               </div>
               
               {/* Accompaniment summary card */}
