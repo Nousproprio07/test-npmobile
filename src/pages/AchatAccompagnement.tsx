@@ -13,7 +13,8 @@ import {
   TrendingUp,
   Award,
   HelpCircle,
-  Play
+  Play,
+  AlertTriangle
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import {
@@ -210,9 +211,182 @@ const AchatAccompagnement = () => {
   const accompaniment = location.state?.accompaniment;
   const prenom = location.state?.prenom || "Ami(e)";
   const situationPro = location.state?.situationPro || "Salarié(e)";
+  const answers = location.state?.answers || {};
   
   // Get modules based on accompaniment type
   const moduleCategories = moduleCategoriesByType[accompaniment?.type] || residenceEssentielModules;
+
+  // Generate vigilance points based on answers
+  const getVigilanceMessages = () => {
+    const messages: { type: 'warning' | 'success'; title: string; text: string; priority: number }[] = [];
+
+    // Warnings prioritaires
+    if (answers.horizon === "Moins de 3 mois") {
+      messages.push({
+        type: 'warning',
+        title: 'Prends le temps qu\'il faut.',
+        text: 'Un projet immobilier solide se construit avec méthode, pas dans l\'urgence. Mieux vaut un bon projet dans 6 mois qu\'une erreur dans 3.',
+        priority: 1
+      });
+    }
+
+    if (answers.revenus === "Moins de 2 000 €" && accompaniment?.type === "Patrimoine Actif") {
+      messages.push({
+        type: 'warning',
+        title: '⚠️ Attention :',
+        text: 'Avec tes revenus actuels, l\'investissement locatif nécessite une préparation minutieuse. On va d\'abord optimiser ta situation.',
+        priority: 2
+      });
+    }
+
+    if (answers.capacite === "Non" || answers.capacite === "Un peu") {
+      messages.push({
+        type: 'warning',
+        title: '⚠️ Point de vigilance :',
+        text: `Tu as indiqué ${answers.capacite === "Non" ? "ne pas mettre" : "mettre peu"} d'argent de côté. Constitue 3 à 6 mois d'épargne de sécurité.`,
+        priority: 3
+      });
+    }
+
+    // Messages positifs (verts)
+    if ((answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment?.type === "Résidence Essentielle") {
+      messages.push({
+        type: 'success',
+        title: 'Pris en compte :',
+        text: 'Avec des enfants, on priorise stabilité, espace et proximité des écoles dans tes critères.',
+        priority: 4
+      });
+    }
+
+    if ((answers.situation_familiale === "Célibataire avec enfant(s)" || answers.situation_familiale === "En couple avec enfant(s)") && accompaniment?.type === "Patrimoine Actif") {
+      messages.push({
+        type: 'success',
+        title: 'Pris en compte :',
+        text: 'Avec des enfants, on priorise l\'accessibilité des biens pour éviter de longs déplacements.',
+        priority: 4
+      });
+    }
+
+    if (answers.logement_actuel === "Locataire" && accompaniment?.type === "Patrimoine Actif") {
+      messages.push({
+        type: 'success',
+        title: 'Stratégie validée :',
+        text: 'Rester locataire tout en investissant peut être très rentable — on t\'explique comment.',
+        priority: 5
+      });
+    }
+
+    if (answers.horizon === "Plus tard, quand je me sentirai prêt") {
+      messages.push({
+        type: 'success',
+        title: 'Sage décision :',
+        text: 'Prendre le temps de bien se préparer, c\'est déjà avancer. On t\'accompagne à ton rythme.',
+        priority: 6
+      });
+    }
+
+    if (answers.logement_actuel === "Hébergé(e) gratuitement" && accompaniment?.type === "Résidence Essentielle") {
+      messages.push({
+        type: 'success',
+        title: 'Avantage détecté :',
+        text: 'Sans loyer actuel, tu peux maximiser ton épargne avant l\'achat. Timing idéal !',
+        priority: 7
+      });
+    }
+
+    if (answers.revenus === "Plus de 5 000 €") {
+      messages.push({
+        type: 'success',
+        title: 'Atout majeur :',
+        text: 'Avec ta capacité financière, tu peux viser des stratégies diversifiées et accélérer ta constitution de patrimoine.',
+        priority: 8
+      });
+    }
+
+    if (answers.revenus === "Entre 3 500 € et 5 000 €") {
+      messages.push({
+        type: 'success',
+        title: 'Bon potentiel :',
+        text: 'Ta capacité d\'emprunt te donne accès à plusieurs options intéressantes.',
+        priority: 9
+      });
+    }
+
+    if (answers.logement_actuel === "Déjà propriétaire") {
+      messages.push({
+        type: 'success',
+        title: 'Expérience valorisée :',
+        text: 'En tant que propriétaire, tu peux utiliser ton patrimoine existant comme levier pour tes prochains projets.',
+        priority: 10
+      });
+    }
+
+    if (answers.situation_familiale === "En couple" || answers.situation_familiale === "En couple avec enfant(s)") {
+      messages.push({
+        type: 'success',
+        title: 'Force du duo :',
+        text: 'À deux, ta capacité d\'emprunt est renforcée et les risques sont mieux répartis.',
+        priority: 11
+      });
+    }
+
+    if (answers.capacite === "Oui, régulièrement") {
+      messages.push({
+        type: 'success',
+        title: 'Discipline récompensée :',
+        text: 'Ta capacité à épargner régulièrement est un signal fort pour les banques.',
+        priority: 12
+      });
+    }
+
+    if (answers.situation_pro === "Salarié(e)") {
+      messages.push({
+        type: 'success',
+        title: 'Profil bancaire solide :',
+        text: 'Le statut salarié rassure les banques et facilite l\'accès au crédit.',
+        priority: 13
+      });
+    }
+
+    if (answers.situation_pro === "Indépendant(e) / Freelance") {
+      messages.push({
+        type: 'success',
+        title: 'Profil entrepreneur :',
+        text: 'En tant qu\'indépendant, les banques demandent généralement 2 à 3 bilans. On t\'aide à préparer un dossier solide.',
+        priority: 14
+      });
+    }
+
+    if (answers.situation_pro === "Étudiant(e)") {
+      messages.push({
+        type: 'success',
+        title: 'Profil en devenir :',
+        text: 'En tant qu\'étudiant, c\'est le moment idéal pour apprendre et préparer ton projet. L\'accès au crédit viendra avec ton premier emploi stable.',
+        priority: 15
+      });
+    }
+
+    // Message positif par défaut
+    messages.push({
+      type: 'success',
+      title: 'Premier pas franchi :',
+      text: 'Tu as fait le premier pas en découvrant ta feuille de route. C\'est le début de ton projet.',
+      priority: 20
+    });
+
+    // Séparer warnings et succès
+    const warnings = messages.filter(m => m.type === 'warning').sort((a, b) => a.priority - b.priority);
+    const successes = messages.filter(m => m.type === 'success').sort((a, b) => a.priority - b.priority);
+    
+    // Limiter à 2 warnings max, puis compléter avec des succès (total 5 max)
+    const limitedWarnings = warnings.slice(0, 2);
+    const remainingSlots = 5 - limitedWarnings.length;
+    const limitedSuccesses = successes.slice(0, remainingSlots);
+    
+    return [...limitedSuccesses, ...limitedWarnings];
+  };
+
+  const vigilanceMessages = getVigilanceMessages();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -281,6 +455,37 @@ const AchatAccompagnement = () => {
                 </div>
                 
                 <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6 leading-relaxed">{accompaniment.description}</p>
+                
+                {/* Tes points de vigilance */}
+                {vigilanceMessages.length > 0 && (
+                  <div className="mb-4 md:mb-6">
+                    <h3 className="text-base md:text-lg font-display font-bold text-foreground mb-3">
+                      Tes points de vigilance
+                    </h3>
+                    <div className="space-y-2">
+                      {vigilanceMessages.map((msg, index) => {
+                        if (msg.type === 'warning') {
+                          return (
+                            <div key={index} className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-start gap-3">
+                              <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                              <p className="text-amber-800 text-sm leading-relaxed">
+                                <strong className="text-amber-900">{msg.title}</strong> {msg.text}
+                              </p>
+                            </div>
+                          );
+                        }
+                        return (
+                          <div key={index} className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex items-center gap-3">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                            <p className="text-emerald-800 text-sm">
+                              <strong className="text-emerald-900">{msg.title}</strong> {msg.text}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
                 
                 {/* Price - Mobile only */}
                 <div className="md:hidden bg-primary/5 rounded-xl p-3 text-center">

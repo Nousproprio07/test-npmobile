@@ -176,6 +176,60 @@ const Questionnaire = () => {
   const progress = ((currentStep + 1) / totalSteps) * 100;
   const currentQuestion = questions[currentStep];
 
+  // Helper function to calculate accompaniment from answers
+  const getAccompanimentFromAnswers = (answersData: Record<string, string | string[]>) => {
+    const benefice = answersData.benefice;
+    const beneficeArray = Array.isArray(benefice) ? benefice : [benefice];
+    
+    if (beneficeArray.includes("Me sentir enfin chez moi et en sécurité pour l'avenir")) {
+      return {
+        type: "Résidence Essentielle",
+        tagline: "Ton premier chez-toi, en toute confiance",
+        description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
+        features: [
+          "Simulation personnalisée de ta capacité d'emprunt",
+          "Accompagnement dans les démarches bancaires",
+          "Guide complet pour négocier ton premier achat",
+          "Accès aux lives privés hebdomadaires"
+        ],
+        price: "895€",
+        priceDetail: "Paiement en plusieurs fois possible"
+      };
+    }
+    
+    if (beneficeArray.includes("Développer un patrimoine sur le long terme") || 
+        beneficeArray.includes("Investir pour générer un patrimoine et des revenus")) {
+      return {
+        type: "Patrimoine Actif",
+        tagline: "Investis pour générer des revenus",
+        description: "Construis un patrimoine qui travaille pour toi grâce à l'investissement locatif intelligent.",
+        features: [
+          "Stratégie locative personnalisée",
+          "Analyse de rentabilité sur-mesure",
+          "Coaching individuel mensuel",
+          "Accès prioritaire à nos experts bancaires"
+        ],
+        price: "975€",
+        priceDetail: "Paiement en plusieurs fois possible"
+      };
+    }
+    
+    // Fallback
+    return {
+      type: "Résidence Essentielle",
+      tagline: "Ton premier chez-toi, en toute confiance",
+      description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
+      features: [
+        "Simulation personnalisée de ta capacité d'emprunt",
+        "Accompagnement dans les démarches bancaires",
+        "Guide complet pour négocier ton premier achat",
+        "Accès aux lives privés hebdomadaires"
+      ],
+      price: "895€",
+      priceDetail: "Paiement en plusieurs fois possible"
+    };
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const timer = setTimeout(() => setIsAnimating(false), 600);
@@ -274,38 +328,56 @@ const Questionnaire = () => {
   const handleTextSubmit = () => {
     if (textInput.trim()) {
       const questionId = currentQuestion.id;
-      setAnswers(prev => ({ ...prev, [questionId]: textInput.trim() }));
+      const finalAnswers = { ...answers, [questionId]: textInput.trim() };
+      setAnswers(finalAnswers);
+      
+      // Calculate accompaniment based on benefice
+      const accompaniment = getAccompanimentFromAnswers(finalAnswers);
+      const rawPrenom = finalAnswers.prenom;
+      const prenomStr = typeof rawPrenom === 'string' ? rawPrenom : "Ami(e)";
+      const prenom = prenomStr.charAt(0).toUpperCase() + prenomStr.slice(1).toLowerCase();
+      const situationPro = typeof finalAnswers.situation_pro === 'string' ? finalAnswers.situation_pro : "Salarié(e)";
       
       // Show encouragement for last question
       setShowEncouragement({ message: "Merci ! Ta feuille de route arrive...", emoji: "✨" });
       playNotification();
       setTimeout(() => {
-        navigate("/resultat", { state: { answers: { ...answers, [questionId]: textInput.trim() } } });
+        navigate("/achat", { 
+          state: { 
+            accompaniment, 
+            prenom, 
+            situationPro,
+            answers: finalAnswers 
+          } 
+        });
       }, 2000);
     }
   };
 
   const handleContactSubmit = () => {
     if (prenomInput.trim() && emailInput.trim() && consentChecked) {
-      setAnswers(prev => ({ 
-        ...prev, 
+      const finalAnswers: Record<string, string | string[]> = { 
+        ...answers, 
         prenom: prenomInput.trim(),
         email: emailInput.trim(),
         consent: "true"
-      }));
+      };
+      
+      // Calculate accompaniment based on benefice
+      const accompaniment = getAccompanimentFromAnswers(finalAnswers);
+      const prenom = prenomInput.trim().charAt(0).toUpperCase() + prenomInput.trim().slice(1).toLowerCase();
+      const situationPro = typeof answers.situation_pro === 'string' ? answers.situation_pro : "Salarié(e)";
       
       // Show encouragement for last question
       setShowEncouragement({ message: "Merci ! Ta feuille de route arrive...", emoji: "✨" });
       playNotification();
       setTimeout(() => {
-        navigate("/resultat", { 
+        navigate("/achat", { 
           state: { 
-            answers: { 
-              ...answers, 
-              prenom: prenomInput.trim(),
-              email: emailInput.trim(),
-              consent: "true"
-            } 
+            accompaniment, 
+            prenom, 
+            situationPro,
+            answers: finalAnswers 
           } 
         });
       }, 2000);
