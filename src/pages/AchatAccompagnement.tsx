@@ -178,7 +178,7 @@ const moduleCategoriesByType: Record<string, typeof residenceEssentielModules> =
 
 const faqItems = [
   {
-    question: "Combien de temps ai-je accès à l'accompagnement ?",
+    question: "Combien de temps ai-je accès à ma feuille de route ?",
     answer: "Tu as un accès illimité à vie à tous les modules et mises à jour. Une fois inscrit, tu fais partie de la communauté NousProprio pour toujours."
   },
   {
