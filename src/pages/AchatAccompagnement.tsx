@@ -445,7 +445,7 @@ const AchatAccompagnement = () => {
                 </div>
                 <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">
                   <span className="block md:inline">{prenom},</span>
-                  <span className="block md:inline"> voici ta feuille de route</span>
+                  <span className="block md:inline"> d'après tes réponses voici ta feuille de route</span>
                 </h2>
               </div>
               
