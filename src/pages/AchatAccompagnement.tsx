@@ -496,11 +496,6 @@ const AchatAccompagnement = () => {
                   </div>
                 )}
                 
-                {/* Price - Mobile only */}
-                <div className="md:hidden bg-primary/5 rounded-xl p-3 text-center">
-                  <p className="text-2xl font-display font-bold text-primary">{accompaniment.price}</p>
-                  <p className="text-xs text-muted-foreground">{accompaniment.priceDetail}</p>
-                </div>
               </div>
 
               {/* Modules section */}
