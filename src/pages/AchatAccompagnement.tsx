@@ -178,7 +178,7 @@ const moduleCategoriesByType: Record<string, typeof residenceEssentielModules> =
 
 const faqItems = [
   {
-    question: "Combien de temps ai-je accès à ma feuille de route ?",
+    question: "Combien de temps ai-je accès à ta feuille de route ?",
     answer: "Tu as un accès illimité à vie à tous les modules et mises à jour. Une fois inscrit, tu fais partie de la communauté NousProprio pour toujours."
   },
   {
@@ -190,7 +190,7 @@ const faqItems = [
     answer: "Absolument ! Les lives privés sont faits pour ça. Tu peux aussi nous contacter directement via ton espace membre pour des questions spécifiques."
   },
   {
-    question: "Est-ce adapté à ma situation ?",
+    question: "Est-ce adapté à ta situation ?",
     answer: "Notre questionnaire a analysé ton profil. L'accompagnement recommandé est spécifiquement conçu pour ta situation actuelle et tes objectifs."
   },
   {
@@ -443,7 +443,7 @@ const AchatAccompagnement = () => {
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <Trophy className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                 </div>
-                <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">Ma feuille de route</h2>
+                <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">Ta feuille de route</h2>
               </div>
               
               {/* Accompaniment summary card */}
