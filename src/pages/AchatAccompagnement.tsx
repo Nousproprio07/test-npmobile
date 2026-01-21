@@ -242,7 +242,7 @@ const AchatAccompagnement = () => {
     if (answers.capacite === "Non" || answers.capacite === "Un peu") {
       messages.push({
         type: 'warning',
-        title: '⚠️ Point de vigilance :',
+        title: '⚠️ Point d\'attention :',
         text: `Tu as indiqué ${answers.capacite === "Non" ? "ne pas mettre" : "mettre peu"} d'argent de côté. Constitue 3 à 6 mois d'épargne de sécurité.`,
         priority: 3
       });
@@ -460,7 +460,7 @@ const AchatAccompagnement = () => {
                 {vigilanceMessages.length > 0 && (
                   <div className="mb-4 md:mb-6">
                     <h3 className="text-base md:text-lg font-display font-bold text-foreground mb-3">
-                      Analyse de ton profil
+                      Notre analyse pour ton profil
                     </h3>
                     <div className="space-y-2">
                       {vigilanceMessages.map((msg, index) => {
