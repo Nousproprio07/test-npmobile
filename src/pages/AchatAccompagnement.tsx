@@ -244,7 +244,7 @@ const AchatAccompagnement = () => {
       messages.push({
         type: 'warning',
         title: '⚠️ Point d\'attention :',
-        text: `Tu as indiqué ${answers.capacite === "Non" ? "ne pas mettre" : "mettre peu"} d'argent de côté. Avant de te lancer, constitue une épargne de précaution équivalente à 3 à 6 mois de salaire. Nous avons un module dédié à l'épargne.`,
+        text: `Tu as indiqué ${answers.capacite === "Non" ? "ne pas mettre" : "mettre peu"} d'argent de côté. Avant de te lancer, constitue une épargne de précaution équivalente à 3 mois de salaire. Nous avons un module dédié à l'épargne.`,
         priority: 3
       });
     }
