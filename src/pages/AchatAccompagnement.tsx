@@ -460,7 +460,7 @@ const AchatAccompagnement = () => {
                 {vigilanceMessages.length > 0 && (
                   <div className="mb-4 md:mb-6">
                     <h3 className="text-base md:text-lg font-display font-bold text-foreground mb-3">
-                      Notre analyse pour ton profil
+                      Analyse de ton profil
                     </h3>
                     <div className="space-y-2">
                       {vigilanceMessages.map((msg, index) => {
