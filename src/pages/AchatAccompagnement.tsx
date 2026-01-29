@@ -434,7 +434,7 @@ const AchatAccompagnement = () => {
         <div className={`max-w-lg md:max-w-5xl mx-auto transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           
           {/* Desktop: Two column layout */}
-          <div className="md:grid md:grid-cols-5 md:gap-10">
+          <div className="md:grid md:grid-cols-5 md:gap-10 md:items-start">
             
             {/* Left column - Main content */}
             <div className="md:col-span-3">
