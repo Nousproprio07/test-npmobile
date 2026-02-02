@@ -109,16 +109,16 @@ const FAQ = () => {
           <div className="max-w-3xl mx-auto mt-12 md:mt-16">
             <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 md:p-10 text-center border border-primary/20">
               <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-3">
-                Tu n'as pas trouvé ta réponse ?
+                Ta direction ne dépend pas de ta chance, mais de tes décisions.
               </h3>
               <p className="text-muted-foreground mb-6">
-                Découvre quel accompagnement est fait pour toi en répondant à notre questionnaire personnalisé.
+                Réponds à notre questionnaire interactif
               </p>
               <Link
                 to="/questionnaire"
                 className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
               >
-                Réaliser le questionnaire
+                Commencer
               </Link>
             </div>
           </div>
