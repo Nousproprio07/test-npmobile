@@ -18,6 +18,7 @@ import {
   Trophy
 } from "lucide-react";
 import Logo from "@/components/Logo";
+import FooterSection from "@/components/sections/FooterSection";
 import {
   Accordion,
   AccordionContent,
@@ -682,6 +683,7 @@ const AchatAccompagnement = () => {
           </div>
         </div>
       </div>
+      <FooterSection />
     </div>
   );
 };
