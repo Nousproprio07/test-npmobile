@@ -1259,12 +1259,10 @@ const Dashboard = () => {
               </div>
               {/* Titre visible uniquement sur mobile */}
               <div className="sm:hidden flex-1">
-                <h2 className="text-lg font-display font-bold text-primary">
-                  Progression
+                <p className="text-xs text-muted-foreground mb-0.5">En cours</p>
+                <h2 className="text-sm font-display font-semibold text-foreground line-clamp-2">
+                  {displayCurrentModule?.title || displayModules[0]?.title}
                 </h2>
-                <p className="text-xs text-muted-foreground">
-                  Module {completedCount + 1}/{displayModules.length}
-                </p>
               </div>
               <span className="sm:hidden text-xl font-bold text-primary">{displayProgress}%</span>
             </div>
@@ -1273,12 +1271,10 @@ const Dashboard = () => {
               {/* Titre desktop uniquement */}
               <div className="hidden sm:flex items-center justify-between mb-4">
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-display font-bold text-primary">
-                    Progression
+                  <p className="text-sm text-muted-foreground mb-1">En cours • Module {completedCount + 1}/{displayModules.length}</p>
+                  <h2 className="text-lg sm:text-xl font-display font-semibold text-foreground">
+                    {displayCurrentModule?.title || displayModules[0]?.title}
                   </h2>
-                  <p className="text-sm text-muted-foreground">
-                    Module {completedCount + 1}/{displayModules.length}
-                  </p>
                 </div>
                 <span className="text-2xl sm:text-3xl font-bold text-primary">{displayProgress}%</span>
               </div>
@@ -1290,11 +1286,7 @@ const Dashboard = () => {
                     style={{ width: `${displayProgress}%` }}
                   />
                 </div>
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3">
-                  <p className="text-xs sm:text-sm text-muted-foreground flex items-start sm:items-center gap-2">
-                    <Play className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5 sm:mt-0" />
-                    <span className="line-clamp-2 sm:line-clamp-1">En cours : <span className="font-medium text-foreground">{displayCurrentModule?.title || displayModules[0]?.title}</span></span>
-                  </p>
+                <div className="flex justify-end">
                   <Button 
                     size="default"
                     className="bg-primary hover:bg-primary/90 text-white flex-shrink-0 w-full sm:w-auto"
