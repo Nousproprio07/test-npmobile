@@ -334,11 +334,6 @@ const FaqTab = ({
 
   return (
     <div className="space-y-6">
-      {/* Logo centré et grand */}
-      <div className="flex justify-center mb-6">
-        <Logo size="xxxl" />
-      </div>
-      
       <h3 className="text-lg sm:text-xl font-display font-semibold text-section-faq mb-4 text-center">
         Sessions FAQ live
       </h3>
