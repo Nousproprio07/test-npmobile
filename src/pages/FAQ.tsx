@@ -112,13 +112,13 @@ const FAQ = () => {
                 Tu n'as pas trouvé ta réponse ?
               </h3>
               <p className="text-muted-foreground mb-6">
-                Notre équipe est là pour t'aider. Réserve un appel gratuit pour discuter de ton projet.
+                Découvre quel accompagnement est fait pour toi en répondant à notre questionnaire personnalisé.
               </p>
               <Link
-                to="/reserver-appel"
+                to="/questionnaire"
                 className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
               >
-                Réserver un appel gratuit
+                Réaliser le questionnaire
               </Link>
             </div>
           </div>
