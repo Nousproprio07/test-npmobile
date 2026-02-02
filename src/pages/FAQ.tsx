@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, HelpCircle } from "lucide-react";
 import Logo from "@/components/Logo";
 import FooterSection from "@/components/sections/FooterSection";
@@ -42,16 +42,21 @@ const faqData = [
 ];
 
 const FAQ = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
         <div className="container py-4">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+            <button 
+              onClick={() => navigate(-1)} 
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+            >
               <ArrowLeft className="w-5 h-5" />
               <span className="text-sm font-medium hidden sm:inline">Retour</span>
-            </Link>
+            </button>
             <Logo size="xl" />
             <div className="w-20" />
           </div>
