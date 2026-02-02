@@ -12,19 +12,12 @@ import {
   Target,
   TrendingUp,
   Award,
-  HelpCircle,
   Play,
   AlertTriangle,
   Trophy
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import FooterSection from "@/components/sections/FooterSection";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 // Modules data for each accompaniment type
 
@@ -177,32 +170,6 @@ const moduleCategoriesByType: Record<string, typeof residenceEssentielModules> =
   "Stratégie Globale": strategieGlobaleModules
 };
 
-const faqItems = [
-  {
-    question: "Combien de temps ai-je accès à ta feuille de route ?",
-    answer: "Tu as un accès illimité à vie à tous les modules et mises à jour. Une fois inscrit, tu fais partie de la communauté NousProprio pour toujours."
-  },
-  {
-    question: "Les lives sont-ils enregistrés ?",
-    answer: "Oui, tous les lives hebdomadaires sont enregistrés et disponibles en replay dans ton espace membre. Tu ne rates jamais rien."
-  },
-  {
-    question: "Puis-je poser mes questions personnelles ?",
-    answer: "Absolument ! Les lives privés sont faits pour ça. Tu peux aussi nous contacter directement via ton espace membre pour des questions spécifiques."
-  },
-  {
-    question: "Est-ce adapté à ta situation ?",
-    answer: "Notre questionnaire a analysé ton profil. L'accompagnement recommandé est spécifiquement conçu pour ta situation actuelle et tes objectifs."
-  },
-  {
-    question: "Comment fonctionne l'accès aux contenus ?",
-    answer: "Le contenu est régulièrement mis à jour. Dès ton achat, tu accèdes immédiatement à l'ensemble des modules et replays. C'est un accès instantané et illimité à vie."
-  },
-  {
-    question: "Recevez-vous des commissions des banques ?",
-    answer: "Non, jamais. Notre indépendance totale est notre force. Nous ne recevons aucune commission, ce qui garantit des conseils 100% dans ton intérêt."
-  }
-];
 
 const AchatAccompagnement = () => {
   const location = useLocation();
@@ -563,30 +530,6 @@ const AchatAccompagnement = () => {
                 </div>
               </div>
 
-              {/* FAQ section */}
-              <div className={`mb-6 md:mb-8 transition-all duration-500 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <div className="flex items-center gap-2 mb-4 md:mb-6">
-                  <HelpCircle className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-                  <h2 className="font-display text-lg md:text-2xl font-bold text-foreground">Questions fréquentes</h2>
-                </div>
-
-                <Accordion type="single" collapsible className="space-y-2 md:space-y-3">
-                  {faqItems.map((item, index) => (
-                    <AccordionItem 
-                      key={index} 
-                      value={`faq-${index}`}
-                      className="bg-card rounded-xl md:rounded-2xl border border-border px-4 md:px-6 overflow-hidden"
-                    >
-                      <AccordionTrigger className="text-sm md:text-base font-medium text-foreground text-left py-4 md:py-5 hover:no-underline">
-                        {item.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-sm md:text-base text-muted-foreground pb-4 md:pb-5 leading-relaxed">
-                        {item.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
 
               {/* Mobile CTAs */}
               <div className={`md:hidden sticky bottom-0 bg-background pt-4 pb-6 -mx-4 px-4 border-t border-border transition-all duration-500 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
