@@ -1,4 +1,4 @@
-import { Compass, ClipboardCheck, BarChart3, Navigation } from "lucide-react";
+import { ClipboardCheck, BarChart3, Navigation, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -118,8 +118,8 @@ const OffreSection = () => {
               size="xl"
               className="group"
             >
-              <Compass className="w-5 h-5 mr-2 group-hover:rotate-45 transition-transform duration-300" />
               Définir mon cap
+              <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
           <p className="mt-4 text-muted-foreground text-sm">
