@@ -358,6 +358,7 @@ const AchatAccompagnement = () => {
   const vigilanceMessages = getVigilanceMessages();
 
   useEffect(() => {
+    // Always scroll to top when arriving on this page
     window.scrollTo(0, 0);
     
     if (!accompaniment) {
@@ -368,6 +369,15 @@ const AchatAccompagnement = () => {
     const timer = setTimeout(() => setIsVisible(true), 200);
     return () => clearTimeout(timer);
   }, [accompaniment, navigate]);
+
+  // Handle scroll to top when returning from FAQ
+  useEffect(() => {
+    const shouldScrollToTop = sessionStorage.getItem('scrollToTop');
+    if (shouldScrollToTop === 'true') {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      sessionStorage.removeItem('scrollToTop');
+    }
+  }, []);
 
   const toggleCategory = (categoryId: string) => {
     setExpandedCategories(prev => 
