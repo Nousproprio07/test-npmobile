@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, HelpCircle } from "lucide-react";
 import Logo from "@/components/Logo";
@@ -43,6 +44,19 @@ const faqData = [
 
 const FAQ = () => {
   const navigate = useNavigate();
+
+  // Scroll to top when page loads
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  const handleBack = () => {
+    navigate(-1);
+    // Scroll to top after navigation
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 0);
+  };
   
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -51,7 +65,7 @@ const FAQ = () => {
         <div className="container py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <button 
-              onClick={() => navigate(-1)} 
+              onClick={handleBack} 
               className="flex items-center gap-1.5 sm:gap-2 text-muted-foreground hover:text-foreground transition-colors p-1"
             >
               <ArrowLeft className="w-5 h-5" />
