@@ -57,7 +57,7 @@ const FAQ = () => {
               <ArrowLeft className="w-5 h-5" />
               <span className="text-sm font-medium hidden sm:inline">Retour</span>
             </button>
-            <Logo size="xl" />
+            <Logo size="xxxl" />
             <div className="w-20" />
           </div>
         </div>
