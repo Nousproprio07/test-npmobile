@@ -28,19 +28,31 @@ const faqData = [
     ]
   },
   {
-    category: "Accompagnement",
+    category: "Accompagnement NousProprio",
     questions: [
       {
-        question: "Quelle est la durée de l'accompagnement ?",
-        answer: "La durée dépend de la formule choisie et de ton projet. En général, l'accompagnement dure de quelques semaines à plusieurs mois, selon la complexité de ton achat immobilier."
+        question: "Combien de temps ai-je accès à ta feuille de route ?",
+        answer: "Tu as un accès illimité à vie à tous les modules et mises à jour. Une fois inscrit, tu fais partie de la communauté NousProprio pour toujours."
       },
       {
-        question: "Est-ce que l'accompagnement est personnalisé ?",
-        answer: "Absolument ! Chaque accompagnement est adapté à ta situation personnelle, tes objectifs et ton niveau de connaissance de l'immobilier. C'est du sur-mesure."
+        question: "Les lives sont-ils enregistrés ?",
+        answer: "Oui, tous les lives hebdomadaires sont enregistrés et disponibles en replay dans ton espace membre. Tu ne rates jamais rien."
       },
       {
-        question: "Puis-je poser des questions entre les sessions ?",
-        answer: "Oui, tu as accès à notre équipe pour poser tes questions. Nous sommes là pour t'accompagner à chaque étape de ton projet."
+        question: "Puis-je poser mes questions personnelles ?",
+        answer: "Absolument ! Les lives privés sont faits pour ça. Tu peux aussi nous contacter directement via ton espace membre pour des questions spécifiques."
+      },
+      {
+        question: "Est-ce adapté à ta situation ?",
+        answer: "Notre questionnaire a analysé ton profil. L'accompagnement recommandé est spécifiquement conçu pour ta situation actuelle et tes objectifs."
+      },
+      {
+        question: "Comment fonctionne l'accès aux contenus ?",
+        answer: "Le contenu est régulièrement mis à jour. Dès ton achat, tu accèdes immédiatement à l'ensemble des modules et replays. C'est un accès instantané et illimité à vie."
+      },
+      {
+        question: "Recevez-vous des commissions des banques ?",
+        answer: "Non, jamais. Notre indépendance totale est notre force. Nous ne recevons aucune commission, ce qui garantit des conseils 100% dans ton intérêt."
       }
     ]
   },
