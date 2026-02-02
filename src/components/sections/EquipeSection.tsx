@@ -55,7 +55,7 @@ const EquipeSection = () => {
         <div className="text-center mt-10">
           <Link to="/equipe">
             <Button 
-              variant="glacier" 
+              variant="outline" 
               size="xl"
               className="group"
             >
