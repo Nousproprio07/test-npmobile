@@ -293,8 +293,8 @@ const coursSupplementaires: CoursBonusType[] = [
 ];
 
 const tabItems = [
-  { id: "formation", label: "Ma feuille de route", shortLabel: "Feuille de route" },
-  { id: "faq", label: "Session FAQ live", shortLabel: "FAQ live" },
+  { id: "formation", label: "Ma feuille de route", shortLabel: "Feuille de route", colorClass: "primary" },
+  { id: "faq", label: "Session FAQ live", shortLabel: "FAQ live", colorClass: "section-faq" },
 ];
 
 // Mock data pour la prochaine session FAQ
@@ -334,15 +334,15 @@ const FaqTab = ({
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4">
+      <h3 className="text-lg sm:text-xl font-display font-semibold text-section-faq mb-4">
         Sessions FAQ live
       </h3>
 
       {/* Formulaire de question */}
-      <Card className="border-primary/50 bg-gradient-to-r from-primary/5 to-transparent">
+      <Card className="border-section-faq/50 bg-gradient-to-r from-section-faq-light to-transparent">
         <CardContent className="p-4">
           <div className="flex items-center gap-2 mb-3">
-            <MessageCircle className="w-5 h-5 text-primary" />
+            <MessageCircle className="w-5 h-5 text-section-faq" />
             <h4 className="font-semibold text-foreground">Poser une question</h4>
           </div>
           <p className="text-sm text-muted-foreground mb-3">
@@ -375,14 +375,14 @@ const FaqTab = ({
       </Card>
       
       {/* Prochaine session */}
-      <Card className="border-primary bg-gradient-to-r from-primary/10 to-primary/5">
+      <Card className="border-section-faq bg-gradient-to-r from-section-faq/10 to-section-faq/5">
         <CardContent className="p-4">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-              <Video className="w-6 h-6 text-primary-foreground" />
+            <div className="w-12 h-12 rounded-xl bg-section-faq flex items-center justify-center flex-shrink-0">
+              <Video className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="inline-block px-2 py-0.5 text-xs font-medium bg-green-500/20 text-green-600 rounded-full mb-1">
+              <span className="inline-block px-2 py-0.5 text-xs font-medium bg-section-faq/20 text-section-faq rounded-full mb-1">
                 Prochaine session
               </span>
               <h4 className="text-base font-semibold text-foreground">FAQ live</h4>
@@ -401,7 +401,7 @@ const FaqTab = ({
           </div>
           
           <Button 
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+            className="w-full bg-section-faq hover:bg-section-faq/90 text-white"
             onClick={() => window.open(prochaineFAQData.lienVisio, '_blank')}
           >
             <Video className="w-4 h-4 mr-2" />
@@ -411,20 +411,20 @@ const FaqTab = ({
       </Card>
 
       {/* Info sessions */}
-      <Card>
+      <Card className="border-section-faq/20">
         <CardContent className="p-4">
           <h4 className="font-semibold text-foreground mb-3">À propos des sessions</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-section-faq flex-shrink-0 mt-0.5" />
               <span>Questions en direct avec nos experts</span>
             </li>
             <li className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-section-faq flex-shrink-0 mt-0.5" />
               <span>Sessions hebdomadaires réservées aux membres</span>
             </li>
             <li className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-section-faq flex-shrink-0 mt-0.5" />
               <span>Replays disponibles</span>
             </li>
           </ul>
@@ -1319,8 +1319,12 @@ const Dashboard = () => {
                   onClick={() => setActiveTab(tab.id as typeof activeTab)}
                   className={`px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-medium transition-all whitespace-nowrap text-sm sm:text-base ${
                     activeTab === tab.id 
-                      ? "bg-primary text-white" 
-                      : "bg-primary/5 text-primary hover:bg-primary/10 border border-primary/20"
+                      ? tab.colorClass === "section-faq"
+                        ? "bg-section-faq text-white"
+                        : "bg-primary text-white"
+                      : tab.colorClass === "section-faq"
+                        ? "bg-section-faq-light text-section-faq hover:bg-section-faq/20 border border-section-faq/30"
+                        : "bg-primary/5 text-primary hover:bg-primary/10 border border-primary/20"
                   }`}
                 >
                   {tab.label}
@@ -1495,7 +1499,7 @@ const Dashboard = () => {
 
             {/* Section Bibliothèque d'outils */}
             <div className="pt-6 border-t border-border">
-              <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-2">
+              <h3 className="text-lg sm:text-xl font-display font-semibold text-section-tools mb-2">
                 Ta bibliothèque d'outils
               </h3>
               <p className="text-sm text-muted-foreground mb-4">
@@ -1503,16 +1507,16 @@ const Dashboard = () => {
               </p>
               <div className="grid gap-3 sm:grid-cols-2">
                 {bloc3Content.map((item) => (
-                  <Card key={item.id} className="hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98]">
+                  <Card key={item.id} className="hover:border-section-tools/50 transition-all cursor-pointer active:scale-[0.98] border-section-tools/20 bg-section-tools-light">
                     <CardContent className="p-4 flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <item.icon className="w-6 h-6 text-primary" />
+                      <div className="w-12 h-12 rounded-xl bg-section-tools/10 flex items-center justify-center flex-shrink-0">
+                        <item.icon className="w-6 h-6 text-section-tools" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-foreground">{item.title}</p>
                         <p className="text-sm text-muted-foreground">{item.type}</p>
                       </div>
-                      <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                      <ChevronRight className="w-5 h-5 text-section-tools/50 flex-shrink-0" />
                     </CardContent>
                   </Card>
                 ))}

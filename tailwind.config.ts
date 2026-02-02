@@ -65,6 +65,16 @@ export default {
           DEFAULT: "hsl(var(--glacier))",
           foreground: "hsl(var(--glacier-foreground))",
         },
+        "section-faq": {
+          DEFAULT: "hsl(var(--section-faq))",
+          light: "hsl(var(--section-faq-light))",
+          foreground: "hsl(var(--section-faq-foreground))",
+        },
+        "section-tools": {
+          DEFAULT: "hsl(var(--section-tools))",
+          light: "hsl(var(--section-tools-light))",
+          foreground: "hsl(var(--section-tools-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
