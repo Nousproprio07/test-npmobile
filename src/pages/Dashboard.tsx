@@ -338,43 +338,7 @@ const FaqTab = ({
         Sessions FAQ live
       </h3>
 
-      {/* Formulaire de question */}
-      <Card className="border-section-faq/50 bg-gradient-to-r from-section-faq-light to-transparent">
-        <CardContent className="p-4">
-          <div className="flex items-center gap-2 mb-3">
-            <MessageCircle className="w-5 h-5 text-section-faq" />
-            <h4 className="font-semibold text-foreground">Poser une question</h4>
-          </div>
-          <p className="text-sm text-muted-foreground mb-3">
-            Ta question sera transmise à notre équipe et traitée lors de la prochaine session FAQ live.
-          </p>
-          <Textarea
-            placeholder="Écris ta question ici... (ex: Comment négocier le prix d'un bien immobilier ?)"
-            value={faqQuestion}
-            onChange={(e) => setFaqQuestion(e.target.value)}
-            className="min-h-[100px] mb-3 resize-none"
-          />
-          <Button 
-            onClick={handleSubmitQuestion}
-            disabled={isSubmittingQuestion || !faqQuestion.trim()}
-            className="w-full gap-2"
-          >
-            {isSubmittingQuestion ? (
-              <>
-                <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                Envoi en cours...
-              </>
-            ) : (
-              <>
-                <Send className="w-4 h-4" />
-                Envoyer ma question
-              </>
-            )}
-          </Button>
-        </CardContent>
-      </Card>
-      
-      {/* Prochaine session */}
+      {/* Prochaine session - FAQ live */}
       <Card className="border-section-faq bg-gradient-to-r from-section-faq/10 to-section-faq/5">
         <CardContent className="p-4">
           <div className="flex items-center gap-3 mb-3">
@@ -410,7 +374,7 @@ const FaqTab = ({
         </CardContent>
       </Card>
 
-      {/* Info sessions */}
+      {/* Info sessions - À propos des sessions */}
       <Card className="border-section-faq/20">
         <CardContent className="p-4">
           <h4 className="font-semibold text-foreground mb-3">À propos des sessions</h4>
@@ -430,6 +394,67 @@ const FaqTab = ({
           </ul>
         </CardContent>
       </Card>
+
+      {/* Formulaire de question - Poser une question */}
+      <Card className="border-section-faq/50 bg-gradient-to-r from-section-faq-light to-transparent">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <MessageCircle className="w-5 h-5 text-section-faq" />
+            <h4 className="font-semibold text-foreground">Poser une question</h4>
+          </div>
+          <p className="text-sm text-muted-foreground mb-3">
+            Ta question sera transmise à notre équipe et traitée lors de la prochaine session FAQ live.
+          </p>
+          <Textarea
+            placeholder="Écris ta question ici... (ex: Comment négocier le prix d'un bien immobilier ?)"
+            value={faqQuestion}
+            onChange={(e) => setFaqQuestion(e.target.value)}
+            className="min-h-[100px] mb-3 resize-none"
+          />
+          <Button 
+            onClick={handleSubmitQuestion}
+            disabled={isSubmittingQuestion || !faqQuestion.trim()}
+            className="w-full gap-2"
+          >
+            {isSubmittingQuestion ? (
+              <>
+                <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                Envoi en cours...
+              </>
+            ) : (
+              <>
+                <Send className="w-4 h-4" />
+                Envoyer ma question
+              </>
+            )}
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Replays */}
+      <div>
+        <h4 className="text-base font-semibold text-foreground mb-3">Replays</h4>
+        <div className="space-y-2">
+          {[
+            { id: 1, title: "FAQ #12 - Fiscalité", date: "19 Dec", duration: "1h 15" },
+            { id: 2, title: "FAQ #11 - Négociation", date: "12 Dec", duration: "58 min" },
+            { id: 3, title: "FAQ #10 - Financement", date: "5 Dec", duration: "1h 02" },
+          ].map((replay) => (
+            <Card key={replay.id} className="hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98]">
+              <CardContent className="p-3 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                  <Play className="w-5 h-5 text-muted-foreground" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-sm text-foreground truncate">{replay.title}</p>
+                  <p className="text-xs text-muted-foreground">{replay.date} • {replay.duration}</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
 
       {/* Mes questions et réponses */}
       {myQuestions.length > 0 && (
@@ -471,31 +496,6 @@ const FaqTab = ({
           </div>
         </div>
       )}
-
-      {/* Replays */}
-      <div>
-        <h4 className="text-base font-semibold text-foreground mb-3">Replays</h4>
-        <div className="space-y-2">
-          {[
-            { id: 1, title: "FAQ #12 - Fiscalité", date: "19 Dec", duration: "1h 15" },
-            { id: 2, title: "FAQ #11 - Négociation", date: "12 Dec", duration: "58 min" },
-            { id: 3, title: "FAQ #10 - Financement", date: "5 Dec", duration: "1h 02" },
-          ].map((replay) => (
-            <Card key={replay.id} className="hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98]">
-              <CardContent className="p-3 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
-                  <Play className="w-5 h-5 text-muted-foreground" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-sm text-foreground truncate">{replay.title}</p>
-                  <p className="text-xs text-muted-foreground">{replay.date} • {replay.duration}</p>
-                </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
     </div>
   );
 };
