@@ -333,8 +333,13 @@ const FaqTab = ({
   }, []);
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg sm:text-xl font-display font-semibold text-section-faq mb-4">
+    <div className="space-y-6">
+      {/* Logo centré et grand */}
+      <div className="flex justify-center mb-6">
+        <Logo size="xxxl" />
+      </div>
+      
+      <h3 className="text-lg sm:text-xl font-display font-semibold text-section-faq mb-4 text-center">
         Sessions FAQ live
       </h3>
 
@@ -1316,7 +1321,10 @@ const Dashboard = () => {
               {tabItems.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                  onClick={() => {
+                    setActiveTab(tab.id as typeof activeTab);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   className={`px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-medium transition-all whitespace-nowrap text-sm sm:text-base ${
                     activeTab === tab.id 
                       ? tab.colorClass === "section-faq"
