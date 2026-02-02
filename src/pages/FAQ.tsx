@@ -11,23 +11,6 @@ import {
 
 const faqData = [
   {
-    category: "Général",
-    questions: [
-      {
-        question: "Qu'est-ce que NousProprio ?",
-        answer: "NousProprio est un service d'accompagnement personnalisé pour les primo-accédants et investisseurs immobiliers. Nous t'aidons à naviguer dans ton projet immobilier avec des conseils indépendants et sur-mesure."
-      },
-      {
-        question: "À qui s'adresse NousProprio ?",
-        answer: "NousProprio s'adresse à toute personne souhaitant acheter sa résidence principale ou réaliser un investissement locatif, que tu sois débutant ou que tu aies déjà de l'expérience dans l'immobilier."
-      },
-      {
-        question: "Comment fonctionne l'accompagnement ?",
-        answer: "Après avoir rempli notre questionnaire, tu reçois une recommandation personnalisée. Ensuite, tu bénéficies d'un accompagnement sur-mesure avec des modules adaptés à ton projet, des sessions de coaching et un suivi continu."
-      }
-    ]
-  },
-  {
     category: "Accompagnement NousProprio",
     questions: [
       {
@@ -53,40 +36,6 @@ const faqData = [
       {
         question: "Recevez-vous des commissions des banques ?",
         answer: "Non, jamais. Notre indépendance totale est notre force. Nous ne recevons aucune commission, ce qui garantit des conseils 100% dans ton intérêt."
-      }
-    ]
-  },
-  {
-    category: "Prix & Paiement",
-    questions: [
-      {
-        question: "Comment sont fixés les prix ?",
-        answer: "Nos prix sont transparents et adaptés à chaque formule d'accompagnement. Tu peux consulter les détails après avoir complété le questionnaire pour recevoir une offre personnalisée."
-      },
-      {
-        question: "Quels sont les moyens de paiement acceptés ?",
-        answer: "Nous acceptons les paiements par carte bancaire et virement. Des facilités de paiement peuvent être proposées selon les formules."
-      },
-      {
-        question: "Y a-t-il un engagement ?",
-        answer: "Tu peux commencer par un appel découverte gratuit pour voir si notre accompagnement correspond à tes besoins. Aucun engagement avant de te décider."
-      }
-    ]
-  },
-  {
-    category: "Rendez-vous",
-    questions: [
-      {
-        question: "Comment réserver un appel ?",
-        answer: "Tu peux réserver un appel directement depuis notre site en cliquant sur 'Réserver un appel'. Choisis le créneau qui te convient et nous te contacterons."
-      },
-      {
-        question: "Les appels sont-ils gratuits ?",
-        answer: "Le premier appel découverte est gratuit et sans engagement. C'est l'occasion de discuter de ton projet et de voir comment nous pouvons t'aider."
-      },
-      {
-        question: "Puis-je annuler ou reporter un rendez-vous ?",
-        answer: "Oui, tu peux modifier ou annuler ton rendez-vous jusqu'à 24h avant l'heure prévue via le lien reçu par email."
       }
     ]
   }
