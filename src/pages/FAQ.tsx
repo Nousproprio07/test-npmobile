@@ -46,61 +46,62 @@ const FAQ = () => {
   
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
+      {/* Header - Mobile optimisé */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
-        <div className="container py-4">
+        <div className="container py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <button 
               onClick={() => navigate(-1)} 
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 text-muted-foreground hover:text-foreground transition-colors p-1"
             >
               <ArrowLeft className="w-5 h-5" />
               <span className="text-sm font-medium hidden sm:inline">Retour</span>
             </button>
-            <Logo size="xxxl" />
-            <div className="w-20" />
+            <Logo size="xxl" className="sm:hidden" />
+            <Logo size="xxxl" className="hidden sm:block" />
+            <div className="w-10 sm:w-20" />
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-b from-primary/5 to-background">
-        <div className="container">
+      {/* Hero Section - Mobile optimisé */}
+      <section className="py-8 sm:py-12 md:py-20 bg-gradient-to-b from-primary/5 to-background">
+        <div className="container px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/10 mb-6">
-              <HelpCircle className="w-8 h-8 md:w-10 md:h-10 text-primary" />
+            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-primary/10 mb-4 sm:mb-6">
+              <HelpCircle className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-primary" />
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
               Questions fréquentes
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground px-2">
               Retrouve ici les réponses aux questions les plus courantes sur NousProprio et notre accompagnement.
             </p>
           </div>
         </div>
       </section>
 
-      {/* FAQ Content */}
-      <section className="py-12 md:py-16 flex-grow">
-        <div className="container">
-          <div className="max-w-3xl mx-auto space-y-8 md:space-y-12">
+      {/* FAQ Content - Mobile optimisé */}
+      <section className="py-8 sm:py-12 md:py-16 flex-grow">
+        <div className="container px-4 sm:px-6">
+          <div className="max-w-3xl mx-auto space-y-6 sm:space-y-8 md:space-y-12">
             {faqData.map((category, categoryIndex) => (
               <div key={categoryIndex}>
-                <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-4 md:mb-6 flex items-center gap-3">
-                  <span className="w-1 h-6 md:h-8 bg-primary rounded-full" />
+                <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-3 sm:mb-4 md:mb-6 flex items-center gap-2 sm:gap-3">
+                  <span className="w-1 h-5 sm:h-6 md:h-8 bg-primary rounded-full" />
                   {category.category}
                 </h2>
-                <Accordion type="single" collapsible className="space-y-3">
+                <Accordion type="single" collapsible className="space-y-2 sm:space-y-3">
                   {category.questions.map((item, questionIndex) => (
                     <AccordionItem 
                       key={questionIndex} 
                       value={`${categoryIndex}-${questionIndex}`}
-                      className="bg-card border border-border/50 rounded-xl px-4 md:px-6 shadow-sm hover:shadow-md transition-shadow"
+                      className="bg-card border border-border/50 rounded-lg sm:rounded-xl px-3 sm:px-4 md:px-6 shadow-sm hover:shadow-md transition-shadow"
                     >
-                      <AccordionTrigger className="text-left text-base md:text-lg font-medium text-foreground hover:no-underline py-4 md:py-5">
+                      <AccordionTrigger className="text-left text-sm sm:text-base md:text-lg font-medium text-foreground hover:no-underline py-3 sm:py-4 md:py-5">
                         {item.question}
                       </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground text-sm md:text-base pb-4 md:pb-5 leading-relaxed">
+                      <AccordionContent className="text-muted-foreground text-sm md:text-base pb-3 sm:pb-4 md:pb-5 leading-relaxed">
                         {item.answer}
                       </AccordionContent>
                     </AccordionItem>
@@ -110,18 +111,18 @@ const FAQ = () => {
             ))}
           </div>
 
-          {/* CTA Section */}
-          <div className="max-w-3xl mx-auto mt-12 md:mt-16">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 md:p-10 text-center border border-primary/20">
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-3">
+          {/* CTA Section - Mobile optimisé */}
+          <div className="max-w-3xl mx-auto mt-8 sm:mt-12 md:mt-16">
+            <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-10 text-center border border-primary/20">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-2 sm:mb-3">
                 Ta direction ne dépend pas de ta chance, mais de tes décisions.
               </h3>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
                 Réponds à notre questionnaire interactif
               </p>
               <Link
                 to="/questionnaire"
-                className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center px-5 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
               >
                 Commencer
               </Link>
