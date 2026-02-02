@@ -438,13 +438,13 @@ const AchatAccompagnement = () => {
             
             {/* Left column - Main content */}
             <div className="md:col-span-3">
-              {/* Section title */}
-              <div className="mb-6 md:mb-8">
+              {/* Section title - hidden on desktop to align cards */}
+              <div className="mb-6 md:hidden">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
-                    <Trophy className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                    <Trophy className="w-5 h-5 text-primary-foreground" />
                   </div>
-                  <span className="text-xs md:text-sm font-medium text-primary uppercase tracking-wider">Résultat personnalisé</span>
+                  <span className="text-xs font-medium text-primary uppercase tracking-wider">Résultat personnalisé</span>
                 </div>
               </div>
               
