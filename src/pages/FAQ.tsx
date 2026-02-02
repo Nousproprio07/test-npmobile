@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft, HelpCircle } from "lucide-react";
 import Logo from "@/components/Logo";
 import FooterSection from "@/components/sections/FooterSection";
@@ -44,6 +44,7 @@ const faqData = [
 
 const FAQ = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Scroll to top when page loads
   useEffect(() => {
@@ -51,11 +52,9 @@ const FAQ = () => {
   }, []);
 
   const handleBack = () => {
+    // Set a flag in sessionStorage to trigger scroll to top on previous page
+    sessionStorage.setItem('scrollToTop', 'true');
     navigate(-1);
-    // Scroll to top after navigation
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 0);
   };
   
   return (

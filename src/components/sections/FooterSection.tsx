@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "@/components/Logo";
 
 const FooterSection = () => {
+  const location = useLocation();
+  
   return (
     <footer className="py-8 md:py-12 bg-foreground">
       <div className="container">
@@ -24,6 +26,7 @@ const FooterSection = () => {
             </Link>
             <Link 
               to="/faq" 
+              state={{ from: location.pathname }}
               className="text-primary-foreground/70 hover:text-primary-foreground text-sm font-medium transition-colors"
             >
               FAQ
