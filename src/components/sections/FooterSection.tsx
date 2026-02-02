@@ -22,6 +22,12 @@ const FooterSection = () => {
             >
               Questionnaire
             </Link>
+            <Link 
+              to="/faq" 
+              className="text-primary-foreground/70 hover:text-primary-foreground text-sm font-medium transition-colors"
+            >
+              FAQ
+            </Link>
           </nav>
           
           <p className="text-primary-foreground/60 text-sm text-center">

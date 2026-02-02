@@ -14,6 +14,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import EquipeAdmin from "./pages/EquipeAdmin";
 import NotFound from "./pages/NotFound";
 import ComingSoon from "./pages/ComingSoon";
+import FAQ from "./pages/FAQ";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/equipe-admin" element={<EquipeAdmin />} />
           <Route path="/coming-soon" element={<ComingSoon />} />
+          <Route path="/faq" element={<FAQ />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
