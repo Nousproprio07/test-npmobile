@@ -47,9 +47,9 @@
     --glacier-foreground: 214 96% 15%;
     
     /* Section colors for Dashboard */
-    --section-faq: 160 70% 42%;
-    --section-faq-light: 160 60% 95%;
-    --section-faq-foreground: 160 80% 20%;
+    --section-faq: 25 90% 50%;
+    --section-faq-light: 25 80% 96%;
+    --section-faq-foreground: 25 90% 25%;
     --section-tools: 270 60% 55%;
     --section-tools-light: 270 50% 96%;
     --section-tools-foreground: 270 70% 25%;
