@@ -541,6 +541,37 @@ const AchatAccompagnement = () => {
               </div>
 
 
+              {/* Mobile Trust badges */}
+              <div className="md:hidden space-y-3 mb-6">
+                <div className="bg-glacier/5 rounded-xl p-4 border border-glacier/20">
+                  <div className="flex items-center gap-3">
+                    <Award className="w-7 h-7 text-glacier" />
+                    <div>
+                      <p className="font-semibold text-foreground text-sm">Satisfaction garantie</p>
+                      <p className="text-xs text-muted-foreground">Des centaines de propriétaires accompagnés</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-glacier/5 rounded-xl p-4 border border-glacier/20">
+                  <div className="flex items-center gap-3">
+                    <Phone className="w-7 h-7 text-glacier" />
+                    <div>
+                      <p className="font-semibold text-foreground text-sm">Des experts à tes côtés</p>
+                      <p className="text-xs text-muted-foreground">Accompagnement personnalisé par des pros</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-glacier/5 rounded-xl p-4 border border-glacier/20">
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="w-7 h-7 text-glacier" />
+                    <div>
+                      <p className="font-semibold text-foreground text-sm">Des modules garantis à vie</p>
+                      <p className="text-xs text-muted-foreground">Accès permanent et mises à jour incluses</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Mobile CTAs */}
               <div className={`md:hidden sticky bottom-0 bg-background pt-4 pb-6 -mx-4 px-4 border-t border-border transition-all duration-500 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <div className="flex flex-col gap-3">
