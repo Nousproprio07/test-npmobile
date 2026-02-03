@@ -557,7 +557,7 @@ const AchatAccompagnement = () => {
                     <Phone className="w-7 h-7 text-glacier" />
                     <div>
                       <p className="font-semibold text-foreground text-sm">Des experts à tes côtés</p>
-                      <p className="text-xs text-muted-foreground">Accompagnement personnalisé par des pros</p>
+                      <p className="text-xs text-muted-foreground">Sessions FAQ live chaque semaine</p>
                     </div>
                   </div>
                 </div>
@@ -667,7 +667,7 @@ const AchatAccompagnement = () => {
                       <Phone className="w-8 h-8 text-glacier" />
                       <div>
                         <p className="font-semibold text-foreground text-sm">Des experts à tes côtés</p>
-                        <p className="text-xs text-muted-foreground">Accompagnement personnalisé par des pros</p>
+                        <p className="text-xs text-muted-foreground">Sessions FAQ live chaque semaine</p>
                       </div>
                     </div>
                   </div>
