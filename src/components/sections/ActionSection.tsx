@@ -146,7 +146,7 @@ const ActionSection = () => {
               className="group"
             >
               <Link to="/questionnaire">
-                Voir ma feuille de route
+                Accéder à ma feuille de route
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
