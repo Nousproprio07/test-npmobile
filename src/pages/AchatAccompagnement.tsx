@@ -504,7 +504,7 @@ const AchatAccompagnement = () => {
                           className="w-full p-4 md:p-5 flex items-center gap-3 md:gap-4 text-left hover:bg-muted/30 transition-colors"
                         >
                           <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
-                            <Icon className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
+                            <Icon className="w-5 h-5 md:w-6 md:h-6 text-glacier" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <h3 className="font-semibold text-foreground text-sm md:text-base">{category.title}</h3>
