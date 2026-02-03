@@ -620,13 +620,33 @@ const AchatAccompagnement = () => {
                   </p>
                 </div>
 
-                {/* Trust badge */}
-                <div className="mt-4 bg-glacier/5 rounded-xl p-4 border border-glacier/20">
-                  <div className="flex items-center gap-3">
-                    <Award className="w-8 h-8 text-glacier" />
-                    <div>
-                      <p className="font-semibold text-foreground text-sm">Satisfaction garantie</p>
-                      <p className="text-xs text-muted-foreground">Des centaines de propriétaires accompagnés</p>
+                {/* Trust badges */}
+                <div className="mt-4 space-y-3">
+                  <div className="bg-glacier/5 rounded-xl p-4 border border-glacier/20">
+                    <div className="flex items-center gap-3">
+                      <Award className="w-8 h-8 text-glacier" />
+                      <div>
+                        <p className="font-semibold text-foreground text-sm">Satisfaction garantie</p>
+                        <p className="text-xs text-muted-foreground">Des centaines de propriétaires accompagnés</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-glacier/5 rounded-xl p-4 border border-glacier/20">
+                    <div className="flex items-center gap-3">
+                      <Phone className="w-8 h-8 text-glacier" />
+                      <div>
+                        <p className="font-semibold text-foreground text-sm">Des experts à tes côtés</p>
+                        <p className="text-xs text-muted-foreground">Accompagnement personnalisé par des pros</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-glacier/5 rounded-xl p-4 border border-glacier/20">
+                    <div className="flex items-center gap-3">
+                      <Sparkles className="w-8 h-8 text-glacier" />
+                      <div>
+                        <p className="font-semibold text-foreground text-sm">Des modules garantis à vie</p>
+                        <p className="text-xs text-muted-foreground">Accès permanent et mises à jour incluses</p>
+                      </div>
                     </div>
                   </div>
                 </div>
