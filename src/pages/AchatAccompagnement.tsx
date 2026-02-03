@@ -503,7 +503,7 @@ const AchatAccompagnement = () => {
                           onClick={() => toggleCategory(category.id)}
                           className="w-full p-4 md:p-5 flex items-center gap-3 md:gap-4 text-left hover:bg-muted/30 transition-colors"
                         >
-                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-primary/15 flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-glacier/40 to-primary/20 flex items-center justify-center flex-shrink-0">
                             <Icon className="w-5 h-5 md:w-6 md:h-6 text-glacier" />
                           </div>
                           <div className="flex-1 min-w-0">
