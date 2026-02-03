@@ -185,7 +185,7 @@ const Questionnaire = () => {
       return {
         type: "Résidence Essentielle",
         tagline: "Ton premier chez-toi, en toute confiance",
-        description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
+        description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche à la revente.",
         features: [
           "Simulation personnalisée de ta capacité d'emprunt",
           "Accompagnement dans les démarches bancaires",
@@ -218,7 +218,7 @@ const Questionnaire = () => {
     return {
       type: "Résidence Essentielle",
       tagline: "Ton premier chez-toi, en toute confiance",
-      description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche au financement.",
+      description: "Un accompagnement dédié pour concrétiser l'achat de ta résidence principale, de la recherche à la revente.",
       features: [
         "Simulation personnalisée de ta capacité d'emprunt",
         "Accompagnement dans les démarches bancaires",
