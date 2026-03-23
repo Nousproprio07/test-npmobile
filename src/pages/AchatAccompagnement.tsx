@@ -676,7 +676,7 @@ const AchatAccompagnement = () => {
                       <Sparkles className="w-8 h-8 text-glacier" />
                       <div>
                         <p className="font-semibold text-foreground text-sm">Partenariat exclusif Crédissimo</p>
-                        <p className="text-xs text-muted-foreground">Des prix attractifs réservés aux clients NousProprio</p>
+                        <p className="text-xs text-muted-foreground">Courtier avec des prix attractifs réservés aux clients NousProprio</p>
                       </div>
                     </div>
                   </div>
