@@ -565,8 +565,8 @@ const AchatAccompagnement = () => {
                   <div className="flex items-center gap-3">
                     <Sparkles className="w-7 h-7 text-glacier" />
                     <div>
-                      <p className="font-semibold text-foreground text-sm">Des modules garantis à vie</p>
-                      <p className="text-xs text-muted-foreground">Accès permanent et mises à jour incluses</p>
+                      <p className="font-semibold text-foreground text-sm">Partenariat exclusif Crédissimo</p>
+                      <p className="text-xs text-muted-foreground">Des prix attractifs réservés aux clients NousProprio</p>
                     </div>
                   </div>
                 </div>
