@@ -88,7 +88,7 @@ const questions: Question[] = [
     maxSelections: 2,
     options: [
       "Je ne comprends pas les chiffres",
-      "J'ai peur de la banque",
+      "J'appréhende le contact avec ma banque",
       "J'ai peur de perdre de l'argent",
       "Je n'ai personne pour m'expliquer simplement"
     ]
